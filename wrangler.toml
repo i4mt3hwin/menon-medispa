@@ -1,0 +1,8 @@
+name = "menon-medispa"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-05-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "menon-medispa-leads"
+database_id = "905bf32a-0100-41ed-b970-6bd2cba41326"
