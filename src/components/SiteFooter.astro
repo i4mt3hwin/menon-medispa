@@ -1,0 +1,172 @@
+---
+/**
+ * SiteFooter.astro — global site footer.
+ * Built fully in 02-synthesize: newsletter band + link columns + NAP + hours +
+ * social + copyright are consistent across all 61 captured pages. Copy is
+ * VERBATIM from the captured original (home structure.json FOOTER section).
+ * The newsletter "Submit" is a Wix-Forms lead capture → wired to D1+Resend in a
+ * later phase (run config: forms deferred); for now it posts nowhere (disabled).
+ */
+import site from '../lib/site';
+
+const servicesShop = [
+  { label: 'Book Treatment', href: '/' },
+  { label: 'Face', href: '/face' },
+  { label: 'Body', href: '/body' },
+  { label: 'Hair', href: '/hair' },
+  { label: 'Sale', href: '/sale' },
+  { label: 'Shop Products', href: '/' },
+];
+const information = [
+  { label: 'Shipping & Returns', href: '/shipping-and-returns' },
+  { label: 'Store Policy', href: '/store-policy' },
+  { label: 'Terms of Use', href: '/terms-of-use' },
+  { label: 'Privacy Policy', href: '/copy-of-store-policy' },
+  { label: 'Job Opportunities', href: '/job-opportunities' },
+  { label: 'Menon Regenerative Institute', href: 'http://www.menonregen.com', external: true },
+];
+const hours = [
+  'Monday - 10am-6pm',
+  'Tuesday - 10am-6pm',
+  'Wednesday - 10am - 6pm',
+  'Thursday - 10am-6pm',
+  'Friday - 10am - 6pm',
+  'Saturday - 10am - 4pm',
+];
+const socials = [
+  { label: 'Instagram', href: site.social.instagram, icon: '/images/social-instagram.png' },
+  { label: 'Facebook', href: site.social.facebook, icon: '/images/social-facebook.png' },
+  { label: 'TikTok', href: site.social.tiktok, icon: '/images/social-tiktok.png' },
+];
+---
+
+<footer class="site-footer">
+  <div class="site-footer__newsletter">
+    <h2 class="site-footer__heading">Are you on the list?</h2>
+    <p>Join to get exclusive monthly offers and expert skincare tips.</p>
+    <form class="site-footer__form" aria-label="Newsletter signup">
+      <input type="email" name="email" placeholder="Email" aria-label="Email" />
+      <button type="submit" disabled>Submit</button>
+    </form>
+  </div>
+
+  <div class="site-footer__cols">
+    <div class="site-footer__col">
+      <h3>Services &amp; Shop</h3>
+      <ul>
+        {servicesShop.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h3>Our MediSpa</h3>
+      <p>Menon Medispa</p>
+      <p>45 Essex Street, Suite 202</p>
+      <p>Millburn, NJ, 07041</p>
+      <p class="site-footer__hours">{hours.map((h) => (<span>{h}<br /></span>))}</p>
+    </div>
+
+    <div class="site-footer__col">
+      <h3>Information</h3>
+      <ul>
+        {information.map((l) => (
+          <li>
+            <a href={l.href} {...(l.external ? { rel: 'noopener', target: '_blank' } : {})}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h3>Customer Service</h3>
+      <p>Tel: <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a></p>
+      <p>Email: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <div class="site-footer__social">
+        {socials.map((s) => (
+          <a href={s.href} aria-label={s.label} rel="noopener" target="_blank">
+            <img src={s.icon} alt={s.label} width="28" height="28" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__legal">
+    <p>© 2019 Menon Medispa</p>
+    <p>Content, including images, displayed on this website is protected by copyright laws. Downloading, republication, retransmission or reproduction of content on this website is strictly prohibited.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-surface-alt);
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    padding: var(--spacing-section) 1.5rem var(--spacing-band);
+  }
+  .site-footer__newsletter {
+    max-width: var(--container-content);
+    margin: 0 auto var(--spacing-section);
+    text-align: center;
+  }
+  .site-footer__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+  }
+  .site-footer__form {
+    display: flex;
+    gap: var(--spacing-gap-sm);
+    justify-content: center;
+    margin-top: var(--spacing-gap-md);
+    flex-wrap: wrap;
+  }
+  .site-footer__form input {
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    min-width: 14rem;
+  }
+  .site-footer__form button {
+    padding: 0.6rem 1.4rem;
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .site-footer__cols {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-gap-lg);
+  }
+  .site-footer__col h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    margin-bottom: var(--spacing-gap-sm);
+  }
+  .site-footer__col ul { list-style: none; padding: 0; margin: 0; }
+  .site-footer__col li { margin-bottom: 0.4rem; }
+  .site-footer__col a { text-decoration: none; }
+  .site-footer__col a:hover { color: var(--color-primary); }
+  .site-footer__hours { line-height: 1.7; }
+  .site-footer__social { display: flex; gap: var(--spacing-gap-sm); margin-top: var(--spacing-gap-md); }
+  .site-footer__legal {
+    max-width: var(--container-max);
+    margin: var(--spacing-section) auto 0;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+  }
+  @media (max-width: 1024px) {
+    .site-footer__cols { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .site-footer__cols { grid-template-columns: 1fr; }
+  }
+</style>

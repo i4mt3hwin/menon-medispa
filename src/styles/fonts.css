@@ -1,0 +1,70 @@
+/* Generated from 01-discovery/fonts.json — do not edit by hand.
+   All three primary families self-hosted (the original Wix site self-hosted via
+   parastorage; we re-host the captured woff2 under /fonts). Weights/styles match
+   fonts.json.summary.weights_by_family exactly. Single latin woff2 per
+   weight/style (the captured primary subset); font-display: swap (original used
+   swap on every face). */
+
+/* ---- Playfair Display (display/headings) — capture: playfairdisplay-bold / playfair display ---- */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/playfair-display.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/playfair-display-italic.woff2') format('woff2');
+}
+
+/* ---- Raleway (default body / nav / running text) — capture: raleway-v2 ---- */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/raleway.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/raleway-italic.woff2') format('woff2');
+}
+
+/* ---- Lato (H3 subheads / lead paragraphs) — capture: lato-light / lato ---- */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/lato-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/lato-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/lato-400-italic.woff2') format('woff2');
+}
+
+/* ---- Didot (decorative italic H3) — capture: didot-w01-italic. Falls back to Playfair. ---- */
+@font-face {
+  font-family: 'Didot';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/didot.woff2') format('woff2');
+}

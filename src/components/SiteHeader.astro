@@ -1,0 +1,94 @@
+---
+/**
+ * SiteHeader.astro — global site header / nav.
+ * Built fully in 02-synthesize: nav + logo + Call-Now CTA are consistent across
+ * all 61 captured pages. Copy is VERBATIM from the captured original
+ * (01-discovery/pages/home/structure.json HEADER section). Internal links are
+ * site-relative (Wix absolute URLs rewritten to local paths). 03-build may add
+ * the mobile-menu toggle behavior + active-state; copy stays verbatim.
+ */
+import site from '../lib/site';
+
+const nav = [
+  { label: 'HOME', href: '/' },
+  { label: 'ABOUT', href: '/about' },
+  { label: 'FACE', href: '/face' },
+  { label: 'BODY', href: '/body' },
+  { label: 'HAIR', href: '/hair' },
+  { label: 'CONTACT', href: '/contact' },
+  { label: 'MENON REGENERATIVE INSTITUTE', href: 'http://www.menonregen.com', external: true },
+  { label: 'SALES', href: '/sale' },
+];
+// Logo: original hotlinked wixstatic; 03-build rehosts the captured copy locally.
+const logoSrc = '/images/medispa-logo-horizontal.png';
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="/" aria-label={site.displayName}>
+      <img src={logoSrc} alt={`${site.displayName} logo`} width="212" height="51" />
+    </a>
+    <nav class="site-header__nav" aria-label="Primary">
+      {nav.map((item) => (
+        <a
+          class="site-header__link"
+          href={item.href}
+          {...(item.external ? { rel: 'noopener', target: '_blank' } : {})}
+        >{item.label}</a>
+      ))}
+    </nav>
+    <a class="site-header__call" href={`tel:${site.phone.tel}`}>
+      Call Now: {site.phone.display}
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 55;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .site-header__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-gap-lg);
+    padding: 1rem 1.5rem;
+  }
+  .site-header__logo img { display: block; height: auto; }
+  .site-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-gap-md);
+    margin-left: auto;
+  }
+  .site-header__link {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .site-header__link:hover { color: var(--color-primary); }
+  .site-header__call {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-surface);
+    background: var(--color-primary);
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  @media (max-width: 1024px) {
+    .site-header__inner { flex-wrap: wrap; }
+    .site-header__nav { width: 100%; margin-left: 0; }
+  }
+</style>

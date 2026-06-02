@@ -1,0 +1,106 @@
+---
+/**
+ * BaseLayout.astro — HTML shell + <head> meta scaffolding.
+ *
+ * P03 SKELETON: provides the meta/canonical/OG/Twitter/JSON-LD plumbing that
+ * downstream phases populate per page. Per-page values come from:
+ *   - 04-architecture/page-seo-plan.csv  (title / meta description / H1 per page)
+ *   - 02-research/business-metadata.md   (org-level schema) -> src/lib/site.ts
+ *
+ * Header/Footer and the component library are intentionally NOT built here —
+ * that's 02-synthesize (components) + 03-build-replicate (pages). This layout
+ * just renders a <slot/> so the scaffold compiles and pages can mount.
+ */
+import '../styles/global.css';
+import site from '../lib/site';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+export interface Props {
+  /** <title> — from page-seo-plan.csv "Meta Title". Falls back to site name. */
+  title?: string;
+  /** meta description — from page-seo-plan.csv "Meta Description". */
+  description?: string;
+  /** Canonical URL. Defaults to the current page URL resolved against `site`. */
+  canonical?: string;
+  /** Open Graph image (absolute or site-relative). TODO(03-build): real default OG. */
+  ogImage?: string;
+  /** OG type, e.g. "website" | "article". */
+  ogType?: string;
+  /** Set true on noindex pages (e.g. thank-you / members redirect). */
+  noindex?: boolean;
+  /**
+   * JSON-LD object(s) to inject. Pass the LocalBusiness/Service/FAQ/Breadcrumb
+   * node(s) built per page (03-build). If omitted, nothing is emitted here.
+   */
+  jsonld?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = site.description,
+  canonical,
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+  jsonld,
+} = Astro.props;
+
+const pageTitle = title ?? `${site.legalName} | Millburn, NJ`;
+// Resolve canonical against the configured `site` in astro.config.mjs.
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const ogImageURL = ogImage
+  ? new URL(ogImage, Astro.site ?? site.url).href
+  : undefined;
+
+const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Icons — TODO(03-build): replace with the captured Menon favicon set. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: self-hosted (see global.css @import './fonts.css'). Preload the
+         two above-the-fold faces (Raleway = LCP body/nav, Playfair = display).
+         Mirrors 03-design/fonts-head.html. -->
+    <link rel="preload" href="/fonts/raleway.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={site.displayName} />
+    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={ogImageURL ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+
+    <!-- JSON-LD slot. Pass nodes via the `jsonld` prop (03-build). -->
+    {jsonldArray.map((node) => (
+      <script type="application/ld+json" set:html={JSON.stringify(node)} />
+    ))}
+
+    <slot name="head" />
+  </head>
+  <body>
+    <SiteHeader />
+    <slot />
+    <SiteFooter />
+  </body>
+</html>

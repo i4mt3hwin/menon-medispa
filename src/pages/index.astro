@@ -1,0 +1,28 @@
+---
+/**
+ * index.astro — PLACEHOLDER home page.
+ *
+ * P03 only proves the scaffold + layout shell compile. The REAL homepage (hero,
+ * services, testimonials, etc., replicated verbatim from the captured original)
+ * is built in path-2-rebuild/03-build-replicate.md. Do NOT treat this as the
+ * real page. Title/description below are taken from page-seo-plan.csv (home row)
+ * so the meta plumbing is exercised end-to-end.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../lib/site';
+---
+
+<BaseLayout
+  title="Medical Spa | Menon Medispa & Wellness | Millburn, NJ"
+  description="Experience the top-rated services at Menon Medispa in Millburn, NJ, including HydraFacial, Botox, and more. Book today!"
+>
+  <main style="max-width:48rem;margin:0 auto;padding:4rem 1.5rem;">
+    <h1>Millburn NJ's Premier Medispa &amp; Wellness Center</h1>
+    <p>
+      Scaffold placeholder. Design tokens are populated next in
+      <code>02-synthesize</code>; the real homepage is built in
+      <code>03-build-replicate</code>.
+    </p>
+    <p>{site.address.formatted} · {site.phone.display}</p>
+  </main>
+</BaseLayout>

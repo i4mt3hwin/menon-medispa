@@ -1,0 +1,32 @@
+---
+/**
+ * Quote.astro — single testimonial / pull quote (blockquote widget, 23x).
+ * Finished here. 03-build passes verbatim quote text + optional attribution.
+ */
+interface Props { quote: string; author?: string; class?: string; }
+const { quote, author, class: cls = '' } = Astro.props;
+---
+<blockquote class={`quote ${cls}`}>
+  <p>{quote}</p>
+  {author && <cite>{author}</cite>}
+</blockquote>
+
+<style>
+  .quote {
+    font-family: var(--font-display-alt);
+    font-style: italic;
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    margin: 0;
+    border-left: 3px solid var(--color-primary);
+    padding-left: var(--spacing-gap-md);
+  }
+  .quote cite {
+    display: block;
+    font-family: var(--font-ui);
+    font-style: normal;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-gap-sm);
+  }
+</style>

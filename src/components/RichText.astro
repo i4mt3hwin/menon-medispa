@@ -1,0 +1,16 @@
+---
+/**
+ * RichText.astro — renders captured inline-HTML body (text-editor widget, 2,675x)
+ * verbatim. 03-build passes the sanitized HTML string from the capture.
+ */
+interface Props { html: string; class?: string; }
+const { html, class: cls = '' } = Astro.props;
+---
+<div class={`richtext ${cls}`} set:html={html} />
+
+<style>
+  .richtext { font-family: var(--font-ui); font-size: var(--text-base); line-height: 1.7; color: var(--color-text); }
+  .richtext :global(a) { color: var(--color-primary); }
+  .richtext :global(h2), .richtext :global(h3) { font-family: var(--font-display); }
+  .richtext :global(p) { margin: 0 0 1rem; }
+</style>

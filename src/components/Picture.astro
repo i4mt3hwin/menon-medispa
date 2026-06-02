@@ -1,0 +1,33 @@
+---
+/**
+ * Picture.astro — atomic image wrapper. Finished here (reused everywhere).
+ * 03-build passes the rehosted local src + verbatim/described alt (SEO rule).
+ */
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  shadow?: boolean;
+  rounded?: boolean;
+  class?: string;
+}
+const {
+  src, alt, width, height, loading = 'lazy', shadow = false, rounded = false, class: cls = '',
+} = Astro.props;
+---
+<img
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  class={`pic ${shadow ? 'pic--shadow' : ''} ${rounded ? 'pic--rounded' : ''} ${cls}`}
+/>
+
+<style>
+  .pic { display: block; max-width: 100%; height: auto; }
+  .pic--shadow { box-shadow: var(--shadow-img); }
+  .pic--rounded { border-radius: var(--radius-md); }
+</style>
