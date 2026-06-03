@@ -1,95 +1,241 @@
 ---
 /**
  * SiteHeader.astro — global site header / nav.
- * Built fully in 02-synthesize: nav + logo + Call-Now CTA are consistent across
- * all 61 captured pages. Copy is VERBATIM from the captured original
- * (01-discovery/pages/home/structure.json HEADER section). Internal links are
- * site-relative (Wix absolute URLs rewritten to local paths). 03-build may add
- * the mobile-menu toggle behavior + active-state; copy stays verbatim.
  *
- * Layout from structure.json: header = 1440×135px.
- * - Top row (y:13, h:46): social icons far right (Instagram, Facebook, TikTok)
- * - Bottom row (y:48-109): logo left, nav centre, Call-Now button right
+ * REBUILT 2026-06-03: Added full dropdown submenu support.
+ * Menu structure verbatim from 01-discovery/pages/home/rendered.html nav markup.
+ * Background: white (#ffffff) — original Wix header transparent over white page bg.
+ * Nav text: #000000 (captured original). Call Now CTA: brand primary #754d4d.
+ * Header is 1440×135px per structure.json bbox.
+ * Layout: top bar (social icons right), main row (logo | nav | call-now button).
  *
- * FIDELITY NOTES (from captured original):
- *  - Background: white (#ffffff) — no explicit bg-color in capture; page bg shows
- *    through but the header IS sticky on a white bg. Nav text colour is #000000.
- *  - Social icons: 46×46px image icons (Instagram, Facebook, TikTok). Replaced
- *    with inline SVGs at the correct visual weight to avoid external img fetches.
- *  - Call Now CTA: the captured button (StylableButton) carries the brand
- *    primary (#754d4d) styling from the Wix theme. Operator confirmed phone
- *    (973) 494-8431; the cal.com placeholder constant is used for any Book CTA.
+ * Dropdown submenus (hover on desktop, toggle on mobile):
+ *   ABOUT    → Meet The Team, Patient Resources, Blog
+ *   FACE     → Facials, Microneedling, Laser Facials, Fillers & Injectables
+ *   BODY     → IV Therapy, Semaglutide, Vascular Treatments, Laser Hair Removal
+ *   HAIR     → HydraFacial Keravive, PRP Hair Restoration
+ *   CONTACT  → Consultation
+ *
+ * Phone: (973) 494-8431 (operator-confirmed canonical line).
+ * Book CTA → site.calcomUrl placeholder.
+ *
+ * CSS: All rules scoped to .site-header to prevent any bleed from pages.css
+ * or Tailwind preflight into the header, and to prevent the header from
+ * affecting page body styles.
  */
 import site from '../lib/site';
 
-const nav = [
+interface NavChild {
+  label: string;
+  href: string;
+}
+interface NavItem {
+  label: string;
+  href: string;
+  external?: boolean;
+  children?: NavChild[];
+}
+
+const nav: NavItem[] = [
   { label: 'HOME', href: '/' },
-  { label: 'ABOUT', href: '/about' },
-  { label: 'FACE', href: '/face' },
-  { label: 'BODY', href: '/body' },
-  { label: 'HAIR', href: '/hair' },
-  { label: 'CONTACT', href: '/contact' },
+  {
+    label: 'ABOUT',
+    href: '/about',
+    children: [
+      { label: 'MEET THE TEAM', href: '/meet-the-team' },
+      { label: 'PATIENT RESOURCES', href: '/patient-resources' },
+      { label: 'BLOG', href: '/blog' },
+    ],
+  },
+  {
+    label: 'FACE',
+    href: '/face',
+    children: [
+      { label: 'FACIALS', href: '/menon-facials' },
+      { label: 'MICRONEEDLING', href: '/microneedling-millburn-nj' },
+      { label: 'LASER FACIALS', href: '/laser-facials' },
+      { label: 'FILLERS & INJECTABLES', href: '/fillers-injectables' },
+    ],
+  },
+  {
+    label: 'BODY',
+    href: '/body',
+    children: [
+      { label: 'IV THERAPY', href: '/iv-therapy-millburn-nj' },
+      { label: 'SEMAGLUTIDE', href: '/semaglutide' },
+      { label: 'VASCULAR TREATMENTS', href: '/vascular-treatments' },
+      { label: 'LASER HAIR REMOVAL', href: '/laser-hair-removal' },
+    ],
+  },
+  {
+    label: 'HAIR',
+    href: '/hair',
+    children: [
+      { label: 'HYDRAFACIAL KERAVIVE', href: '/hydrafacial-keravive' },
+      { label: 'PRP HAIR RESTORATION', href: '/platelet-rich-plasma-hair-millburn' },
+    ],
+  },
+  {
+    label: 'CONTACT',
+    href: '/contact',
+    children: [
+      { label: 'CONSULTATION', href: '/consultation' },
+    ],
+  },
   { label: 'MENON REGENERATIVE INSTITUTE', href: 'http://www.menonregen.com', external: true },
   { label: 'SALES', href: '/sale' },
 ];
 
-// Logo: original hotlinked wixstatic; 03-build rehosts the captured copy locally.
 const logoSrc = '/images/medispa-logo-horizontal.png';
 ---
 
 <header class="site-header">
-  {/* Top bar: social icons */}
+  <!-- Top bar: social icons row -->
   <div class="site-header__topbar">
     <div class="site-header__social">
       <a href={site.social.instagram} class="site-header__social-link" aria-label="Instagram" rel="noopener" target="_blank">
-        <!-- Instagram icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
         </svg>
       </a>
       <a href={site.social.facebook} class="site-header__social-link" aria-label="Facebook" rel="noopener" target="_blank">
-        <!-- Facebook icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
         </svg>
       </a>
       <a href={site.social.tiktok} class="site-header__social-link" aria-label="TikTok" rel="noopener" target="_blank">
-        <!-- TikTok icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
           <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
         </svg>
       </a>
     </div>
   </div>
 
-  {/* Main nav row */}
+  <!-- Main nav row -->
   <div class="site-header__inner">
     <a class="site-header__logo" href="/" aria-label={site.displayName}>
       <img src={logoSrc} alt={`${site.displayName} logo`} width="212" height="51" />
     </a>
+
+    <!-- Desktop nav -->
     <nav class="site-header__nav" aria-label="Primary">
       {nav.map((item) => (
-        <a
-          class="site-header__link"
-          href={item.href}
-          {...(item.external ? { rel: 'noopener', target: '_blank' } : {})}
-        >{item.label}</a>
+        <div class={`site-header__item${item.children ? ' site-header__item--has-dropdown' : ''}`}>
+          <a
+            class="site-header__link"
+            href={item.href}
+            {...(item.external ? { rel: 'noopener', target: '_blank' } : {})}
+            {...(item.children ? { 'aria-haspopup': 'true', 'aria-expanded': 'false' } : {})}
+          >
+            {item.label}
+            {item.children && (
+              <svg class="site-header__chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+                <path d="M5 6L0 0h10L5 6z"/>
+              </svg>
+            )}
+          </a>
+          {item.children && (
+            <div class="site-header__dropdown" role="group" aria-label={item.label}>
+              {item.children.map((child) => (
+                <a class="site-header__dropdown-link" href={child.href}>
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       ))}
     </nav>
+
+    <!-- Call Now CTA -->
     <a class="site-header__call" href={`tel:${site.phone.tel}`}>
       Call Now: {site.phone.display}
     </a>
+
+    <!-- Mobile hamburger button -->
+    <button
+      class="site-header__hamburger"
+      id="site-header-hamburger"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="site-header-mobile-menu"
+      type="button"
+    >
+      <span class="site-header__hamburger-bar"></span>
+      <span class="site-header__hamburger-bar"></span>
+      <span class="site-header__hamburger-bar"></span>
+    </button>
   </div>
+
+  <!-- Mobile menu drawer -->
+  <nav
+    class="site-header__mobile-menu"
+    id="site-header-mobile-menu"
+    aria-label="Mobile navigation"
+    hidden
+  >
+    {nav.map((item) => (
+      <div class="site-header__mobile-item">
+        {item.children ? (
+          <>
+            <button
+              class="site-header__mobile-toggle"
+              aria-expanded="false"
+              type="button"
+            >
+              {item.label}
+              <svg class="site-header__mobile-chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+                <path d="M5 6L0 0h10L5 6z"/>
+              </svg>
+            </button>
+            <div class="site-header__mobile-sub" hidden>
+              <a
+                class="site-header__mobile-link site-header__mobile-link--parent"
+                href={item.href}
+              >
+                {item.label} (All)
+              </a>
+              {item.children.map((child) => (
+                <a class="site-header__mobile-link" href={child.href}>
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </>
+        ) : (
+          <a
+            class="site-header__mobile-link site-header__mobile-link--top"
+            href={item.href}
+            {...(item.external ? { rel: 'noopener', target: '_blank' } : {})}
+          >
+            {item.label}
+          </a>
+        )}
+      </div>
+    ))}
+    <div class="site-header__mobile-cta">
+      <a class="site-header__call site-header__call--mobile" href={`tel:${site.phone.tel}`}>
+        Call Now: {site.phone.display}
+      </a>
+    </div>
+  </nav>
 </header>
 
 <style>
+  /* ==========================================================================
+     SiteHeader styles — ALL rules scoped under .site-header to prevent
+     Tailwind preflight or pages.css from bleeding in, and to prevent these
+     rules from affecting page body content.
+     ========================================================================== */
+
   /* ---- Header shell ---- */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 55;
     background: #ffffff;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #e8e6e6;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
   }
 
   /* ---- Top bar (social icons row) ---- */
@@ -97,29 +243,35 @@ const logoSrc = '/images/medispa-logo-horizontal.png';
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    max-width: var(--container-max);
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0.45rem 1.5rem 0;
+    box-sizing: border-box;
   }
+
   .site-header__social {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
+
   .site-header__social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     color: #2c2632;
     text-decoration: none;
     border-radius: 50%;
-    transition: color 0.2s, background 0.2s;
+    transition: color 0.2s;
+    flex-shrink: 0;
   }
+
   .site-header__social-link:hover {
-    color: var(--color-primary);
+    color: #754d4d;
   }
+
   .site-header__social-link svg {
     display: block;
     flex-shrink: 0;
@@ -127,83 +279,389 @@ const logoSrc = '/images/medispa-logo-horizontal.png';
 
   /* ---- Main nav row ---- */
   .site-header__inner {
-    max-width: var(--container-max);
+    max-width: 1440px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: var(--spacing-gap-lg);
-    padding: 0.65rem 1.5rem 0.75rem;
+    gap: 1.5rem;
+    padding: 0.6rem 1.5rem 0.75rem;
+    box-sizing: border-box;
+    position: relative;
   }
+
+  /* ---- Logo ---- */
+  .site-header__logo {
+    display: block;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
   .site-header__logo img {
     display: block;
     height: auto;
-  }
-  .site-header__nav {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--spacing-gap-md);
-    margin-left: auto;
-  }
-  .site-header__link {
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: #000000;
-    text-decoration: none;
-  }
-  .site-header__link:hover {
-    color: var(--color-primary);
+    width: 180px;
   }
 
-  /* Call Now CTA — brand primary background, white text */
-  .site-header__call {
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
+  /* ---- Desktop Nav ---- */
+  .site-header__nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0;
+    margin-left: auto;
+    list-style: none;
+    padding: 0;
+    margin-right: 0;
+  }
+
+  /* Each nav item wrapper (handles dropdown positioning) */
+  .site-header__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Top-level nav link */
+  .site-header__link {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 0.8rem;
     font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #000000;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0.5rem 0.6rem;
+    transition: color 0.18s;
+    cursor: pointer;
+  }
+
+  .site-header__link:hover,
+  .site-header__item--has-dropdown:hover .site-header__link,
+  .site-header__item--has-dropdown:focus-within .site-header__link {
+    color: #754d4d;
+  }
+
+  /* Dropdown chevron */
+  .site-header__chevron {
+    display: inline-block;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    margin-top: 1px;
+  }
+
+  .site-header__item--has-dropdown:hover .site-header__chevron,
+  .site-header__item--has-dropdown:focus-within .site-header__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ---- Dropdown panel ---- */
+  .site-header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    border: 1px solid #e8e6e6;
+    border-top: 2px solid #754d4d;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    min-width: 200px;
+    padding: 0.5rem 0;
+    z-index: 100;
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-4px);
+    transition: opacity 0.18s, visibility 0.18s, transform 0.18s;
+  }
+
+  /* Show dropdown on hover or focus-within */
+  .site-header__item--has-dropdown:hover .site-header__dropdown,
+  .site-header__item--has-dropdown:focus-within .site-header__dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Dropdown links */
+  .site-header__dropdown-link {
+    display: block;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #584b63;
+    text-decoration: none;
+    padding: 0.6rem 1.25rem;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .site-header__dropdown-link:hover {
+    background: #f8f4f0;
+    color: #754d4d;
+  }
+
+  /* ---- Call Now CTA ---- */
+  .site-header__call {
+    display: inline-block;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     color: #ffffff;
-    background: var(--color-primary);
-    padding: 0.55rem 1.1rem;
-    border-radius: var(--radius-sm);
+    background: #754d4d;
+    padding: 0.55rem 1rem;
+    border-radius: 5px;
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
-    box-shadow: var(--shadow-soft);
+    transition: background 0.2s;
+    box-shadow: 0.42px 2.97px 17px -4px rgba(0,0,0,0.6);
   }
+
   .site-header__call:hover {
-    background: var(--color-secondary);
+    background: #584b63;
     color: #ffffff;
   }
 
-  /* ---- Responsive ---- */
+  /* ---- Hamburger (hidden on desktop) ---- */
+  .site-header__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .site-header__hamburger-bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #000000;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  /* Hamburger open state — X icon */
+  .site-header__hamburger[aria-expanded="true"] .site-header__hamburger-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .site-header__hamburger[aria-expanded="true"] .site-header__hamburger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .site-header__hamburger[aria-expanded="true"] .site-header__hamburger-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* ---- Mobile menu drawer ---- */
+  .site-header__mobile-menu {
+    display: block;
+    background: #ffffff;
+    border-top: 1px solid #e8e6e6;
+    padding: 0.5rem 0 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    /* Hidden via [hidden] attribute — JS toggles it */
+  }
+
+  .site-header__mobile-menu[hidden] {
+    display: none !important;
+  }
+
+  .site-header__mobile-item {
+    border-bottom: 1px solid #f0eeee;
+  }
+
+  /* Mobile top-level flat link */
+  .site-header__mobile-link--top {
+    display: block;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #000000;
+    text-decoration: none;
+    padding: 0.85rem 1.25rem;
+    transition: color 0.15s;
+  }
+
+  .site-header__mobile-link--top:hover {
+    color: #754d4d;
+  }
+
+  /* Mobile accordion toggle button */
+  .site-header__mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #000000;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    transition: color 0.15s;
+  }
+
+  .site-header__mobile-toggle:hover {
+    color: #754d4d;
+  }
+
+  .site-header__mobile-chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .site-header__mobile-toggle[aria-expanded="true"] .site-header__mobile-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile sub-menu */
+  .site-header__mobile-sub {
+    background: #f8f4f0;
+    padding: 0.25rem 0;
+  }
+
+  .site-header__mobile-sub[hidden] {
+    display: none !important;
+  }
+
+  .site-header__mobile-link {
+    display: block;
+    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #584b63;
+    text-decoration: none;
+    padding: 0.6rem 1.75rem;
+    transition: color 0.15s;
+  }
+
+  .site-header__mobile-link--parent {
+    color: #754d4d;
+    border-bottom: 1px solid #ece8e4;
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .site-header__mobile-link:hover {
+    color: #754d4d;
+  }
+
+  /* Mobile CTA */
+  .site-header__mobile-cta {
+    padding: 1rem 1.25rem 0.5rem;
+  }
+
+  .site-header__call--mobile {
+    display: block;
+    text-align: center;
+    padding: 0.7rem 1rem;
+  }
+
+  /* ============================================================
+     RESPONSIVE — Tablet / Mobile
+     ============================================================ */
+
   @media (max-width: 1200px) {
     .site-header__link {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
+      padding: 0.5rem 0.45rem;
+    }
+    .site-header__logo img {
+      width: 150px;
     }
     .site-header__inner {
-      gap: 1rem;
-    }
-    .site-header__nav {
       gap: 0.75rem;
     }
   }
+
   @media (max-width: 1024px) {
+    /* On tablet/mobile: hide desktop nav + social bar, show hamburger */
     .site-header__topbar {
-      display: none; /* hide social row on tablet/mobile */
-    }
-    .site-header__inner {
-      flex-wrap: wrap;
-      padding: 0.75rem 1rem;
+      display: none;
     }
     .site-header__nav {
-      width: 100%;
-      margin-left: 0;
-      order: 3;
-      gap: 0.5rem;
+      display: none;
     }
     .site-header__call {
-      order: 2;
+      display: none;
+    }
+    .site-header__hamburger {
+      display: flex;
+    }
+    .site-header__inner {
+      padding: 0.75rem 1.25rem;
+      gap: 1rem;
+    }
+    .site-header__logo img {
+      width: 160px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .site-header__logo img {
+      width: 140px;
     }
   }
 </style>
+
+<script>
+  // Mobile menu toggle
+  const hamburger = document.getElementById('site-header-hamburger') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('site-header-mobile-menu') as HTMLElement | null;
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) {
+        mobileMenu.setAttribute('hidden', '');
+      } else {
+        mobileMenu.removeAttribute('hidden');
+      }
+    });
+  }
+
+  // Mobile accordion sub-menu toggles
+  const mobileToggles = document.querySelectorAll<HTMLButtonElement>('.site-header__mobile-toggle');
+  mobileToggles.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const sub = btn.nextElementSibling as HTMLElement | null;
+      if (!sub) return;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) {
+        sub.setAttribute('hidden', '');
+      } else {
+        sub.removeAttribute('hidden');
+      }
+    });
+  });
+
+  // Close mobile menu on resize to desktop
+  const mql = window.matchMedia('(min-width: 1025px)');
+  mql.addEventListener('change', (e) => {
+    if (e.matches && hamburger && mobileMenu) {
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('hidden', '');
+    }
+  });
+</script>
