@@ -1,40 +1,202 @@
 ---
+/**
+ * /blog — Blog index page.
+ * Renders ALL 28 posts from blog.json (the static-pages pass had only 3 hardcoded).
+ * Layout matches the captured blog-desktop-full.png:
+ *   - Hero band with "Menon Medispa & Wellness Blog" heading.
+ *   - Post card grid (2-column on desktop, 1 on mobile) — each card has cover image,
+ *     title (linked), excerpt, and date. The captured grid showed cards in a narrow
+ *     left-rail format; we replicate that with a 2-col grid matching the screenshot.
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import posts from '@/data/blog.json';
+import site from '@/lib/site';
+
+// Sort newest first (already ordered in JSON but be safe)
+const sortedPosts = [...(posts as any[])].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+function fmtDate(d: string): string {
+  return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
 ---
-<BaseLayout title="Blog | Menon Medispa &amp; Wellness | Millburn, NJ" description="Read the latest articles and tips on skincare, wellness, and aesthetics from the team at Menon Medispa in Millburn, NJ.">
+<BaseLayout
+  title={`Blog | ${site.legalName} | Millburn, NJ`}
+  description="Read the latest articles and tips on skincare, wellness, and aesthetics from the team at Menon Medispa in Millburn, NJ."
+>
   <main class="sp" data-slug="blog">
+
+    {/* Hero */}
     <section class="sp-hero sp-hero--center" aria-label="Blog">
       <div class="sp-container">
-        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Our <em>Blog</em></h1>
-        <p class="sp-hero__lead" style="text-align:center;margin:0 auto;max-width:560px;">Expert insights on skincare, wellness, and aesthetics from the Menon Medispa team.</p>
+        <h1 class="sp-hero__title">
+          <em>Menon Medispa</em> Blog
+        </h1>
+        <p class="sp-hero__lead">
+          Expert insights on skincare, wellness, and aesthetics from our team in Millburn, NJ.
+        </p>
       </div>
     </section>
-    <section class="sp-plain" aria-label="Blog Posts">
-      <div class="sp-container">
-        <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;">
-          <article style="background:#fff;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;">
-            <img src="/images/2c734ddea5ed.png" alt="Is Botox Safe?" style="width:100%;aspect-ratio:3/2;object-fit:cover;" loading="lazy" />
-            <div style="padding:1.25rem 1.4rem 1.5rem;">
-              <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);margin:0 0 0.75rem;"><a href="/post/is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj" style="color:var(--color-ink);text-decoration:none;">Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ</a></h2>
-              <p style="font-family:var(--font-ui);color:#5e5e5e;font-size:var(--text-sm);line-height:1.6;margin:0;">Wondering if Botox is truly safe? We break down FDA approval, common side effects, rare risks, and how to ensure your treatment is in expert hands.</p>
-            </div>
-          </article>
-          <article style="background:#fff;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;">
-            <img src="/images/cdeb1a3077ee.jpg" alt="First Botox Appointment" style="width:100%;aspect-ratio:3/2;object-fit:cover;" loading="lazy" />
-            <div style="padding:1.25rem 1.4rem 1.5rem;">
-              <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);margin:0 0 0.75rem;"><a href="/post/first-botox-appointment-a-step-by-step-guide" style="color:var(--color-ink);text-decoration:none;">First Botox Appointment: A Step-by-Step Guide</a></h2>
-              <p style="font-family:var(--font-ui);color:#5e5e5e;font-size:var(--text-sm);line-height:1.6;margin:0;">A complete walkthrough of your first Botox appointment, from consultation to results.</p>
-            </div>
-          </article>
-          <article style="background:#fff;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;">
-            <img src="/images/0b093327272f.png" alt="HydraFacial" style="width:100%;aspect-ratio:3/2;object-fit:cover;" loading="lazy" />
-            <div style="padding:1.25rem 1.4rem 1.5rem;">
-              <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);margin:0 0 0.75rem;"><a href="/post/why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation" style="color:var(--color-ink);text-decoration:none;">Why Millburn NJ Residents Are Choosing HydraFacial™ for Skin Rejuvenation</a></h2>
-              <p style="font-family:var(--font-ui);color:#5e5e5e;font-size:var(--text-sm);line-height:1.6;margin:0;">Discover why Millburn residents are choosing HydraFacial treatments at Menon Medispa.</p>
-            </div>
-          </article>
+
+    {/* Post grid — all 28 posts */}
+    <section class="blog-index" aria-label="All Posts">
+      <div class="blog-index__container">
+        <div class="blog-index__grid">
+          {sortedPosts.map((post) => (
+            <article class="blog-card">
+              {post.cover && (
+                <a href={`/post/${post.slug}`} class="blog-card__img-link" tabindex="-1" aria-hidden="true">
+                  <img
+                    class="blog-card__img"
+                    src={post.cover}
+                    alt={post.title}
+                    loading="lazy"
+                    width="480"
+                    height="320"
+                  />
+                </a>
+              )}
+              <div class="blog-card__body">
+                {post.date && (
+                  <p class="blog-card__date">{fmtDate(post.date)}</p>
+                )}
+                <h2 class="blog-card__title">
+                  <a href={`/post/${post.slug}`} class="blog-card__title-link">
+                    {post.title}
+                  </a>
+                </h2>
+                {post.excerpt && (
+                  <p class="blog-card__excerpt">{post.excerpt}</p>
+                )}
+                <a href={`/post/${post.slug}`} class="blog-card__read-more" aria-label={`Read ${post.title}`}>
+                  Read post &rarr;
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
+
   </main>
 </BaseLayout>
+
+<style>
+  /* ── Blog index section ─────────────────────────────────────── */
+  .blog-index {
+    background: #f9f7f5;
+    padding: clamp(3rem, 5vw, 5rem) 0;
+  }
+
+  .blog-index__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-inline: clamp(1.25rem, 5vw, 80px);
+  }
+
+  /* Grid: 2 columns on desktop, 1 on mobile */
+  .blog-index__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  /* ── Post card ────────────────────────────────────────────────── */
+  .blog-card {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s;
+    overflow: hidden;
+  }
+
+  .blog-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .blog-card__img-link {
+    display: block;
+    overflow: hidden;
+  }
+
+  .blog-card__img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .blog-card:hover .blog-card__img {
+    transform: scale(1.03);
+  }
+
+  .blog-card__body {
+    padding: 1.25rem 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .blog-card__date {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.5rem;
+  }
+
+  .blog-card__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    line-height: 1.25;
+    margin: 0 0 0.75rem;
+    text-wrap: balance;
+  }
+
+  .blog-card__title-link {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .blog-card__title-link:hover {
+    color: var(--color-primary);
+  }
+
+  .blog-card__excerpt {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: #5e5e5e;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+    flex: 1;
+  }
+
+  .blog-card__read-more {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  .blog-card__read-more:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Motion ──────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    .blog-card {
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .blog-card:hover {
+      transform: translateY(-2px);
+    }
+  }
+</style>

@@ -1,14 +1,35 @@
 ---
 /**
- * BlogPostTemplate.astro — Wix /post/{slug} article, replicated.
- * Renders the verbatim captured body where the post was individually snapshotted
- * (2 of 28 — body = ordered heading/text/image/button blocks). The other 26 posts
- * had only slim list data captured (title/excerpt/cover/date) per the documented
- * capture cost-decision; those render their captured excerpt + cover + a "read on
- * our blog" note. NO post body is fabricated (Path-2). Phone override applied upstream.
+ * BlogPostTemplate.astro — Wix /post/{slug} article faithful replication.
+ *
+ * Layout (verbatim from captured screenshots + structure.json):
+ *   1. Breadcrumb: "← Blog" back-link.
+ *   2. H1 article title (Playfair Bold, centred).
+ *   3. Author avatar + name + date + read-time (when captured in body blocks).
+ *   4. Cover image (full width of article column).
+ *   5. Body — rendered when captured in blog-bodies.json.
+ *      For 26 of 28 posts (no captured body): renders excerpt + phone CTA.
+ *   6. Related posts stub (omitted — not enough data captured to replicate faithfully).
+ *
+ * Known limits (Path-2 capture cost-decision, flagged here):
+ *   - 26 of 28 posts have only excerpt + cover + date captured. Body is NOT fabricated.
+ *   - 2 posts (first-botox-appointment-a-step-by-step-guide,
+ *     the-complete-guide-to-hydrafacial-...) have full captured body blocks.
  */
 import site from '../lib/site';
-interface BodyBlock { type: string; tag?: string; text?: string; html?: string; src?: string; alt?: string; items?: string[]; }
+
+interface BodyBlock {
+  type: string;
+  tag?: string;
+  text?: string;
+  html?: string;
+  src?: string;
+  alt?: string;
+  items?: string[];
+  w?: number;
+  h?: number;
+}
+
 interface Props {
   title: string;
   date?: string;
@@ -16,61 +37,357 @@ interface Props {
   cover?: string | null;
   body?: BodyBlock[] | null;
 }
+
 const { title, date, excerpt, cover, body } = Astro.props;
 const hasBody = Array.isArray(body) && body.length > 0;
+
 const fmtDate = date
   ? new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   : '';
----
-<article class="post">
-  <header class="post__header">
-    <p class="post__back"><a href="/blog">← All Posts</a></p>
-    <h1>{title}</h1>
-    {fmtDate && <p class="post__meta">{fmtDate}</p>}
-  </header>
-  {cover && <img class="post__cover" src={cover} alt={title} loading="eager" />}
 
-  {hasBody ? (
-    <div class="post__body">
-      {body!.map((b) => {
-        if (b.type === 'heading') {
-          const Tag = (b.tag && /^h[2-4]$/.test(b.tag)) ? b.tag : 'h2';
-          return <Tag>{b.text}</Tag>;
-        }
-        if (b.type === 'text') return <div class="post__rt" set:html={b.html} />;
-        if (b.type === 'image' && b.src) return <img src={b.src} alt={b.alt || ''} loading="lazy" />;
-        if (b.type === 'button' && b.text) return <p class="post__btnlabel">{b.text}</p>;
-        if (b.type === 'quote' && b.text) return <blockquote class="post__quote">{b.text}</blockquote>;
-        if (b.type === 'list' && b.items) return <ul class="post__list">{b.items.map((it) => <li>{it}</li>)}</ul>;
-        return null;
-      })}
+// Extract author/date/readtime from body blocks (first few blocks when structured that way)
+let authorName = '';
+let authorAvatar = '';
+let readTime = '';
+let bodyBlocks: BodyBlock[] = [];
+
+if (hasBody && body) {
+  // The captured body starts with: button(All Posts), heading(title), image(avatar),
+  // button(author name), list([date, readtime]), image(cover), then content...
+  let contentStart = 0;
+  for (let i = 0; i < Math.min(8, body.length); i++) {
+    const b = body[i];
+    if (b.type === 'image' && b.w && b.w <= 64 && b.h && b.h <= 64 && b.src) {
+      authorAvatar = b.src;
+    } else if (b.type === 'button' && i > 0 && body[i - 1]?.type === 'image') {
+      authorName = b.text || '';
+    } else if (b.type === 'list' && b.items) {
+      readTime = b.items.filter((it) => it.includes('min')).join('');
+    } else if (b.type === 'image' && b.w && b.w > 100) {
+      // This is the cover image in the body — skip it since we render cover separately
+      contentStart = i + 1;
+      break;
+    }
+  }
+  bodyBlocks = body.slice(contentStart);
+}
+---
+
+<article class="post-page">
+  <div class="post-page__inner">
+
+    {/* Breadcrumb */}
+    <nav class="post-page__breadcrumb" aria-label="Breadcrumb">
+      <a href="/blog" class="post-page__back">← Blog</a>
+    </nav>
+
+    {/* Title */}
+    <header class="post-page__header">
+      <h1 class="post-page__title">{title}</h1>
+
+      {/* Author line */}
+      {(authorName || fmtDate || readTime) && (
+        <div class="post-page__meta">
+          {authorAvatar && (
+            <img class="post-page__avatar" src={authorAvatar} alt={authorName || 'Author'} width="32" height="32" loading="lazy" />
+          )}
+          <div class="post-page__meta-text">
+            {authorName && <span class="post-page__author">{authorName}</span>}
+            {fmtDate && <span class="post-page__date">{fmtDate}</span>}
+            {readTime && <span class="post-page__readtime">{readTime}</span>}
+          </div>
+        </div>
+      )}
+      {!authorName && fmtDate && (
+        <p class="post-page__date-solo">{fmtDate}</p>
+      )}
+    </header>
+
+    {/* Cover image */}
+    {cover && (
+      <img class="post-page__cover" src={cover} alt={title} loading="eager" />
+    )}
+
+    {/* Body */}
+    {hasBody ? (
+      <div class="post-page__body">
+        {bodyBlocks.map((b) => {
+          if (b.type === 'heading') {
+            const Tag = (b.tag && /^h[2-4]$/.test(b.tag)) ? b.tag as 'h2' | 'h3' | 'h4' : 'h2';
+            return <Tag class="post-page__heading">{b.text}</Tag>;
+          }
+          if (b.type === 'text' && b.html) {
+            return <div class="post-page__rt" set:html={b.html} />;
+          }
+          if (b.type === 'image' && b.src) {
+            return (
+              <figure class="post-page__figure">
+                <img src={b.src} alt={b.alt || ''} loading="lazy" />
+              </figure>
+            );
+          }
+          if (b.type === 'quote' && b.text) {
+            return <blockquote class="post-page__quote">{b.text}</blockquote>;
+          }
+          if (b.type === 'list' && b.items) {
+            return (
+              <ul class="post-page__list">
+                {b.items.map((it) => <li>{it}</li>)}
+              </ul>
+            );
+          }
+          if (b.type === 'button' && b.text) {
+            // Internal link labels in Wix body — render as inline text link CTA
+            return (
+              <p class="post-page__inline-cta">
+                <a href="/contact">{b.text}</a>
+              </p>
+            );
+          }
+          return null;
+        })}
+      </div>
+    ) : (
+      <div class="post-page__body post-page__body--excerpt">
+        {excerpt && <p class="post-page__excerpt">{excerpt}</p>}
+        <p class="post-page__excerpt-cta">
+          Questions about this topic? Call <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a>
+          or <a href="/contact">contact us</a> at Menon Medispa in Millburn, NJ.
+        </p>
+      </div>
+    )}
+
+    {/* Back to blog */}
+    <div class="post-page__back-wrap">
+      <a href="/blog" class="post-page__back-link">&larr; All Posts</a>
     </div>
-  ) : (
-    <div class="post__body">
-      {excerpt && <p class="post__excerpt">{excerpt}</p>}
-      <p class="post__cta">
-        Have questions about this topic? <a href={`tel:${site.phone.tel}`}>Call {site.phone.display}</a>
-        or <a href="/contact">contact us</a>.
-      </p>
-    </div>
-  )}
+
+  </div>
 </article>
 
 <style>
-  .post { max-width: 760px; margin: 0 auto; padding: var(--spacing-section) 1.5rem; font-family: var(--font-ui); line-height: 1.7; }
-  .post__header { text-align: center; }
-  .post__back a { color: var(--color-primary); font-size: var(--text-sm); text-decoration: none; }
-  .post__header h1 { font-family: var(--font-display); font-size: var(--text-4xl); }
-  .post__meta { font-size: var(--text-sm); color: var(--color-text-muted); }
-  .post__cover { width: 100%; height: auto; border-radius: var(--radius-md); margin: var(--spacing-gap-lg) 0; }
-  .post__body :global(h2), .post__body :global(h3), .post__body :global(h4) { font-family: var(--font-display); margin-top: var(--spacing-gap-lg); }
-  .post__body :global(img) { width: 100%; height: auto; border-radius: var(--radius-md); margin: var(--spacing-gap-md) 0; }
-  .post__rt :global(a) { color: var(--color-primary); }
-  .post__rt :global(p) { margin: 0 0 1rem; }
-  .post__excerpt { font-size: var(--text-md); }
-  .post__btnlabel { font-weight: 700; color: var(--color-primary); }
-  .post__quote { border-left: 3px solid var(--color-primary); margin: var(--spacing-gap-md) 0; padding: 0.25rem 0 0.25rem 1.25rem; font-style: italic; color: var(--color-text); }
-  .post__list { margin: 0 0 1rem 1.25rem; }
-  .post__list li { margin: 0.25rem 0; }
-  .post__cta a { color: var(--color-primary); }
+  /* ── Page shell ─────────────────────────────────────────────── */
+  .post-page {
+    width: 100%;
+    background: #fff;
+  }
+
+  .post-page__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(2rem, 4vw, 4rem) 1.5rem;
+  }
+
+  /* ── Breadcrumb ─────────────────────────────────────────────── */
+  .post-page__breadcrumb {
+    margin-bottom: 1.25rem;
+  }
+
+  .post-page__back {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .post-page__back:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Header ─────────────────────────────────────────────────── */
+  .post-page__header {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-page__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    color: var(--color-ink);
+    line-height: 1.2;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+
+  /* ── Author / meta line ─────────────────────────────────────── */
+  .post-page__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  .post-page__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .post-page__meta-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .post-page__author {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .post-page__date::before,
+  .post-page__readtime::before {
+    content: '·';
+    margin-right: 0.5rem;
+    opacity: 0.6;
+  }
+
+  .post-page__date-solo {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* ── Cover image ─────────────────────────────────────────────── */
+  .post-page__cover {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  /* ── Body ────────────────────────────────────────────────────── */
+  .post-page__body {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    line-height: 1.75;
+    color: var(--color-text);
+  }
+
+  .post-page__heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-ink);
+    margin: 2rem 0 0.75rem;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  h2.post-page__heading { font-size: var(--text-2xl); }
+  h3.post-page__heading { font-size: var(--text-xl); }
+  h4.post-page__heading { font-size: var(--text-lg); }
+
+  .post-page__rt :global(p) {
+    margin: 0 0 1rem;
+  }
+
+  .post-page__rt :global(a) {
+    color: var(--color-primary);
+  }
+
+  .post-page__rt :global(strong) {
+    font-weight: 700;
+  }
+
+  .post-page__figure {
+    margin: 1.5rem 0;
+  }
+
+  .post-page__figure img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
+
+  .post-page__quote {
+    border-left: 3px solid var(--color-primary);
+    margin: 1.5rem 0;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: var(--text-md);
+  }
+
+  .post-page__list {
+    margin: 0 0 1rem 1.5rem;
+    padding: 0;
+  }
+
+  .post-page__list li {
+    margin: 0.3rem 0;
+  }
+
+  .post-page__inline-cta {
+    margin: 0.75rem 0;
+  }
+
+  .post-page__inline-cta a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .post-page__inline-cta a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Excerpt-only variant ───────────────────────────────────── */
+  .post-page__body--excerpt {
+    padding: 0.5rem 0;
+  }
+
+  .post-page__excerpt {
+    font-size: var(--text-md);
+    color: var(--color-text);
+    margin: 0 0 1.25rem;
+  }
+
+  .post-page__excerpt-cta {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    padding: 1rem 1.25rem;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-sm);
+    margin: 0;
+  }
+
+  .post-page__excerpt-cta a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .post-page__excerpt-cta a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Back link ──────────────────────────────────────────────── */
+  .post-page__back-wrap {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .post-page__back-link {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .post-page__back-link:hover {
+    text-decoration: underline;
+  }
 </style>

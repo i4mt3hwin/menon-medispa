@@ -1,12 +1,25 @@
 ---
 /**
- * ServicePageTemplate.astro — Wix /service-page/{slug} layout, replicated.
- * Renders captured Bookings data verbatim (name/category/price/duration/tagLine)
- * + the verbatim captured Service Description where one was individually snapshotted
- * (3 of 81; the rest were template+data per the documented capture cost-decision —
- * NO description is fabricated). Book CTA → single Cal.com placeholder constant.
+ * ServicePageTemplate.astro — Wix /service-page/{slug} faithful replication.
+ *
+ * Layout (verbatim from captured screenshots + structure.json):
+ *   1. Cover image (360×360 centred square) — only for the 3 services with captured images.
+ *   2. H1 service name (Playfair Bold, centred).
+ *   3. tagLine in muted Raleway under the title.
+ *   4. 3-cell meta row: duration | price | category (bordered table cells, centred).
+ *   5. Gold "Request to book" CTA → Cal.com placeholder.
+ *   6. "Service Description" block — only rendered for the 3 services with captured text;
+ *      for the 78 metadata-only services this section is intentionally absent (Path-2:
+ *      no fabrication). Template looks complete and intentional without it.
+ *   7. "Contact Details" section with address.
+ *
+ * Known limits (Path-2 capture cost-decision, flagged here):
+ *   - 78 of 81 services have only metadata (no description). Shown as-is.
+ *   - 80 of 81 services have no captured cover image (cover = null). Rendered without image.
+ *   - 1 service (botox-injectables) has cover + description; 2 others have description only.
  */
 import site from '../lib/site';
+
 interface Props {
   name: string;
   category?: string;
@@ -16,57 +29,266 @@ interface Props {
   description?: string;
   cover?: string | null;
 }
+
 const { name, category, price, duration, tagLine, description, cover } = Astro.props;
 const CALCOM = site.calcomUrl;
+
+// Duration formatting: the captured pages show "1 hr" for 60 min, "30 min" etc.
+function formatDuration(min: number | null | undefined): string {
+  if (!min) return '';
+  if (min >= 60 && min % 60 === 0) return `${min / 60} hr`;
+  if (min > 60) return `${Math.floor(min / 60)} hr ${min % 60} min`;
+  return `${min} min`;
+}
+
+const durationLabel = duration ? formatDuration(duration) : '';
 const descLines = (description || '').split('\n').filter((l) => l.trim());
+const hasDesc = descLines.length > 0;
+
+// Build meta cells — only show cells that have data
+const metaCells: { label: string }[] = [];
+if (durationLabel) metaCells.push({ label: durationLabel });
+if (price) metaCells.push({ label: price });
+if (category) metaCells.push({ label: category });
 ---
-<main class="svc">
-  <section class="svc-hero">
-    {cover && <img class="svc-hero__img" src={cover} alt={name} loading="eager" />}
-    <h1 class="svc-name">{name}</h1>
-    {tagLine && <p class="svc-tag">{tagLine}</p>}
-    <div class="svc-meta">
-      {price && <span class="svc-price">{price}</span>}
-      {duration && <span class="svc-dur">{duration} min</span>}
-      {category && <span class="svc-cat">{category}</span>}
+
+<main class="svc-page">
+  <div class="svc-page__inner">
+
+    {/* Cover image — only when a captured image exists */}
+    {cover && (
+      <div class="svc-page__img-wrap">
+        <img class="svc-page__img" src={cover} alt={name} loading="eager" width="360" height="360" />
+      </div>
+    )}
+
+    {/* Title + tagLine */}
+    <h1 class="svc-page__name">{name}</h1>
+    {tagLine && <p class="svc-page__tag">{tagLine}</p>}
+
+    {/* Meta row: duration | price | category */}
+    {metaCells.length > 0 && (
+      <div class="svc-page__meta-row" role="list">
+        {metaCells.map((cell, i) => (
+          <div class="svc-page__meta-cell" role="listitem"
+               data-first={i === 0 ? '' : undefined}
+               data-last={i === metaCells.length - 1 ? '' : undefined}>
+            {cell.label}
+          </div>
+        ))}
+      </div>
+    )}
+
+    {/* Book CTA */}
+    <div class="svc-page__cta-wrap">
+      <a class="svc-page__book sp-btn sp-btn--gold" href={CALCOM} rel="noopener" target="_blank">
+        Request to book
+      </a>
     </div>
-    <a class="svc-book" href={CALCOM} rel="noopener" target="_blank">Request to book</a>
-  </section>
 
-  {descLines.length > 0 && (
-    <section class="svc-desc">
-      <h2>Service Description</h2>
-      {descLines.map((l) => <p>{l}</p>)}
+    <hr class="svc-page__rule" />
+
+    {/* Service Description — only when captured text exists */}
+    {hasDesc && (
+      <section class="svc-page__desc" aria-label="Service Description">
+        <h2 class="svc-page__section-title">Service Description</h2>
+        {descLines.map((line) => <p class="svc-page__desc-p">{line}</p>)}
+      </section>
+    )}
+
+    {/* Contact Details */}
+    <section class="svc-page__contact" aria-label="Contact Details">
+      <h2 class="svc-page__section-title">Contact Details</h2>
+      <ul class="svc-page__contact-list">
+        <li>
+          <span class="svc-page__contact-name">{site.affiliatedName}</span><br />
+          <span>{site.address.street}, {site.address.locality}, {site.address.region} {site.address.postalCode}, USA</span>
+        </li>
+        <li>
+          <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+      </ul>
     </section>
-  )}
 
-  <section class="svc-contact">
-    <h2>Contact Details</h2>
-    <p>{site.address.formatted}, USA</p>
-    <p>Tel: <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a></p>
-    <p>Email: <a href={`mailto:${site.email}`}>{site.email}</a></p>
-  </section>
+    <hr class="svc-page__rule" />
+  </div>
 </main>
 
 <style>
-  .svc { width: 100%; }
-  .svc-hero, .svc-desc, .svc-contact {
-    max-width: var(--container-content); margin: 0 auto; padding: var(--spacing-section) 1.5rem;
-    text-align: center; font-family: var(--font-ui);
+  /* ── Page shell ─────────────────────────────────────────────── */
+  .svc-page {
+    width: 100%;
+    background: #fff;
   }
-  .svc-hero__img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin-bottom: var(--spacing-gap-md); }
-  .svc-name { font-family: var(--font-display); font-size: var(--text-4xl); margin: 0 0 0.5rem; }
-  .svc-tag { font-family: var(--font-body); font-size: var(--text-lg); color: var(--color-text-muted); margin: 0 0 var(--spacing-gap-md); }
-  .svc-meta { display: flex; gap: var(--spacing-gap-md); justify-content: center; flex-wrap: wrap; margin-bottom: var(--spacing-gap-md); }
-  .svc-price { font-weight: 700; color: var(--color-primary); font-size: var(--text-lg); }
-  .svc-dur, .svc-cat { color: var(--color-text-muted); }
-  .svc-book {
-    display: inline-block; background: var(--color-primary); color: var(--color-surface);
-    padding: 0.75rem 2rem; border-radius: var(--radius-sm); font-weight: 700; text-decoration: none;
+
+  .svc-page__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 5vw, 4.5rem) 1.5rem;
+    text-align: center;
   }
-  .svc-book:hover { background: var(--color-secondary); }
-  .svc-desc { text-align: left; }
-  .svc-desc h2, .svc-contact h2 { font-family: var(--font-display); font-size: var(--text-2xl); }
-  .svc-desc p { line-height: 1.7; margin: 0 0 1rem; }
-  .svc-contact a { color: var(--color-primary); }
+
+  /* ── Cover image (360×360, centred) ────────────────────────── */
+  .svc-page__img-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .svc-page__img {
+    width: 360px;
+    height: 360px;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ── Title & tagLine ────────────────────────────────────────── */
+  .svc-page__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    color: var(--color-ink);
+    margin: 0 0 0.5rem;
+    text-wrap: balance;
+  }
+
+  .svc-page__tag {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
+  }
+
+  /* ── Meta row (duration | price | category) ─────────────────── */
+  .svc-page__meta-row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0 auto 1.75rem;
+    max-width: 520px;
+    border: 1px solid #ccc;
+  }
+
+  .svc-page__meta-cell {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .svc-page__meta-cell + .svc-page__meta-cell {
+    border-left: 1px solid #ccc;
+  }
+
+  /* ── CTA button ─────────────────────────────────────────────── */
+  .svc-page__cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .svc-page__book {
+    /* inherits sp-btn sp-btn--gold from pages.css */
+    font-size: var(--text-base);
+    padding: 0.75rem 1.5rem;
+  }
+
+  /* ── Divider ────────────────────────────────────────────────── */
+  .svc-page__rule {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 0 0 2.5rem;
+  }
+
+  /* ── Section titles (Service Description / Contact Details) ─── */
+  .svc-page__section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-xl);
+    color: var(--color-ink);
+    margin: 0 0 1rem;
+  }
+
+  /* ── Description text ───────────────────────────────────────── */
+  .svc-page__desc {
+    text-align: left;
+    margin-bottom: 2.5rem;
+    max-width: 720px;
+    margin-inline: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  .svc-page__desc .svc-page__section-title {
+    text-align: center;
+  }
+
+  .svc-page__desc-p {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--color-text);
+    margin: 0 0 1rem;
+  }
+
+  /* ── Contact Details ────────────────────────────────────────── */
+  .svc-page__contact {
+    margin-bottom: 2rem;
+  }
+
+  .svc-page__contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .svc-page__contact-list li {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .svc-page__contact-name {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .svc-page__contact-list a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .svc-page__contact-list a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────── */
+  @media (max-width: 560px) {
+    .svc-page__meta-row {
+      flex-direction: column;
+    }
+
+    .svc-page__meta-cell + .svc-page__meta-cell {
+      border-left: none;
+      border-top: 1px solid #ccc;
+    }
+
+    .svc-page__img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+  }
 </style>

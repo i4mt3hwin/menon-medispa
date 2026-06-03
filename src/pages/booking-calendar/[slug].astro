@@ -1,39 +1,66 @@
 ---
 /**
  * booking-calendar/[slug].astro — replaces the Wix Bookings calendar.
- * The original showed a "Schedule your service" Wix calendar widget; per operator
- * decision (2026-06-02) scheduling moves to an external Cal.com embed. Until the
- * operator supplies real event-type URLs, SchedulerEmbed renders a clearly-marked
- * placeholder (call-to-book) — see site.calcomUrl.
+ *
+ * Original showed a "Schedule your service" Wix calendar widget; per operator
+ * decision (2026-06-02) scheduling moves to an external Cal.com embed.
+ * Until the operator supplies real event-type URLs, SchedulerEmbed (via
+ * BookingCalendarTemplate) renders a call-to-book placeholder — see site.calcomUrl.
+ *
+ * The 5 booking-calendar slugs come from the Wix booking-calendar sitemap;
+ * service names are resolved from bookings-services metadata.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SchedulerEmbed from '@/components/SchedulerEmbed.astro';
+import BookingCalendarTemplate from '@/components/BookingCalendarTemplate.astro';
 import site from '@/lib/site';
 
+// Mapping from booking-calendar slug → service name + service-page slug
+// Sourced verbatim from wix-api/bookings-services.json + booking-calendar sitemap.
+const BOOKING_SERVICES: Record<string, { name: string; serviceSlug: string }> = {
+  'botox-injectables': {
+    name: 'BOTOX® Injectables',
+    serviceSlug: 'botox-injectables',
+  },
+  'forever-radiant-experience': {
+    name: 'Forever Radiant Experience',
+    serviceSlug: 'forever-radiant-experience',
+  },
+  'give-the-gift-of-glow': {
+    name: 'GIVE THE GIFT OF GLOW',
+    serviceSlug: 'give-the-gift-of-glow',
+  },
+  'hydrafacial-keravive': {
+    name: 'HydraFacial™ Keravive™',
+    serviceSlug: 'hydrafacial-keravive',
+  },
+  'the-timeless-beauty-experience': {
+    name: 'THE TIMELESS BEAUTY EXPERIENCE',
+    serviceSlug: 'the-timeless-beauty-experience',
+  },
+};
+
 export function getStaticPaths() {
-  const slugs = [
+  return [
     'botox-injectables',
     'forever-radiant-experience',
     'give-the-gift-of-glow',
     'hydrafacial-keravive',
     'the-timeless-beauty-experience',
-  ];
-  return slugs.map((slug) => ({ params: { slug } }));
+  ].map((slug) => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
-const nice = (slug || '').split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+const svc = BOOKING_SERVICES[slug as string] ?? {
+  name: (slug || '').split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+  serviceSlug: slug as string,
+};
 ---
-<BaseLayout title={`Schedule ${nice} | ${site.displayName} | Millburn, NJ`}
-            description={`Schedule your ${nice} appointment at ${site.displayName} in Millburn, NJ.`}>
-  <main class="bc">
-    <h1>Schedule your service</h1>
-    <p class="bc-sub">{nice}</p>
-    <SchedulerEmbed />
-  </main>
+<BaseLayout
+  title={`Schedule ${svc.name} | ${site.displayName} | Millburn, NJ`}
+  description={`Schedule your ${svc.name} appointment at ${site.displayName} in Millburn, NJ. Select a date and time that works for you.`}
+>
+  <BookingCalendarTemplate
+    serviceName={svc.name}
+    serviceSlug={svc.serviceSlug}
+  />
 </BaseLayout>
-<style>
-  .bc { max-width: var(--container-content); margin: 0 auto; padding: var(--spacing-section) 1.5rem; text-align: center; font-family: var(--font-ui); }
-  .bc h1 { font-family: var(--font-display); font-size: var(--text-4xl); }
-  .bc-sub { color: var(--color-text-muted); font-size: var(--text-lg); margin-bottom: var(--spacing-gap-lg); }
-</style>
