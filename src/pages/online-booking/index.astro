@@ -1,25 +1,21 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
-const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="online-booking">
-  <h1 class="pg-h pg-h1-seo">How Would You Like to Book Your Treatment?</h1>
-<section class="pg-section" data-section="How Would You Like to Book Your Treatment?">
-  <img class="pg-img" src="/images/651c7c197b52.png" alt="k.1757_serene_relaxing_nature_very_slight_purple_hue_very_relax_f9c18564-0ba0-42a6-8e7c-27" width="1440" height="547" loading="lazy" />
-  <h2 class="pg-h">How Would You Like to Book Your Treatment?</h2>
-  <p class="pg-text">Choose the option that works best for you</p>
-  <a class="pg-btn" href="/book-online">I Know What I Want</a>
-  <p class="pg-text">Browse our full treatment menu and book directly</p>
-  <a class="pg-btn" href="/consultation">I Need Some Help</a>
-  <p class="pg-text">Schedule a consultation to discuss your skin goals. Consultations with the esthetician are FREE. Consultations with Dr. Menon are $50 (Goes towards Treatment)</p>
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">75+ 5 Star Reviews</p>
-</section>
+<BaseLayout title="Online Booking | Menon Medispa &amp; Wellness | Millburn, NJ" description="Book your appointment online at Menon Medispa in Millburn, NJ.">
+  <main class="sp" data-slug="online-booking">
+    <section class="sp-hero sp-hero--center" aria-label="Online Booking">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Online <em>Booking</em></h1>
+      </div>
+    </section>
+    <section class="sp-plain" aria-label="Schedule">
+      <div class="sp-container">
+        <div class="sp-plain__inner">
+          <p class="sp-plain__body">Schedule your appointment at Menon Medispa in Millburn, NJ.</p>
+          <a class="sp-btn sp-btn--gold" href={site.calcomUrl} rel="noopener" target="_blank">Schedule An Appointment</a>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":1,"sections_content":1,"widgets_expected":12,"widgets_rendered":12,"images_resolved":4,"h1":"How Would You Like to Book Your Treatment?","fidelity_pct":100,"dropped":[]} -->

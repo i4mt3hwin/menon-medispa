@@ -21,6 +21,13 @@
       "text": "Dr. Aditi Menon, MD"
     },
     {
+      "type": "list",
+      "items": [
+        "Mar 30",
+        "7 min read"
+      ]
+    },
+    {
       "type": "image",
       "src": "/images/cdeb1a3077ee.jpg",
       "alt": "First Botox Appointment: A Step-by-Step Guide",
@@ -89,6 +96,16 @@
       "html": "Your provider may recommend temporarily discontinuing certain over-the-counter supplements and medications that can increase bruising risk. Common items to discuss with your doctor include:"
     },
     {
+      "type": "list",
+      "items": [
+        "Blood-thinning medications (consult your prescribing physician first)",
+        "Fish oil and omega-3 supplements",
+        "Vitamin E supplements",
+        "Aspirin and ibuprofen",
+        "Certain herbal supplements like ginkgo biloba"
+      ]
+    },
+    {
       "type": "text",
       "html": "Key takeaway: Never stop a prescribed medication without your doctor's approval. Always discuss your full medication list with your provider before treatment."
     },
@@ -142,6 +159,10 @@
       "html": "Pain is the number one concern for first-time Botox patients, and the reality is far less intense than most people imagine. On a scale of 1 to 10, the majority of patients rate the discomfort between 1 and 3. Providers may apply a topical numbing cream or use ice packs on the treatment area before injecting to further minimize any sensation. Some patients find that simply taking slow, deep breaths is enough to stay comfortable throughout the process. If you are particularly sensitive, let your provider know beforehand so they can take additional comfort measures. Consult your provider about any concerns before your appointment."
     },
     {
+      "type": "quote",
+      "text": "\"I was nervous for weeks before my first appointment, and then it was over in ten minutes. I barely felt a thing.\" This is the most common reaction our team hears from first-time patients."
+    },
+    {
       "type": "image",
       "src": "/images/8d83b048169b.png",
       "alt": "A woman with curly hair holds her phone to her ear outside Menon Medispa, perhaps discussing aftercare following her first time Botox what to expect.",
@@ -161,6 +182,16 @@
       "type": "heading",
       "tag": "h2",
       "text": "Activities to Avoid in the First 24 Hours"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Lying flat or bending forward for at least 4 hours",
+        "Vigorous exercise or heavy lifting",
+        "Rubbing, massaging, or applying pressure to the treated areas",
+        "Excessive heat exposure (saunas, hot tubs, hot yoga)",
+        "Alcohol consumption"
+      ]
     },
     {
       "type": "text",
@@ -218,6 +249,13 @@
       "text": "Sources"
     },
     {
+      "type": "list",
+      "items": [
+        "Mayo Clinic — Botox injections overview and mechanism of action",
+        "National Institutes of Health (NIH) — Botulinum toxin duration and efficacy research"
+      ]
+    },
+    {
       "type": "heading",
       "tag": "h2",
       "text": "Frequently Asked Questions"
@@ -228,7 +266,15 @@
     },
     {
       "type": "text",
+      "html": "A first Botox appointment typically takes 30 to 60 minutes, including the consultation. The actual injection process usually lasts only 10 to 15 minutes. Your provider will spend additional time reviewing your medical history, discussing goals, and explaining aftercare so you feel fully informed before treatment begins."
+    },
+    {
+      "type": "text",
       "html": "Does Botox hurt during the injection?"
+    },
+    {
+      "type": "text",
+      "html": "Most patients describe Botox injections as a brief pinching sensation rather than significant pain. The needles used are very fine, and treatments are quick. Your provider may apply a topical numbing cream or cold pack beforehand to minimize discomfort. Many first-time patients report the experience is far more comfortable than they anticipated."
     },
     {
       "type": "text",
@@ -236,7 +282,15 @@
     },
     {
       "type": "text",
+      "html": "Initial Botox results typically appear within three to five days, with full effects visible at about two weeks. Results may vary depending on the treatment area and individual response. Your provider may schedule a follow-up appointment around the two-week mark to assess results and make any adjustments if needed."
+    },
+    {
+      "type": "text",
       "html": "What should I avoid before and after Botox injections?"
+    },
+    {
+      "type": "text",
+      "html": "Before Botox, you should generally avoid blood-thinning medications, alcohol, and certain supplements like fish oil for several days, as these may increase bruising. Afterward, avoid rubbing the treated area, strenuous exercise, and lying flat for at least four hours. Always follow your provider's specific pre- and post-care instructions."
     },
     {
       "type": "text",
@@ -244,11 +298,23 @@
     },
     {
       "type": "text",
+      "html": "Most patients return to normal activities, including work, immediately after Botox. You may apply makeup after a few hours, though your provider may recommend waiting to avoid pressing on injection sites. This minimal downtime is one reason Botox is often called a lunchtime procedure by both patients and providers."
+    },
+    {
+      "type": "text",
       "html": "How do I choose the right provider for my first Botox treatment?"
     },
     {
       "type": "text",
+      "html": "Look for a licensed medical professional with specialized training in facial anatomy and injectable treatments. Board-certified physicians, nurse practitioners, and physician assistants with aesthetic credentials are common qualified providers. Ask about their experience, view before-and-after photos, and ensure the consultation feels unhurried. Talk to your doctor if you have underlying health concerns."
+    },
+    {
+      "type": "text",
       "html": "What is the difference between Botox and dermal fillers?"
+    },
+    {
+      "type": "text",
+      "html": "Botox relaxes targeted muscles to smooth dynamic wrinkles caused by facial movement, such as frown lines and crow's feet. Dermal fillers add volume to areas with static lines, hollow cheeks, or thinning lips. Your provider may recommend one or both depending on your concerns, as they address different types of aging signs."
     },
     {
       "type": "button",
@@ -334,6 +400,13 @@
     {
       "type": "button",
       "text": "Dr. Aditi Menon, MD"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Oct 17, 2022",
+        "2 min read"
+      ]
     },
     {
       "type": "text",

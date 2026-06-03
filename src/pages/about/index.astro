@@ -1,50 +1,114 @@
 ---
+/**
+ * About — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/about/ (structure.json + rendered.html + screenshot)
+ * Visual target: 01-discovery/screenshots/about-desktop-full.png
+ *
+ * Layout: hero split (text + team photo) → approach copy → commitment/experience
+ *   → dark-bg "bringing out the best" split → testimonial band → CTA
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
 const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="about">
-<section class="pg-section" data-section="About Us">
-  <img class="pg-img" src="/images/651c7c197b52.png" alt="k.1757_serene_relaxing_nature_very_slight_purple_hue_very_relax_f9c18564-0ba0-42a6-8e7c-27" width="1440" height="547" loading="lazy" />
-  <h1 class="pg-h">About Us</h1>
-  <h2 class="pg-h">The Menon MediSpa Difference</h2>
-  <p class="pg-text">At Menon MediSpa, we believe that beauty is about feeling confident in your own skin. Since 2019, we've been Millburn's premier destination for transformative, non-surgical aesthetic treatments that enhance your natural beauty.</p>
-  <img class="pg-img" src="/images/35c774fbba6d.png" alt="Menon Office Staff (1).png" width="425" height="323" loading="lazy" />
-  <a class="pg-btn" href="/contact">Have Any Questions? Give Us A Call!</a>
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">100+ 5 Star Reviews</p>
-</section>
+<BaseLayout
+  title="About Us | Menon Medispa & Wellness | Millburn, NJ"
+  description="Our Medical Spa Specializes in Wide Variety of Non-Surgical Beauty Treatments. We Only Use State-Of-Art Equipment. Our Staff is Licensed and Highly Trained."
+>
+  <main class="sp" data-slug="about">
 
-<section class="pg-section" data-section="Our Approach:">
-  <h3 class="pg-h">Our Approach:</h3>
-  <p class="pg-text">What sets us apart is our commitment to three core principles:</p>
-  <p class="pg-text">Medical Excellence - Our team of licensed medical professionals brings clinical expertise to every treatment. Led by Dr. Aditi Menon, MD, we combine the precision of medical science with the artistry of aesthetics.</p>
-  <p class="pg-text">Cutting-Edge Technology - We invest in state-of-the-art equipment and advanced techniques that deliver superior results with minimal downtime. Our technology undergoes rigorous testing to ensure safety, comfort, and effectiveness.</p>
-  <p class="pg-text">Personalized Care - Your beauty journey is unique, which is why we begin with a comprehensive consultation to understand your goals. We design customized treatment plans that address your specific concerns and celebrate your individual beauty.</p>
-  <h3 class="pg-h">Our Commitment:</h3>
-  <p class="pg-text">We continually research emerging trends and techniques in aesthetic medicine, introducing new treatments only after they've proven their efficacy and safety. This dedication to innovation means you'll always have access to the most effective solutions available.</p>
-  <h3 class="pg-h">The Experience:</h3>
-  <p class="pg-text">From the moment you walk through our doors, you'll feel the difference in our warm, discreet environment designed for your comfort. Our attentive staff ensures every visit leaves you feeling refreshed, rejuvenated, and ready to face the world with confidence.<br />Your journey to radiance begins here at Menon MediSpa, where science meets beauty, and expertise meets compassion.</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero" aria-label="About Us">
+      <div class="sp-container">
+        <div class="sp-hero__grid">
+          <div class="sp-hero__content">
+            <h1 class="sp-hero__title">The Menon MediSpa <em>Difference</em></h1>
+            <p class="sp-hero__lead">At Menon MediSpa, we believe that beauty is about feeling confident in your own skin. Since 2019, we've been Millburn's premier destination for transformative, non-surgical aesthetic treatments that enhance your natural beauty.</p>
+            <div class="sp-hero__actions">
+              <a class="sp-btn sp-btn--gold" href="/contact">Have Any Questions? Give Us A Call!</a>
+            </div>
+            <div class="sp-reviews">
+              <div class="sp-reviews__avatars">
+                <img src="/images/90411e0041df.png" alt="Client review" width="44" height="44" />
+                <img src="/images/305afeda5f9a.png" alt="Client review" width="44" height="44" />
+                <img src="/images/b95880091b44.png" alt="Client review" width="44" height="44" />
+              </div>
+              <div class="sp-reviews__text">
+                <span class="sp-reviews__stars">★★★★★</span>
+                <span class="sp-reviews__count">100+ 5 Star Reviews</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="sp-hero__img" src="/images/35c774fbba6d.png" alt="Menon Office Staff" width="425" height="323" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section">
-  <h5 class="pg-h">BRINGING OUT THE BEST IN YOU</h5>
-  <p class="pg-text">Our mission is to ensure that when you visit Menon Medispa &amp; Wellness you will feel at home and leave looking and feeling better than when you came in.</p>
-  <a class="pg-btn" href="/meet-the-team">MEET THE TEAM</a>
-  <img class="pg-img" src="/images/2ef11e239ab9.jpg" alt="" width="481" height="480" loading="lazy" />
-</section>
+    {/* ===== OUR APPROACH ===== */}
+    <section class="sp-plain" aria-label="Our Approach">
+      <div class="sp-container">
+        <div class="sp-plain__inner" style="text-align:left; max-width:900px;">
+          <h2 class="sp-plain__title" style="text-align:left;">Our <em>Approach:</em></h2>
+          <div class="sp-plain__body">
+            <p>What sets us apart is our commitment to three core principles:</p>
+            <p><strong>Medical Excellence</strong> - Our team of licensed medical professionals brings clinical expertise to every treatment. Led by Dr. Aditi Menon, MD, we combine the precision of medical science with the artistry of aesthetics.</p>
+            <p><strong>Cutting-Edge Technology</strong> - We invest in state-of-the-art equipment and advanced techniques that deliver superior results with minimal downtime. Our technology undergoes rigorous testing to ensure safety, comfort, and effectiveness.</p>
+            <p><strong>Personalized Care</strong> - Your beauty journey is unique, which is why we begin with a comprehensive consultation to understand your goals. We design customized treatment plans that address your specific concerns and celebrate your individual beauty.</p>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,2.5vw,1.9rem);color:var(--color-ink);margin:2rem 0 0.75rem;">Our <em>Commitment:</em></h3>
+            <p>We continually research emerging trends and techniques in aesthetic medicine, introducing new treatments only after they've proven their efficacy and safety. This dedication to innovation means you'll always have access to the most effective solutions available.</p>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,2.5vw,1.9rem);color:var(--color-ink);margin:2rem 0 0.75rem;">The <em>Experience:</em></h3>
+            <p>From the moment you walk through our doors, you'll feel the difference in our warm, discreet environment designed for your comfort. Our attentive staff ensures every visit leaves you feeling refreshed, rejuvenated, and ready to face the world with confidence.<br />Your journey to radiance begins here at Menon MediSpa, where science meets beauty, and expertise meets compassion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="What Our Clients Say">
-  <img class="pg-img" src="/images/30cfb9e87c60.png" alt="Untitled-4.png" width="1440" height="626" loading="lazy" />
-  <h3 class="pg-h">What Our Clients Say</h3>
-  <blockquote class="pg-quote">Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.</blockquote>
-  <p class="pg-text">Alexa C.</p>
-  <img class="pg-img" src="/images/5be44787b3a9.png" alt="Social Proof (5 Star Google Reviews)" width="143" height="74" loading="lazy" />
-</section>
+    {/* ===== BRINGING OUT THE BEST — dark split ===== */}
+    <section class="sp-split" aria-label="Bringing Out The Best In You">
+      <div class="sp-split__grid">
+        <div class="sp-split__panel sp-split__panel--dark">
+          <p class="sp-split__eyebrow">BRINGING OUT THE BEST IN YOU</p>
+          <h2 class="sp-split__title">Bringing Out the Best <em>In You</em></h2>
+          <p class="sp-split__body">Our mission is to ensure that when you visit Menon Medispa &amp; Wellness you will feel at home and leave looking and feeling better than when you came in.</p>
+          <a class="sp-btn sp-btn--gold" href="/meet-the-team" style="margin-top:1.5rem;">MEET THE TEAM</a>
+        </div>
+        <div class="sp-split__media">
+          <img src="/images/2ef11e239ab9.jpg" alt="Menon Medispa team" width="481" height="480" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    {/* ===== TESTIMONIAL ===== */}
+    <section class="sp-testimonial" aria-label="What Our Clients Say">
+      <img class="sp-testimonial__bg" src="/images/30cfb9e87c60.png" alt="" width="1440" height="626" loading="lazy" />
+      <div class="sp-testimonial__overlay"></div>
+      <div class="sp-container sp-testimonial__inner">
+        <h2 class="sp-script-title sp-script-title--light" style="margin-bottom:2rem;">What Our <em>Clients</em> Say</h2>
+        <blockquote class="sp-quote">
+          <span class="sp-quote__mark">"</span>
+          Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.
+          <cite>Alexa C.</cite>
+        </blockquote>
+        <img src="/images/5be44787b3a9.png" alt="5 Star Google Reviews" width="143" height="74" loading="lazy" style="margin-top:1.75rem;" />
+      </div>
+    </section>
+
+    {/* ===== CTA ===== */}
+    <section class="sp-cta" aria-label="Begin Your Transformation Today">
+      <div class="sp-container sp-cta__grid">
+        <div class="sp-cta__copy">
+          <h2 class="sp-cta__title">Begin Your Transformation Today</h2>
+          <p class="sp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Ready to experience the benefits of Menon Medispa? Take the first step toward Perfect Skin and Hair by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
+          <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+        </div>
+        <div class="sp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":4,"sections_content":4,"widgets_expected":29,"widgets_rendered":29,"images_resolved":8,"h1":"About Us","fidelity_pct":100,"dropped":[]} -->

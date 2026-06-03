@@ -1,48 +1,96 @@
 ---
+/**
+ * Consultation — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/consultation/
+ * Visual target: 01-discovery/screenshots/consultation-desktop-full.png
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
 import site from '@/lib/site';
-const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="consultation">
-<section class="pg-section" data-section="Transform Your Skin with a Personalized Consultation">
-  <img class="pg-img" src="/images/fc22050ddcb3.webp" alt="download copy.webp" width="1440" height="247" loading="lazy" />
-  <h1 class="pg-h">Transform Your Skin with a Personalized Consultation</h1>
-  <p class="pg-text">Our expert team will help determine the best treatments for your unique skincare needs and goals.</p>
-</section>
+<BaseLayout
+  title="Consultation | Menon Medispa & Wellness | Millburn, NJ"
+  description="Transform Your Skin with a Personalized Consultation. Our expert team will help determine the best treatments for your unique skincare needs and goals."
+>
+  <main class="sp" data-slug="consultation">
 
-<section class="pg-section" data-section="Why Choose Our Consultations?">
-  <p class="pg-text">Schedule Your Consultation Today</p>
-  <p class="pg-text">Fill out this form and we'll contact you within 24 hours</p>
-  <p class="pg-btnlabel">Request My Consultation</p>
-  <h2 class="pg-h">Why Choose Our Consultations?</h2>
-  <p class="pg-text">At Menon Medispa &amp; Wellness, we take a personalized approach to your skincare journey.</p>
-  <h3 class="pg-h">Expert Assessment</h3>
-  <p class="pg-text">Our highly trained professionals will evaluate your skin's unique needs and concerns.</p>
-  <h3 class="pg-h">Customized Treatment Plans</h3>
-  <p class="pg-text">Receive personalized recommendations tailored specifically to your skin type and goals.</p>
-  <h3 class="pg-h">Advanced Technology</h3>
-  <p class="pg-text">Access to the latest aesthetic treatments and medical-grade skincare solutions.</p>
-  <h3 class="pg-h">Flexible Consultation Options</h3>
-  <p class="pg-text">Choose the consultation type that best fits your needs and budget.<br /><br />Consultation with Esthetician: FREE<br /><br />Consultation with Doctor: $50</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero sp-hero--center" aria-label="Consultation">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Transform Your Skin with a <em>Personalized Consultation</em></h1>
+        <p class="sp-hero__lead" style="text-align:center;margin:0 auto;max-width:560px;">Our expert team will help determine the best treatments for your unique skincare needs and goals.</p>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Opening Hours">
-  <h2 class="pg-h">Opening Hours</h2>
-  <p class="pg-text">Menon Medispa &amp; Wellness</p>
-  <p class="pg-text">45 Essex St, Suite 202, Millburn, NJ 07041, USA</p>
-  <p class="pg-text">admin@menonregen.com</p>
-  <p class="pg-text">(973) 494-8431</p>
-  <p class="pg-text">Mon - Fri</p>
-  <p class="pg-text">10:00 am – 6:00 pm</p>
-  <p class="pg-text">Saturday</p>
-  <p class="pg-text">10:00 am – 2:00 pm</p>
-  <p class="pg-text">​Sunday</p>
-  <p class="pg-text">CLOSED</p>
-  <img class="pg-img" src="/images/464c5b23f583.png" alt="Facebook" width="23" height="23" loading="lazy" />
-  <img class="pg-img" src="/images/a29df34857a1.png" alt="Instagram" width="23" height="23" loading="lazy" />
-  <img class="pg-img" src="/images/d11778476dcb.png" alt="TikTok" width="23" height="23" loading="lazy" />
-</section>
+    {/* ===== CONSULTATION SPLIT ===== */}
+    <section class="sp-contact" aria-label="Schedule a Consultation">
+      <div class="sp-container sp-contact__grid">
+        <div>
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,2.5vw,1.9rem);color:var(--color-ink);margin:0 0 0.5rem;">Schedule Your Consultation Today</h2>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 1.5rem;">Fill out this form and we'll contact you within 24 hours</p>
+          <LeadForm variant="contact" />
+        </div>
+        <div class="sp-contact__info">
+          <h2>Why Choose Our Consultations?</h2>
+          <p>At Menon Medispa &amp; Wellness, we take a personalized approach to your skincare journey.</p>
+          <div style="display:flex;flex-direction:column;gap:1.1rem;margin-top:1rem;">
+            <div style="display:flex;gap:0.85rem;align-items:flex-start;">
+              <span style="color:var(--color-primary);font-size:1.25rem;flex-shrink:0;margin-top:0.1rem;">✓</span>
+              <div>
+                <strong style="font-family:var(--font-display);color:var(--color-ink);">Expert Assessment</strong>
+                <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.2rem 0 0;line-height:1.6;font-size:var(--text-sm);">Our highly trained professionals will evaluate your skin's unique needs and concerns.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.85rem;align-items:flex-start;">
+              <span style="color:var(--color-primary);font-size:1.25rem;flex-shrink:0;margin-top:0.1rem;">✓</span>
+              <div>
+                <strong style="font-family:var(--font-display);color:var(--color-ink);">Customized Treatment Plans</strong>
+                <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.2rem 0 0;line-height:1.6;font-size:var(--text-sm);">Receive personalized recommendations tailored specifically to your skin type and goals.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.85rem;align-items:flex-start;">
+              <span style="color:var(--color-primary);font-size:1.25rem;flex-shrink:0;margin-top:0.1rem;">✓</span>
+              <div>
+                <strong style="font-family:var(--font-display);color:var(--color-ink);">Advanced Technology</strong>
+                <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.2rem 0 0;line-height:1.6;font-size:var(--text-sm);">Access to the latest aesthetic treatments and medical-grade skincare solutions.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.85rem;align-items:flex-start;">
+              <span style="color:var(--color-primary);font-size:1.25rem;flex-shrink:0;margin-top:0.1rem;">✓</span>
+              <div>
+                <strong style="font-family:var(--font-display);color:var(--color-ink);">Flexible Consultation Options</strong>
+                <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.2rem 0 0;line-height:1.6;font-size:var(--text-sm);">Choose the consultation type that best fits your needs and budget.<br />Consultation with Esthetician: FREE<br />Consultation with Doctor: $50</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== HOURS ===== */}
+    <section class="sp-hours" aria-label="Opening Hours">
+      <div class="sp-container">
+        <div class="sp-hours__inner">
+          <h2 class="sp-hours__title">Opening Hours</h2>
+          <p style="font-family:var(--font-ui);font-weight:700;color:var(--color-ink);margin:0 0 0.5rem;">Menon Medispa &amp; Wellness</p>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 0.25rem;">45 Essex St, Suite 202, Millburn, NJ 07041, USA</p>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 0.25rem;"><a href="mailto:admin@menonregen.com">admin@menonregen.com</a></p>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 1.5rem;"><a href={`tel:${site.phone.tel}`}>{site.phone.display}</a></p>
+          <table class="sp-hours__table">
+            <tbody>
+              <tr><th>Mon - Fri</th><td>10:00 am – 6:00 pm</td></tr>
+              <tr><th>Saturday</th><td>10:00 am – 2:00 pm</td></tr>
+              <tr><th>Sunday</th><td>CLOSED</td></tr>
+            </tbody>
+          </table>
+          <div class="sp-contact__socials" style="margin-top:1.25rem;">
+            <a href={site.social.facebook} rel="noopener" target="_blank"><img src="/images/464c5b23f583.png" alt="Facebook" width="23" height="23" /></a>
+            <a href={site.social.instagram} rel="noopener" target="_blank"><img src="/images/a29df34857a1.png" alt="Instagram" width="23" height="23" /></a>
+            <a href={site.social.tiktok} rel="noopener" target="_blank"><img src="/images/d11778476dcb.png" alt="TikTok" width="23" height="23" /></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":3,"sections_content":4,"widgets_expected":30,"widgets_rendered":30,"images_resolved":4,"h1":"Transform Your Skin with a Personalized Consultation","fidelity_pct":100,"dropped":[]} -->

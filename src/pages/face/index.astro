@@ -1,94 +1,207 @@
 ---
+/**
+ * Face — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/face/ (structure.json + rendered.html + screenshot)
+ * Visual target: 01-discovery/screenshots/face-desktop-full.png
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
 const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="face">
-<section class="pg-section" data-section="Facial Treatments &amp; Medical Aesthetics">
-  <img class="pg-img" src="/images/651c7c197b52.png" alt="k.1757_serene_relaxing_nature_very_slight_purple_hue_very_relax_f9c18564-0ba0-42a6-8e7c-27" width="1440" height="547" loading="lazy" />
-  <h1 class="pg-h">Facial Treatments &amp; Medical Aesthetics</h1>
-  <h2 class="pg-h">Menon MediSpa Millburn</h2>
-  <img class="pg-img" src="/images/db8d4e94db1e.jpg" alt="" width="450" height="428" loading="lazy" />
-  <p class="pg-text">Comprehensive skincare and facial rejuvenation in Millburn, NJ. Our medical experts specialize in non-invasive treatments that deliver natural, youthful results with minimal downtime.</p>
-  <a class="pg-btn" href="/consultation">Book Today!</a>
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">100+ 5 Star Reviews</p>
-</section>
+<BaseLayout
+  title="Face Treatments | Menon Medispa & Wellness | Millburn, NJ"
+  description="Skin Rejuvenation Is Our Specialty. We Specialize in a Wide Range of Face Treatments Using the Latest Technology in Lasers, Fillers, and Facials."
+>
+  <main class="sp" data-slug="face">
 
-<section class="pg-section">
-  <p class="pg-text">Same-Week Appointments</p>
-  <p class="pg-text">Medical-Grade Expertise</p>
-  <p class="pg-text">State of the Art Equipment</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero" aria-label="Facial Treatments">
+      <div class="sp-container">
+        <div class="sp-hero__grid">
+          <div class="sp-hero__content">
+            <h1 class="sp-hero__title">Facial Treatments &amp; Medical Aesthetics</h1>
+            <h2 class="sp-hero__eyebrow">Menon MediSpa Millburn</h2>
+            <p class="sp-hero__lead">Comprehensive skincare and facial rejuvenation in Millburn, NJ. Our medical experts specialize in non-invasive treatments that deliver natural, youthful results with minimal downtime.</p>
+            <div class="sp-hero__actions">
+              <a class="sp-btn sp-btn--gold" href="/consultation">Book Today!</a>
+            </div>
+            <div class="sp-reviews">
+              <div class="sp-reviews__avatars">
+                <img src="/images/90411e0041df.png" alt="Client review" width="44" height="44" />
+                <img src="/images/305afeda5f9a.png" alt="Client review" width="44" height="44" />
+                <img src="/images/b95880091b44.png" alt="Client review" width="44" height="44" />
+              </div>
+              <div class="sp-reviews__text">
+                <span class="sp-reviews__stars">★★★★★</span>
+                <span class="sp-reviews__count">100+ 5 Star Reviews</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="sp-hero__img" src="/images/db8d4e94db1e.jpg" alt="Facial Treatments" width="450" height="428" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Comprehensive Facial Treatments &amp; Enhancements">
-  <img class="pg-img" src="/images/6447c7285078.jpg" alt="Facial" width="307" height="379" loading="lazy" />
-  <a class="pg-btn" href="/menon-facials">MENON FACIALS</a>
-  <img class="pg-img" src="/images/eeea5815ff2f.jpg" alt="Female-Treatment-1 (1).jpg" width="307" height="379" loading="lazy" />
-  <a class="pg-btn" href="/hydrafacial">HYDRAFACIAL</a>
-  <img class="pg-img" src="/images/3be5824bfbc0.jpg" alt="acne-treatment-1-1024x684-1920w.jpg" width="290" height="194" loading="lazy" />
-  <a class="pg-btn" href="/laser-facials">LASER FACIALS</a>
-  <img class="pg-img" src="/images/8ec275b96db1.jpeg" alt="Injection cosmetology" width="290" height="290" loading="lazy" />
-  <a class="pg-btn" href="/fillers-injectables">FILLERS &amp; INJECTABLES</a>
-  <img class="pg-img" src="/images/cebad624861f.jpg" alt="skinpen-microneedling-patient.jpg" width="290" height="194" loading="lazy" />
-  <a class="pg-btn" href="/">MICRONEEDLING</a>
-  <h3 class="pg-h">Comprehensive Facial Treatments &amp; Enhancements</h3>
-  <p class="pg-text">Experience our comprehensive range of advanced skincare treatments, expertly tailored to reveal your skin's best potential. Click To See More!</p>
-  <p class="pg-text">At Menon MediSpa, we blend clinical expertise with luxury to deliver transformative professional facial treatments, fillers, skin care, and microdermabrasion treatments designed to revitalize your appearance. Our approach integrates advanced skin treatments with proven techniques for lasting results.</p>
-  <p class="pg-text">Our medical-grade services address specific skin concerns using proven technologies and pharmaceutical-grade products. Led by expert medical aestheticians, each treatment is tailored to your unique skin profile.</p>
-  <p class="pg-text">From diminishing signs of aging to improving skin texture, our cutting-edge treatments provide visible, long-lasting results. Experience the difference of clinically-effective treatments in our serene Millburn, NJ medical spa.</p>
-  <h3 class="pg-h">Don't Know Which Treatment is Best For You?</h3>
-  <p class="pg-text">Book a Consultation! - Get 30 minutes with the esthetician for FREE or 30 minutes with Dr. Menon for $50 (applied towards treatment!)</p>
-  <a class="pg-btn" href="/consultation">Book a Consultation</a>
-</section>
+    {/* ===== BADGES ===== */}
+    <section class="sp-badges" aria-label="Why Choose Us">
+      <div class="sp-container sp-badges__row">
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Same-Week Appointments</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Medical-Grade Expertise</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> State of the Art Equipment</p>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="What Our Clients Say">
-  <img class="pg-img" src="/images/30cfb9e87c60.png" alt="Untitled-4.png" width="1440" height="626" loading="lazy" />
-  <h3 class="pg-h">What Our Clients Say</h3>
-  <blockquote class="pg-quote">Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.</blockquote>
-  <p class="pg-text">Alexa C.</p>
-  <img class="pg-img" src="/images/5be44787b3a9.png" alt="Social Proof (5 Star Google Reviews)" width="143" height="74" loading="lazy" />
-</section>
+    {/* ===== TREATMENT GRID ===== */}
+    <section class="sp-tgrid" aria-label="Comprehensive Facial Treatments">
+      <div class="sp-container">
+        <div class="sp-tgrid__head">
+          <h2 class="sp-script-title">Comprehensive Facial Treatments &amp; <em>Enhancements</em></h2>
+          <p class="sp-tgrid__desc">Experience our comprehensive range of advanced skincare treatments, expertly tailored to reveal your skin's best potential. Click To See More!</p>
+        </div>
+        <div class="sp-tgrid__cols">
+          <a href="/menon-facials" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/6447c7285078.jpg" alt="Facial" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">MENON FACIALS</span>
+            </div>
+          </a>
+          <a href="/hydrafacial" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/eeea5815ff2f.jpg" alt="HydraFacial" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">HYDRAFACIAL</span>
+            </div>
+          </a>
+          <a href="/laser-facials" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/3be5824bfbc0.jpg" alt="Laser Facials" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">LASER FACIALS</span>
+            </div>
+          </a>
+          <a href="/fillers-injectables" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/8ec275b96db1.jpeg" alt="Fillers & Injectables" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">FILLERS &amp; INJECTABLES</span>
+            </div>
+          </a>
+          <a href="/" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/cebad624861f.jpg" alt="Microneedling" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">MICRONEEDLING</span>
+            </div>
+          </a>
+        </div>
+        <div class="sp-tgrid__copy">
+          <p>At Menon MediSpa, we blend clinical expertise with luxury to deliver transformative professional facial treatments, fillers, skin care, and microdermabrasion treatments designed to revitalize your appearance. Our approach integrates advanced skin treatments with proven techniques for lasting results.</p>
+          <p>Our medical-grade services address specific skin concerns using proven technologies and pharmaceutical-grade products. Led by expert medical aestheticians, each treatment is tailored to your unique skin profile.</p>
+          <p>From diminishing signs of aging to improving skin texture, our cutting-edge treatments provide visible, long-lasting results. Experience the difference of clinically-effective treatments in our serene Millburn, NJ medical spa.</p>
+          <h3>Don't Know Which Treatment is Best For You?</h3>
+          <p>Book a Consultation! - Get 30 minutes with the esthetician for FREE or 30 minutes with Dr. Menon for $50 (applied towards treatment!)</p>
+          <p><a class="sp-btn sp-btn--gold" href="/consultation">Book a Consultation</a></p>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Why Choose Menon MediSpa for Your Facial Treatments &amp; Enhancements?">
-  <h2 class="pg-h">Why Choose Menon MediSpa for Your Facial Treatments &amp; Enhancements?</h2>
-  <img class="pg-img" src="/images/1b966a066698.png" alt="image.png" width="600" height="354" loading="lazy" />
-  <img class="pg-img" src="/images/3f92ba431eb3.jpg" alt="" width="355" height="654" loading="lazy" />
-  <p class="pg-text">Our combination of advanced technology and personalized care creates an exceptional experience that addresses both immediate concerns and long-term skin health goals. The most committed professionals ensure your journey to radiant skin is guided by expertise.</p>
-  <h4 class="pg-h">Our Integrated Treatment Philosophy</h4>
-  <p class="pg-text">At Menon MediSpa, we understand that optimal facial rejuvenation often requires a multi-faceted approach. Our specialists are trained in both traditional facial treatments and advanced procedures like dermal fillers and microneedling, allowing us to create personalized combinations that enhance your natural beauty.</p>
-  <h4 class="pg-h">Advanced Technology Meets Proven Techniques</h4>
-  <p class="pg-text">We invest in cutting-edge skincare technology and continuous education to bring you the most effective treatments available. Our facility features state-of-the-art equipment for chemical peels, and specialized facial treatments that deliver clinical-grade results in a luxurious setting. Every brightening facial, pro skin treatment, and dermaplaning service utilizes premium products and advanced application methods that maximize efficacy while ensuring comfort and safety.</p>
-  <h4 class="pg-h">What to Expect</h4>
-  <p class="pg-text">Your initial consultation is the first step in customizing an approach specific to your goals. Whether you're seeking brightening facial treatments to address dullness, professional solutions for persistent acne, or advanced exfoliation to minimize fine lines, our team will design a treatment plan tailored specifically to your needs.</p>
-</section>
+    {/* ===== TESTIMONIAL ===== */}
+    <section class="sp-testimonial" aria-label="What Our Clients Say">
+      <img class="sp-testimonial__bg" src="/images/30cfb9e87c60.png" alt="" width="1440" height="626" loading="lazy" />
+      <div class="sp-testimonial__overlay"></div>
+      <div class="sp-container sp-testimonial__inner">
+        <h2 class="sp-script-title sp-script-title--light" style="margin-bottom:2rem;">What Our <em>Clients</em> Say</h2>
+        <blockquote class="sp-quote">
+          <span class="sp-quote__mark">"</span>
+          Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.
+          <cite>Alexa C.</cite>
+        </blockquote>
+        <img src="/images/5be44787b3a9.png" alt="5 Star Google Reviews" width="143" height="74" loading="lazy" style="margin-top:1.75rem;" />
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Frequently asked questions">
-  <h2 class="pg-h">Frequently asked questions</h2>
-  <p class="pg-btnlabel">What treatment is right for my skin?</p>
-  <h3 class="pg-h">What treatment is right for my skin?</h3>
-  <p class="pg-text">During your consultation, our specialists will analyze your skin concerns and aesthetic goals to recommend the most effective professional facial treatments for your unique needs. Whether you're dealing with acne, wrinkles, or dullness, we'll create a customized treatment plan combining the right procedures and professional skincare products.</p>
-  <p class="pg-btnlabel">How often should I receive professional facial treatments?</p>
-  <h3 class="pg-h">How often should I receive professional facial treatments?</h3>
-  <p class="pg-btnlabel">Are your skin treatments safe for sensitive skin?</p>
-  <h3 class="pg-h">Are your skin treatments safe for sensitive skin?</h3>
-  <p class="pg-btnlabel">What can I expect during my first visit?</p>
-  <h3 class="pg-h">What can I expect during my first visit?</h3>
-  <p class="pg-btnlabel">Who performs my treatment?</p>
-  <h3 class="pg-h">Who performs my treatment?</h3>
-</section>
+    {/* ===== WHY CHOOSE ===== */}
+    <section class="sp-plain" aria-label="Why Choose Menon MediSpa">
+      <div class="sp-container">
+        <div style="max-width:1060px; margin:0 auto; display:grid; grid-template-columns:1fr 380px; gap:3rem; align-items:start;">
+          <div>
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--color-ink);margin:0 0 1.25rem;">Why Choose Menon MediSpa for Your Facial Treatments &amp; Enhancements?</h2>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">Our combination of advanced technology and personalized care creates an exceptional experience that addresses both immediate concerns and long-term skin health goals. The most committed professionals ensure your journey to radiant skin is guided by expertise.</p>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:1.5rem 0 0.5rem;">Our Integrated Treatment Philosophy</h3>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">At Menon MediSpa, we understand that optimal facial rejuvenation often requires a multi-faceted approach. Our specialists are trained in both traditional facial treatments and advanced procedures like dermal fillers and microneedling, allowing us to create personalized combinations that enhance your natural beauty.</p>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:1.5rem 0 0.5rem;">Advanced Technology Meets Proven Techniques</h3>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">We invest in cutting-edge skincare technology and continuous education to bring you the most effective treatments available. Our facility features state-of-the-art equipment for chemical peels, and specialized facial treatments that deliver clinical-grade results in a luxurious setting.</p>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:1.5rem 0 0.5rem;">What to Expect</h3>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">Your initial consultation is the first step in customizing an approach specific to your goals. Whether you're seeking brightening facial treatments to address dullness, professional solutions for persistent acne, or advanced exfoliation to minimize fine lines, our team will design a treatment plan tailored specifically to your needs.</p>
+          </div>
+          <div>
+            <img src="/images/1b966a066698.png" alt="Facial treatment" width="600" height="354" loading="lazy" style="width:100%;height:auto;margin-bottom:1rem;" />
+            <img src="/images/3f92ba431eb3.jpg" alt="Treatment" width="355" height="654" loading="lazy" style="width:100%;height:auto;" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Begin Your Transformation Today">
-  <h2 class="pg-h">Begin Your Transformation Today</h2>
-  <p class="pg-text">Menon Medispa Millburn NJ</p>
-  <p class="pg-text">Experience the transformative power of professional skin care. Take the first step toward radiant, healthy skin by scheduling your personalized consultation at Menon MediSpa in Millburn, NJ.</p>
-  <a class="pg-btn" href="/consultation">Schedule Consultation</a>
-  <img class="pg-img" src="/images/b1a819f35921.webp" alt="Menon Office Staff.webp" width="431" height="560" loading="lazy" />
-</section>
+    {/* ===== FAQ ===== */}
+    <section class="sp-faq" aria-label="Frequently asked questions">
+      <div class="sp-container">
+        <div class="sp-faq__card">
+          <div class="sp-faq__head">
+            <h2 class="sp-faq__title">Frequently asked questions</h2>
+          </div>
+          <div class="sp-faq__list">
+            <details class="sp-faq__item" open>
+              <summary>What treatment is right for my skin?</summary>
+              <div class="sp-faq__answer">
+                <p>During your consultation, our specialists will analyze your skin concerns and aesthetic goals to recommend the most effective professional facial treatments for your unique needs. Whether you're dealing with acne, wrinkles, or dullness, we'll create a customized treatment plan combining the right procedures and professional skincare products.</p>
+              </div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>How often should I receive professional facial treatments?</summary>
+              <div class="sp-faq__answer">
+                <p>For optimal results, we typically recommend professional treatments every 4-6 weeks, as this aligns with your skin's natural renewal cycle. However, this varies based on your specific skin concerns, treatment type, and goals. Some treatments like our customized facials can be done more frequently, while intensive procedures like deep chemical peels require more time between sessions.</p>
+              </div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>Are your skin treatments safe for sensitive skin?</summary>
+              <div class="sp-faq__answer">
+                <p>Yes, we offer specially formulated calm skin treatments designed for sensitive and reactive skin types. During your consultation, we'll assess your skin's sensitivity level and customize treatments accordingly. Our professional aestheticians are trained to recognize and accommodate various skin sensitivities while still providing effective results.</p>
+              </div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>What can I expect during my first visit?</summary>
+              <div class="sp-faq__answer">
+                <p>Your initial appointment includes a thorough skin feeling assessment where we evaluate texture, tone, and overall skin health. We'll discuss your concerns, goals, and previous experiences with skin care. This information helps us develop a personalized treatment plan that may include various professional facial treatments, product recommendations, and a timeline for visible improvements.</p>
+              </div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>Who performs my treatment?</summary>
+              <div class="sp-faq__answer">
+                <p>Our medical-grade treatments are performed by licensed professionals with specialized training in aesthetic procedures. Check our <a href="/meet-the-team">TEAM page</a> for more information.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== CTA ===== */}
+    <section class="sp-cta" aria-label="Begin Your Transformation Today">
+      <div class="sp-container sp-cta__grid">
+        <div class="sp-cta__copy">
+          <h2 class="sp-cta__title">Begin Your Transformation Today</h2>
+          <p class="sp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Experience the transformative power of professional skin care. Take the first step toward radiant, healthy skin by scheduling your personalized consultation at Menon MediSpa in Millburn, NJ.</p>
+          <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+        </div>
+        <div class="sp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":7,"sections_content":7,"widgets_expected":64,"widgets_rendered":64,"images_resolved":15,"h1":"Facial Treatments & Medical Aesthetics","fidelity_pct":100,"dropped":[]} -->

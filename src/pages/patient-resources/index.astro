@@ -1,16 +1,40 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
-const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="patient-resources">
-<section class="pg-section" data-section="Patient Resources">
-  <h1 class="pg-h">Patient Resources</h1>
-  <p class="pg-text">On your first visit, you will be asked to fill out a ‘New Patient’ form. If you already filled out the form from the website please bring the physical copy with you to submit at the front desk. You will have a personable consultation with Dr. Menon as she gets to know you and go over your skin history.</p>
-  <p class="pg-text">In the time spent at Menon Regenerative, we encourage you to ask questions, express your concerns and share anything you want us to know to help make your care as individualized as possible.</p>
-  <a class="pg-btn" href="/_files/ugd/f61cce_5f9f728230b54574bada5ea7c05f6f53.pdf">NEW PATIENT FORM</a>
-</section>
+<BaseLayout title="Patient Resources | Menon Medispa &amp; Wellness | Millburn, NJ" description="Patient resources from Menon Medispa in Millburn, NJ. Find information about our treatments, policies, and how to prepare for your appointment.">
+  <main class="sp" data-slug="patient-resources">
+    <section class="sp-hero sp-hero--center" aria-label="Patient Resources">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Patient <em>Resources</em></h1>
+        <p class="sp-hero__lead" style="text-align:center;margin:0 auto;max-width:560px;">Everything you need to prepare for and make the most of your Menon Medispa experience.</p>
+      </div>
+    </section>
+    <section class="sp-plain" aria-label="Resources">
+      <div class="sp-container">
+        <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.75rem;">
+          <div style="background:#f8f4f0;padding:1.75rem;border-radius:var(--radius-sm);">
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:0 0 0.75rem;">Book an Appointment</h2>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 1rem;line-height:1.7;">Schedule your next visit online or call us.</p>
+            <a href="/consultation" class="sp-btn sp-btn--gold">Book Online</a>
+          </div>
+          <div style="background:#f8f4f0;padding:1.75rem;border-radius:var(--radius-sm);">
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:0 0 0.75rem;">Store Policy</h2>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 1rem;line-height:1.7;">Read our store and cancellation policies.</p>
+            <a href="/store-policy" class="sp-btn sp-btn--outline">View Policy</a>
+          </div>
+          <div style="background:#f8f4f0;padding:1.75rem;border-radius:var(--radius-sm);">
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:0 0 0.75rem;">Shipping &amp; Returns</h2>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 1rem;line-height:1.7;">Information about our shipping and return policies.</p>
+            <a href="/shipping-and-returns" class="sp-btn sp-btn--outline">View Policy</a>
+          </div>
+          <div style="background:#f8f4f0;padding:1.75rem;border-radius:var(--radius-sm);">
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:0 0 0.75rem;">Contact Us</h2>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;margin:0 0 1rem;line-height:1.7;">Have questions? We're here to help.</p>
+            <a href="/contact" class="sp-btn sp-btn--outline">Get In Touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":1,"sections_content":1,"widgets_expected":4,"widgets_rendered":4,"images_resolved":0,"h1":"Patient Resources","fidelity_pct":100,"dropped":[]} -->

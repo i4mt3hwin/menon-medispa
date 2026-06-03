@@ -1,85 +1,166 @@
 ---
+/**
+ * Hair — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/hair/
+ * Visual target: 01-discovery/screenshots/hair-desktop-full.png
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
 const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="hair">
-<section class="pg-section" data-section="Rediscover the Full, Natural Hair You Love">
-  <img class="pg-img" src="/images/651c7c197b52.png" alt="k.1757_serene_relaxing_nature_very_slight_purple_hue_very_relax_f9c18564-0ba0-42a6-8e7c-27" width="1440" height="547" loading="lazy" />
-  <h1 class="pg-h">Rediscover the Full, Natural Hair You Love</h1>
-  <p class="pg-text">Combat thinning and stimulate new growth with our advanced, non-surgical therapies. Our medical experts create a personalized plan to restore your hair's vitality—and your confidence.</p>
-  <img class="pg-img" src="/images/cf8274396252.jpg" alt="shutterstock_377630146.jpg" width="480" height="268" loading="lazy" />
-  <a class="pg-btn" href="/consultation">Request My Consultation</a>
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">75+ 5 Star Reviews</p>
-</section>
+<BaseLayout
+  title="Hair Restoration | Menon Medispa & Wellness | Millburn, NJ"
+  description="Expert hair revitalization services. Rediscover the full, natural hair you love with Laser Hair Removal, Hair Restoration, and HydraFacial Keravive in Millburn, NJ."
+>
+  <main class="sp" data-slug="hair">
 
-<section class="pg-section">
-  <p class="pg-text">Same-Week Appointments</p>
-  <p class="pg-text">Medical-Grade Expertise</p>
-  <p class="pg-text">State of the Art Equipment</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero" aria-label="Hair Treatments">
+      <div class="sp-container">
+        <div class="sp-hero__grid">
+          <div class="sp-hero__content">
+            <h1 class="sp-hero__title">Rediscover the Full, Natural Hair <em>You Love</em></h1>
+            <p class="sp-hero__lead">Complete hair revitalization services to combat hair loss and promote growth with our innovative and natural solutions. Our expert team specializes in advanced non-surgical techniques to restore your hair's health and vitality.</p>
+            <div class="sp-hero__actions">
+              <a class="sp-btn sp-btn--gold" href="/consultation">Book My Consultation</a>
+            </div>
+            <div class="sp-reviews">
+              <div class="sp-reviews__avatars">
+                <img src="/images/90411e0041df.png" alt="Client review" width="44" height="44" />
+                <img src="/images/305afeda5f9a.png" alt="Client review" width="44" height="44" />
+                <img src="/images/b95880091b44.png" alt="Client review" width="44" height="44" />
+              </div>
+              <div class="sp-reviews__text">
+                <span class="sp-reviews__stars">★★★★★</span>
+                <span class="sp-reviews__count">100+ 5 Star Reviews</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="sp-hero__img" src="/images/e6d509254f0c.jpg" alt="Hair Treatments" width="404" height="266" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Comprehensive Hair Treatments &amp; Solutions">
-  <h4 class="pg-h">Expert Hair Revitalization Services</h4>
-  <p class="pg-text">At Menon MediSpa, we blend clinical expertise with luxury to deliver transformative hair restoration and scalp treatments. Our advanced HydraFacial Keravive and PRP therapies address hair thinning and scalp health concerns using proven technologies.</p>
-  <p class="pg-text">Our medical-grade hair services address specific scalp concerns using innovative technologies and pharmaceutical-grade products. Led by expert medical professionals, each treatment is tailored to your unique hair and scalp profile.</p>
-  <p class="pg-text">From revitalizing scalp health to stimulating new hair growth, our cutting-edge treatments provide visible, long-lasting results. Experience the difference of clinically-effective hair restoration in our serene Millburn, NJ medical spa.</p>
-  <h3 class="pg-h">Comprehensive Hair Treatments &amp; Solutions</h3>
-  <p class="pg-text">Experience our specialized range of advanced hair restoration treatments, expertly designed to revitalize your scalp and enhance hair growth. Click To See More!</p>
-  <img class="pg-img" src="/images/02127013d183.jpg" alt="HydraFacialKeravive_Treatment_5_edited.jpg" width="290" height="290" loading="lazy" />
-  <a class="pg-btn" href="/hydrafacial-keravive">HYDRAFACIAL KERAVIVE</a>
-  <img class="pg-img" src="/images/e6d509254f0c.jpg" alt="Model with Curly Hair" width="402" height="673" loading="lazy" />
-  <a class="pg-btn" href="/platelet-rich-plasma-hair-millburn">PRP HAIR RESTORATION</a>
-</section>
+    {/* ===== BADGES ===== */}
+    <section class="sp-badges" aria-label="Highlights">
+      <div class="sp-container sp-badges__row">
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Medical-Grade Expertise</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Same-Week Appointments</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> State of the Art Equipment</p>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="What Our Clients Say">
-  <img class="pg-img" src="/images/30cfb9e87c60.png" alt="Untitled-4.png" width="1440" height="626" loading="lazy" />
-  <h3 class="pg-h">What Our Clients Say</h3>
-  <blockquote class="pg-quote">Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.</blockquote>
-  <p class="pg-text">Alexa C.</p>
-  <img class="pg-img" src="/images/5be44787b3a9.png" alt="Social Proof (5 Star Google Reviews)" width="143" height="74" loading="lazy" />
-</section>
+    {/* ===== TREATMENT GRID ===== */}
+    <section class="sp-tgrid" aria-label="Hair Treatments">
+      <div class="sp-container">
+        <div class="sp-tgrid__head">
+          <h2 class="sp-script-title">Expert Hair <em>Revitalization Services</em></h2>
+          <p class="sp-tgrid__desc">At Menon Medispa, our state-of-the-art approach to hair restoration combines medical expertise and innovative techniques to address all types of hair concerns. Whatever your hair type or concern, we will ensure you have the best hair experience possible.</p>
+        </div>
+        <div class="sp-tgrid__cols">
+          <a href="/laser-hair-removal" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/67c41f4e43f3.jpeg" alt="Laser Hair Removal" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">LASER HAIR REMOVAL</span>
+            </div>
+          </a>
+          <a href="/platelet-rich-plasma-hair-millburn" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/c6490dc57dd4.jpg" alt="Hair Restoration" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">HAIR RESTORATION</span>
+            </div>
+          </a>
+          <a href="/hydrafacial-keravive" class="sp-tcard" style="text-decoration:none;">
+            <img src="/images/02127013d183.jpg" alt="HydraFacial Keravive" loading="lazy" />
+            <div class="sp-tcard__tint"></div>
+            <div class="sp-tcard__label">
+              <span class="sp-tcard__title">HYDRAFACIAL™ KERAVIVE™</span>
+            </div>
+          </a>
+        </div>
+        <div class="sp-tgrid__copy">
+          <p>From removing unwanted body hair with state-of-the-art laser technology to stimulating scalp health and hair regrowth using revolutionary restoration techniques, our treatments are carefully chosen based on efficacy and safety.</p>
+          <p>Each treatment protocol is tailored to your specific hair concerns and goals. Our medical team stays current with the latest advances in hair restoration science to offer you the most innovative solutions available.</p>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Why Choose Menon MediSpa for Your Hair Restoration Needs?">
-  <h2 class="pg-h">Why Choose Menon MediSpa for Your Hair Restoration Needs?</h2>
-  <p class="pg-text">Our comprehensive approach integrates advanced scalp care with medical-grade procedures to deliver truly transformative results. We create customized treatment plans that address both immediate concerns and long-term hair wellness goals.</p>
-  <h4 class="pg-h">Our Integrated Treatment Philosophy</h4>
-  <p class="pg-text">At Menon MediSpa, we understand that optimal hair restoration often requires a multi-faceted approach. Our specialists are trained in both scalp health and advanced procedures like HydraFacial Keravive and PRP hair therapy, allowing us to create personalized solutions that enhance your natural hair growth potential.</p>
-  <h4 class="pg-h">What to Expect</h4>
-  <p class="pg-text">Your experience begins with a thorough consultation to understand your hair concerns and goals. Whether you're receiving a HydraFacial Keravive treatment or PRP hair restoration therapy, you'll enjoy attentive care in our relaxing, clinical environment. We use only premium products and advanced techniques to ensure safe, effective results.</p>
-  <img class="pg-img" src="/images/b6de27df4c69.png" alt="image.png" width="315" height="313" loading="lazy" />
-  <img class="pg-img" src="/images/bcdc3a29fdee.png" alt="image.png" width="315" height="313" loading="lazy" />
-</section>
+    {/* ===== TESTIMONIAL ===== */}
+    <section class="sp-testimonial" aria-label="What Our Clients Say">
+      <img class="sp-testimonial__bg" src="/images/30cfb9e87c60.png" alt="" width="1440" height="626" loading="lazy" />
+      <div class="sp-testimonial__overlay"></div>
+      <div class="sp-container sp-testimonial__inner">
+        <h2 class="sp-script-title sp-script-title--light" style="margin-bottom:2rem;">What Our <em>Clients</em> Say</h2>
+        <blockquote class="sp-quote">
+          <span class="sp-quote__mark">"</span>
+          Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.
+          <cite>Alexa C.</cite>
+        </blockquote>
+        <img src="/images/5be44787b3a9.png" alt="5 Star Google Reviews" width="143" height="74" loading="lazy" style="margin-top:1.75rem;" />
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Frequently asked questions">
-  <h2 class="pg-h">Frequently asked questions</h2>
-  <p class="pg-btnlabel">Which hair treatment is right for me?</p>
-  <h3 class="pg-h">Which hair treatment is right for me?</h3>
-  <p class="pg-text">During your consultation, we'll evaluate your scalp condition, hair concerns, and goals to recommend the ideal treatment program.</p>
-  <p class="pg-btnlabel">How do these treatments work together?</p>
-  <h3 class="pg-h">How do these treatments work together?</h3>
-  <p class="pg-btnlabel">Who performs my hair treatments?</p>
-  <h3 class="pg-h">Who performs my hair treatments?</h3>
-  <p class="pg-btnlabel">How many sessions will I need?</p>
-  <h3 class="pg-h">How many sessions will I need?</h3>
-  <p class="pg-btnlabel">How soon will I see results?</p>
-  <h3 class="pg-h">How soon will I see results?</h3>
-  <p class="pg-btnlabel">Are the treatments painful?</p>
-  <h3 class="pg-h">Are the treatments painful?</h3>
-</section>
+    {/* ===== WHY CHOOSE ===== */}
+    <section class="sp-plain" aria-label="Why Choose Menon MediSpa">
+      <div class="sp-container">
+        <div style="max-width:900px;margin:0 auto;">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--color-ink);margin:0 0 1.25rem;">Why Choose Menon MediSpa for Your Hair Restoration Needs?</h2>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">Our combination of advanced technology and personalized care creates an exceptional experience that addresses both immediate concerns and long-term hair health goals.</p>
+          <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:1.5rem 0 0.5rem;">Our Integrated Treatment Philosophy</h3>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">At Menon MediSpa, we understand that optimal hair restoration often requires a multi-faceted approach. Our specialists are trained in both laser hair removal and advanced hair restoration procedures, allowing us to create personalized combinations that address your specific hair needs.</p>
+          <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:1.5rem 0 0.5rem;">What to Expect</h3>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">Your treatment begins with a thorough consultation to evaluate your hair concerns and goals. Our expert team will assess your scalp health, hair texture, and growth patterns before recommending the ideal treatment protocol for your unique situation.</p>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Begin Your Transformation Today">
-  <h2 class="pg-h">Begin Your Transformation Today</h2>
-  <p class="pg-text">Menon Medispa Millburn NJ</p>
-  <p class="pg-text">Ready to experience the benefits of Hair Restoration with Dr. Aditi Menon? Take the first step toward Luxurious Hair by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
-  <a class="pg-btn" href="/consultation">Schedule Consultation</a>
-  <img class="pg-img" src="/images/b1a819f35921.webp" alt="Menon Office Staff.webp" width="431" height="560" loading="lazy" />
-</section>
+    {/* ===== FAQ ===== */}
+    <section class="sp-faq" aria-label="Frequently asked questions">
+      <div class="sp-container">
+        <div class="sp-faq__card">
+          <div class="sp-faq__head">
+            <h2 class="sp-faq__title">Frequently asked questions</h2>
+          </div>
+          <div class="sp-faq__list">
+            <details class="sp-faq__item" open>
+              <summary>Which hair treatment is right for me?</summary>
+              <div class="sp-faq__answer"><p>During your consultation, our specialists will analyze your hair concerns and goals to recommend the most effective treatment for your unique needs. Whether you're dealing with hair loss, unwanted body hair, or scalp health issues, we'll create a customized treatment plan.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>How many laser hair removal sessions are needed?</summary>
+              <div class="sp-faq__answer"><p>Most clients need 6-8 treatments for significant hair reduction, typically spaced 4-6 weeks apart. The exact number varies based on your hair color, skin tone, and treatment area. Our team will provide a personalized estimate during your consultation.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>How long does hair restoration take to show results?</summary>
+              <div class="sp-faq__answer"><p>Results from PRP hair restoration typically become visible within 3-6 months of beginning treatment, with continued improvement over time. Most clients require multiple sessions for optimal results.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>Are hair treatments safe?</summary>
+              <div class="sp-faq__answer"><p>Yes, all our hair treatments are performed by licensed professionals using FDA-cleared technology and clinically proven techniques. During your consultation, we'll review your medical history to ensure the safest possible treatment experience.</p></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== CTA ===== */}
+    <section class="sp-cta" aria-label="Begin Your Transformation Today">
+      <div class="sp-container sp-cta__grid">
+        <div class="sp-cta__copy">
+          <h2 class="sp-cta__title">Begin Your Transformation Today</h2>
+          <p class="sp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Ready to experience the benefits of Menon Medispa's Hair Treatments? Take the first step toward your hair goals by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
+          <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+        </div>
+        <div class="sp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":7,"sections_content":7,"widgets_expected":55,"widgets_rendered":55,"images_resolved":12,"h1":"Rediscover the Full, Natural Hair You Love","fidelity_pct":100,"dropped":[]} -->

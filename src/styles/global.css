@@ -1,5 +1,6 @@
 @import './fonts.css';
 @import 'tailwindcss';
+@import './pages.css';
 
 /* Menon Medispa global stylesheet (Tailwind CSS v4).
    Tokens populated by path-2-rebuild 02-synthesize from the captured original

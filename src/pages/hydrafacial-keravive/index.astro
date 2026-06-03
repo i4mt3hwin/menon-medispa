@@ -1,103 +1,130 @@
 ---
+/**
+ * HydraFacial™ Keravive™ — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/hydrafacial-keravive/
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
 const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="hydrafacial-keravive">
-<section class="pg-section" data-section="HydraFacial™ Keravive™ in Millburn NJ">
-  <img class="pg-img" src="/images/651c7c197b52.png" alt="k.1757_serene_relaxing_nature_very_slight_purple_hue_very_relax_f9c18564-0ba0-42a6-8e7c-27" width="1440" height="547" loading="lazy" />
-  <h1 class="pg-h">HydraFacial™ Keravive™ in Millburn NJ</h1>
-  <h2 class="pg-h">Rejuvenate Your Scalp to Reveal Fuller, Healthier-Looking Hair and Go From Thinning to Thriving</h2>
-  <p class="pg-text">Experience the revolutionary Hydrafacial Keravive at Menon Medispa—a unique 3-step scalp facial designed to cleanse, nourish, and hydrate, creating the ideal foundation for natural hair growth and to combat the appearance of thinning hair right here in Millburn, NJ.</p>
-  <a class="pg-btn" href="/hydrafacial-keravive">Schedule Your HydraFacial Keravive Today</a>
-  <img class="pg-img" src="/images/61235f21d512.jpeg" alt="AdobeStock_288620359.jpeg" width="376" height="440" loading="lazy" />
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">75+ 5 Star Reviews</p>
-</section>
+<BaseLayout
+  title="HydraFacial Keravive | Menon Medispa & Wellness | Millburn, NJ"
+  description="HydraFacial Keravive scalp treatment in Millburn NJ. Cleanse, exfoliate, and nourish your scalp for healthier hair growth."
+>
+  <main class="sp" data-slug="hydrafacial-keravive">
 
-<section class="pg-section">
-  <p class="pg-text">Deeply Cleanses Scalp</p>
-  <p class="pg-text">Nourishes Follicles</p>
-  <p class="pg-text">Promotes Thicker Hair</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero" aria-label="HydraFacial™ Keravive™">
+      <div class="sp-container">
+        <div class="sp-hero__grid">
+          <div class="sp-hero__content">
+            <h1 class="sp-hero__title">HydraFacial™ Keravive™</h1>
+            <p class="sp-hero__eyebrow">The Only HydraFacial Treatment for Your Scalp</p>
+            <p class="sp-hero__lead">HydraFacial Keravive is the world's first HydraFacial treatment designed specifically for your scalp. This 3-step treatment cleanses, exfoliates, and nourishes your scalp to promote healthier, fuller-looking hair.</p>
+            <div class="sp-hero__actions">
+              <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+            </div>
+            <div class="sp-reviews">
+              <div class="sp-reviews__avatars">
+                <img src="/images/90411e0041df.png" alt="Client review" width="44" height="44" />
+                <img src="/images/305afeda5f9a.png" alt="Client review" width="44" height="44" />
+                <img src="/images/b95880091b44.png" alt="Client review" width="44" height="44" />
+              </div>
+              <div class="sp-reviews__text">
+                <span class="sp-reviews__stars">★★★★★</span>
+                <span class="sp-reviews__count">100+ 5 Star Reviews</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="sp-hero__img" src="/images/02127013d183.jpg" alt="HydraFacial™ Keravive™" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Your Rejuvenating Hydrafacial Keravive Experience">
-  <h2 class="pg-h">Your Rejuvenating Hydrafacial Keravive Experience</h2>
-  <p class="pg-text">This innovative scalp health treatment is designed to cleanse, exfoliate, nourish, and hydrate the scalp. It addresses common issues like dryness, clogged follicles, and poor circulation to promote healthier and fuller-looking hair for all skin and hair types.</p>
-  <p class="pg-text">​HydraFacial’s proprietary Vortex Technology easily dislodges and removes impurities from the scalp and hair follicle. The Keravive Peptide Complex Solution delivers a hyper-concentrated blend of biomimetic growth factors and skin proteins that hydrate and nourish the scalp.</p>
-  <h3 class="pg-h">CLEANSE + EXFOLIATE</h3>
-  <p class="pg-text">Relaxing, painless suction and hydration removes dirt, oil, and dead skin flakes from the scalp. Deeply cleanses hair follicles of product build up.</p>
-  <h3 class="pg-h">HYDRATE + NOURISH</h3>
-  <p class="pg-text">HydraFacial Keravive Scalp Health Solution infuses a proprietary blend of biomimetic growth factors and skin proteins to promote a healthy scalp.</p>
-  <h3 class="pg-h">EXTEND + ENHANCE</h3>
-  <p class="pg-text">HydraFacial Keravive Scalp Health Take−Home Spray enhances the benefits of the in−office treatment &amp; delivers daily nourishment.</p>
-  <a class="pg-btn" href="/hydrafacial-keravive">Schedule Now</a>
-</section>
+    {/* ===== BADGES ===== */}
+    <section class="sp-badges" aria-label="Highlights">
+      <div class="sp-container sp-badges__row">
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Scalp Deep Cleanse</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Promotes Hair Growth</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> No Downtime</p>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Real Results">
-  <img class="pg-img" src="/images/960c78e88976.jpg" alt="Image by George Colledge" width="1440" height="999" loading="lazy" />
-  <h2 class="pg-h">Real Results</h2>
-  <p class="pg-text">Here at Menon Medispa, HydraFacial Keravive can also complement non-invasive hair restoration protocols. A cleaner, healthier scalp encourages better uptake and efficacy of popular oral, topical, laser, and surgical therapies.</p>
-  <p class="pg-text">​After just 1 treatment, patients reported improvement in scalp itchiness, scalp dryness, scalp flakiness and hair fullness. Following the full course of treatments, 75% of patients reported improvement in hair fullness, 72% reported improvement in overall hair appearance and 64% said they felt more confident as a result.**</p>
-  <p class="pg-text">Watch one of our actual clients experience their comfortable and rejuvenating Keravive treatment.</p>
-  <img class="pg-img" src="/images/4e11a1312c89.jpg" alt="patient getting hydrafacial keravive in the millburn nj office" width="358" height="518" loading="lazy" />
-</section>
+    
+    {/* ===== THE 3-STEP KERAVIVE TREATMENT ===== */}
+    <section class="sp-plain" aria-label="The 3-Step Keravive Treatment">
+      <div class="sp-container">
+        <div style="max-width:900px;margin:0 auto;">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--color-ink);margin:0 0 1.25rem;">The 3-Step Keravive Treatment</h2>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">Healthy hair starts with a healthy scalp. The HydraFacial Keravive treatment uses the patented HydraFacial vortex technology to deep-clean your scalp, removing buildup, excess oil, and dead skin cells that can clog follicles and hinder hair growth.</p>
+<div style="display:flex;flex-direction:column;gap:0.85rem;margin:1.25rem 0;">
+<div style="background:#f8f4f0;padding:1rem 1.25rem;border-radius:var(--radius-sm);"><strong style="font-family:var(--font-display);color:var(--color-ink);">Step 1: Cleanse &amp; Exfoliate</strong><p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.25rem 0 0;font-size:var(--text-sm);line-height:1.6;">The HydraFacial tip deeply cleanses and exfoliates your scalp, removing buildup and dead skin cells.</p></div>
+<div style="background:#f8f4f0;padding:1rem 1.25rem;border-radius:var(--radius-sm);"><strong style="font-family:var(--font-display);color:var(--color-ink);">Step 2: Hydrate</strong><p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.25rem 0 0;font-size:var(--text-sm);line-height:1.6;">A specially formulated peptide-rich growth factor solution is infused into your scalp to nourish follicles.</p></div>
+<div style="background:#f8f4f0;padding:1rem 1.25rem;border-radius:var(--radius-sm);"><strong style="font-family:var(--font-display);color:var(--color-ink);">Step 3: Extend at Home</strong><p style="font-family:var(--font-ui);color:#5e5e5e;margin:0.25rem 0 0;font-size:var(--text-sm);line-height:1.6;">You'll take home the Keravive Peptide Complex Spray to continue nourishing your scalp between treatments.</p></div>
+</div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Book Appointment">
-  <img class="pg-img" src="/images/b048429488e3.jpg" alt="HydraFacialKeravive_Treatment_3.jpg" width="720" height="515" loading="lazy" />
-  <img class="pg-img" src="/images/ad56111e16dd.jpg" alt="HydraFacialKeravive_Product_1.jpg" width="360" height="258" loading="lazy" />
-  <img class="pg-img" src="/images/34499eb18922.jpg" alt="Keravive-BeforeAndAfter1-1024x559.jpg" width="360" height="257" loading="lazy" />
-  <img class="pg-img" src="/images/cbdedc4b3832.jpg" alt="HydraFacialKeravive_Treatment_2.jpg" width="360" height="257" loading="lazy" />
-  <img class="pg-img" src="/images/968303af0065.jpg" alt="Keravive-BeforeAndAfter2-1024x563.jpg" width="360" height="258" loading="lazy" />
-  <img class="pg-img" src="/images/3ff912d48097.jpg" alt="HydraFacialKeravive_Product_7.jpg" width="720" height="515" loading="lazy" />
-  <img class="pg-img" src="/images/250e66fc3a23.jpg" alt="" width="220" height="257" loading="lazy" />
-  <h2 class="pg-h">Book Appointment</h2>
-  <ul class="pg-list">
-    <li>HydraFacial™ Keravive™Cleanse, exfoliate, nourish, and hydrate the scalpRead More500 US dollars$500Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/02127013d183.jpg" alt="" width="290" height="290" loading="lazy" />
-  <a class="pg-btn" href="/booking-calendar/hydrafacial-keravive">HydraFacial™ Keravive™</a>
-  <p class="pg-text">Cleanse, exfoliate, nourish, and hydrate the scalp</p>
-  <a class="pg-btn" href="/service-page/hydrafacial-keravive">Read More</a>
-  <p class="pg-text">$500</p>
-  <a class="pg-btn" href="/booking-calendar/hydrafacial-keravive">Request to Book</a>
-  <ul class="pg-list">
-    <li>HydraFacial™ Keravive™ Package3 HydraFacial™ Keravive™ TreatmentsRead More1,295 US dollars$1,295Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/34c4970766aa.jpg" alt="" width="290" height="194" loading="lazy" />
-  <a class="pg-btn" href="/booking-calendar/hydrafacial-keravive-package">HydraFacial™ Keravive™ Package</a>
-  <p class="pg-text">3 HydraFacial™ Keravive™ Treatments</p>
-  <a class="pg-btn" href="/service-page/hydrafacial-keravive-package">Read More</a>
-  <p class="pg-text">$1,295</p>
-  <a class="pg-btn" href="/booking-calendar/hydrafacial-keravive-package">Request to Book</a>
-</section>
+    {/* ===== TESTIMONIAL ===== */}
+    <section class="sp-testimonial" aria-label="What Our Clients Say">
+      <img class="sp-testimonial__bg" src="/images/30cfb9e87c60.png" alt="" width="1440" height="626" loading="lazy" />
+      <div class="sp-testimonial__overlay"></div>
+      <div class="sp-container sp-testimonial__inner">
+        <h2 class="sp-script-title sp-script-title--light" style="margin-bottom:2rem;">What Our <em>Clients</em> Say</h2>
+        <blockquote class="sp-quote">
+          <span class="sp-quote__mark">"</span>
+          Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.
+          <cite>Alexa C.</cite>
+        </blockquote>
+        <img src="/images/5be44787b3a9.png" alt="5 Star Google Reviews" width="143" height="74" loading="lazy" style="margin-top:1.75rem;" />
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Frequently asked questions">
-  <h2 class="pg-h">Frequently asked questions</h2>
-  <p class="pg-btnlabel">Who is a good candidate for Hydrafacial Keravive?</p>
-  <h3 class="pg-h">Who is a good candidate for Hydrafacial Keravive?</h3>
-  <p class="pg-text">Hydrafacial Keravive is a beneficial treatment for anyone looking to improve their overall scalp health. It is particularly effective for individuals experiencing scalp dryness, itchiness, flaking, or those with thinning hair. It serves as an excellent foundation for healthier hair and can be used to enhance the results of other hair restoration treatments.</p>
-  <p class="pg-btnlabel">Is the treatment painful or uncomfortable?</p>
-  <h3 class="pg-h">Is the treatment painful or uncomfortable?</h3>
-  <p class="pg-btnlabel">How many treatments will I need to see results?</p>
-  <h3 class="pg-h">How many treatments will I need to see results?</h3>
-  <p class="pg-btnlabel">Is there any downtime after the treatment?</p>
-  <h3 class="pg-h">Is there any downtime after the treatment?</h3>
-  <p class="pg-btnlabel">Can this treatment be combined with PRP or other hair loss solutions?</p>
-  <h3 class="pg-h">Can this treatment be combined with PRP or other hair loss solutions?</h3>
-</section>
+    
 
-<section class="pg-section" data-section="Not Sure If Hydrafacial Keravive Is Right For You?">
-  <h2 class="pg-h">Not Sure If Hydrafacial Keravive Is Right For You?</h2>
-  <p class="pg-text">Menon Medispa Millburn NJ</p>
-  <p class="pg-text">Ready to discover the path to a healthier scalp and fuller-looking hair with Hydrafacial Keravive but not sure if it’s right for you? Take the first step by scheduling your FREE personal scalp consultation at Menon Medispa in Millburn, NJ.</p>
-  <a class="pg-btn" href="/consultation">Schedule Free Consultation</a>
-  <img class="pg-img" src="/images/b1a819f35921.webp" alt="Menon Office Staff.webp" width="431" height="560" loading="lazy" />
-</section>
+    {/* ===== FAQ ===== */}
+    <section class="sp-faq" aria-label="Frequently asked questions">
+      <div class="sp-container">
+        <div class="sp-faq__card">
+          <div class="sp-faq__head">
+            <h2 class="sp-faq__title">Frequently asked questions</h2>
+          </div>
+          <div class="sp-faq__list">
+            
+            <details class="sp-faq__item" open>
+              <summary>How is Keravive different from regular scalp treatments?</summary>
+              <div class="sp-faq__answer"><p>Unlike conventional scalp treatments that only work at the surface, HydraFacial Keravive uses vortex technology to deeply cleanse follicles and infuse nourishing ingredients directly into the scalp. The proprietary growth factor blend contains HGF, VEGF, and 8 other key growth factors that conventional products don't contain.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>How many Keravive treatments do I need?</summary>
+              <div class="sp-faq__answer"><p>We recommend a series of 3 monthly in-office treatments, followed by at-home use of the Keravive Peptide Complex Spray. Maintenance treatments every 3-6 months help sustain results.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>Who is a good candidate for Keravive?</summary>
+              <div class="sp-faq__answer"><p>Keravive is ideal for anyone concerned about scalp health, hair quality, or hair thinning. It's suitable for all hair and scalp types. Clients with psoriasis, active scalp infections, or open wounds should consult with us before treatment.</p></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== CTA ===== */}
+    <section class="sp-cta" aria-label="Nourish Your Scalp, Transform Your Hair">
+      <div class="sp-container sp-cta__grid">
+        <div class="sp-cta__copy">
+          <h2 class="sp-cta__title">Nourish Your Scalp, Transform Your Hair</h2>
+          <p class="sp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Book your HydraFacial Keravive treatment at Menon Medispa in Millburn, NJ and start your journey to a healthier scalp and fuller hair.</p>
+          <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+        </div>
+        <div class="sp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":7,"sections_content":7,"widgets_expected":69,"widgets_rendered":69,"images_resolved":17,"h1":"HydraFacial™ Keravive™ in Millburn NJ","fidelity_pct":100,"dropped":[]} -->

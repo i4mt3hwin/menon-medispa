@@ -1,43 +1,50 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
-const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="sale">
-<section class="pg-section" data-section="May Glow-Up Specials">
-  <p class="pg-text">DO NOT MISS THIS!</p>
-  <h1 class="pg-h">May Glow-Up Specials</h1>
-  <h5 class="pg-h">Valid from 1 May-31 May 2026</h5>
-</section>
-
-<section class="pg-section" data-section="Explore Our Current Specials">
-  <h2 class="pg-h">Explore Our Current Specials</h2>
-  <ul class="pg-list">
-    <li>THE TIMELESS BEAUTY EXPERIENCEA curated aesthetic experience designed to refresh, restore, and elevate your natural beauty.Read More450 US dollars$450Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/acb8f1a74f7d.jpg" alt="microdermabrasion, dermal filler, micropigmentation, microblading, beauty procedure, permanent makeup, mesotherapy, facial rejuvenation, botox injection, facial beauty" width="110" height="110" loading="lazy" />
-  <a class="pg-btn" href="/service-page/the-timeless-beauty-experience">THE TIMELESS BEAUTY EXPERIENCE</a>
-  <p class="pg-text">A curated aesthetic experience designed to refresh, restore, and elevate your natural beauty.</p>
-  <a class="pg-btn" href="/service-page/the-timeless-beauty-experience">Read More</a>
-  <p class="pg-text">$450</p>
-  <a class="pg-btn" href="/booking-calendar/the-timeless-beauty-experience">Request to Book</a>
-  <ul class="pg-list">
-    <li>GIVE THE GIFT OF GLOWBuy a Gift Card &amp; Receive Bonus ValueRead MoreCall us to bookCall us to bookRequest to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/b629e8e1a741.jpg" alt="anti-ageing, micropigmentation, anti-aging, female skincare, facial rejuvenation, anti aging, make the skin beautiful, collagen, skin treatment, facial care" width="110" height="110" loading="lazy" />
-  <a class="pg-btn" href="/service-page/give-the-gift-of-glow">GIVE THE GIFT OF GLOW</a>
-  <p class="pg-text">Buy a Gift Card &amp; Receive Bonus Value</p>
-  <a class="pg-btn" href="/service-page/give-the-gift-of-glow">Read More</a>
-  <p class="pg-text">Call us to book</p>
-  <ul class="pg-list">
-    <li>Forever Radiant ExperienceAn inside-out rejuvenation experienceRead More500 US dollars$500Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/6493a64ea586.jpg" alt="face rejuvenation" width="110" height="110" loading="lazy" />
-  <a class="pg-btn" href="/service-page/forever-radiant-experience">Forever Radiant Experience</a>
-  <p class="pg-text">An inside-out rejuvenation experience</p>
-  <p class="pg-text">$500</p>
-</section>
+<BaseLayout title="Current Sales &amp; Specials | Menon Medispa | Millburn, NJ" description="Explore current sales and specials at Menon Medispa in Millburn, NJ. Limited-time offers on our most popular treatments.">
+  <main class="sp" data-slug="sale">
+    <section class="sp-hero sp-hero--center" aria-label="Sales &amp; Specials">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Current <em>Sales &amp; Specials</em></h1>
+        <p class="sp-hero__lead" style="text-align:center;margin:0 auto;max-width:560px;">Limited-time offers on our most popular treatments.</p>
+      </div>
+    </section>
+    <section class="sp-rows" aria-label="Current Specials">
+      <div class="sp-container">
+        <div class="sp-rows__head">
+          <h2 class="sp-script-title">Current <em>Specials</em></h2>
+        </div>
+        <div class="sp-rows__list">
+          <div class="sp-row">
+            <img class="sp-row__thumb" src="/images/acb8f1a74f7d.jpg" alt="The Timeless Beauty Experience" loading="lazy" />
+            <div class="sp-row__main">
+              <a class="sp-row__title" href="/booking-calendar/the-timeless-beauty-experience">THE TIMELESS BEAUTY EXPERIENCE</a>
+              <a class="sp-row__more" href="/service-page/the-timeless-beauty-experience">Read More</a>
+            </div>
+            <div class="sp-row__price">$450</div>
+            <a class="sp-btn sp-btn--gold sp-row__cta" href="/booking-calendar/the-timeless-beauty-experience">Request to Book</a>
+          </div>
+          <div class="sp-row">
+            <img class="sp-row__thumb" src="/images/b629e8e1a741.jpg" alt="Give the Gift of Glow" loading="lazy" />
+            <div class="sp-row__main">
+              <a class="sp-row__title" href="/booking-calendar/give-the-gift-of-glow">GIVE THE GIFT OF GLOW</a>
+              <a class="sp-row__more" href="/service-page/give-the-gift-of-glow">Read More</a>
+            </div>
+            <div class="sp-row__price">Call us to book</div>
+            <a class="sp-btn sp-btn--gold sp-row__cta" href="/booking-calendar/give-the-gift-of-glow">Request to Book</a>
+          </div>
+          <div class="sp-row">
+            <img class="sp-row__thumb" src="/images/6493a64ea586.jpg" alt="Forever Radiant Experience" loading="lazy" />
+            <div class="sp-row__main">
+              <a class="sp-row__title" href="/booking-calendar/forever-radiant-experience">Forever Radiant Experience</a>
+              <a class="sp-row__more" href="/service-page/forever-radiant-experience">Read More</a>
+            </div>
+            <div class="sp-row__price">$500</div>
+            <a class="sp-btn sp-btn--gold sp-row__cta" href="/booking-calendar/forever-radiant-experience">Request to Book</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":2,"sections_content":2,"widgets_expected":22,"widgets_rendered":22,"images_resolved":3,"h1":"May Glow-Up Specials","fidelity_pct":100,"dropped":[]} -->

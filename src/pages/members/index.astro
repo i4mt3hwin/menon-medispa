@@ -1,20 +1,22 @@
 ---
-/**
- * /members — the Wix Members Area is out of scope for the rebuild
- * (interactive-systems.md). Redirect to home. Also covered by public/_redirects
- * (301 at the edge); this client-side fallback handles the static preview.
- */
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
 ---
-<BaseLayout title="Menon Medispa & Wellness | Millburn, NJ" noindex={true}>
-  <Fragment slot="head">
-    <meta http-equiv="refresh" content="0; url=/" />
-    <link rel="canonical" href="https://www.menonmedispa.com/" />
-  </Fragment>
-  <main class="pg">
-    <section class="pg-section">
-      <h1 class="pg-h">Redirecting…</h1>
-      <p class="pg-text">Taking you to our <a href="/">home page</a>.</p>
+<BaseLayout title="Members Area | Menon Medispa &amp; Wellness | Millburn, NJ" description="Menon Medispa members area. Access your exclusive member benefits and manage your membership.">
+  <main class="sp" data-slug="members">
+    <section class="sp-hero sp-hero--center" aria-label="Members <em>Area</em>">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Members <em>Area</em></h1>
+        
+      </div>
     </section>
+    <section class="sp-plain" aria-label="Members Area">
+    <div class="sp-container">
+      <div class="sp-plain__inner">
+        <p class="sp-plain__body">Welcome to the Menon Medispa Members Area. Access your exclusive member benefits and manage your membership account.</p>
+        <p><a class="sp-btn sp-btn--gold" href="/members-booking">Access Member Booking</a></p>
+      </div>
+    </div>
+  </section>
   </main>
 </BaseLayout>

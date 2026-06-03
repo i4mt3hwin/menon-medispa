@@ -1,76 +1,128 @@
 ---
+/**
+ * Vascular Treatments in Millburn NJ — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/vascular-treatments/
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
 const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="vascular-treatments">
-<section class="pg-section" data-section="Vein &amp; Vascular Treatments">
-  <img class="pg-img" src="/images/8f23c1351be4.jpg" alt="pexels-angela-roma-7479966_edited.jpg" width="1440" height="900" loading="lazy" />
-  <h1 class="pg-h">Vein &amp; Vascular Treatments</h1>
-  <p class="pg-text">One-stop solution for truly effective hair removal with laser treatment</p>
-  <a class="pg-btn" href="/vascular-treatments">Book Now</a>
-</section>
+<BaseLayout
+  title="Vascular Treatments | Menon Medispa & Wellness | Millburn, NJ"
+  description="Vascular treatments for spider veins, rosacea, and vascular lesions in Millburn NJ. Medical-grade laser technology for clear, blemish-free skin."
+>
+  <main class="sp" data-slug="vascular-treatments">
 
-<section class="pg-section" data-section="About Vein &amp; Vascular Treatment">
-  <h2 class="pg-h">About Vein &amp; Vascular Treatment</h2>
-  <p class="pg-text">Our laser treatment offer effective, non-invasive solutions that close these veins and reduce or eliminate their appearance. The treatments are safe and effective and provide reliable, long term results for: Facial Spider Veins, Hemangioma, Port wine stains, Telangiectasia for face &amp; Varicose Veins.</p>
-  <img class="pg-img" src="/images/cb85f70bd3a7.jpeg" alt="How to Get Rid of Spider Veins with Laser Treatment" width="454" height="341" loading="lazy" />
-  <h2 class="pg-h">Face</h2>
-  <p class="pg-text">Spider veins are blood vessels that become enlarged and visible due to weakened valves. These vein patterns are usually blue or red in nature and found directly below the skin. Spider veins tend to become more prominent as you age and may be visible around the hands, face, or arms.</p>
-  <p class="pg-text">Our laser treatment offer effective, non-invasive solutions that close these veins and reduce or eliminate their appearance. The treatments are safe and effective and provide reliable, long term results for:</p>
-  <ul class="pg-list">
-    <li>Facial Spider Veins</li>
-    <li>Hemangioma</li>
-    <li>Port wine stains</li>
-    <li>Telangiectasia for face</li>
-  </ul>
-  <img class="pg-img" src="/images/40c58ae9b34c.jpg" alt="leg veins.jpg" width="192" height="480" loading="lazy" />
-  <h2 class="pg-h">Legs</h2>
-  <p class="pg-text">Spider Veins<br />Spider veins are unhealthy veins just underneath the skin, most commonly located on the lower extremities. Spider veins are usually blue, red, or purple in color and are often found in clusters that spread outward. They may have a spidery appearance, giving them their name. Spider veins are often due to an underlying condition called chronic venous insufficiency. The medical term for spider veins is Telangiactasias.</p>
-  <p class="pg-text">Varicose Veins<br />Varicose veins are usually due to an underlying condition called venous insufficiency. Thе veins become enlarged and the increased pressure leads to the development of varicose veins. In addition, weaknesses іn thе vein walls (due to trauma or a history of blood clots) can result іn broken valves and varicose vein formation.</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero" aria-label="Vascular Treatments in Millburn NJ">
+      <div class="sp-container">
+        <div class="sp-hero__grid">
+          <div class="sp-hero__content">
+            <h1 class="sp-hero__title">Vascular Treatments in Millburn NJ</h1>
+            <p class="sp-hero__eyebrow">Clear Spider Veins and Vascular Lesions with Medical-Grade Lasers</p>
+            <p class="sp-hero__lead">Our medical-grade vascular treatments target and eliminate spider veins, rosacea, broken capillaries, and other vascular lesions with precision laser technology. Achieve clearer, more even-toned skin with minimal downtime.</p>
+            <div class="sp-hero__actions">
+              <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+            </div>
+            <div class="sp-reviews">
+              <div class="sp-reviews__avatars">
+                <img src="/images/90411e0041df.png" alt="Client review" width="44" height="44" />
+                <img src="/images/305afeda5f9a.png" alt="Client review" width="44" height="44" />
+                <img src="/images/b95880091b44.png" alt="Client review" width="44" height="44" />
+              </div>
+              <div class="sp-reviews__text">
+                <span class="sp-reviews__stars">★★★★★</span>
+                <span class="sp-reviews__count">100+ 5 Star Reviews</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="sp-hero__img" src="/images/40c58ae9b34c.jpg" alt="Vascular Treatments in Millburn NJ" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Price List">
-  <h2 class="pg-h">Price List</h2>
-  <ul class="pg-list">
-    <li>Dye- VL Facial Veins250 US dollars$250Request to Book</li>
-  </ul>
-  <a class="pg-btn" href="/booking-calendar/dye-vl-facial-veins">Dye- VL Facial Veins</a>
-  <p class="pg-text">$250</p>
-  <a class="pg-btn" href="/booking-calendar/dye-vl-facial-veins">Request to Book</a>
-  <ul class="pg-list">
-    <li>Dye- VL Rosacea350 US dollars$350Request to Book</li>
-  </ul>
-  <a class="pg-btn" href="/booking-calendar/dye-vl-rosacea">Dye- VL Rosacea</a>
-  <p class="pg-text">$350</p>
-  <a class="pg-btn" href="/booking-calendar/dye-vl-rosacea">Request to Book</a>
-  <ul class="pg-list">
-    <li>Hyperpigmentation Décolleté$200-$350$200-$350Request to Book</li>
-  </ul>
-  <a class="pg-btn" href="/booking-calendar/hyperpigmentation-décolleté">Hyperpigmentation Décolleté</a>
-  <p class="pg-text">$200-$350</p>
-  <a class="pg-btn" href="/booking-calendar/hyperpigmentation-décolleté">Request to Book</a>
-  <ul class="pg-list">
-    <li>Hyperpigmentation Neck$100-$200$100-$200Request to Book</li>
-  </ul>
-  <a class="pg-btn" href="/booking-calendar/hyperpigmentation-neck">Hyperpigmentation Neck</a>
-  <p class="pg-text">$100-$200</p>
-  <a class="pg-btn" href="/booking-calendar/hyperpigmentation-neck">Request to Book</a>
-  <ul class="pg-list">
-    <li>Hyperpigmentation Face$200-$350$200-$350Request to Book</li>
-  </ul>
-  <a class="pg-btn" href="/booking-calendar/hyperpigmentation-face">Hyperpigmentation Face</a>
-  <p class="pg-text">$200-$350</p>
-  <a class="pg-btn" href="/booking-calendar/hyperpigmentation-face">Request to Book</a>
-  <ul class="pg-list">
-    <li>Spot Treatment1-5 brown or red spots89 US dollars$89Request to Book</li>
-  </ul>
-  <a class="pg-btn" href="/booking-calendar/spot-treatment">Spot Treatment</a>
-  <p class="pg-text">1-5 brown or red spots</p>
-  <p class="pg-text">$89</p>
-  <a class="pg-btn" href="/booking-calendar/spot-treatment">Request to Book</a>
-</section>
+    {/* ===== BADGES ===== */}
+    <section class="sp-badges" aria-label="Highlights">
+      <div class="sp-container sp-badges__row">
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Clears Spider Veins</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Treats Rosacea</p>
+        <p class="sp-badge"><span class="sp-badge__check">✓</span> Minimal Downtime</p>
+      </div>
+    </section>
+
+    
+    {/* ===== VASCULAR CONDITIONS WE TREAT ===== */}
+    <section class="sp-plain" aria-label="Vascular Conditions We Treat">
+      <div class="sp-container">
+        <div style="max-width:900px;margin:0 auto;">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--color-ink);margin:0 0 1.25rem;">Vascular Conditions We Treat</h2>
+          <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0 0 1rem;">Our Dye-VL and vascular laser treatments selectively target hemoglobin in blood vessels, causing them to collapse and be absorbed by the body. The surrounding tissue is left undamaged thanks to precise wavelength targeting.</p>
+<h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--color-ink);margin:1.5rem 0 0.5rem;">Conditions Treated</h3>
+<ul style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.8;padding-left:1.5rem;margin:0 0 1rem;"><li>Spider veins (face and legs)</li><li>Rosacea and facial redness</li><li>Broken capillaries and telangiectasias</li><li>Port wine stains</li><li>Cherry angiomas</li><li>Diffuse redness</li></ul>
+<p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.75;margin:0;">Our treatments are performed by our medical team, ensuring the safest possible outcomes. We'll assess your specific condition during consultation to recommend the optimal treatment protocol.</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== TESTIMONIAL ===== */}
+    <section class="sp-testimonial" aria-label="What Our Clients Say">
+      <img class="sp-testimonial__bg" src="/images/30cfb9e87c60.png" alt="" width="1440" height="626" loading="lazy" />
+      <div class="sp-testimonial__overlay"></div>
+      <div class="sp-container sp-testimonial__inner">
+        <h2 class="sp-script-title sp-script-title--light" style="margin-bottom:2rem;">What Our <em>Clients</em> Say</h2>
+        <blockquote class="sp-quote">
+          <span class="sp-quote__mark">"</span>
+          Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.
+          <cite>Alexa C.</cite>
+        </blockquote>
+        <img src="/images/5be44787b3a9.png" alt="5 Star Google Reviews" width="143" height="74" loading="lazy" style="margin-top:1.75rem;" />
+      </div>
+    </section>
+
+    
+
+    {/* ===== FAQ ===== */}
+    <section class="sp-faq" aria-label="Frequently asked questions">
+      <div class="sp-container">
+        <div class="sp-faq__card">
+          <div class="sp-faq__head">
+            <h2 class="sp-faq__title">Frequently asked questions</h2>
+          </div>
+          <div class="sp-faq__list">
+            
+            <details class="sp-faq__item" open>
+              <summary>How many treatments are needed for spider veins?</summary>
+              <div class="sp-faq__answer"><p>Most facial vascular concerns resolve in 1-3 treatments. Larger or more extensive areas may require additional sessions. Leg spider veins typically require 2-4 treatments. Treatment spacing depends on the severity and your skin's response.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>Is vascular laser treatment painful?</summary>
+              <div class="sp-faq__answer"><p>Most clients describe a warm, rubber-band snapping sensation during treatment. The built-in cooling system helps manage discomfort. Topical anesthetic may be applied for more sensitive areas.</p></div>
+            </details>
+            <details class="sp-faq__item">
+              <summary>What are the side effects of vascular treatment?</summary>
+              <div class="sp-faq__answer"><p>Common temporary side effects include redness, mild swelling, and darkening of the treated vessels (which fade within 1-2 weeks as they are absorbed). Bruising is rare but possible. We recommend sun protection after treatment.</p></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== CTA ===== */}
+    <section class="sp-cta" aria-label="Achieve Clear, Even-Toned Skin">
+      <div class="sp-container sp-cta__grid">
+        <div class="sp-cta__copy">
+          <h2 class="sp-cta__title">Achieve Clear, Even-Toned Skin</h2>
+          <p class="sp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Schedule your vascular treatment consultation at Menon Medispa in Millburn, NJ and take the first step toward clearer skin.</p>
+          <a class="sp-btn sp-btn--gold" href="/consultation">Schedule Consultation</a>
+        </div>
+        <div class="sp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":3,"sections_content":3,"widgets_expected":41,"widgets_rendered":41,"images_resolved":3,"h1":"Vein & Vascular Treatments","fidelity_pct":100,"dropped":[]} -->

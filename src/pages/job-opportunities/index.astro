@@ -1,23 +1,26 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
-const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="job-opportunities">
-<section class="pg-section" data-section="Job Opportunities">
-  <h1 class="pg-h">Job Opportunities</h1>
-  <h5 class="pg-h">Apply Now</h5>
-  <p class="pg-btnlabel">Apply Now</p>
-</section>
-
-<section class="pg-section">
-  <img class="pg-img" src="/images/fda00cc1d16a.jpg" alt="" width="532" height="465" loading="lazy" />
-  <h5 class="pg-h">BRINGING OUT THE BEST IN YOU</h5>
-  <p class="pg-text">Our mission is to ensure that when you visit Menon Medispa &amp; Wellness you will feel at home and leave looking and feeling better than when you came in.</p>
-  <a class="pg-btn" href="/meet-the-team">MEET THE TEAM</a>
-  <img class="pg-img" src="/images/2ef11e239ab9.jpg" alt="" width="481" height="480" loading="lazy" />
-</section>
+<BaseLayout title="Job Opportunities | Menon Medispa &amp; Wellness | Millburn, NJ" description="Career opportunities at Menon Medispa in Millburn, NJ. Join our team of dedicated beauty and wellness professionals.">
+  <main class="sp" data-slug="job-opportunities">
+    <section class="sp-hero sp-hero--center" aria-label="Job Opportunities">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Join Our <em>Team</em></h1>
+        <p class="sp-hero__lead" style="text-align:center;margin:0 auto;max-width:560px;">We're looking for dedicated beauty and wellness professionals to join the Menon Medispa family.</p>
+      </div>
+    </section>
+    <section class="sp-plain" aria-label="Career Info">
+      <div class="sp-container">
+        <div class="sp-plain__inner">
+          <h2 class="sp-plain__title">Work With Us</h2>
+          <div class="sp-plain__body">
+            <p>At Menon Medispa, we're committed to creating an environment where talented professionals can thrive. We offer competitive compensation, ongoing training and education, and the opportunity to work alongside our exceptional team led by Dr. Aditi Menon.</p>
+            <p>We are always looking for passionate estheticians, medical assistants, and customer service professionals who share our commitment to excellence and patient care.</p>
+          </div>
+          <a class="sp-btn sp-btn--gold" href="mailto:admin@menonregen.com">Send Your Resume</a>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":2,"sections_content":2,"widgets_expected":8,"widgets_rendered":8,"images_resolved":2,"h1":"Job Opportunities","fidelity_pct":100,"dropped":[]} -->

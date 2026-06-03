@@ -1,50 +1,92 @@
 ---
+/**
+ * Meet the Team — faithful Path-2 reconstruction.
+ * Source: 01-discovery/pages/meet-the-team/
+ * Visual target: 01-discovery/screenshots/meet-the-team-desktop-full.png
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
-const CALCOM = site.calcomUrl;
 ---
-<BaseLayout>
-  <main class="pg" data-slug="meet-the-team">
-<section class="pg-section" data-section="Meet the Menon Medispa Millburn Team">
-  <img class="pg-img" src="/images/fc22050ddcb3.webp" alt="download copy.webp" width="1440" height="247" loading="lazy" />
-  <h1 class="pg-h">Meet the Menon Medispa Millburn Team</h1>
-</section>
+<BaseLayout
+  title="Meet the Team | Menon Medispa & Wellness | Millburn, NJ"
+  description="Meet the dedicated professionals at Menon Medispa & Wellness in Millburn, NJ, committed to enhancing your natural beauty and well-being."
+>
+  <main class="sp" data-slug="meet-the-team">
 
-<section class="pg-section">
-  <p class="pg-text">Dedicated professionals committed to enhancing your natural beauty and well-being. Our diverse team combines specialized training in skincare, health, and relaxation techniques to create personalized experiences for rejuvenation and confidence.</p>
-  <img class="pg-img" src="/images/88353b502c45.png" alt="DSC07528 copy_edited.png" width="295" height="356" loading="lazy" />
-  <p class="pg-text">Dr. Aditi Menon, MD</p>
-  <p class="pg-text">Founder &amp; CEO</p>
-  <img class="pg-img" src="/images/807fae7ef1f5.png" alt="DSC07508 copy_edited.png" width="295" height="356" loading="lazy" />
-  <p class="pg-text">Shruti Sen</p>
-  <p class="pg-text">Practice Manager</p>
-  <img class="pg-img" src="/images/48d39eee8013.png" alt="DSC07560-2 copy_edited.png" width="295" height="356" loading="lazy" />
-  <p class="pg-text">Nancy C.</p>
-  <p class="pg-text">Medical Assistant</p>
-  <img class="pg-img" src="/images/df9285b183d3.png" alt="DSC07543 copy_edited_edited_edited.png" width="295" height="356" loading="lazy" />
-  <p class="pg-text">Jennifer Ramirez</p>
-  <p class="pg-text">Esthetician</p>
-  <img class="pg-img" src="/images/10df2823350b.png" alt="DSC07515 copy_edited.png" width="295" height="356" loading="lazy" />
-  <p class="pg-text">Rosemarie Boisselle</p>
-  <p class="pg-text">Receptionist</p>
-</section>
+    {/* ===== HERO ===== */}
+    <section class="sp-hero sp-hero--center" aria-label="Meet the Team">
+      <div class="sp-container">
+        <h1 class="sp-hero__title" style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);text-align:center;margin:0 0 1rem;">Meet the Menon Medispa Millburn <em>Team</em></h1>
+        <img src="/images/fc22050ddcb3.webp" alt="Meet the Team banner" width="1440" height="247" loading="lazy" style="width:100%;max-width:900px;height:auto;margin-top:2rem;" />
+      </div>
+    </section>
 
-<section class="pg-section">
-  <h6 class="pg-h">DR. ADITI MENON, MD</h6>
-  <p class="pg-text">Dr. Aditi Menon, MD is Board Certified in Physical Medicine and Rehabilitation, and specializes in musculoskeletal, pain and sports medicine.</p>
-  <p class="pg-text">Dr. Menon earned her medical degree at the State University of New York Brooklyn Downstate Medical Center College of Medicine. She then completed her residency in Physical Medicine and Rehabilitation at New York Presbyterian Hospital at New York-Presbyterian University Hospitals of Columbia Presbyterian and Weill Cornell with training in Hospital for Special Surgery and Memorial Sloan Kettering Cancer Center.</p>
-  <p class="pg-text">Dr. Menon is trained in regenerative medicine and her passion is aesthetics.</p>
-  <p class="pg-text">In her spare time, she teaches Indian classical dance and likes to spend time with her family.</p>
-  <img class="pg-img" src="/images/68f97116134e.jpg" alt="DSC07528 copy_edited.jpg" width="821" height="772" loading="lazy" />
-</section>
+    {/* ===== TEAM INTRO ===== */}
+    <section class="sp-team" aria-label="Our Team">
+      <div class="sp-container">
+        <p class="sp-team__intro">Dedicated professionals committed to enhancing your natural beauty and well-being. Our diverse team combines specialized training in skincare, health, and relaxation techniques to create personalized experiences for rejuvenation and confidence.</p>
+        <div class="sp-team__grid">
+          <div class="sp-team__member">
+            <img src="/images/88353b502c45.png" alt="Dr. Aditi Menon, MD" width="295" height="356" loading="lazy" />
+            <p class="sp-team__name">Dr. Aditi Menon, MD</p>
+            <p class="sp-team__role">Founder &amp; CEO</p>
+          </div>
+          <div class="sp-team__member">
+            <img src="/images/807fae7ef1f5.png" alt="Shruti Sen" width="295" height="356" loading="lazy" />
+            <p class="sp-team__name">Shruti Sen</p>
+            <p class="sp-team__role">Practice Manager</p>
+          </div>
+          <div class="sp-team__member">
+            <img src="/images/48d39eee8013.png" alt="Nancy C." width="295" height="356" loading="lazy" />
+            <p class="sp-team__name">Nancy C.</p>
+            <p class="sp-team__role">Medical Assistant</p>
+          </div>
+          <div class="sp-team__member">
+            <img src="/images/df9285b183d3.png" alt="Jennifer Ramirez" width="295" height="356" loading="lazy" />
+            <p class="sp-team__name">Jennifer Ramirez</p>
+            <p class="sp-team__role">Esthetician</p>
+          </div>
+          <div class="sp-team__member">
+            <img src="/images/10df2823350b.png" alt="Rosemarie Boisselle" width="295" height="356" loading="lazy" />
+            <p class="sp-team__name">Rosemarie Boisselle</p>
+            <p class="sp-team__role">Receptionist</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Begin Your Transformation Today">
-  <h2 class="pg-h">Begin Your Transformation Today</h2>
-  <p class="pg-text">Menon Medispa Millburn NJ</p>
-  <p class="pg-text">Ready to experience the benefits of Menon Medispa? Take the first step toward your transformation by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
-  <a class="pg-btn" href="/contact">Schedule Consultation</a>
-  <img class="pg-img" src="/images/b1a819f35921.webp" alt="Menon Office Staff.webp" width="431" height="560" loading="lazy" />
-</section>
+    {/* ===== DR. MENON BIO ===== */}
+    <section class="sp-split" aria-label="Dr. Aditi Menon">
+      <div class="sp-container" style="padding-block:4rem;">
+        <div style="display:grid;grid-template-columns:1fr 400px;gap:3rem;align-items:start;max-width:1100px;margin:0 auto;">
+          <div>
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--color-ink);letter-spacing:0.05em;text-transform:uppercase;margin:0 0 1.25rem;">DR. ADITI MENON, MD</h2>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.8;margin:0 0 1rem;">Dr. Aditi Menon, MD is Board Certified in Physical Medicine and Rehabilitation, and specializes in musculoskeletal, pain and sports medicine.</p>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.8;margin:0 0 1rem;">Dr. Menon earned her medical degree at the State University of New York Brooklyn Downstate Medical Center College of Medicine. She then completed her residency in Physical Medicine and Rehabilitation at New York Presbyterian Hospital at New York-Presbyterian University Hospitals of Columbia Presbyterian and Weill Cornell with training in Hospital for Special Surgery and Memorial Sloan Kettering Cancer Center.</p>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.8;margin:0 0 1rem;">Dr. Menon is trained in regenerative medicine and her passion is aesthetics.</p>
+            <p style="font-family:var(--font-ui);color:#5e5e5e;line-height:1.8;margin:0;">In her spare time, she teaches Indian classical dance and likes to spend time with her family.</p>
+          </div>
+          <div>
+            <img src="/images/68f97116134e.jpg" alt="Dr. Aditi Menon, MD" width="821" height="772" loading="lazy" style="width:100%;height:auto;border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== CTA ===== */}
+    <section class="sp-cta" aria-label="Begin Your Transformation Today">
+      <div class="sp-container sp-cta__grid">
+        <div class="sp-cta__copy">
+          <h2 class="sp-cta__title">Begin Your Transformation Today</h2>
+          <p class="sp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Ready to experience the benefits of Menon Medispa? Take the first step toward your transformation by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
+          <a class="sp-btn sp-btn--gold" href="/contact">Schedule Consultation</a>
+        </div>
+        <div class="sp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":4,"sections_content":4,"widgets_expected":29,"widgets_rendered":29,"images_resolved":8,"h1":"Meet the Menon Medispa Millburn Team","fidelity_pct":100,"dropped":[]} -->

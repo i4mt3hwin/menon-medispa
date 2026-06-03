@@ -8,7 +8,7 @@
  * our blog" note. NO post body is fabricated (Path-2). Phone override applied upstream.
  */
 import site from '../lib/site';
-interface BodyBlock { type: string; tag?: string; text?: string; html?: string; src?: string; alt?: string; }
+interface BodyBlock { type: string; tag?: string; text?: string; html?: string; src?: string; alt?: string; items?: string[]; }
 interface Props {
   title: string;
   date?: string;
@@ -40,6 +40,8 @@ const fmtDate = date
         if (b.type === 'text') return <div class="post__rt" set:html={b.html} />;
         if (b.type === 'image' && b.src) return <img src={b.src} alt={b.alt || ''} loading="lazy" />;
         if (b.type === 'button' && b.text) return <p class="post__btnlabel">{b.text}</p>;
+        if (b.type === 'quote' && b.text) return <blockquote class="post__quote">{b.text}</blockquote>;
+        if (b.type === 'list' && b.items) return <ul class="post__list">{b.items.map((it) => <li>{it}</li>)}</ul>;
         return null;
       })}
     </div>
@@ -67,5 +69,8 @@ const fmtDate = date
   .post__rt :global(p) { margin: 0 0 1rem; }
   .post__excerpt { font-size: var(--text-md); }
   .post__btnlabel { font-weight: 700; color: var(--color-primary); }
+  .post__quote { border-left: 3px solid var(--color-primary); margin: var(--spacing-gap-md) 0; padding: 0.25rem 0 0.25rem 1.25rem; font-style: italic; color: var(--color-text); }
+  .post__list { margin: 0 0 1rem 1.25rem; }
+  .post__list li { margin: 0.25rem 0; }
   .post__cta a { color: var(--color-primary); }
 </style>
