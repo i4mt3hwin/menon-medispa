@@ -1,0 +1,13 @@
+# Cloudflare Pages _redirects — Menon Medispa rebuild (03-build-replicate).
+# Only pages NOT built at their original path are redirected. Every captured
+# content page keeps its original URL (no regression). Booking-calendar URLs are
+# kept live (Cal.com embed) per the operator's external-scheduler decision, so
+# they are NOT redirected here.
+
+# Members area (out of scope) -> home.
+/members            /            301
+/members/*          /            301
+
+# copy-of-* duplicate/template pages (flagged for cut) -> their canonical page.
+/copy-of-store-policy   /store-policy    301
+/copy-of-menon-facials  /menon-facials   301

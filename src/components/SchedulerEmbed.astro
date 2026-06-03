@@ -1,0 +1,31 @@
+---
+/**
+ * SchedulerEmbed.astro — external Cal.com scheduler embed (replaces Wix Bookings).
+ * ⚠️ The src defaults to site.calcomUrl, currently a PLACEHOLDER
+ * (https://cal.com/REPLACE-ME). Operator swaps the single site.ts constant
+ * pre-go-live; nothing here invents a real-looking URL.
+ */
+import site from '../lib/site';
+interface Props { src?: string; title?: string; height?: string; }
+const { src = site.calcomUrl, title = 'Book an appointment', height = '720px' } = Astro.props;
+const isPlaceholder = src.includes('REPLACE-ME');
+---
+{isPlaceholder && (
+  <div class="scheduler-placeholder" role="note">
+    <p><strong>Online booking is being set up.</strong> Please call
+      <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a> to schedule your appointment.</p>
+    <!-- POST-LAUNCH: replace site.calcomUrl in src/lib/site.ts with the real Cal.com event-type URL. -->
+  </div>
+)}
+{!isPlaceholder && (
+  <iframe src={src} title={title} loading="lazy" style={`width:100%;height:${height};border:0`}
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+)}
+<style>
+  .scheduler-placeholder {
+    border: 1px dashed var(--color-border); border-radius: var(--radius-md);
+    padding: var(--spacing-band); text-align: center; font-family: var(--font-ui);
+    background: var(--color-surface-alt);
+  }
+  .scheduler-placeholder a { color: var(--color-primary); font-weight: 700; }
+</style>

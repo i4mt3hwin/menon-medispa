@@ -98,10 +98,79 @@ export const site = {
   locale: 'en-US',
   currency: 'USD',
   wixSiteId: '726ff7e6-f929-4c22-a4c9-5c64aa5b9473',
+
+  /* --- Scheduling (Cal.com external embed — replaces Wix Bookings) ---
+     ⚠️ PLACEHOLDER. Operator deferred the real Cal.com event-type URLs (2026-06-02).
+     Swap this ONE constant pre-go-live; every "Book"/"Schedule" CTA + the
+     BookingCalendarTemplate read from it. Do NOT mistake this for a live URL. */
+  calcomUrl: 'https://cal.com/REPLACE-ME',
+
+  /* --- Convenience helpers (used by ChatAssistant + LeadForm + CTAs) --- */
+  contact: {
+    phoneHref: 'tel:+19734948431',
+    bookingUrl: 'https://cal.com/REPLACE-ME', // === calcomUrl (placeholder)
+  },
+
+  /* --- Integrations (analytics carry-over + chat) --- */
+  integrations: {
+    /* Analytics / tracking carried over verbatim per operator decision (2026-06-02).
+       GA4 measurement ID unconfirmed at build — left null so no fake ID ships;
+       operator pastes it pre-go-live. The others have confirmed captured IDs.
+       ProveSrc / Omnisend / Sentry / the obfuscated 159358-domain pre-WhatConverts
+       tracker are intentionally NOT here (operator-decide → left out / flagged). */
+    analytics: {
+      ga4: null as string | null,              // gtag present on original; ID to confirm
+      metaPixelId: '1005972549954643',
+      googleAdsConversionId: '10822588412',
+      microsoftClarityId: 'ordx9s73l4',
+      // WhatConverts call/lead tracking (operator-confirmed legit). Dynamic number
+      // insertion: swaps the displayed phone for a tracking line forwarding to the
+      // canonical (973) 494-8431. Loader carried over verbatim.
+      whatConvertsLoader:
+        '<script id="" text="" charset="" type="text/javascript" src="//s.ksrndkehqnwntyxlhgto.com/159358.js"></script>',
+    },
+    // Chat: Wix-native chat REPLACED by the built-in decision-tree assistant.
+    // No AI, no free-text, no PHI egress (HIPAA-safe). One chat per site.
+    chat: {
+      mode: 'tree' as 'tree' | 'embed' | null,
+      enabled: true,
+      provider: null as string | null,
+      loader: '',
+    },
+  },
 } as const;
 
 export type Site = typeof site;
 export default site;
+
+/**
+ * NAV — primary navigation (verbatim labels + local hrefs), used by the chat
+ * assistant's services branch and any nav consumer. Mirrors SiteHeader.astro.
+ */
+export const NAV = {
+  primary: [
+    { label: 'HOME', href: '/' },
+    { label: 'ABOUT', href: '/about' },
+    { label: 'FACE', href: '/face' },
+    { label: 'BODY', href: '/body' },
+    { label: 'HAIR', href: '/hair' },
+    { label: 'CONTACT', href: '/contact' },
+    { label: 'SALE', href: '/sale' },
+  ],
+  // Service category landing pages (verbatim labels → local hrefs).
+  services: [
+    { label: 'Face Treatments', href: '/face' },
+    { label: 'Body Treatments', href: '/body' },
+    { label: 'Hair Restoration', href: '/hair' },
+    { label: 'HydraFacial', href: '/hydrafacial' },
+    { label: 'Botox', href: '/botox-millburn-nj' },
+    { label: 'Fillers & Injectables', href: '/fillers-injectables' },
+    { label: 'IV Therapy', href: '/iv-therapy-millburn-nj' },
+    { label: 'Laser Hair Removal', href: '/laser-hair-removal' },
+    { label: 'Vitamin Shots', href: '/vitamin-shots-millburn-nj' },
+    { label: 'Memberships', href: '/memberships' },
+  ],
+} as const;
 
 /** Build a sameAs[] array (filters out unset entries) for JSON-LD. */
 export const sameAs = (): string[] =>

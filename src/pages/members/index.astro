@@ -1,0 +1,20 @@
+---
+/**
+ * /members — the Wix Members Area is out of scope for the rebuild
+ * (interactive-systems.md). Redirect to home. Also covered by public/_redirects
+ * (301 at the edge); this client-side fallback handles the static preview.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="Menon Medispa & Wellness | Millburn, NJ" noindex={true}>
+  <Fragment slot="head">
+    <meta http-equiv="refresh" content="0; url=/" />
+    <link rel="canonical" href="https://www.menonmedispa.com/" />
+  </Fragment>
+  <main class="pg">
+    <section class="pg-section">
+      <h1 class="pg-h">Redirecting…</h1>
+      <p class="pg-text">Taking you to our <a href="/">home page</a>.</p>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
+import services from '@/data/services.json';
+import site from '@/lib/site';
+
+export function getStaticPaths() {
+  return (services as any[]).map((s) => ({ params: { slug: s.slug }, props: { svc: s } }));
+}
+
+const { svc } = Astro.props as { svc: any };
+const title = `${svc.name} | ${site.legalName} | Millburn, NJ`;
+const description = svc.tagLine || svc.description?.slice(0, 155) ||
+  `${svc.name} at ${site.displayName} in Millburn, NJ.`;
+---
+<BaseLayout title={title} description={description}>
+  <ServicePageTemplate
+    name={svc.name}
+    category={svc.category}
+    price={svc.price}
+    duration={svc.duration}
+    tagLine={svc.tagLine}
+    description={svc.description}
+    cover={svc.cover}
+  />
+</BaseLayout>

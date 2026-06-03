@@ -1,0 +1,132 @@
+---
+/**
+ * ChatAssistant.astro — built-in decision-tree chat (replaces Wix Chat).
+ * Buttons only — NO free-text input -> no PHI -> HIPAA-safe. Vanilla JS,
+ * keyboard accessible, design-token styled. Self-guards on integrations.chat.
+ */
+import site from '../lib/site';
+import { CHAT_TREE } from '../lib/chat-tree';
+const chat = site.integrations.chat;
+const active = chat?.enabled && chat?.mode === 'tree';
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address.formatted)}`;
+const cfg = {
+  tree: CHAT_TREE,
+  phoneHref: site.contact.phoneHref,
+  bookingUrl: site.contact.bookingUrl,
+  mapsUrl,
+  leadHref: '/contact',
+};
+---
+{active && (
+  <div id="chat-assistant" data-cfg={JSON.stringify(cfg)}>
+    <button class="ca-launch" aria-haspopup="dialog" aria-expanded="false" aria-controls="ca-panel">
+      <span class="ca-launch__dot" aria-hidden="true"></span>
+      {cfg.tree.greeting}
+    </button>
+
+    <div id="ca-panel" class="ca-panel" role="dialog" aria-modal="false" aria-label={cfg.tree.title} hidden>
+      <header class="ca-head">
+        <span>{cfg.tree.title}</span>
+        <button class="ca-close" aria-label="Close chat">×</button>
+      </header>
+      <div class="ca-log" aria-live="polite"></div>
+      <div class="ca-options"></div>
+      <p class="ca-fineprint">For your privacy, please don’t share medical details here.</p>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const root = document.getElementById("chat-assistant");
+      if (!root) return;
+      const cfg = JSON.parse(root.dataset.cfg);
+      const tree = cfg.tree;
+      const launch = root.querySelector(".ca-launch");
+      const panel = root.querySelector("#ca-panel");
+      const log = root.querySelector(".ca-log");
+      const opts = root.querySelector(".ca-options");
+      const history = [];
+
+      const bubble = (text, who) => {
+        const b = document.createElement("div");
+        b.className = "ca-msg ca-msg--" + who;
+        text.split("\n").forEach((line, i) => {
+          if (i) b.appendChild(document.createElement("br"));
+          b.appendChild(document.createTextNode(line));
+        });
+        log.appendChild(b);
+        log.scrollTop = log.scrollHeight;
+      };
+
+      const act = (o) => {
+        if (o.action === "book" && cfg.bookingUrl) window.open(cfg.bookingUrl, "_blank", "noopener");
+        else if (o.action === "call") location.href = cfg.phoneHref;
+        else if (o.action === "maps" && cfg.mapsUrl) window.open(cfg.mapsUrl, "_blank", "noopener");
+        else if (o.action === "lead") location.href = cfg.leadHref;
+        else if (o.action === "link" && o.href) location.href = o.href;
+      };
+
+      const render = (id, fromBack) => {
+        const node = tree.nodes[id];
+        if (!node) return;
+        if (!fromBack) history.push(id);
+        bubble(node.message, "bot");
+        opts.innerHTML = "";
+        node.options.forEach((o) => {
+          const btn = document.createElement("button");
+          btn.className = "ca-opt";
+          btn.textContent = o.label;
+          btn.addEventListener("click", () => {
+            bubble(o.label, "user");
+            if (o.to) render(o.to);
+            else act(o);
+          });
+          opts.appendChild(btn);
+        });
+        const first = opts.querySelector("button");
+        if (first) first.focus();
+      };
+
+      const open = () => {
+        panel.hidden = false;
+        launch.setAttribute("aria-expanded", "true");
+        if (!log.childElementCount) render(tree.root);
+      };
+      const close = () => {
+        panel.hidden = true;
+        launch.setAttribute("aria-expanded", "false");
+        launch.focus();
+      };
+
+      launch.addEventListener("click", () => (panel.hidden ? open() : close()));
+      root.querySelector(".ca-close").addEventListener("click", close);
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
+    })();
+  </script>
+
+  <style>
+    #chat-assistant { position: fixed; right: 1rem; bottom: 1rem; z-index: 60; }
+    .ca-launch { display: inline-flex; align-items: center; gap: .5rem; border: 0; cursor: pointer;
+      padding: .7rem 1.1rem; border-radius: 999px; font: inherit; font-weight: 600;
+      background: var(--color-primary); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+    .ca-launch__dot { width: .55rem; height: .55rem; border-radius: 50%; background: #34d399; }
+    .ca-panel { position: absolute; right: 0; bottom: 3.6rem; width: min(22rem, 90vw);
+      max-height: min(34rem, 75vh); display: flex; flex-direction: column; overflow: hidden;
+      background: var(--color-surface); color: var(--color-text);
+      border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.22); }
+    .ca-head { display: flex; justify-content: space-between; align-items: center; padding: .75rem 1rem;
+      background: var(--color-primary); color: #fff; font-weight: 700; font-family: var(--font-ui); }
+    .ca-close { background: transparent; border: 0; color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .ca-log { padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: .5rem; flex: 1; font-family: var(--font-ui); }
+    .ca-msg { max-width: 85%; padding: .55rem .8rem; border-radius: 12px; font-size: .92rem; }
+    .ca-msg--bot { align-self: flex-start; background: var(--color-surface-alt); }
+    .ca-msg--user { align-self: flex-end; background: var(--color-primary); color: #fff; }
+    .ca-options { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 1rem .75rem; }
+    .ca-opt { border: 1px solid var(--color-primary); color: var(--color-primary);
+      background: transparent; border-radius: 999px; padding: .4rem .8rem; cursor: pointer; font: inherit; font-size: .85rem; font-family: var(--font-ui); }
+    .ca-opt:hover, .ca-opt:focus-visible { background: var(--color-primary); color: #fff; }
+    .ca-fineprint { margin: 0; padding: 0 1rem .8rem; font-size: .72rem; opacity: .7; font-family: var(--font-ui); }
+    @media (prefers-reduced-motion: no-preference) { .ca-panel { animation: ca-in .16s ease-out; } }
+    @keyframes ca-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  </style>
+)}

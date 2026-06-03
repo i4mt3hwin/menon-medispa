@@ -1,28 +1,182 @@
 ---
-/**
- * index.astro — PLACEHOLDER home page.
- *
- * P03 only proves the scaffold + layout shell compile. The REAL homepage (hero,
- * services, testimonials, etc., replicated verbatim from the captured original)
- * is built in path-2-rebuild/03-build-replicate.md. Do NOT treat this as the
- * real page. Title/description below are taken from page-seo-plan.csv (home row)
- * so the meta plumbing is exercised end-to-end.
- */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import site from '../lib/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+const CALCOM = site.calcomUrl;
 ---
+<BaseLayout>
+  <main class="pg" data-slug="home">
+<section class="pg-section" data-section="Millburn NJ's Premier Medispa &amp; Wellness Center">
+  <img class="pg-img" src="/images/f2a8f8988125.jpg" alt="" width="1440" height="599" loading="lazy" />
+  <h1 class="pg-h">Millburn NJ's Premier Medispa &amp; Wellness Center</h1>
+  <p class="pg-text">Give Yourself the Glow Up You Deserve</p>
+  <p class="pg-text">Advanced Botox, facials, and body treatments delivered by medical experts. Discover why Millburn residents choose us for their aesthetic goals.</p>
+  <a class="pg-btn pg-btn--book" href={CALCOM} rel="noopener" target="_blank">Schedule An Appointment</a>
+  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
+  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
+  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
+  <p class="pg-text">★★★★★</p>
+  <p class="pg-text">100+ 5 Star Reviews</p>
+</section>
 
-<BaseLayout
-  title="Medical Spa | Menon Medispa & Wellness | Millburn, NJ"
-  description="Experience the top-rated services at Menon Medispa in Millburn, NJ, including HydraFacial, Botox, and more. Book today!"
->
-  <main style="max-width:48rem;margin:0 auto;padding:4rem 1.5rem;">
-    <h1>Millburn NJ's Premier Medispa &amp; Wellness Center</h1>
-    <p>
-      Scaffold placeholder. Design tokens are populated next in
-      <code>02-synthesize</code>; the real homepage is built in
-      <code>03-build-replicate</code>.
-    </p>
-    <p>{site.address.formatted} · {site.phone.display}</p>
+<section class="pg-section">
+  <p class="pg-text">Same-Week Appointments</p>
+  <p class="pg-text">Medical-Grade Expertise</p>
+  <p class="pg-text">State of the Art Equipment</p>
+</section>
+
+<section class="pg-section" data-section="We Offer Skincare Treatments Featured In">
+  <h2 class="pg-h">We Offer Skincare Treatments Featured In</h2>
+  <img class="pg-img" src="/images/abe70978be24.jpg" alt="Vogue Logo - Link to Related Article" width="200" height="100" loading="lazy" />
+  <img class="pg-img" src="/images/a907a2a5b193.jpg" alt="Cosmopolitan Logo - Link to Related Article" width="200" height="100" loading="lazy" />
+  <img class="pg-img" src="/images/c1cefa7e9c95.jpg" alt="Bazaar Logo - Link to Related Article" width="200" height="100" loading="lazy" />
+  <img class="pg-img" src="/images/349d72d3c082.webp" alt="Fortune Logo - Link To Related Article" width="200" height="100" loading="lazy" />
+</section>
+
+<section class="pg-section" data-section="Welcome To">
+  <h3 class="pg-h">Welcome To</h3>
+  <h3 class="pg-h">Menon Medispa &amp; Wellness</h3>
+  <p class="pg-text">If you're ever unsure which service is right for you, we're here to help!</p>
+  <p class="pg-text">Schedule a complimentary consultation with one of our experts to discuss your goals and find the perfect treatment.</p>
+  <p class="pg-text">Click below to book your session and start your journey to looking and feeling your best.</p>
+  <a class="pg-btn" href="/consultation">Schedule Consultation</a>
+  <h2 class="pg-h">Expert Medispa and Skin Care Clinic in Millburn, NJ</h2>
+  <p class="pg-text">Menon Medispa has been at the forefront of medical aesthetics and anti-aging innovations since 2019. Our team of esteemed medical experts is committed to providing outstanding care and achieving lasting outcomes that not only improve your looks but also boost your overall wellness. We take pride in our recognition as the top-rated medispa in Millburn NJ.</p>
+</section>
+
+<section class="pg-section" data-section="Monthly Specials">
+  <p class="pg-text">MUST TRY</p>
+  <h2 class="pg-h">Monthly Specials</h2>
+  <ul class="pg-list">
+    <li>THE TIMELESS BEAUTY EXPERIENCERead More450 US dollars$450Request to Book</li>
+  </ul>
+  <img class="pg-img" src="/images/acb8f1a74f7d.jpg" alt="microdermabrasion, dermal filler, micropigmentation, microblading, beauty procedure, permanent makeup, mesotherapy, facial rejuvenation, botox injection, facial beauty" width="110" height="110" loading="lazy" />
+  <a class="pg-btn" href="/booking-calendar/the-timeless-beauty-experience">THE TIMELESS BEAUTY EXPERIENCE</a>
+  <a class="pg-btn" href="/service-page/the-timeless-beauty-experience">Read More</a>
+  <p class="pg-text">$450</p>
+  <a class="pg-btn" href="/booking-calendar/the-timeless-beauty-experience">Request to Book</a>
+  <ul class="pg-list">
+    <li>GIVE THE GIFT OF GLOWRead MoreCall us to bookCall us to bookRequest to Book</li>
+  </ul>
+  <img class="pg-img" src="/images/b629e8e1a741.jpg" alt="anti-ageing, micropigmentation, anti-aging, female skincare, facial rejuvenation, anti aging, make the skin beautiful, collagen, skin treatment, facial care" width="110" height="110" loading="lazy" />
+  <a class="pg-btn" href="/booking-calendar/give-the-gift-of-glow">GIVE THE GIFT OF GLOW</a>
+  <a class="pg-btn" href="/service-page/give-the-gift-of-glow">Read More</a>
+  <p class="pg-text">Call us to book</p>
+  <a class="pg-btn" href="/booking-calendar/give-the-gift-of-glow">Request to Book</a>
+  <ul class="pg-list">
+    <li>Forever Radiant ExperienceRead More500 US dollars$500Request to Book</li>
+  </ul>
+  <img class="pg-img" src="/images/6493a64ea586.jpg" alt="face rejuvenation" width="110" height="110" loading="lazy" />
+  <a class="pg-btn" href="/booking-calendar/forever-radiant-experience">Forever Radiant Experience</a>
+  <a class="pg-btn" href="/service-page/forever-radiant-experience">Read More</a>
+  <p class="pg-text">$500</p>
+  <a class="pg-btn" href="/booking-calendar/forever-radiant-experience">Request to Book</a>
+</section>
+
+<section class="pg-section" data-section="Popular Treatments">
+  <h5 class="pg-h">MUST TRY</h5>
+  <h3 class="pg-h">Popular Treatments</h3>
+  <ul class="pg-list">
+    <li>BOTOX® Injectables$14 per unit$14 per unitRequest to Book</li>
+  </ul>
+  <img class="pg-img" src="/images/1f114dd47995.jpeg" alt="" width="290" height="290" loading="lazy" />
+  <a class="pg-btn" href="/service-page/botox-injectables">BOTOX® Injectables</a>
+  <p class="pg-text">$14 per unit</p>
+  <a class="pg-btn" href="/booking-calendar/botox-injectables">Request to Book</a>
+  <ul class="pg-list">
+    <li>Juvéderm FillersFrom 750 US dollarsFrom $750Request to Book</li>
+  </ul>
+  <img class="pg-img" src="/images/8ec275b96db1.jpeg" alt="" width="290" height="290" loading="lazy" />
+  <a class="pg-btn" href="/service-page/juvéderm-fillers">Juvéderm Fillers</a>
+  <p class="pg-text">From $750</p>
+  <ul class="pg-list">
+    <li>HydraFacial™ Keravive™500 US dollars$500Request to Book</li>
+  </ul>
+  <img class="pg-img" src="/images/02127013d183.jpg" alt="" width="290" height="290" loading="lazy" />
+  <a class="pg-btn" href="/service-page/hydrafacial-keravive">HydraFacial™ Keravive™</a>
+  <p class="pg-text">$500</p>
+</section>
+
+<section class="pg-section" data-section="What Our Clients Say">
+  <img class="pg-img" src="/images/30cfb9e87c60.png" alt="Untitled-4.png" width="1440" height="626" loading="lazy" />
+  <h3 class="pg-h">What Our Clients Say</h3>
+  <blockquote class="pg-quote">"Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.</blockquote>
+  <p class="pg-text">Alexa C.</p>
+  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
+  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
+  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
+  <p class="pg-text">★★★★★</p>
+  <p class="pg-text">100+ 5 Star Reviews</p>
+</section>
+
+<section class="pg-section" data-section="Our Services">
+  <h2 class="pg-h">Our Services</h2>
+  <img class="pg-img" src="/images/0a8150a5612c.jpg" alt="Face Treatments Menon Medispa" width="385" height="673" loading="lazy" />
+  <img class="pg-img" src="/images/2fc4656f8ac4.jpg" alt="Natural Beauty" width="402" height="673" loading="lazy" />
+  <img class="pg-img" src="/images/e6d509254f0c.jpg" alt="Model with Curly Hair" width="402" height="673" loading="lazy" />
+  <h2 class="pg-h">FACE</h2>
+  <h2 class="pg-h">BODY</h2>
+  <h2 class="pg-h">HAIR</h2>
+</section>
+
+<section class="pg-section" data-section="Your Skin 
+Comes First">
+  <img class="pg-img" src="/images/8f23c1351be4.jpg" alt="pexels-angela-roma-7479966_edited.jpg" width="1440" height="900" loading="lazy" />
+  <p class="pg-text">WE BELIEVE</p>
+  <h2 class="pg-h">Your Skin 
+Comes First</h2>
+  <p class="pg-text">Menon Medispa &amp; Wellness Brings Together Beauty &amp; Wellness.</p>
+  <p class="pg-text">Our physicians and staff specialize in a wide range of facial and body treatments using the latest technology in lasers, fillers, and top rated facials. Whatever your skin type or concern, Menon MediSpa will ensure you have the best experience possible.</p>
+  <p class="pg-text">The health, rejuvenation and body confidence that patients get from their treatments are at the heart of what we do. We want them to feel and look their best, inside and out.​</p>
+</section>
+
+<section class="pg-section" data-section="An Exceptional
+Experience">
+  <p class="pg-text">WHY CHOOSE MENON MEDISPA?</p>
+  <h2 class="pg-h">An Exceptional
+Experience</h2>
+  <p class="pg-text">At Menon Medispa, we are passionate about enhancing people's lives based on the belief that beauty comes from within.</p>
+  <p class="pg-text">Founded and led by regenerative medicine specialist Dr. Aditi Menon, our medispa provides aesthetic and dermatological treatment solutions to maintain your outer glow and inner beauty.</p>
+  <a class="pg-btn" href="/about">READ MORE</a>
+  <img class="pg-img" src="/images/2ef11e239ab9.jpg" alt="" width="481" height="480" loading="lazy" />
+</section>
+
+<section class="pg-section" data-section="Recent Posts">
+  <h2 class="pg-h">Recent Posts</h2>
+  <img class="pg-img" src="/images/2c734ddea5ed.png" alt="Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ" width="294" height="294" loading="lazy" />
+  <a class="pg-btn" href="/post/is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj">Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ</a>
+  <p class="pg-btnlabel">Post not marked as liked</p>
+  <img class="pg-img" src="/images/cdeb1a3077ee.jpg" alt="First Botox Appointment: A Step-by-Step Guide" width="294" height="196" loading="lazy" />
+  <a class="pg-btn" href="/post/first-botox-appointment-a-step-by-step-guide">First Botox Appointment: A Step-by-Step Guide</a>
+  <p class="pg-btnlabel">Post not marked as liked</p>
+  <img class="pg-img" src="/images/0b093327272f.png" alt="Photo of a woman that received a HydraFacial" width="293" height="165" loading="lazy" />
+  <a class="pg-btn" href="/post/why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation">Why Millburn NJ Residents Are Choosing HydraFacial™ for Skin Rejuvenation</a>
+  <p class="pg-btnlabel">Post not marked as liked</p>
+</section>
+
+<section class="pg-section" data-section="Frequently asked questions">
+  <h2 class="pg-h">Frequently asked questions</h2>
+  <p class="pg-btnlabel">What services does Menon Medispa in Millburn, NJ offer?</p>
+  <h3 class="pg-h">What services does Menon Medispa in Millburn, NJ offer?</h3>
+  <p class="pg-text">Menon Medispa offers a comprehensive range of medical spa treatments including advanced facial treatments, chemical peels, dermal fillers, skin rejuvenation procedures, microneedling, and various platelet-rich plasma therapies.</p>
+  <p class="pg-text">Each treatment is personalized to address your specific skin concerns and goals, delivered by our expert team of licensed professionals in a relaxing, clinical environment.<br /><br />Check out our service list!</p>
+  <a class="pg-btn" href="/book-online">Check out our service list!</a>
+  <p class="pg-btnlabel">What areas do you serve from your Millburn, New Jersey location?</p>
+  <h3 class="pg-h">What areas do you serve from your Millburn, New Jersey location?</h3>
+  <a class="pg-btn pg-btn--book" href={CALCOM} rel="noopener" target="_blank">How do I schedule an appointment at Menon Medispa?</a>
+  <h3 class="pg-h">How do I schedule an appointment at Menon Medispa?</h3>
+  <p class="pg-btnlabel">What makes Menon Medispa different from other medispas?</p>
+  <h3 class="pg-h">What makes Menon Medispa different from other medispas?</h3>
+  <p class="pg-btnlabel">What should I expect during my first visit to Menon Medispa?</p>
+  <h3 class="pg-h">What should I expect during my first visit to Menon Medispa?</h3>
+</section>
+
+<section class="pg-section" data-section="Begin Your Transformation Today">
+  <h2 class="pg-h">Begin Your Transformation Today</h2>
+  <p class="pg-text">Menon Medispa Millburn NJ</p>
+  <p class="pg-text">Ready to experience the benefits of Menon Medispa? Take the first step toward Perfect Skin and Hair  by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
+  <a class="pg-btn" href="/consultation">Schedule Your Consultation!</a>
+  <img class="pg-img" src="/images/b1a819f35921.webp" alt="Menon Office Staff.webp" width="431" height="560" loading="lazy" />
+</section>
   </main>
 </BaseLayout>
+<!-- fidelity-report: {"sections_rendered":13,"sections_content":13,"widgets_expected":118,"widgets_rendered":118,"images_resolved":27,"h1":"Millburn NJ's Premier Medispa & Wellness Center","fidelity_pct":100,"dropped":[]} -->

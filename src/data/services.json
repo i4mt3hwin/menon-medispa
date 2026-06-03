@@ -1,0 +1,812 @@
+[
+  {
+    "slug": "hyperpigmentation-face",
+    "name": "Hyperpigmentation Face",
+    "category": "Vascular Treatments",
+    "price": "$200-$350",
+    "duration": 30,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "prenatal-pregnancy-fertility-drip",
+    "name": "PRENATAL/PREGNANCY/FERTILITY DRIP",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "manual-lymph-drainage-facial",
+    "name": "Manual Lymph Drainage Facial",
+    "category": "Menon Facials",
+    "price": "$155",
+    "duration": 60,
+    "tagLine": "Enhanced Healing, Reduced Swelling, and a Youthful Glow",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "forever-radiant-experience",
+    "name": "Forever Radiant Experience",
+    "category": "Sale",
+    "price": "$500",
+    "duration": 60,
+    "tagLine": "An inside-out rejuvenation experience",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "recovery-signature",
+    "name": "RECOVERY Signature",
+    "category": "IV Drips",
+    "price": "$200",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "hyperpigmentation-neck",
+    "name": "Hyperpigmentation Neck",
+    "category": "Vascular Treatments",
+    "price": "$100-$200",
+    "duration": 59,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-upper-lip",
+    "name": "LHR Upper lip",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "energy-shot-b12-glutathione",
+    "name": "ENERGY SHOT - B12 + Glutathione",
+    "category": "Vitamin Shots",
+    "price": "$45",
+    "duration": 60,
+    "tagLine": "PREMIUM SHOTS",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "pain-management-autoimmune-disease",
+    "name": "PAIN MANAGEMENT & AUTOIMMUNE DISEASE",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "age-defying-deluxe",
+    "name": "AGE - DEFYING (Deluxe)",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "juvéderm-fillers",
+    "name": "Juvéderm Fillers",
+    "category": "Fillers & Injectables",
+    "price": "VARIED",
+    "duration": 45,
+    "tagLine": "Enhance your facial contours and smooth away wrinkles",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-full-chest",
+    "name": "LHR Full chest",
+    "category": "Laser Hair Removal",
+    "price": "$300",
+    "duration": 60,
+    "tagLine": "Extra Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "platinum-hydrafacial",
+    "name": "Platinum HydraFacial",
+    "category": "HydraFacial",
+    "price": "$325",
+    "duration": 80,
+    "tagLine": "HydraFacial, Lymphatic Drainage & LED Light Therapy",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "heart-health-diabetes-drip",
+    "name": "HEART HEALTH & DIABETES DRIP",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-breasts",
+    "name": "LHR Breasts",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-lower-legs",
+    "name": "LHR Lower legs",
+    "category": "Laser Hair Removal",
+    "price": "$150",
+    "duration": 45,
+    "tagLine": "Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-full-legs",
+    "name": "LHR Full legs",
+    "category": "Laser Hair Removal",
+    "price": "$300",
+    "duration": 60,
+    "tagLine": "Extra Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "b12-vitamin-shot",
+    "name": "B12 VITAMIN SHOT",
+    "category": "Vitamin Shots",
+    "price": "$35",
+    "duration": 60,
+    "tagLine": "B12",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "platelet-rich-plasma-hair-restoration",
+    "name": "Platelet-Rich Plasma Hair Restoration",
+    "category": "Hair Restoration",
+    "price": "$800",
+    "duration": 45,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-toes",
+    "name": "LHR Toes",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-upper-arms",
+    "name": "LHR Upper arms",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "botox-injectables",
+    "name": "BOTOX® Injectables",
+    "category": "Fillers & Injectables",
+    "price": "$14 per unit",
+    "duration": 30,
+    "tagLine": "Smoother, Wrinkle-Free Skin",
+    "description": "Experience the transformative power of our renowned facial procedure for smoother, more youthful skin. \n\nBy targeting and temporarily relaxing muscles, B0T0X® diminishes the appearance of fine lines and wrinkles, revealing a rejuvenated and refreshed complexion. Embrace the confidence that comes with a smoother, more youthful appearance, as our skilled professionals help you achieve natural-looking results. \n\nDiscover the secret to turning back the hands of time with our exclusive B0T0X® Cosmetic Rejuvenation Treatment.",
+    "cover": "/images/1f114dd47995.jpeg"
+  },
+  {
+    "slug": "hydrafacial-keravive-package",
+    "name": "HydraFacial™ Keravive™ Package",
+    "category": "HydraFacial™ Keravive™",
+    "price": "$1295",
+    "duration": 60,
+    "tagLine": "3 HydraFacial™ Keravive™ Treatments",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-fingers",
+    "name": "LHR Fingers",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "myers-cocktail",
+    "name": "MYERS COCKTAIL",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "laser-spot-treatment",
+    "name": "Laser Spot Treatment",
+    "category": "Laser Facials",
+    "price": "$99",
+    "duration": 30,
+    "tagLine": "Even Skin Tone, Reduced Dark Spots - 1-5 spots",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "chemical-peel-facial",
+    "name": "Chemical Peel Facial",
+    "category": "Menon Facials",
+    "price": "$150",
+    "duration": 45,
+    "tagLine": "Renew & Reveal: Chemical Peel Facial for Fresh, Glowing Skin.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "energy-signature",
+    "name": "ENERGY (Signature)",
+    "category": "IV Drips",
+    "price": "$200",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "semaglutide-medical-weightloss",
+    "name": "Semaglutide Medical Weightloss",
+    "category": "Semaglutide",
+    "price": "VARIED",
+    "duration": 15,
+    "tagLine": "Advanced Medical Weight Loss: Sustainable Results Without Extreme Hunger",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "nad-iv-drip-therapy-1",
+    "name": "NAD +IV DRIP THERAPY",
+    "category": "IV Drips",
+    "price": "$700",
+    "duration": 60,
+    "tagLine": "Single Dose +500mg",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "microneedling",
+    "name": "Microneedling",
+    "category": "Menon Facials",
+    "price": "$299",
+    "duration": 60,
+    "tagLine": "Stimulate collagen & reveal radiant skin naturally—no surgery, minimal downtime.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-front-or-back-of-neck",
+    "name": "LHR Front or back of neck",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "give-the-gift-of-glow",
+    "name": "GIVE THE GIFT OF GLOW",
+    "category": "Sale",
+    "price": "Call us to book",
+    "duration": 60,
+    "tagLine": "Buy a Gift Card & Receive Bonus Value",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-in-between-brows",
+    "name": "LHR In between brows",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "b-complex-vitamin-shot",
+    "name": "B COMPLEX VITAMIN SHOT",
+    "category": "Vitamin Shots",
+    "price": "$35",
+    "duration": 60,
+    "tagLine": "B COMPLEX",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-full-back",
+    "name": "LHR Full back",
+    "category": "Laser Hair Removal",
+    "price": "$300",
+    "duration": 60,
+    "tagLine": "Extra Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "nad-injection",
+    "name": "NAD+ Injection",
+    "category": "Vitamin Shots",
+    "price": "$75",
+    "duration": 15,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "age-defying-signature",
+    "name": "AGE - DEFYING (Signature)",
+    "category": "IV Drips",
+    "price": "$200",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "the-timeless-beauty-experience",
+    "name": "THE TIMELESS BEAUTY EXPERIENCE",
+    "category": "Sale",
+    "price": "$450",
+    "duration": 60,
+    "tagLine": "A curated aesthetic experience designed to refresh, restore, and elevate your natural beauty.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-brazilian",
+    "name": "LHR Brazilian",
+    "category": "Laser Hair Removal",
+    "price": "$150",
+    "duration": 45,
+    "tagLine": "Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "immunity-deluxe",
+    "name": "IMMUNITY Deluxe",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "gut-health-ibs-uc-crohn-s",
+    "name": "GUT HEALTH (IBS, UC, CROHN’S)",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "signature-hydrafacial",
+    "name": "Signature HydraFacial",
+    "category": "HydraFacial",
+    "price": "$199",
+    "duration": 30,
+    "tagLine": "Deeply cleanses, extracts and hydrates the skin",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "energy-deluxe",
+    "name": "ENERGY (Deluxe)",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-chin",
+    "name": "LHR Chin",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "glow-shot-biotin-glutathione",
+    "name": "GLOW SHOT - Biotin & Glutathione",
+    "category": "Vitamin Shots",
+    "price": "$45",
+    "duration": 60,
+    "tagLine": "PREMIUM SHOTS",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "cupping-facial",
+    "name": "Cupping Facial",
+    "category": "Menon Facials",
+    "price": "$150",
+    "duration": 60,
+    "tagLine": "Enhanced Circulation, Plumpness, and Youthful Glow",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-abdomen",
+    "name": "LHR Abdomen",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "dermaplaning-facial",
+    "name": "Dermaplaning Facial",
+    "category": "Menon Facials",
+    "price": "$160",
+    "duration": 60,
+    "tagLine": "Gentle Exfoliation & Hair Removal Without Any Downtime.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "nad-iv-drip-therapy-2",
+    "name": "NAD +IV DRIP THERAPY",
+    "category": "IV Drips",
+    "price": "$850",
+    "duration": 60,
+    "tagLine": "Single Dose +750mg",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "6-laser-hair-removal-treatment-package",
+    "name": "6 Laser Hair Removal Treatment Package",
+    "category": "Laser Hair Removal Package",
+    "price": "VARIED",
+    "duration": 45,
+    "tagLine": "6 Sessions, choose from Small, Medium, Large  & Extra Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "acne-facial",
+    "name": "Acne Facial",
+    "category": "Menon Facials",
+    "price": "$165",
+    "duration": 70,
+    "tagLine": "Medical-Grade Treatment for Clear, Confident Skin",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "detox-hangover-drip",
+    "name": "DETOX/ HANGOVER DRIP",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-ears",
+    "name": "LHR Ears",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "microneedling-3-sessions",
+    "name": "Microneedling - 3 Sessions",
+    "category": "Menon Facials",
+    "price": "$750",
+    "duration": 60,
+    "tagLine": "3-Session Package: $750 (Save $147 - that's 17% off!)",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-bikini-not-brazilian",
+    "name": "LHR Bikini (NOT Brazilian)",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "recovery-deluxe",
+    "name": "RECOVERY Deluxe",
+    "category": "IV Drips",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "deluxe-hydrafacial",
+    "name": "Deluxe HydraFacial",
+    "category": "HydraFacial",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "HydraFacial with LED Light Therapy and targeted boosters.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "hyperpigmentation-photorejuvenation",
+    "name": "Hyperpigmentation / Photorejuvenation",
+    "category": "Laser Facials",
+    "price": "VARIED",
+    "duration": 45,
+    "tagLine": "Even Skin Tone, Reduced Dark Spots, and Youthful Glow",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-sideburns",
+    "name": "LHR Sideburns",
+    "category": "Laser Hair Removal",
+    "price": "$40",
+    "duration": 15,
+    "tagLine": "Small Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "ultimate-immunity-b12-b-complex",
+    "name": "ULTIMATE IMMUNITY - B12 + B COMPLEX",
+    "category": "Vitamin Shots",
+    "price": "$45",
+    "duration": 60,
+    "tagLine": "PREMIUM SHOTS",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "glutathione-vitamin-shot",
+    "name": "GLUTATHIONE VITAMIN SHOT",
+    "category": "Vitamin Shots",
+    "price": "$35",
+    "duration": 60,
+    "tagLine": "GLUTATHIONE",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "dye-vl-rosacea",
+    "name": "Dye- VL Rosacea",
+    "category": "Vascular Treatments",
+    "price": "$350",
+    "duration": 40,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-upper-legs",
+    "name": "LHR Upper legs",
+    "category": "Laser Hair Removal",
+    "price": "$150",
+    "duration": 45,
+    "tagLine": "Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "gua-sha-stone-facial",
+    "name": "Gua Sha Stone Facial",
+    "category": "Menon Facials",
+    "price": "$150",
+    "duration": 60,
+    "tagLine": "Radiance, Lifted Complexion, and Natural Beauty",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "spot-treatment",
+    "name": "Spot Treatment",
+    "category": "Vascular Treatments",
+    "price": "$89",
+    "duration": 30,
+    "tagLine": "1-5 brown or red spots",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "nad-iv-drip-therapy",
+    "name": "NAD +IV DRIP THERAPY",
+    "category": "IV Drips",
+    "price": "$500",
+    "duration": 60,
+    "tagLine": "Single Dose +250mg",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-underarms",
+    "name": "LHR Underarms",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-full-arms",
+    "name": "LHR Full arms",
+    "category": "Laser Hair Removal",
+    "price": "$150",
+    "duration": 45,
+    "tagLine": "Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "hydrafacial-keravive",
+    "name": "HydraFacial™ Keravive™",
+    "category": "HydraFacial™ Keravive™",
+    "price": "$500",
+    "duration": 60,
+    "tagLine": "Cleanse, exfoliate, nourish, and hydrate the scalp",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "vitamin-c-facial",
+    "name": "Vitamin C Facial",
+    "category": "Menon Facials",
+    "price": "$150",
+    "duration": 60,
+    "tagLine": "Glowing Complexion, Radiant Skin",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "hyperpigmentation-décolleté",
+    "name": "Hyperpigmentation Décolleté",
+    "category": "Vascular Treatments",
+    "price": "$200-$350",
+    "duration": 59,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-shoulders",
+    "name": "LHR Shoulders",
+    "category": "Laser Hair Removal",
+    "price": "$150",
+    "duration": 45,
+    "tagLine": "Large Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "immunity-signature",
+    "name": "IMMUNITY Signature",
+    "category": "IV Drips",
+    "price": "$200",
+    "duration": 60,
+    "tagLine": "500ml.",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "glass-facial-with-salmon-dna",
+    "name": "Glass Facial With Salmon DNA",
+    "category": "Menon Facials",
+    "price": "$180",
+    "duration": 60,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "v-tox-carboxy-combo",
+    "name": "V-Tox + Carboxy Combo",
+    "category": "Menon Facials",
+    "price": "$250",
+    "duration": 60,
+    "tagLine": "Double the glow!",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "dye-vl-facial-veins",
+    "name": "Dye- VL Facial Veins",
+    "category": "Vascular Treatments",
+    "price": "$250",
+    "duration": 30,
+    "tagLine": "",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-lower-arms",
+    "name": "LHR Lower arms",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "lhr-full-face",
+    "name": "LHR Full Face",
+    "category": "Laser Hair Removal",
+    "price": "$65",
+    "duration": 30,
+    "tagLine": "Medium Area",
+    "description": "",
+    "cover": null
+  },
+  {
+    "slug": "customized-mineral-iv-drip",
+    "name": "CUSTOMIZED MINERAL IV DRIP",
+    "category": "Custom IV Drips",
+    "price": "$100",
+    "duration": 60,
+    "tagLine": "Each vitamin add-on 25$",
+    "description": "Our Custom IV Drips are fully personalized to your body’s needs—whether you’re battling fatigue, low immunity, dehydration, or recovering from stress, illness, or travel. Each drip starts with a brief consultation to determine the right combination of fluids, minerals, and optional vitamin add-ons to help you feel your best.",
+    "cover": null
+  },
+  {
+    "slug": "botox-189-new-client-special",
+    "name": "Botox $189 New Client Special",
+    "category": "Botox Sale",
+    "price": "$189",
+    "duration": 60,
+    "tagLine": "$50 Deposit Required (Goes Towards Special)",
+    "description": "",
+    "cover": null
+  }
+]

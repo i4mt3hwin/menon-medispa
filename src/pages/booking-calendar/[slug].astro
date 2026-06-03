@@ -1,0 +1,39 @@
+---
+/**
+ * booking-calendar/[slug].astro — replaces the Wix Bookings calendar.
+ * The original showed a "Schedule your service" Wix calendar widget; per operator
+ * decision (2026-06-02) scheduling moves to an external Cal.com embed. Until the
+ * operator supplies real event-type URLs, SchedulerEmbed renders a clearly-marked
+ * placeholder (call-to-book) — see site.calcomUrl.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SchedulerEmbed from '@/components/SchedulerEmbed.astro';
+import site from '@/lib/site';
+
+export function getStaticPaths() {
+  const slugs = [
+    'botox-injectables',
+    'forever-radiant-experience',
+    'give-the-gift-of-glow',
+    'hydrafacial-keravive',
+    'the-timeless-beauty-experience',
+  ];
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const nice = (slug || '').split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+---
+<BaseLayout title={`Schedule ${nice} | ${site.displayName} | Millburn, NJ`}
+            description={`Schedule your ${nice} appointment at ${site.displayName} in Millburn, NJ.`}>
+  <main class="bc">
+    <h1>Schedule your service</h1>
+    <p class="bc-sub">{nice}</p>
+    <SchedulerEmbed />
+  </main>
+</BaseLayout>
+<style>
+  .bc { max-width: var(--container-content); margin: 0 auto; padding: var(--spacing-section) 1.5rem; text-align: center; font-family: var(--font-ui); }
+  .bc h1 { font-family: var(--font-display); font-size: var(--text-4xl); }
+  .bc-sub { color: var(--color-text-muted); font-size: var(--text-lg); margin-bottom: var(--spacing-gap-lg); }
+</style>

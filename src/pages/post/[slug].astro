@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogPostTemplate from '@/components/BlogPostTemplate.astro';
+import posts from '@/data/blog.json';
+import bodies from '@/data/blog-bodies.json';
+import site from '@/lib/site';
+
+export function getStaticPaths() {
+  return (posts as any[]).map((p) => ({
+    params: { slug: p.slug },
+    props: { post: p, body: (bodies as any)[p.slug] || null },
+  }));
+}
+
+const { post, body } = Astro.props as { post: any; body: any };
+const title = `${post.title} | ${site.displayName} Blog`;
+const description = post.excerpt || `${post.title} — ${site.displayName}, Millburn NJ.`;
+---
+<BaseLayout title={title} description={description} ogType="article">
+  <BlogPostTemplate
+    title={post.title}
+    date={post.date}
+    excerpt={post.excerpt}
+    cover={post.cover}
+    body={body}
+  />
+</BaseLayout>

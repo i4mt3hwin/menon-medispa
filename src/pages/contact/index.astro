@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import site from '@/lib/site';
+const CALCOM = site.calcomUrl;
+---
+<BaseLayout>
+  <main class="pg" data-slug="contact">
+<section class="pg-section" data-section="Get In Touch">
+  <h1 class="pg-h">Get In Touch</h1>
+  <p class="pg-text">Whether you have a question about a treatment, need assistance with scheduling, or are ready to begin your journey, our team is here to help.</p>
+  <LeadForm variant="contact" />
+</section>
+
+<section class="pg-section">
+  <p class="pg-text">Menon Medispa &amp; Wellness <br /><br />45 Essex St, Suite 202, Millburn, NJ 07041, USA</p>
+  <img class="pg-img" src="/images/35c774fbba6d.png" alt="Menon Office Staff (1).png" width="425" height="323" loading="lazy" />
+  <p class="pg-text">admin@menonregen.com</p>
+  <p class="pg-text">(973) 494-8431</p>
+  <img class="pg-img" src="/images/464c5b23f583.png" alt="Facebook" width="23" height="23" loading="lazy" />
+  <img class="pg-img" src="/images/a29df34857a1.png" alt="Instagram" width="23" height="23" loading="lazy" />
+  <img class="pg-img" src="/images/d11778476dcb.png" alt="TikTok" width="23" height="23" loading="lazy" />
+</section>
+
+<section class="pg-section" data-section="Opening Hours">
+  <h2 class="pg-h">Opening Hours</h2>
+  <p class="pg-text">Mon - Fri</p>
+  <p class="pg-text">10:00 am – 6:00 pm</p>
+  <p class="pg-text">Saturday</p>
+  <p class="pg-text">10:00 am – 4:00 pm</p>
+  <p class="pg-text">​Sunday</p>
+  <p class="pg-text">CLOSED</p>
+</section>
+  </main>
+</BaseLayout>
+<!-- fidelity-report: {"sections_rendered":3,"sections_content":4,"widgets_expected":17,"widgets_rendered":17,"images_resolved":4,"h1":"Get In Touch","fidelity_pct":100,"dropped":[]} -->
