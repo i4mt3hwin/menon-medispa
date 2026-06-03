@@ -1,182 +1,578 @@
 ---
+/**
+ * Homepage — faithful Path-2 reconstruction of the Wix original.
+ *
+ * Built section-by-section from the captured layout truth:
+ *   01-discovery/pages/home/structure.json  (per-section + per-item desktop bbox,
+ *      which drove the column proportions, overlay positions and section order)
+ *   01-discovery/pages/home/rendered.html    (verbatim copy + hrefs + image map)
+ *   01-discovery/screenshots/home-desktop-full.png (visual target: backgrounds,
+ *      overlays, card vs row layouts, type treatment)
+ *
+ * Content + resolved local /images/* paths are carried over verbatim from the
+ * prior (flattened) build — only the LAYOUT is reconstructed here. Section
+ * backgrounds are not in builder.json (Wix paints them on nested wrappers that
+ * the capture flattened away), so each band's bg color/treatment is taken from
+ * the reference screenshot and expressed with the design tokens in global.css.
+ *
+ * Scaling note: this file is intentionally self-contained (scoped <style>) so it
+ * can serve as the reference layout vocabulary (.hp-* classes) the later pass
+ * generalizes. CTA/booking links use the site.ts calcom placeholder constant.
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
 const CALCOM = site.calcomUrl;
+
+// FACE / BODY / HAIR overlay link lists (verbatim from rendered.html).
+const faceList = ['Acne Facial','Chemical Peels','Cupping Facial','Dermaplaning Facial','Manual Lymph Drainage','Vitamin C Facial','HydraFacial','Microneedling','Facials','Laser Facials','ClearLift Skin Rejuvination'];
+const bodyList = ['Injectables & Dermal Fillers','Botox','Juvederm Fillers','Medical Weightloss','IV Therapy','Vascular Treatments','Dye-VL'];
+const hairList = ['Laser Hair Removal','Laser Hair Packages','Hair Restoration','HydraFacial™ Keravive','Advanced Hair Restoration','Wellness'];
+
+const faqs = [
+  {
+    q: 'What services does Menon Medispa in Millburn, NJ offer?',
+    body: [
+      'Menon Medispa offers a comprehensive range of medical spa treatments including advanced facial treatments, chemical peels, dermal fillers, skin rejuvenation procedures, microneedling, and various platelet-rich plasma therapies.',
+      'Each treatment is personalized to address your specific skin concerns and goals, delivered by our expert team of licensed professionals in a relaxing, clinical environment.',
+    ],
+    link: { text: 'Check out our service list!', href: '/book-online' },
+    open: true,
+  },
+  {
+    q: 'What areas do you serve from your Millburn, New Jersey location?',
+    body: ["Our Millburn medical spa proudly serves clients throughout New Jersey, including Short Hills, Summit, Livingston, Maplewood, South Orange, and the surrounding communities. We're conveniently located with easy access for clients seeking a premier medispa experience with science-backed treatments featured in prestigious publications."],
+  },
+  {
+    q: 'How do I schedule an appointment at Menon Medispa?',
+    body: ['Scheduling your unique experience at Menon Medispa is simple. You can book appointments through our website, call our customer service team, or email us to explore our treatment options. We recommend booking in advance to ensure availability at your preferred time. We also offer free consultations with our Aestheticians. Learn more or request a consultation!'],
+  },
+  {
+    q: 'What makes Menon Medispa different from other medispas?',
+    body: ['What sets us apart is our commitment to results-driven treatments combined with a personalized approach. We have a regenerative medicine MD on staff performing procedures, ensuring you receive the highest level of medical expertise and care. This physician-led approach allows us to offer advanced treatments with greater precision and safety than typical medispas. Our skilled providers take time to understand your concerns before recommending a customized treatment plan in our welcoming environment.'],
+  },
+  {
+    q: 'What should I expect during my first visit to Menon Medispa?',
+    body: ["Your first visit typically begins with a thorough consultation to discuss your skin concerns and goals. Our expert team will guide you through available options, from chemical peels to dermal fillers, answering all your questions. We'll provide clear directions for preparation and aftercare to ensure optimal results from your treatment. Many clients report visible improvements after just one session, though optimal results may require a customized treatment series."],
+  },
+];
 ---
 <BaseLayout>
-  <main class="pg" data-slug="home">
-<section class="pg-section" data-section="Millburn NJ's Premier Medispa &amp; Wellness Center">
-  <img class="pg-img" src="/images/f2a8f8988125.jpg" alt="" width="1440" height="599" loading="lazy" />
-  <h1 class="pg-h">Millburn NJ's Premier Medispa &amp; Wellness Center</h1>
-  <p class="pg-text">Give Yourself the Glow Up You Deserve</p>
-  <p class="pg-text">Advanced Botox, facials, and body treatments delivered by medical experts. Discover why Millburn residents choose us for their aesthetic goals.</p>
-  <a class="pg-btn pg-btn--book" href={CALCOM} rel="noopener" target="_blank">Schedule An Appointment</a>
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">100+ 5 Star Reviews</p>
-</section>
+  <main class="hp">
 
-<section class="pg-section">
-  <p class="pg-text">Same-Week Appointments</p>
-  <p class="pg-text">Medical-Grade Expertise</p>
-  <p class="pg-text">State of the Art Equipment</p>
-</section>
+    {/* ============================ 1 · HERO ============================ */}
+    <section class="hp-hero" aria-label="Hero">
+      <img class="hp-hero__bg" src="/images/f2a8f8988125.jpg" alt="" width="1440" height="599" />
+      <div class="hp-hero__overlay"></div>
+      <div class="hp-container hp-hero__inner">
+        <p class="hp-hero__eyebrow">Millburn NJ's Premier Medispa &amp; Wellness Center</p>
+        <h1 class="hp-hero__title">Give Yourself the Glow Up You Deserve</h1>
+        <p class="hp-hero__lead">Advanced Botox, facials, and body treatments delivered by medical experts. Discover why Millburn residents choose us for their aesthetic goals.</p>
+        <a class="hp-btn hp-btn--gold" href={CALCOM} rel="noopener" target="_blank">Schedule An Appointment</a>
+        <div class="hp-reviews">
+          <div class="hp-reviews__avatars">
+            <img src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" />
+            <img src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" />
+            <img src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" />
+          </div>
+          <div class="hp-reviews__text">
+            <span class="hp-reviews__stars">★★★★★</span>
+            <span class="hp-reviews__count">100+ 5 Star Reviews</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="We Offer Skincare Treatments Featured In">
-  <h2 class="pg-h">We Offer Skincare Treatments Featured In</h2>
-  <img class="pg-img" src="/images/abe70978be24.jpg" alt="Vogue Logo - Link to Related Article" width="200" height="100" loading="lazy" />
-  <img class="pg-img" src="/images/a907a2a5b193.jpg" alt="Cosmopolitan Logo - Link to Related Article" width="200" height="100" loading="lazy" />
-  <img class="pg-img" src="/images/c1cefa7e9c95.jpg" alt="Bazaar Logo - Link to Related Article" width="200" height="100" loading="lazy" />
-  <img class="pg-img" src="/images/349d72d3c082.webp" alt="Fortune Logo - Link To Related Article" width="200" height="100" loading="lazy" />
-</section>
+    {/* ===================== 2 · TRUST BADGES BAND ===================== */}
+    <section class="hp-badges" aria-label="Highlights">
+      <div class="hp-container hp-badges__row">
+        <p class="hp-badge"><span class="hp-badge__check">✓</span> Same-Week Appointments</p>
+        <p class="hp-badge"><span class="hp-badge__check">✓</span> Medical-Grade Expertise</p>
+        <p class="hp-badge"><span class="hp-badge__check">✓</span> State of the Art Equipment</p>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Welcome To">
-  <h3 class="pg-h">Welcome To</h3>
-  <h3 class="pg-h">Menon Medispa &amp; Wellness</h3>
-  <p class="pg-text">If you're ever unsure which service is right for you, we're here to help!</p>
-  <p class="pg-text">Schedule a complimentary consultation with one of our experts to discuss your goals and find the perfect treatment.</p>
-  <p class="pg-text">Click below to book your session and start your journey to looking and feeling your best.</p>
-  <a class="pg-btn" href="/consultation">Schedule Consultation</a>
-  <h2 class="pg-h">Expert Medispa and Skin Care Clinic in Millburn, NJ</h2>
-  <p class="pg-text">Menon Medispa has been at the forefront of medical aesthetics and anti-aging innovations since 2019. Our team of esteemed medical experts is committed to providing outstanding care and achieving lasting outcomes that not only improve your looks but also boost your overall wellness. We take pride in our recognition as the top-rated medispa in Millburn NJ.</p>
-</section>
+    {/* ====================== 3 · FEATURED IN ======================= */}
+    <section class="hp-featured" aria-label="Featured in">
+      <div class="hp-container">
+        <h2 class="hp-featured__title">We Offer Skincare Treatments <em>Featured In</em></h2>
+        <div class="hp-featured__logos">
+          <img src="/images/abe70978be24.jpg" alt="Vogue Logo - Link to Related Article" loading="lazy" />
+          <img src="/images/a907a2a5b193.jpg" alt="Cosmopolitan Logo - Link to Related Article" loading="lazy" />
+          <img src="/images/c1cefa7e9c95.jpg" alt="Bazaar Logo - Link to Related Article" loading="lazy" />
+          <img src="/images/349d72d3c082.webp" alt="Fortune Logo - Link To Related Article" loading="lazy" />
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Monthly Specials">
-  <p class="pg-text">MUST TRY</p>
-  <h2 class="pg-h">Monthly Specials</h2>
-  <ul class="pg-list">
-    <li>THE TIMELESS BEAUTY EXPERIENCERead More450 US dollars$450Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/acb8f1a74f7d.jpg" alt="microdermabrasion, dermal filler, micropigmentation, microblading, beauty procedure, permanent makeup, mesotherapy, facial rejuvenation, botox injection, facial beauty" width="110" height="110" loading="lazy" />
-  <a class="pg-btn" href="/booking-calendar/the-timeless-beauty-experience">THE TIMELESS BEAUTY EXPERIENCE</a>
-  <a class="pg-btn" href="/service-page/the-timeless-beauty-experience">Read More</a>
-  <p class="pg-text">$450</p>
-  <a class="pg-btn" href="/booking-calendar/the-timeless-beauty-experience">Request to Book</a>
-  <ul class="pg-list">
-    <li>GIVE THE GIFT OF GLOWRead MoreCall us to bookCall us to bookRequest to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/b629e8e1a741.jpg" alt="anti-ageing, micropigmentation, anti-aging, female skincare, facial rejuvenation, anti aging, make the skin beautiful, collagen, skin treatment, facial care" width="110" height="110" loading="lazy" />
-  <a class="pg-btn" href="/booking-calendar/give-the-gift-of-glow">GIVE THE GIFT OF GLOW</a>
-  <a class="pg-btn" href="/service-page/give-the-gift-of-glow">Read More</a>
-  <p class="pg-text">Call us to book</p>
-  <a class="pg-btn" href="/booking-calendar/give-the-gift-of-glow">Request to Book</a>
-  <ul class="pg-list">
-    <li>Forever Radiant ExperienceRead More500 US dollars$500Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/6493a64ea586.jpg" alt="face rejuvenation" width="110" height="110" loading="lazy" />
-  <a class="pg-btn" href="/booking-calendar/forever-radiant-experience">Forever Radiant Experience</a>
-  <a class="pg-btn" href="/service-page/forever-radiant-experience">Read More</a>
-  <p class="pg-text">$500</p>
-  <a class="pg-btn" href="/booking-calendar/forever-radiant-experience">Request to Book</a>
-</section>
+    {/* ======================== 4 · WELCOME ========================= */}
+    <section class="hp-welcome" aria-label="Welcome">
+      <div class="hp-container hp-welcome__grid">
+        <div class="hp-welcome__card">
+          <h3 class="hp-welcome__eyebrow">Welcome To</h3>
+          <h3 class="hp-welcome__name">Menon Medispa &amp; Wellness</h3>
+          <p>If you're ever unsure which service is right for you, we're here to help!</p>
+          <p>Schedule a <strong>complimentary</strong> consultation with one of our experts to discuss your goals and find the perfect treatment.</p>
+          <p>Click below to book your session and start your journey to looking and feeling your best.</p>
+          <a class="hp-btn hp-btn--gold" href="/consultation">Schedule Consultation ›</a>
+        </div>
+        <div class="hp-welcome__copy">
+          <h2>Expert Medispa and Skin Care Clinic in Millburn, NJ</h2>
+          <p>Menon Medispa has been at the forefront of medical aesthetics and anti-aging innovations since 2019. Our team of esteemed medical experts is committed to providing outstanding care and achieving lasting outcomes that not only improve your looks but also boost your overall wellness. We take pride in our recognition as the top-rated medispa in Millburn NJ.</p>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Popular Treatments">
-  <h5 class="pg-h">MUST TRY</h5>
-  <h3 class="pg-h">Popular Treatments</h3>
-  <ul class="pg-list">
-    <li>BOTOX® Injectables$14 per unit$14 per unitRequest to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/1f114dd47995.jpeg" alt="" width="290" height="290" loading="lazy" />
-  <a class="pg-btn" href="/service-page/botox-injectables">BOTOX® Injectables</a>
-  <p class="pg-text">$14 per unit</p>
-  <a class="pg-btn" href="/booking-calendar/botox-injectables">Request to Book</a>
-  <ul class="pg-list">
-    <li>Juvéderm FillersFrom 750 US dollarsFrom $750Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/8ec275b96db1.jpeg" alt="" width="290" height="290" loading="lazy" />
-  <a class="pg-btn" href="/service-page/juvéderm-fillers">Juvéderm Fillers</a>
-  <p class="pg-text">From $750</p>
-  <ul class="pg-list">
-    <li>HydraFacial™ Keravive™500 US dollars$500Request to Book</li>
-  </ul>
-  <img class="pg-img" src="/images/02127013d183.jpg" alt="" width="290" height="290" loading="lazy" />
-  <a class="pg-btn" href="/service-page/hydrafacial-keravive">HydraFacial™ Keravive™</a>
-  <p class="pg-text">$500</p>
-</section>
+    {/* ==================== 5 · MONTHLY SPECIALS ==================== */}
+    <section class="hp-specials" aria-label="Monthly Specials">
+      <div class="hp-container">
+        <p class="hp-eyebrow hp-eyebrow--center">MUST TRY</p>
+        <h2 class="hp-script-title">Monthly <em>Specials</em></h2>
+        <div class="hp-rows">
+          <div class="hp-row">
+            <img class="hp-row__thumb" src="/images/acb8f1a74f7d.jpg" alt="The Timeless Beauty Experience" loading="lazy" />
+            <div class="hp-row__main">
+              <a class="hp-row__title" href="/booking-calendar/the-timeless-beauty-experience">THE TIMELESS BEAUTY EXPERIENCE</a>
+              <a class="hp-row__more" href="/service-page/the-timeless-beauty-experience">Read More</a>
+            </div>
+            <div class="hp-row__price">$450</div>
+            <a class="hp-btn hp-btn--gold hp-row__cta" href="/booking-calendar/the-timeless-beauty-experience">Request to Book</a>
+          </div>
+          <div class="hp-row">
+            <img class="hp-row__thumb" src="/images/b629e8e1a741.jpg" alt="Give the Gift of Glow" loading="lazy" />
+            <div class="hp-row__main">
+              <a class="hp-row__title" href="/booking-calendar/give-the-gift-of-glow">GIVE THE GIFT OF GLOW</a>
+              <a class="hp-row__more" href="/service-page/give-the-gift-of-glow">Read More</a>
+            </div>
+            <div class="hp-row__price">Call us to book</div>
+            <a class="hp-btn hp-btn--gold hp-row__cta" href="/booking-calendar/give-the-gift-of-glow">Request to Book</a>
+          </div>
+          <div class="hp-row">
+            <img class="hp-row__thumb" src="/images/6493a64ea586.jpg" alt="Forever Radiant Experience" loading="lazy" />
+            <div class="hp-row__main">
+              <a class="hp-row__title" href="/booking-calendar/forever-radiant-experience">Forever Radiant Experience</a>
+              <a class="hp-row__more" href="/service-page/forever-radiant-experience">Read More</a>
+            </div>
+            <div class="hp-row__price">$500</div>
+            <a class="hp-btn hp-btn--gold hp-row__cta" href="/booking-calendar/forever-radiant-experience">Request to Book</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="What Our Clients Say">
-  <img class="pg-img" src="/images/30cfb9e87c60.png" alt="Untitled-4.png" width="1440" height="626" loading="lazy" />
-  <h3 class="pg-h">What Our Clients Say</h3>
-  <blockquote class="pg-quote">"Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.</blockquote>
-  <p class="pg-text">Alexa C.</p>
-  <img class="pg-img" src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <img class="pg-img" src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
-  <p class="pg-text">★★★★★</p>
-  <p class="pg-text">100+ 5 Star Reviews</p>
-</section>
+    {/* ==================== 6 · POPULAR TREATMENTS ==================== */}
+    <section class="hp-popular" aria-label="Popular Treatments">
+      <div class="hp-container">
+        <p class="hp-eyebrow hp-eyebrow--center">MUST TRY</p>
+        <h3 class="hp-script-title">Popular <em>Treatments</em></h3>
+        <div class="hp-cards">
+          <article class="hp-card">
+            <img src="/images/1f114dd47995.jpeg" alt="BOTOX Injectables" loading="lazy" />
+            <h4><a href="/service-page/botox-injectables">BOTOX® Injectables</a></h4>
+            <p class="hp-card__price">$14 per unit</p>
+            <a class="hp-btn hp-btn--gold" href="/booking-calendar/botox-injectables">Request to Book</a>
+          </article>
+          <article class="hp-card">
+            <img src="/images/8ec275b96db1.jpeg" alt="Juvéderm Fillers" loading="lazy" />
+            <h4><a href="/service-page/juvéderm-fillers">Juvéderm Fillers</a></h4>
+            <p class="hp-card__price">From $750</p>
+            <a class="hp-btn hp-btn--gold" href="/booking-calendar/juvéderm-fillers">Request to Book</a>
+          </article>
+          <article class="hp-card">
+            <img src="/images/02127013d183.jpg" alt="HydraFacial Keravive" loading="lazy" />
+            <h4><a href="/service-page/hydrafacial-keravive">HydraFacial™ Keravive™</a></h4>
+            <p class="hp-card__price">$500</p>
+            <a class="hp-btn hp-btn--gold" href="/booking-calendar/hydrafacial-keravive">Request to Book</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Our Services">
-  <h2 class="pg-h">Our Services</h2>
-  <img class="pg-img" src="/images/0a8150a5612c.jpg" alt="Face Treatments Menon Medispa" width="385" height="673" loading="lazy" />
-  <img class="pg-img" src="/images/2fc4656f8ac4.jpg" alt="Natural Beauty" width="402" height="673" loading="lazy" />
-  <img class="pg-img" src="/images/e6d509254f0c.jpg" alt="Model with Curly Hair" width="402" height="673" loading="lazy" />
-  <h2 class="pg-h">FACE</h2>
-  <h2 class="pg-h">BODY</h2>
-  <h2 class="pg-h">HAIR</h2>
-</section>
+    {/* ==================== 7 · TESTIMONIALS ==================== */}
+    <section class="hp-testimonial" aria-label="What Our Clients Say">
+      <img class="hp-testimonial__bg" src="/images/30cfb9e87c60.png" alt="" width="1440" height="626" loading="lazy" />
+      <div class="hp-testimonial__overlay"></div>
+      <div class="hp-container hp-testimonial__inner">
+        <h3 class="hp-script-title hp-script-title--light">What Our <em>Clients</em> Say</h3>
+        <blockquote class="hp-quote">
+          <span class="hp-quote__mark">"</span>
+          Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.
+          <cite>Alexa C.</cite>
+        </blockquote>
+        <div class="hp-reviews hp-reviews--center">
+          <div class="hp-reviews__avatars">
+            <img src="/images/90411e0041df.png" alt="Picture of a Client Who Reviewed Us" width="46" height="50" loading="lazy" />
+            <img src="/images/305afeda5f9a.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
+            <img src="/images/b95880091b44.png" alt="Picture of a Client Who Reviewed Us" width="52" height="50" loading="lazy" />
+          </div>
+          <div class="hp-reviews__text">
+            <span class="hp-reviews__stars">★★★★★</span>
+            <span class="hp-reviews__count">100+ 5 Star Reviews</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Your Skin 
-Comes First">
-  <img class="pg-img" src="/images/8f23c1351be4.jpg" alt="pexels-angela-roma-7479966_edited.jpg" width="1440" height="900" loading="lazy" />
-  <p class="pg-text">WE BELIEVE</p>
-  <h2 class="pg-h">Your Skin 
-Comes First</h2>
-  <p class="pg-text">Menon Medispa &amp; Wellness Brings Together Beauty &amp; Wellness.</p>
-  <p class="pg-text">Our physicians and staff specialize in a wide range of facial and body treatments using the latest technology in lasers, fillers, and top rated facials. Whatever your skin type or concern, Menon MediSpa will ensure you have the best experience possible.</p>
-  <p class="pg-text">The health, rejuvenation and body confidence that patients get from their treatments are at the heart of what we do. We want them to feel and look their best, inside and out.​</p>
-</section>
+    {/* ==================== 8 · OUR SERVICES (FACE/BODY/HAIR) ==================== */}
+    <section class="hp-services" aria-label="Our Services">
+      <div class="hp-container">
+        <h2 class="hp-script-title">Our <em>Services</em></h2>
+        <div class="hp-services__grid">
+          <article class="hp-service">
+            <img src="/images/0a8150a5612c.jpg" alt="Face Treatments Menon Medispa" width="385" height="673" loading="lazy" />
+            <div class="hp-service__tint"></div>
+            <div class="hp-service__content">
+              <h2 class="hp-service__label">FACE</h2>
+              <ul class="hp-service__list">
+                {faceList.map((s) => <li>{s}</li>)}
+              </ul>
+            </div>
+          </article>
+          <article class="hp-service">
+            <img src="/images/2fc4656f8ac4.jpg" alt="Natural Beauty" width="402" height="673" loading="lazy" />
+            <div class="hp-service__tint"></div>
+            <div class="hp-service__content">
+              <h2 class="hp-service__label">BODY</h2>
+              <ul class="hp-service__list">
+                {bodyList.map((s) => <li>{s}</li>)}
+              </ul>
+            </div>
+          </article>
+          <article class="hp-service">
+            <img src="/images/e6d509254f0c.jpg" alt="Model with Curly Hair" width="402" height="673" loading="lazy" />
+            <div class="hp-service__tint"></div>
+            <div class="hp-service__content">
+              <h2 class="hp-service__label">HAIR</h2>
+              <ul class="hp-service__list">
+                {hairList.map((s) => <li>{s}</li>)}
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="An Exceptional
-Experience">
-  <p class="pg-text">WHY CHOOSE MENON MEDISPA?</p>
-  <h2 class="pg-h">An Exceptional
-Experience</h2>
-  <p class="pg-text">At Menon Medispa, we are passionate about enhancing people's lives based on the belief that beauty comes from within.</p>
-  <p class="pg-text">Founded and led by regenerative medicine specialist Dr. Aditi Menon, our medispa provides aesthetic and dermatological treatment solutions to maintain your outer glow and inner beauty.</p>
-  <a class="pg-btn" href="/about">READ MORE</a>
-  <img class="pg-img" src="/images/2ef11e239ab9.jpg" alt="" width="481" height="480" loading="lazy" />
-</section>
+    {/* ==================== 9 · YOUR SKIN COMES FIRST ==================== */}
+    <section class="hp-skin" aria-label="Your Skin Comes First">
+      <img class="hp-skin__bg" src="/images/8f23c1351be4.jpg" alt="" width="1440" height="900" loading="lazy" />
+      <div class="hp-skin__overlay"></div>
+      <div class="hp-container hp-skin__grid">
+        <div class="hp-skin__head">
+          <p class="hp-eyebrow hp-eyebrow--light">WE BELIEVE</p>
+          <h2 class="hp-skin__title">Your Skin<br />Comes First</h2>
+        </div>
+        <div class="hp-skin__body">
+          <p class="hp-skin__lead">Menon Medispa &amp; Wellness Brings Together Beauty &amp; Wellness.</p>
+          <p>Our physicians and staff specialize in a wide range of facial and body treatments using the latest technology in lasers, fillers, and top rated facials. Whatever your skin type or concern, Menon MediSpa will ensure you have the best experience possible.</p>
+          <p>The health, rejuvenation and body confidence that patients get from their treatments are at the heart of what we do. We want them to feel and look their best, inside and out.​</p>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Recent Posts">
-  <h2 class="pg-h">Recent Posts</h2>
-  <img class="pg-img" src="/images/2c734ddea5ed.png" alt="Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ" width="294" height="294" loading="lazy" />
-  <a class="pg-btn" href="/post/is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj">Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ</a>
-  <p class="pg-btnlabel">Post not marked as liked</p>
-  <img class="pg-img" src="/images/cdeb1a3077ee.jpg" alt="First Botox Appointment: A Step-by-Step Guide" width="294" height="196" loading="lazy" />
-  <a class="pg-btn" href="/post/first-botox-appointment-a-step-by-step-guide">First Botox Appointment: A Step-by-Step Guide</a>
-  <p class="pg-btnlabel">Post not marked as liked</p>
-  <img class="pg-img" src="/images/0b093327272f.png" alt="Photo of a woman that received a HydraFacial" width="293" height="165" loading="lazy" />
-  <a class="pg-btn" href="/post/why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation">Why Millburn NJ Residents Are Choosing HydraFacial™ for Skin Rejuvenation</a>
-  <p class="pg-btnlabel">Post not marked as liked</p>
-</section>
+    {/* ==================== 10 · AN EXCEPTIONAL EXPERIENCE ==================== */}
+    <section class="hp-exp" aria-label="An Exceptional Experience">
+      <div class="hp-exp__grid">
+        <div class="hp-exp__panel">
+          <div class="hp-exp__panel-inner">
+            <p class="hp-eyebrow hp-eyebrow--light">WHY CHOOSE MENON MEDISPA?</p>
+            <h2 class="hp-script-title hp-script-title--light hp-exp__title">An <em>Exceptional</em> Experience</h2>
+            <p>At Menon Medispa, we are passionate about enhancing people's lives based on the belief that beauty comes from within.</p>
+            <p>Founded and led by regenerative medicine specialist Dr. Aditi Menon, our medispa provides aesthetic and dermatological treatment solutions to maintain your outer glow and inner beauty.</p>
+            <a class="hp-btn hp-btn--white" href="/about">READ MORE</a>
+          </div>
+        </div>
+        <div class="hp-exp__media">
+          <img src="/images/2ef11e239ab9.jpg" alt="An exceptional experience at Menon Medispa" width="717" height="715" loading="lazy" />
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Frequently asked questions">
-  <h2 class="pg-h">Frequently asked questions</h2>
-  <p class="pg-btnlabel">What services does Menon Medispa in Millburn, NJ offer?</p>
-  <h3 class="pg-h">What services does Menon Medispa in Millburn, NJ offer?</h3>
-  <p class="pg-text">Menon Medispa offers a comprehensive range of medical spa treatments including advanced facial treatments, chemical peels, dermal fillers, skin rejuvenation procedures, microneedling, and various platelet-rich plasma therapies.</p>
-  <p class="pg-text">Each treatment is personalized to address your specific skin concerns and goals, delivered by our expert team of licensed professionals in a relaxing, clinical environment.<br /><br />Check out our service list!</p>
-  <a class="pg-btn" href="/book-online">Check out our service list!</a>
-  <p class="pg-btnlabel">What areas do you serve from your Millburn, New Jersey location?</p>
-  <h3 class="pg-h">What areas do you serve from your Millburn, New Jersey location?</h3>
-  <a class="pg-btn pg-btn--book" href={CALCOM} rel="noopener" target="_blank">How do I schedule an appointment at Menon Medispa?</a>
-  <h3 class="pg-h">How do I schedule an appointment at Menon Medispa?</h3>
-  <p class="pg-btnlabel">What makes Menon Medispa different from other medispas?</p>
-  <h3 class="pg-h">What makes Menon Medispa different from other medispas?</h3>
-  <p class="pg-btnlabel">What should I expect during my first visit to Menon Medispa?</p>
-  <h3 class="pg-h">What should I expect during my first visit to Menon Medispa?</h3>
-</section>
+    {/* ==================== 11 · RECENT POSTS ==================== */}
+    <section class="hp-posts" aria-label="Recent Posts">
+      <div class="hp-container">
+        <h2 class="hp-script-title">Recent <em>Posts</em></h2>
+        <div class="hp-posts__grid">
+          <article class="hp-post">
+            <img src="/images/2c734ddea5ed.png" alt="Is Botox Safe? Risks, Side Effects & What Research Says in Millburn, NJ" loading="lazy" />
+            <div class="hp-post__body">
+              <h3><a href="/post/is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj">Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ</a></h3>
+              <p>Wondering if Botox is truly safe? We break down FDA approval, common side effects, rare risks, and how to ensure your treatment is in expert hands at a trusted Millburn medispa.</p>
+              <p class="hp-post__meta">👁 20</p>
+            </div>
+          </article>
+          <article class="hp-post">
+            <img src="/images/cdeb1a3077ee.jpg" alt="First Botox Appointment: A Step-by-Step Guide" loading="lazy" />
+            <div class="hp-post__body">
+              <h3><a href="/post/first-botox-appointment-a-step-by-step-guide">First Botox Appointment: A Step-by-Step Guide</a></h3>
+              <p>A complete walkthrough of your first Botox appointment, from consultation to results. Learn how…</p>
+              <p class="hp-post__meta">👁 32</p>
+            </div>
+          </article>
+          <article class="hp-post">
+            <img src="/images/0b093327272f.png" alt="Photo of a woman that received a HydraFacial" loading="lazy" />
+            <div class="hp-post__body">
+              <h3><a href="/post/why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation">Why Millburn NJ Residents Are Choosing HydraFacial™ for Skin Rejuvenation</a></h3>
+              <p>Discover why Millburn residents are choosing HydraFacial treatments at Menon Medispa to…</p>
+              <p class="hp-post__meta">👁 34</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<section class="pg-section" data-section="Begin Your Transformation Today">
-  <h2 class="pg-h">Begin Your Transformation Today</h2>
-  <p class="pg-text">Menon Medispa Millburn NJ</p>
-  <p class="pg-text">Ready to experience the benefits of Menon Medispa? Take the first step toward Perfect Skin and Hair  by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
-  <a class="pg-btn" href="/consultation">Schedule Your Consultation!</a>
-  <img class="pg-img" src="/images/b1a819f35921.webp" alt="Menon Office Staff.webp" width="431" height="560" loading="lazy" />
-</section>
+    {/* ==================== 12 · FAQ ==================== */}
+    <section class="hp-faq" aria-label="Frequently asked questions">
+      <div class="hp-container hp-faq__card">
+        <div class="hp-faq__head">
+          <h2 class="hp-faq__title">Frequently asked questions</h2>
+          <div class="hp-faq__search">Looking for something? <span>🔍</span></div>
+        </div>
+        <div class="hp-faq__list">
+          {faqs.map((f) => (
+            <details class="hp-faq__item" open={f.open}>
+              <summary>{f.q}</summary>
+              <div class="hp-faq__answer">
+                {f.body.map((p) => <p>{p}</p>)}
+                {f.link && <p><a href={f.link.href}>{f.link.text}</a></p>}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ==================== 13 · CTA — BEGIN YOUR TRANSFORMATION ==================== */}
+    <section class="hp-cta" aria-label="Begin Your Transformation Today">
+      <div class="hp-container hp-cta__grid">
+        <div class="hp-cta__copy">
+          <h2 class="hp-cta__title">Begin Your Transformation Today</h2>
+          <p class="hp-cta__sub">Menon Medispa Millburn NJ</p>
+          <p>Ready to experience the benefits of Menon Medispa? Take the first step toward Perfect Skin and Hair by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>
+          <a class="hp-btn hp-btn--gold" href="/consultation">Schedule Your Consultation!</a>
+        </div>
+        <div class="hp-cta__media">
+          <img src="/images/b1a819f35921.webp" alt="Menon Office Staff" width="431" height="560" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
-<!-- fidelity-report: {"sections_rendered":13,"sections_content":13,"widgets_expected":118,"widgets_rendered":118,"images_resolved":27,"h1":"Millburn NJ's Premier Medispa & Wellness Center","fidelity_pct":100,"dropped":[]} -->
+
+<style>
+  /* ---- shared layout primitives ---- */
+  .hp { width: 100%; overflow-x: clip; }
+  .hp-container { max-width: var(--container-max); margin: 0 auto; padding-inline: clamp(1.25rem, 5vw, 80px); width: 100%; }
+
+  /* shared serif display title with italic accent word (matches Wix Playfair treatment) */
+  .hp-script-title {
+    font-family: var(--font-display); font-weight: 700; text-align: center;
+    font-size: clamp(2rem, 4vw, 3rem); color: var(--color-ink); margin: 0 0 2.5rem;
+    line-height: 1.15;
+  }
+  .hp-script-title em { font-style: italic; font-weight: 500; }
+  .hp-script-title--light { color: #fff; }
+
+  .hp-eyebrow { font-family: var(--font-ui); letter-spacing: 0.18em; text-transform: uppercase;
+    font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin: 0 0 0.75rem; }
+  .hp-eyebrow--center { text-align: center; }
+  .hp-eyebrow--light { color: rgba(255,255,255,0.85); }
+
+  /* buttons */
+  .hp-btn { display: inline-block; font-family: var(--font-ui); font-weight: 700; font-size: var(--text-sm);
+    text-decoration: none; padding: 0.85rem 1.8rem; border-radius: var(--radius-sm); transition: filter .2s, background .2s; cursor: pointer; }
+  .hp-btn--gold { background: var(--color-accent-warm); color: #2c2632; }
+  .hp-btn--gold:hover { filter: brightness(0.94); }
+  .hp-btn--white { background: #fff; color: #2c2632; }
+  .hp-btn--white:hover { filter: brightness(0.94); }
+
+  /* review avatars + stars (hero + testimonial) */
+  .hp-reviews { display: flex; align-items: center; gap: 0.85rem; margin-top: 1.75rem; }
+  .hp-reviews--center { justify-content: center; }
+  .hp-reviews__avatars { display: flex; }
+  .hp-reviews__avatars img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover;
+    border: 2px solid #fff; margin-left: -12px; }
+  .hp-reviews__avatars img:first-child { margin-left: 0; }
+  .hp-reviews__text { display: flex; flex-direction: column; line-height: 1.15; }
+  .hp-reviews__stars { color: #f3c14b; font-size: var(--text-lg); letter-spacing: 1px; }
+  .hp-reviews__count { color: #fff; font-size: var(--text-sm); font-weight: 600; }
+
+  /* ============ 1 · HERO ============ */
+  .hp-hero { position: relative; min-height: 599px; display: flex; align-items: center; overflow: hidden; }
+  .hp-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hp-hero__overlay { position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(30,22,28,0.78) 0%, rgba(30,22,28,0.55) 45%, rgba(30,22,28,0.15) 100%); }
+  .hp-hero__inner { position: relative; z-index: 1; color: #fff; max-width: var(--container-max); }
+  .hp-hero__eyebrow { font-family: var(--font-ui); font-size: var(--text-sm); letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.9); margin: 0 0 0.75rem; max-width: 560px; }
+  .hp-hero__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 4.2vw, 3.4rem);
+    line-height: 1.1; margin: 0 0 1.1rem; max-width: 560px; color: #fff; }
+  .hp-hero__lead { font-family: var(--font-ui); font-size: var(--text-lg); line-height: 1.5;
+    max-width: 460px; margin: 0 0 1.75rem; color: rgba(255,255,255,0.95); }
+
+  /* ============ 2 · BADGES ============ */
+  .hp-badges { background: var(--color-secondary); padding: 1.6rem 0; }
+  .hp-badges__row { display: flex; justify-content: center; gap: clamp(1.5rem, 5vw, 4.5rem); flex-wrap: wrap; }
+  .hp-badge { font-family: var(--font-ui); font-weight: 700; color: #fff; font-size: var(--text-md); margin: 0;
+    display: flex; align-items: center; gap: 0.5rem; }
+  .hp-badge__check { color: var(--color-accent-warm); font-weight: 700; }
+
+  /* ============ 3 · FEATURED IN ============ */
+  .hp-featured { background: #fff; padding: 3.5rem 0 4rem; }
+  .hp-featured__title { font-family: var(--font-display); font-weight: 700; text-align: center;
+    font-size: clamp(2rem, 4.5vw, 3.25rem); color: var(--color-primary); margin: 0 0 2.5rem; line-height: 1.15; }
+  .hp-featured__title em { display: block; font-style: italic; font-weight: 500; }
+  .hp-featured__logos { display: flex; justify-content: center; align-items: center; gap: clamp(2rem, 6vw, 5rem); flex-wrap: wrap; }
+  .hp-featured__logos img { height: 46px; width: auto; object-fit: contain; filter: grayscale(1); opacity: 0.85; }
+
+  /* ============ 4 · WELCOME ============ */
+  .hp-welcome { background: #fff; padding: 1rem 0 4.5rem; }
+  .hp-welcome__grid { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .hp-welcome__card { border: 2px solid var(--color-secondary); background: #faf6f1;
+    padding: 2.25rem 2rem; text-align: center; box-shadow: var(--shadow-soft); }
+  .hp-welcome__eyebrow { font-family: var(--font-display); font-style: italic; font-weight: 700;
+    font-size: var(--text-3xl); margin: 0 0 0.5rem; color: var(--color-ink); }
+  .hp-welcome__name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl);
+    margin: 0 0 1.25rem; color: var(--color-ink); }
+  .hp-welcome__card p { font-family: var(--font-ui); color: #4a4450; line-height: 1.6; margin: 0 0 1rem; }
+  .hp-welcome__card strong { color: var(--color-primary); }
+  .hp-welcome__card .hp-btn { margin-top: 0.75rem; }
+  .hp-welcome__copy h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    color: var(--color-ink); margin: 0.25rem 0 1.25rem; line-height: 1.25; }
+  .hp-welcome__copy p { font-family: var(--font-ui); color: #4a4450; line-height: 1.85; margin: 0; }
+
+  /* ============ 5 · MONTHLY SPECIALS ============ */
+  .hp-specials { background: #f2f1f0; padding: 4rem 0 4.5rem; }
+  .hp-rows { background: #fff; max-width: 1080px; margin: 0 auto; box-shadow: var(--shadow-soft); }
+  .hp-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) 150px 170px; align-items: center;
+    gap: 1.5rem; padding: 1.5rem 2rem; border-bottom: 1px solid #e7e4e1; }
+  .hp-row:last-child { border-bottom: 0; }
+  .hp-row__thumb { width: 90px; height: 90px; object-fit: cover; border-radius: 3px; }
+  .hp-row__title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg);
+    color: var(--color-ink); text-decoration: none; line-height: 1.2; }
+  .hp-row__more { font-family: var(--font-ui); font-size: var(--text-sm); color: #4a4450;
+    text-decoration: underline; display: inline-block; margin-top: 0.4rem; }
+  .hp-row__price { font-family: var(--font-ui); color: var(--color-ink); font-size: var(--text-base); }
+  .hp-row__cta { text-align: center; padding: 0.7rem 1rem; font-size: var(--text-sm); }
+
+  /* ============ 6 · POPULAR TREATMENTS ============ */
+  .hp-popular { background: #fff; padding: 4rem 0 4.5rem; }
+  .hp-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+  .hp-card { border: 1px solid #ece8e4; border-radius: var(--radius-md); padding: 1.25rem; text-align: center;
+    box-shadow: var(--shadow-soft); background: #fff; }
+  .hp-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 1.1rem; }
+  .hp-card h4 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); margin: 0 0 0.4rem; }
+  .hp-card h4 a { color: var(--color-ink); text-decoration: none; }
+  .hp-card__price { font-family: var(--font-ui); color: #4a4450; font-size: var(--text-sm); margin: 0 0 1.1rem; }
+
+  /* ============ 7 · TESTIMONIALS ============ */
+  .hp-testimonial { position: relative; padding: 4.5rem 0; overflow: hidden; display: flex; align-items: center; min-height: 560px; }
+  .hp-testimonial__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hp-testimonial__overlay { position: absolute; inset: 0; background: rgba(60,45,42,0.45); }
+  .hp-testimonial__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+  .hp-quote { background: rgba(255,255,255,0.92); max-width: 560px; padding: 2.5rem 2.75rem; margin: 0 auto;
+    font-family: var(--font-ui); font-style: italic; color: #3a343f; line-height: 1.7; text-align: center;
+    border-radius: 4px; position: relative; box-shadow: var(--shadow-deep); }
+  .hp-quote__mark { display: block; font-family: var(--font-display); font-size: 3rem; line-height: 0.2;
+    color: var(--color-accent-warm); margin-bottom: 1rem; }
+  .hp-quote cite { display: block; margin-top: 1.25rem; font-style: normal; font-weight: 700; color: var(--color-ink); }
+
+  /* ============ 8 · OUR SERVICES (FACE/BODY/HAIR) ============ */
+  .hp-services { background: #fff; padding: 4rem 0 4.5rem; }
+  .hp-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto; }
+  .hp-service { position: relative; aspect-ratio: 402 / 673; overflow: hidden; }
+  .hp-service img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hp-service__tint { position: absolute; inset: 0; background: rgba(88,75,99,0.55); transition: background .3s; }
+  .hp-service:hover .hp-service__tint { background: rgba(88,75,99,0.7); }
+  .hp-service__content { position: absolute; inset: 0; padding: 2.25rem 1.75rem; color: #fff; display: flex; flex-direction: column; }
+  .hp-service__label { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.25rem, 3.5vw, 3.5rem);
+    margin: 0 0 1rem; color: #fff; letter-spacing: 0.02em; }
+  .hp-service__list { list-style: none; margin: 0; padding: 0; font-family: var(--font-ui); }
+  .hp-service__list li { font-size: var(--text-sm); line-height: 1.9; color: rgba(255,255,255,0.92); }
+
+  /* ============ 9 · YOUR SKIN COMES FIRST ============ */
+  .hp-skin { position: relative; padding: 5rem 0; overflow: hidden; }
+  .hp-skin__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hp-skin__overlay { position: absolute; inset: 0; background: rgba(101,67,67,0.82); }
+  .hp-skin__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hp-skin__head { padding-left: clamp(0px, 4vw, 60px); }
+  .hp-skin__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.25rem, 4vw, 3.25rem);
+    color: #fff; margin: 0; line-height: 1.1; }
+  .hp-skin__body { color: rgba(255,255,255,0.92); font-family: var(--font-ui); }
+  .hp-skin__lead { font-weight: 700; font-size: var(--text-md); margin: 0 0 1.25rem; }
+  .hp-skin__body p { line-height: 1.75; margin: 0 0 1.25rem; }
+
+  /* ============ 10 · AN EXCEPTIONAL EXPERIENCE ============ */
+  .hp-exp { background: #fff; }
+  .hp-exp__grid { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .hp-exp__panel { background: #c08d8d; display: flex; align-items: center; padding: clamp(3rem, 6vw, 6rem) 0; }
+  .hp-exp__panel-inner { max-width: 460px; margin-left: auto; padding-inline: clamp(1.5rem, 4vw, 3rem); }
+  .hp-exp__title { text-align: left; margin: 0.25rem 0 1.5rem; font-size: clamp(2rem, 3.4vw, 2.75rem); }
+  .hp-exp__panel p { color: #2c2026; font-family: var(--font-ui); line-height: 1.7; margin: 0 0 1.25rem; }
+  .hp-exp__panel .hp-btn { margin-top: 0.75rem; }
+  .hp-exp__media { position: relative; min-height: 460px; }
+  .hp-exp__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ============ 11 · RECENT POSTS ============ */
+  .hp-posts { background: #fff; padding: 4rem 0 4.5rem; }
+  .hp-posts__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1040px; margin: 0 auto; }
+  .hp-post { background: #fff; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; }
+  .hp-post img { width: 100%; aspect-ratio: 3/2; object-fit: cover; }
+  .hp-post__body { padding: 1.25rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .hp-post h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); margin: 0; line-height: 1.25; }
+  .hp-post h3 a { color: var(--color-ink); text-decoration: none; }
+  .hp-post__body p { font-family: var(--font-ui); color: #5e5e5e; font-size: var(--text-sm); line-height: 1.6; margin: 0; }
+  .hp-post__meta { color: #9a9098 !important; }
+
+  /* ============ 12 · FAQ ============ */
+  .hp-faq { background: #e8e6e6; padding: 3rem 0 4rem; }
+  .hp-faq__card { background: #fff; max-width: 1180px; padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-soft); }
+  .hp-faq__head { display: flex; justify-content: space-between; align-items: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .hp-faq__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    color: var(--color-ink); margin: 0; }
+  .hp-faq__search { font-family: var(--font-ui); color: #8a8088; border-bottom: 1px solid #cfcad0;
+    padding-bottom: 0.35rem; min-width: 260px; display: flex; justify-content: space-between; }
+  .hp-faq__item { border-bottom: 1px solid #ddd9dd; }
+  .hp-faq__item summary { list-style: none; cursor: pointer; font-family: var(--font-ui); font-weight: 700;
+    color: var(--color-ink); padding: 1.25rem 2rem 1.25rem 0; position: relative; }
+  .hp-faq__item summary::-webkit-details-marker { display: none; }
+  .hp-faq__item summary::after { content: '⌄'; position: absolute; right: 0.25rem; top: 1rem; font-size: 1.2rem; color: #6a6470; }
+  .hp-faq__item[open] summary::after { content: '⌃'; }
+  .hp-faq__answer { padding: 0 2rem 1.5rem 0; }
+  .hp-faq__answer p { font-family: var(--font-ui); color: #4a4450; line-height: 1.7; margin: 0 0 1rem; }
+  .hp-faq__answer a { color: var(--color-primary); }
+
+  /* ============ 13 · CTA ============ */
+  .hp-cta { background: #fff; padding: 4rem 0 4.5rem; }
+  .hp-cta__grid { display: grid; grid-template-columns: 1fr 480px; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hp-cta__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.75rem, 3vw, 2.25rem);
+    color: var(--color-ink); margin: 0 0 0.5rem; }
+  .hp-cta__sub { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); color: var(--color-ink); margin: 0 0 1.25rem; }
+  .hp-cta__copy p { font-family: var(--font-ui); color: #4a4450; line-height: 1.75; margin: 0 0 1.5rem; }
+  .hp-cta__media img { width: 100%; height: auto; border-radius: 4px; box-shadow: var(--shadow-soft); }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 900px) {
+    .hp-welcome__grid { grid-template-columns: 1fr; }
+    .hp-cards, .hp-posts__grid, .hp-services__grid { grid-template-columns: 1fr; }
+    .hp-services__grid { max-width: 420px; }
+    .hp-skin__grid { grid-template-columns: 1fr; }
+    .hp-skin__head { padding-left: 0; }
+    .hp-exp__grid { grid-template-columns: 1fr; }
+    .hp-exp__panel-inner { margin: 0 auto; max-width: 560px; }
+    .hp-exp__media { min-height: 320px; }
+    .hp-cta__grid { grid-template-columns: 1fr; }
+    .hp-cta__media { max-width: 480px; }
+    .hp-row { grid-template-columns: 80px 1fr; grid-template-areas: 'thumb main' 'price price' 'cta cta';
+      row-gap: 0.75rem; }
+    .hp-row__thumb { grid-area: thumb; }
+    .hp-row__main { grid-area: main; }
+    .hp-row__price { grid-area: price; }
+    .hp-row__cta { grid-area: cta; }
+  }
+  @media (max-width: 600px) {
+    .hp-hero__overlay { background: rgba(30,22,28,0.62); }
+    .hp-badges__row { flex-direction: column; align-items: center; gap: 0.75rem; }
+  }
+</style>
