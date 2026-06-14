@@ -1,18 +1,29 @@
 ---
 /**
  * /booking-calendar/[slug].astro
- * Dynamic route — 81 booking pages (one per visible service).
- * Replaces Wix Bookings date-picker with Cal.com SchedulerEmbed via BookingCalendarTemplate.
- * Content verbatim from src/data/services.json (no fabrication).
+ * Dynamic route — 5 booking pages matching slugs confirmed in original Wix site-inventory.
+ * Slugs: botox-injectables, forever-radiant-experience, give-the-gift-of-glow,
+ *        hydrafacial-keravive, the-timeless-beauty-experience.
+ * The full 81 service-page routes are at /service-page/[slug].
  */
 import BookingCalendarTemplate from '@/components/BookingCalendarTemplate.astro';
 import servicesData from '@/data/services.json';
 
 export async function getStaticPaths() {
-  return servicesData.map((service: Record<string, string>) => ({
-    params: { slug: service.slug },
-    props: { service },
-  }));
+  // Only the 5 booking-calendar slugs that existed on the original Wix site
+  const BOOKING_SLUGS = new Set([
+    'botox-injectables',
+    'forever-radiant-experience',
+    'give-the-gift-of-glow',
+    'hydrafacial-keravive',
+    'the-timeless-beauty-experience',
+  ]);
+  return servicesData
+    .filter((service: Record<string, string>) => BOOKING_SLUGS.has(service.slug))
+    .map((service: Record<string, string>) => ({
+      params: { slug: service.slug },
+      props: { service },
+    }));
 }
 
 interface Service {

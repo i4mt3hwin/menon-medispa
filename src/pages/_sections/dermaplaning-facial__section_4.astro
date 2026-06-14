@@ -1,0 +1,27 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro'
+import RichText from '@/components/RichText.astro'
+import videoPosterImg from '@/assets/images/3f92ba431eb3.jpg'
+---
+
+<section id="comp-me7iu2mu" class="py-16 px-4 bg-neutral-50">
+  <div class="max-w-4xl mx-auto text-center">
+    <SectionHeading level={2} text="See How Gentle and Relaxing Dermaplaning Really Is" />
+    <RichText>
+      <p>Wondering what dermaplaning actually looks like? Watch this real treatment and see how our skilled esthetician gently removes dead skin and vellus hair for an instantly smoother complexion.</p>
+    </RichText>
+  </div>
+  <div class="max-w-2xl mx-auto mt-10">
+    <video
+      class="w-full rounded-lg"
+      controls
+      preload="none"
+      poster={videoPosterImg.src}
+      width="712"
+      height="400"
+    >
+      <source src="https://video.wixstatic.com/video/2baa5c_b2d7187d8a2c49e2b6095a2d1201724c/720p/mp4/file.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>

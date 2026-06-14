@@ -23,13 +23,21 @@ interface Service {
   price?: string;
   duration?: string;
   tagLine?: string;
+  description?: string;
+  contactAddress?: string;
 }
 
 const { service } = Astro.props as { service: Service };
 
-// tagLine acts as the short description — render as description_html if present.
-const descriptionHtml = service.tagLine
-  ? `<p>${service.tagLine}</p>`
+// Prefer full captured description over tagLine. tagLine shows as subtitle in hero.
+const descriptionHtml = service.description
+  ? `<p>${service.description}</p>`
+  : service.tagLine
+    ? `<p>${service.tagLine}</p>`
+    : undefined;
+
+const contactHtml = service.contactAddress
+  ? `<address style="font-style:normal;"><strong>Address:</strong> ${service.contactAddress}</address><p><a href="tel:9734948431">(973) 494-8431</a> &nbsp;|&nbsp; <a href="mailto:admin@menonregen.com">admin@menonregen.com</a></p>`
   : undefined;
 ---
 
@@ -40,4 +48,5 @@ const descriptionHtml = service.tagLine
   price={service.price}
   duration={service.duration}
   description_html={descriptionHtml}
+  contact_html={contactHtml}
 />

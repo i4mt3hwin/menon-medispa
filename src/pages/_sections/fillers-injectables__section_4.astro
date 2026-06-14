@@ -1,0 +1,272 @@
+---
+import bgImg from '@/assets/images/960c78e88976.jpg';
+import areaImg1 from '@/assets/images/f6ffb79bbe28.png';
+import areaImg2 from '@/assets/images/348290f29603.png';
+import areaImg3 from '@/assets/images/670bcb646993.png';
+import areaImg4 from '@/assets/images/12d9bda0b2d4.png';
+---
+
+<section class="fill-juvederm">
+
+  {/* Full-bleed background */}
+  <div class="fill-juvederm__bg-wrap" aria-hidden="true">
+    <img
+      src={bgImg.src}
+      alt=""
+      class="fill-juvederm__bg"
+      loading="lazy"
+      decoding="async"
+      width="1440"
+      height="999"
+    />
+    <div class="fill-juvederm__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="fill-juvederm__content">
+
+    <h2 class="fill-juvederm__heading">JUV&Eacute;DERM&reg; Fillers</h2>
+
+    {/* Product descriptions */}
+    <div class="fill-juvederm__products">
+      <div class="fill-juvederm__product">
+        <h3 class="fill-juvederm__product-name">VOLLURE XC</h3>
+        <p class="fill-juvederm__product-desc">For moderate to severe facial wrinkles and folds</p>
+      </div>
+      <div class="fill-juvederm__product">
+        <h3 class="fill-juvederm__product-name">VOLUMA XC</h3>
+        <p class="fill-juvederm__product-desc">For adding volume to the cheek area</p>
+      </div>
+      <div class="fill-juvederm__product">
+        <h3 class="fill-juvederm__product-name">VOLBELLA XC</h3>
+        <p class="fill-juvederm__product-desc">For lip augmentation and perioral lines</p>
+      </div>
+      <div class="fill-juvederm__product">
+        <h3 class="fill-juvederm__product-name">XC</h3>
+        <p class="fill-juvederm__product-desc">For smoothing and correcting moderate to severe facial wrinkles</p>
+      </div>
+      <div class="fill-juvederm__product">
+        <h3 class="fill-juvederm__product-name">Ultra XC</h3>
+        <p class="fill-juvederm__product-desc">For lip augmentation and the correction of perioral lines</p>
+      </div>
+    </div>
+
+    {/* Treatment area icon cards */}
+    <div class="fill-juvederm__areas">
+
+      <div class="fill-juvederm__area-card">
+        <div class="fill-juvederm__area-img-wrap">
+          <img
+            src={areaImg1.src}
+            alt="Cheek filler treatment area"
+            class="fill-juvederm__area-img"
+            loading="lazy"
+            decoding="async"
+            width="154"
+            height="154"
+          />
+        </div>
+        <h3 class="fill-juvederm__area-label">CHEEKS</h3>
+      </div>
+
+      <div class="fill-juvederm__area-card">
+        <div class="fill-juvederm__area-img-wrap">
+          <img
+            src={areaImg2.src}
+            alt="Chin filler treatment area"
+            class="fill-juvederm__area-img"
+            loading="lazy"
+            decoding="async"
+            width="154"
+            height="154"
+          />
+        </div>
+        <h3 class="fill-juvederm__area-label">CHIN</h3>
+      </div>
+
+      <div class="fill-juvederm__area-card">
+        <div class="fill-juvederm__area-img-wrap">
+          <img
+            src={areaImg3.src}
+            alt="Lines filler treatment area"
+            class="fill-juvederm__area-img"
+            loading="lazy"
+            decoding="async"
+            width="154"
+            height="154"
+          />
+        </div>
+        <h3 class="fill-juvederm__area-label">LINES</h3>
+      </div>
+
+      <div class="fill-juvederm__area-card">
+        <div class="fill-juvederm__area-img-wrap">
+          <img
+            src={areaImg4.src}
+            alt="Lip filler treatment area"
+            class="fill-juvederm__area-img"
+            loading="lazy"
+            decoding="async"
+            width="154"
+            height="154"
+          />
+        </div>
+        <h3 class="fill-juvederm__area-label">LIPS</h3>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .fill-juvederm {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .fill-juvederm__bg-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .fill-juvederm__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .fill-juvederm__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+  }
+
+  .fill-juvederm__content {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: center;
+    text-align: center;
+  }
+
+  .fill-juvederm__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+  }
+
+  .fill-juvederm__products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .fill-juvederm__product {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-sm);
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .fill-juvederm__product-name {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.08em;
+  }
+
+  .fill-juvederm__product-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .fill-juvederm__areas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .fill-juvederm__area-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .fill-juvederm__area-img-wrap {
+    width: 154px;
+    height: 154px;
+    flex-shrink: 0;
+  }
+
+  .fill-juvederm__area-img {
+    width: 154px;
+    height: 154px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .fill-juvederm__area-label {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 980px) {
+    .fill-juvederm__content {
+      padding: var(--space-lg) var(--space-sm);
+    }
+
+    .fill-juvederm__areas {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .fill-juvederm__products {
+      grid-template-columns: 1fr;
+    }
+
+    .fill-juvederm__areas {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .fill-juvederm__area-img-wrap {
+      width: 100px;
+      height: 100px;
+    }
+
+    .fill-juvederm__area-img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+</style>

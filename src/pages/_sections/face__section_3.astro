@@ -1,0 +1,292 @@
+---
+import site from '@/lib/site';
+
+import svcImg1 from '@/assets/images/6447c7285078.jpg';
+import svcImg2 from '@/assets/images/8ec275b96db1.jpeg';
+import svcImg3 from '@/assets/images/eeea5815ff2f.jpg';
+import svcImg4 from '@/assets/images/8ec275b96db1.jpeg';
+import svcImg5 from '@/assets/images/cebad624861f.jpg';
+---
+
+<section class="face-grid">
+  <div class="face-grid__inner">
+
+    <div class="face-grid__intro">
+      <h3 class="face-grid__heading">Comprehensive Facial Treatments &amp; Enhancements</h3>
+      <p class="face-grid__body">
+        We specialize in comprehensive facial treatments, using medical-grade techniques and the latest technology to address your unique skin concerns. Whether you&rsquo;re seeking rejuvenation, correction, or enhancement, our expert team will guide you to the perfect treatment plan.
+      </p>
+    </div>
+
+    <div class="face-grid__cards">
+
+      {/* Card 1 — Menon Facials (local asset) */}
+      <div class="face-grid__card">
+        <div class="face-grid__card-img-wrap">
+          <img
+            src={svcImg1.src}
+            alt="Menon Facials at Menon Medispa"
+            class="face-grid__card-img"
+            loading="lazy"
+            decoding="async"
+            width="307"
+            height="379"
+          />
+        </div>
+        <a href="/menon-facials" class="face-grid__card-btn">MENON FACIALS</a>
+      </div>
+
+      {/* Card 2 — HydraFacial (local captured asset) */}
+      <div class="face-grid__card">
+        <div class="face-grid__card-img-wrap">
+          <img
+            src={svcImg2.src}
+            alt="HydraFacial treatment"
+            class="face-grid__card-img"
+            loading="lazy"
+            decoding="async"
+            width="307"
+            height="379"
+          />
+        </div>
+        <a href="/hydrafacial" class="face-grid__card-btn">HYDRAFACIAL</a>
+      </div>
+
+      {/* Card 3 — Laser Facials (local captured asset) */}
+      <div class="face-grid__card">
+        <div class="face-grid__card-img-wrap">
+          <img
+            src={svcImg3.src}
+            alt="Laser facial treatment"
+            class="face-grid__card-img"
+            loading="lazy"
+            decoding="async"
+            width="307"
+            height="379"
+          />
+        </div>
+        <a href="/laser-facials" class="face-grid__card-btn">LASER FACIALS</a>
+      </div>
+
+      {/* Card 4 — Fillers & Injectables (local asset) */}
+      <div class="face-grid__card">
+        <div class="face-grid__card-img-wrap">
+          <img
+            src={svcImg4.src}
+            alt="Fillers and injectables"
+            class="face-grid__card-img"
+            loading="lazy"
+            decoding="async"
+            width="307"
+            height="379"
+          />
+        </div>
+        <a href="/fillers-injectables" class="face-grid__card-btn">FILLERS &amp; INJECTABLES</a>
+      </div>
+
+      {/* Card 5 — Microneedling (local asset) */}
+      <div class="face-grid__card">
+        <div class="face-grid__card-img-wrap">
+          <img
+            src={svcImg5.src}
+            alt="Microneedling treatment"
+            class="face-grid__card-img"
+            loading="lazy"
+            decoding="async"
+            width="307"
+            height="379"
+          />
+        </div>
+        <a href="/microneedling" class="face-grid__card-btn">MICRONEEDLING</a>
+      </div>
+
+    </div>
+
+    <div class="face-grid__sub-cta">
+      <h3 class="face-grid__sub-heading">Don&rsquo;t Know Which Treatment is Best For You?</h3>
+      <p class="face-grid__sub-body">
+        Book a Consultation! Get 30 minutes with the esthetician for FREE or 30 minutes with Dr. Menon for $50 (applied towards treatment!)
+      </p>
+      <a href="/consultation" class="face-grid__cta-btn">Book a Consultation</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .face-grid {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--space-xl) 0;
+  }
+
+  .face-grid__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  /* Intro text block */
+  .face-grid__intro {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .face-grid__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .face-grid__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Card grid */
+  .face-grid__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .face-grid__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .face-grid__card-img-wrap {
+    width: 100%;
+    aspect-ratio: 307 / 379;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .face-grid__card-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+  }
+
+  .face-grid__card:hover .face-grid__card-img {
+    transform: scale(1.03);
+  }
+
+  .face-grid__card-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background-color: var(--color-cta);
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+    box-shadow: var(--shadow-btn);
+  }
+
+  .face-grid__card-btn:hover {
+    opacity: 0.88;
+  }
+
+  /* Sub-CTA block */
+  .face-grid__sub-cta {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .face-grid__sub-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .face-grid__sub-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .face-grid__cta-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    background-color: var(--color-cta);
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-btn);
+    transition: opacity 0.2s;
+    margin-top: var(--space-xs);
+  }
+
+  .face-grid__cta-btn:hover {
+    opacity: 0.88;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .face-grid__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 580px) {
+    .face-grid__inner {
+      padding: 0 var(--space-sm);
+    }
+
+    .face-grid__cards {
+      grid-template-columns: 1fr;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .face-grid__sub-cta {
+      padding: var(--space-md) var(--space-sm);
+    }
+
+    .face-grid__cta-btn {
+      align-self: stretch;
+      text-align: center;
+    }
+  }
+</style>

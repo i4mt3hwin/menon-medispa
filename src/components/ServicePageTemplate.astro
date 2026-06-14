@@ -34,6 +34,7 @@ interface Props {
   faqs?: Array<{ question: string; answer: string }>;
   hero_image_src?: string;
   hero_image_alt?: string;
+  contact_html?: string;
 }
 
 const {
@@ -49,6 +50,7 @@ const {
   faqs = [],
   hero_image_src,
   hero_image_alt,
+  contact_html,
 } = Astro.props;
 
 const bookingUrl = site.calcomUrl;
@@ -133,6 +135,16 @@ const bookingLabel = `Book ${title}`;
               </details>
             ))}
           </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Contact Details (captured from Wix for 3 services) -->
+    {contact_html && (
+      <section class="service-page__section service-page__section--tinted">
+        <div class="service-page__container">
+          <h2 class="service-page__h2">Contact Details</h2>
+          <div class="service-page__richtext" set:html={contact_html} />
         </div>
       </section>
     )}

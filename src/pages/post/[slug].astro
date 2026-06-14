@@ -35,15 +35,18 @@ interface Post {
 
 const { post } = Astro.props as { post: Post };
 
-// Use full body if recovered, otherwise render excerpt with read-more CTA.
+// Use full body if recovered, otherwise render excerpt as teaser with booking CTA.
+// NOTE: Full article bodies were not captured from Wix API (content.rendered was empty).
+// A targeted re-capture of blog post bodies is needed to unlock the full articles.
 const fullBody = FULL_BODY_SLUGS[post.slug];
 const contentHtml = fullBody
   ? fullBody
   : post.excerpt
-    ? `<p>${post.excerpt}</p>
-<p style="font-family:var(--font-body);font-size:var(--text-sm);opacity:0.7;">
-  This article is available on our website. Use the booking or contact links below to reach our team.
-</p>`
+    ? `<p class="post-excerpt-lede">${post.excerpt}</p>
+<div class="post-excerpt-cta-block">
+  <p>To learn more, call us at <a href="tel:9734948431">(973) 494-8431</a> or book a consultation with our team.</p>
+  <a href="/consultation" class="post-excerpt-cta-link">Book a Free Consultation</a>
+</div>`
     : '<p>Content coming soon.</p>';
 
 // Format date for display

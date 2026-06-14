@@ -1,393 +1,300 @@
 ---
 /**
- * BlogPostTemplate.astro — Wix /post/{slug} article faithful replication.
+ * BlogPostTemplate.astro — template for /post/[slug] pages.
+ * Full post content rendered verbatim via set:html — zero summarization.
  *
- * Layout (verbatim from captured screenshots + structure.json):
- *   1. Breadcrumb: "← Blog" back-link.
- *   2. H1 article title (Playfair Bold, centred).
- *   3. Author avatar + name + date + read-time (when captured in body blocks).
- *   4. Cover image (full width of article column).
- *   5. Body — rendered when captured in blog-bodies.json.
- *      For 26 of 28 posts (no captured body): renders excerpt + phone CTA.
- *   6. Related posts stub (omitted — not enough data captured to replicate faithfully).
- *
- * Known limits (Path-2 capture cost-decision, flagged here):
- *   - 26 of 28 posts have only excerpt + cover + date captured. Body is NOT fabricated.
- *   - 2 posts (first-botox-appointment-a-step-by-step-guide,
- *     the-complete-guide-to-hydrafacial-...) have full captured body blocks.
+ * Props:
+ *   title              — post title (required)
+ *   slug               — URL slug (required)
+ *   date               — publication date string
+ *   author             — author name
+ *   featured_image_src — featured image URL
+ *   featured_image_alt — featured image alt text (defaults to title)
+ *   content_html       — full post HTML, rendered with set:html
+ *   category           — category label
  */
+import BaseLayout from '../layouts/BaseLayout.astro';
 import site from '../lib/site';
-
-interface BodyBlock {
-  type: string;
-  tag?: string;
-  text?: string;
-  html?: string;
-  src?: string;
-  alt?: string;
-  items?: string[];
-  w?: number;
-  h?: number;
-}
 
 interface Props {
   title: string;
+  slug: string;
   date?: string;
-  excerpt?: string;
-  cover?: string | null;
-  body?: BodyBlock[] | null;
+  author?: string;
+  featured_image_src?: string;
+  featured_image_alt?: string;
+  content_html: string;
+  category?: string;
 }
 
-const { title, date, excerpt, cover, body } = Astro.props;
-const hasBody = Array.isArray(body) && body.length > 0;
-
-const fmtDate = date
-  ? new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-  : '';
-
-// Extract author/date/readtime from body blocks (first few blocks when structured that way)
-let authorName = '';
-let authorAvatar = '';
-let readTime = '';
-let bodyBlocks: BodyBlock[] = [];
-
-if (hasBody && body) {
-  // The captured body starts with: button(All Posts), heading(title), image(avatar),
-  // button(author name), list([date, readtime]), image(cover), then content...
-  let contentStart = 0;
-  for (let i = 0; i < Math.min(8, body.length); i++) {
-    const b = body[i];
-    if (b.type === 'image' && b.w && b.w <= 64 && b.h && b.h <= 64 && b.src) {
-      authorAvatar = b.src;
-    } else if (b.type === 'button' && i > 0 && body[i - 1]?.type === 'image') {
-      authorName = b.text || '';
-    } else if (b.type === 'list' && b.items) {
-      readTime = b.items.filter((it) => it.includes('min')).join('');
-    } else if (b.type === 'image' && b.w && b.w > 100) {
-      // This is the cover image in the body — skip it since we render cover separately
-      contentStart = i + 1;
-      break;
-    }
-  }
-  bodyBlocks = body.slice(contentStart);
-}
+const {
+  title,
+  slug,
+  date,
+  author,
+  featured_image_src,
+  featured_image_alt,
+  content_html,
+  category,
+} = Astro.props;
 ---
 
-<article class="post-page">
-  <div class="post-page__inner">
+<BaseLayout title={title}>
+  <article class="blog-post">
 
-    {/* Breadcrumb */}
-    <nav class="post-page__breadcrumb" aria-label="Breadcrumb">
-      <a href="/blog" class="post-page__back">← Blog</a>
-    </nav>
-
-    {/* Title */}
-    <header class="post-page__header">
-      <h1 class="post-page__title">{title}</h1>
-
-      {/* Author line */}
-      {(authorName || fmtDate || readTime) && (
-        <div class="post-page__meta">
-          {authorAvatar && (
-            <img class="post-page__avatar" src={authorAvatar} alt={authorName || 'Author'} width="32" height="32" loading="lazy" />
-          )}
-          <div class="post-page__meta-text">
-            {authorName && <span class="post-page__author">{authorName}</span>}
-            {fmtDate && <span class="post-page__date">{fmtDate}</span>}
-            {readTime && <span class="post-page__readtime">{readTime}</span>}
+    <!-- Post header -->
+    <header class="blog-post__header">
+      <div class="blog-post__header-inner">
+        {category && (
+          <span class="blog-post__category">{category}</span>
+        )}
+        <h1 class="blog-post__title">{title}</h1>
+        {(date || author) && (
+          <div class="blog-post__meta">
+            {date && <time class="blog-post__date" datetime={date}>{date}</time>}
+            {date && author && <span class="blog-post__meta-sep" aria-hidden="true"> · </span>}
+            {author && <span class="blog-post__author">{author}</span>}
           </div>
-        </div>
-      )}
-      {!authorName && fmtDate && (
-        <p class="post-page__date-solo">{fmtDate}</p>
-      )}
+        )}
+      </div>
     </header>
 
-    {/* Cover image */}
-    {cover && (
-      <img class="post-page__cover" src={cover} alt={title} loading="eager" />
+    <!-- Featured image -->
+    {featured_image_src && (
+      <figure class="blog-post__hero">
+        <img
+          src={featured_image_src}
+          alt={featured_image_alt ?? title}
+          class="blog-post__hero-img"
+          loading="eager"
+          decoding="sync"
+        />
+      </figure>
     )}
 
-    {/* Body */}
-    {hasBody ? (
-      <div class="post-page__body">
-        {bodyBlocks.map((b) => {
-          if (b.type === 'heading') {
-            const Tag = (b.tag && /^h[2-4]$/.test(b.tag)) ? b.tag as 'h2' | 'h3' | 'h4' : 'h2';
-            return <Tag class="post-page__heading">{b.text}</Tag>;
-          }
-          if (b.type === 'text' && b.html) {
-            return <div class="post-page__rt" set:html={b.html} />;
-          }
-          if (b.type === 'image' && b.src) {
-            return (
-              <figure class="post-page__figure">
-                <img src={b.src} alt={b.alt || ''} loading="lazy" />
-              </figure>
-            );
-          }
-          if (b.type === 'quote' && b.text) {
-            return <blockquote class="post-page__quote">{b.text}</blockquote>;
-          }
-          if (b.type === 'list' && b.items) {
-            return (
-              <ul class="post-page__list">
-                {b.items.map((it) => <li>{it}</li>)}
-              </ul>
-            );
-          }
-          if (b.type === 'button' && b.text) {
-            // Internal link labels in Wix body — render as inline text link CTA
-            return (
-              <p class="post-page__inline-cta">
-                <a href="/contact">{b.text}</a>
-              </p>
-            );
-          }
-          return null;
-        })}
-      </div>
-    ) : (
-      <div class="post-page__body post-page__body--excerpt">
-        {excerpt && <p class="post-page__excerpt">{excerpt}</p>}
-        <p class="post-page__excerpt-cta">
-          Questions about this topic? Call <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a>
-          or <a href="/contact">contact us</a> at Menon Medispa in Millburn, NJ.
-        </p>
-      </div>
-    )}
-
-    {/* Back to blog */}
-    <div class="post-page__back-wrap">
-      <a href="/blog" class="post-page__back-link">&larr; All Posts</a>
+    <!-- Full post content — rendered verbatim, zero summarization -->
+    <div class="blog-post__body">
+      <div class="blog-post__content" set:html={content_html} />
     </div>
 
-  </div>
-</article>
+    <!-- CTA section -->
+    <section class="blog-post__cta">
+      <div class="blog-post__cta-inner">
+        <h2 class="blog-post__cta-heading">Ready to learn more?</h2>
+        <p class="blog-post__cta-text">Our team at Menon Medispa is here to help you find the right treatment for your goals.</p>
+        <div class="blog-post__cta-btns">
+          <a
+            href={site.calcomUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="blog-post__cta-btn blog-post__cta-btn--primary"
+          >
+            Book an Appointment
+          </a>
+          <a href="/contact" class="blog-post__cta-btn blog-post__cta-btn--secondary">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+</BaseLayout>
 
 <style>
-  /* ── Page shell ─────────────────────────────────────────────── */
-  .post-page {
-    width: 100%;
-    background: #fff;
+  .blog-post {
+    max-width: 100%;
   }
 
-  .post-page__inner {
+  /* Header */
+  .blog-post__header {
+    background-color: var(--color-surface-dark);
+    color: var(--color-surface);
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+  }
+  .blog-post__header-inner {
     max-width: 760px;
     margin: 0 auto;
-    padding: clamp(2rem, 4vw, 4rem) 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-
-  /* ── Breadcrumb ─────────────────────────────────────────────── */
-  .post-page__breadcrumb {
-    margin-bottom: 1.25rem;
-  }
-
-  .post-page__back {
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    color: var(--color-primary);
-    text-decoration: none;
+  .blog-post__category {
+    display: inline-block;
+    font-family: var(--font-cta);
+    font-size: 12px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-cta);
   }
-
-  .post-page__back:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Header ─────────────────────────────────────────────────── */
-  .post-page__header {
-    margin-bottom: 1.5rem;
-  }
-
-  .post-page__title {
+  .blog-post__title {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    color: var(--color-ink);
+    font-size: var(--text-h1);
+    margin: 0;
     line-height: 1.2;
-    margin: 0 0 1rem;
-    text-wrap: balance;
   }
-
-  /* ── Author / meta line ─────────────────────────────────────── */
-  .post-page__meta {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-  }
-
-  .post-page__avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-
-  .post-page__meta-text {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    font-family: var(--font-ui);
+  .blog-post__meta {
+    font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+  .blog-post__date,
+  .blog-post__author,
+  .blog-post__meta-sep {
+    display: inline;
   }
 
-  .post-page__author {
-    font-weight: 600;
-    color: var(--color-ink);
-  }
-
-  .post-page__date::before,
-  .post-page__readtime::before {
-    content: '·';
-    margin-right: 0.5rem;
-    opacity: 0.6;
-  }
-
-  .post-page__date-solo {
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
+  /* Featured image */
+  .blog-post__hero {
     margin: 0;
   }
-
-  /* ── Cover image ─────────────────────────────────────────────── */
-  .post-page__cover {
+  .blog-post__hero-img {
     width: 100%;
-    height: auto;
     max-height: 480px;
     object-fit: cover;
-    border-radius: var(--radius-sm);
     display: block;
-    margin-bottom: 2rem;
   }
 
-  /* ── Body ────────────────────────────────────────────────────── */
-  .post-page__body {
-    font-family: var(--font-ui);
+  /* Body */
+  .blog-post__body {
+    padding: var(--space-xl) var(--space-md);
+  }
+  .blog-post__content {
+    max-width: 760px;
+    margin: 0 auto;
+    font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: 1.75;
+    line-height: 1.8;
     color: var(--color-text);
   }
-
-  .post-page__heading {
+  /* Reset common rich-text elements */
+  .blog-post__content h2 {
     font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--color-ink);
-    margin: 2rem 0 0.75rem;
-    line-height: 1.2;
-    text-wrap: balance;
+    font-size: var(--text-h2);
+    margin: var(--space-lg) 0 var(--space-md);
   }
-
-  h2.post-page__heading { font-size: var(--text-2xl); }
-  h3.post-page__heading { font-size: var(--text-xl); }
-  h4.post-page__heading { font-size: var(--text-lg); }
-
-  .post-page__rt :global(p) {
-    margin: 0 0 1rem;
+  .blog-post__content h3 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    margin: var(--space-md) 0 12px;
   }
-
-  .post-page__rt :global(a) {
-    color: var(--color-primary);
+  .blog-post__content p {
+    margin: 0 0 var(--space-md);
   }
-
-  .post-page__rt :global(strong) {
-    font-weight: 700;
+  .blog-post__content ul,
+  .blog-post__content ol {
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-md);
   }
-
-  .post-page__figure {
-    margin: 1.5rem 0;
+  .blog-post__content li {
+    margin-bottom: 8px;
   }
-
-  .post-page__figure img {
-    width: 100%;
+  .blog-post__content img {
+    max-width: 100%;
     height: auto;
     border-radius: var(--radius-sm);
-    display: block;
+    margin: var(--space-md) 0;
   }
-
-  .post-page__quote {
-    border-left: 3px solid var(--color-primary);
-    margin: 1.5rem 0;
-    padding: 0.5rem 0 0.5rem 1.25rem;
+  .blog-post__content a {
+    color: var(--color-cta);
+  }
+  .blog-post__content blockquote {
+    border-left: 3px solid var(--color-cta);
+    padding-left: var(--space-md);
+    margin: var(--space-md) 0;
     font-style: italic;
-    color: var(--color-text-muted);
-    font-size: var(--text-md);
+    opacity: 0.85;
   }
 
-  .post-page__list {
-    margin: 0 0 1rem 1.5rem;
-    padding: 0;
-  }
-
-  .post-page__list li {
-    margin: 0.3rem 0;
-  }
-
-  .post-page__inline-cta {
-    margin: 0.75rem 0;
-  }
-
-  .post-page__inline-cta a {
-    color: var(--color-primary);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .post-page__inline-cta a:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Excerpt-only variant ───────────────────────────────────── */
-  .post-page__body--excerpt {
-    padding: 0.5rem 0;
-  }
-
-  .post-page__excerpt {
-    font-size: var(--text-md);
+  /* Excerpt-only fallback styles (renders when full body is unavailable) */
+  :global(.post-excerpt-lede) {
+    font-size: var(--text-lg) !important;
+    line-height: 1.7 !important;
+    font-style: italic;
     color: var(--color-text);
-    margin: 0 0 1.25rem;
+    border-left: 4px solid var(--color-cta);
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-lg) !important;
   }
-
-  .post-page__excerpt-cta {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    padding: 1rem 1.25rem;
-    background: var(--color-surface-alt);
+  :global(.post-excerpt-cta-block) {
+    background: rgba(196,164,132,0.08);
     border-radius: var(--radius-sm);
+    padding: var(--space-md) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  :global(.post-excerpt-cta-link) {
+    display: inline-block;
+    background-color: var(--color-cta);
+    color: #fff;
+    font-family: var(--font-cta);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    align-self: flex-start;
+    transition: opacity 0.2s;
+  }
+  :global(.post-excerpt-cta-link):hover { opacity: 0.86; }
+
+  /* CTA */
+  .blog-post__cta {
+    background-color: rgba(196,164,132,0.1);
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+  }
+  .blog-post__cta-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .blog-post__cta-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
     margin: 0;
   }
-
-  .post-page__excerpt-cta a {
-    color: var(--color-primary);
-    font-weight: 600;
-    text-decoration: none;
+  .blog-post__cta-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    margin: 0;
+    opacity: 0.8;
   }
-
-  .post-page__excerpt-cta a:hover {
-    text-decoration: underline;
+  .blog-post__cta-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-
-  /* ── Back link ──────────────────────────────────────────────── */
-  .post-page__back-wrap {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e0e0e0;
-  }
-
-  .post-page__back-link {
-    font-family: var(--font-ui);
+  .blog-post__cta-btn {
+    display: inline-block;
+    font-family: var(--font-cta);
     font-size: var(--text-sm);
-    color: var(--color-primary);
-    text-decoration: none;
     font-weight: 600;
+    padding: 14px 36px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .blog-post__cta-btn:hover { opacity: 0.86; }
+  .blog-post__cta-btn--primary {
+    background-color: var(--color-cta);
+    color: #fff;
+  }
+  .blog-post__cta-btn--secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-cta);
   }
 
-  .post-page__back-link:hover {
-    text-decoration: underline;
+  @media (max-width: 980px) {
+    .blog-post__title { font-size: 30px; }
+    .blog-post__cta-heading { font-size: 26px; }
+    .blog-post__cta-btns { flex-direction: column; align-items: center; }
   }
 </style>

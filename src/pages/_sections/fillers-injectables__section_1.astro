@@ -1,0 +1,293 @@
+---
+import site from '@/lib/site';
+import heroBg from '@/assets/images/651c7c197b52.png';
+import heroIcon1 from '@/assets/images/90411e0041df.png';
+import heroIcon2 from '@/assets/images/305afeda5f9a.png';
+import heroIcon3 from '@/assets/images/b95880091b44.png';
+import heroProduct from '@/assets/images/db8d4e94db1e.jpg';
+---
+
+<section class="fill-hero">
+
+  {/* Full-width background image */}
+  <div class="fill-hero__bg-wrap" aria-hidden="true">
+    <img
+      src={heroBg.src}
+      alt=""
+      class="fill-hero__bg"
+      loading="eager"
+      decoding="async"
+      width="1440"
+      height="543"
+    />
+  </div>
+
+  {/* Content overlay */}
+  <div class="fill-hero__content">
+
+    <div class="fill-hero__text-col">
+
+      <h1 class="fill-hero__seo-heading">
+        Fillers &amp; Injectables in Millburn NJ
+      </h1>
+
+      <h2 class="fill-hero__heading">
+        Transform Your Appearance with Premium Fillers &amp; Injectables in Millburn NJ
+      </h2>
+
+      <p class="fill-hero__body">
+        Our board-certified team offers a full range of injectable treatments including Botox and Juv&eacute;derm fillers to help you look naturally refreshed. Customized treatment plans designed for your unique facial anatomy.
+      </p>
+
+      <div class="fill-hero__ctas">
+        <a
+          href={site.calcomUrl}
+          class="fill-hero__btn fill-hero__btn--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Our Fillers &amp; Injectables
+        </a>
+      </div>
+
+      <div class="fill-hero__social-proof">
+        <div class="fill-hero__social-icons">
+          <img
+            src={heroIcon1.src}
+            alt="Review platform"
+            class="fill-hero__social-icon"
+            loading="lazy"
+            decoding="async"
+            width="46"
+            height="50"
+          />
+          <img
+            src={heroIcon2.src}
+            alt="Review platform"
+            class="fill-hero__social-icon"
+            loading="lazy"
+            decoding="async"
+            width="52"
+            height="50"
+          />
+          <img
+            src={heroIcon3.src}
+            alt="Review platform"
+            class="fill-hero__social-icon"
+            loading="lazy"
+            decoding="async"
+            width="52"
+            height="50"
+          />
+        </div>
+        <div class="fill-hero__stars-block">
+          <p class="fill-hero__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+          <p class="fill-hero__review-count">75+ 5 Star Reviews</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="fill-hero__img-col">
+      <img
+        src={heroProduct.src}
+        alt="Premium fillers and injectables at Menon Medispa Millburn NJ"
+        class="fill-hero__product-photo"
+        loading="eager"
+        decoding="async"
+        width="450"
+        height="428"
+      />
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .fill-hero {
+    position: relative;
+    width: 100%;
+    min-height: 543px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .fill-hero__bg-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .fill-hero__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .fill-hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .fill-hero__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .fill-hero__seo-heading {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+
+  .fill-hero__heading {
+    font-family: var(--font-body);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .fill-hero__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .fill-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .fill-hero__btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: opacity 0.2s;
+    text-align: center;
+  }
+
+  .fill-hero__btn:hover {
+    opacity: 0.88;
+  }
+
+  .fill-hero__btn--primary {
+    background-color: var(--color-cta);
+    color: var(--color-text);
+    box-shadow: var(--shadow-btn);
+  }
+
+  .fill-hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .fill-hero__social-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .fill-hero__social-icon {
+    display: block;
+    object-fit: contain;
+  }
+
+  .fill-hero__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .fill-hero__stars {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .fill-hero__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .fill-hero__img-col {
+    flex-shrink: 0;
+    width: 450px;
+  }
+
+  .fill-hero__product-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+  }
+
+  @media (max-width: 980px) {
+    .fill-hero {
+      min-height: auto;
+    }
+
+    .fill-hero__content {
+      flex-direction: column;
+      padding: var(--space-lg) var(--space-sm);
+    }
+
+    .fill-hero__text-col {
+      max-width: 100%;
+    }
+
+    .fill-hero__img-col {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .fill-hero__ctas {
+      flex-direction: column;
+    }
+
+    .fill-hero__btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .fill-hero__social-proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

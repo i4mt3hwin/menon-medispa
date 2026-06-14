@@ -133,7 +133,8 @@
         "category":  "Laser Hair Removal",
         "price":  "$300",
         "duration":  "60 minutes",
-        "tagLine":  "Extra Large Area"
+        "tagLine":  "Extra Large Area",
+        "contactAddress":  "45 Essex St, Millburn, NJ 07041, USA"
     },
     {
         "slug":  "b12-vitamin-shot",
@@ -173,15 +174,17 @@
         "category":  "Fillers \u0026 Injectables",
         "price":  "$14 per unit",
         "duration":  "30 minutes",
-        "tagLine":  "Smoother, Wrinkle-Free Skin"
+        "tagLine":  "Smoother, Wrinkle-Free Skin",
+        "description":  "Experience the transformative power of our renowned facial procedure for smoother, more youthful skin. By targeting and temporarily relaxing muscles, BOTOX® diminishes the appearance of fine lines and wrinkles, revealing a rejuvenated and refreshed complexion. Embrace the confidence that comes with a smoother, more youthful appearance, as our skilled professionals help you achieve natural-looking results.",
+        "contactAddress":  "45 Essex St, Millburn, NJ 07041, USA"
     },
     {
         "slug":  "hydrafacial-keravive-package",
-        "name":  "HydraFacialâ„¢ Keraviveâ„¢ Package",
-        "category":  "HydraFacialâ„¢ Keraviveâ„¢",
+        "name":  "HydraFacial™ Keravive™ Package",
+        "category":  "HydraFacial™ Keravive™",
         "price":  "$1295",
         "duration":  "60 minutes",
-        "tagLine":  "3 HydraFacialâ„¢ Keraviveâ„¢ Treatments"
+        "tagLine":  "3 HydraFacial™ Keravive™ Treatments"
     },
     {
         "slug":  "lhr-fingers",
@@ -232,20 +235,12 @@
         "tagLine":  "Advanced Medical Weight Loss: Sustainable Results Without Extreme Hunger"
     },
     {
-        "slug":  "nad-iv-drip-therapy-1",
-        "name":  "NAD +IV DRIP THERAPY",
-        "category":  "IV Drips",
-        "price":  "$700",
-        "duration":  "60 minutes",
-        "tagLine":  "Single Dose +500mg"
-    },
-    {
         "slug":  "microneedling",
         "name":  "Microneedling",
         "category":  "Menon Facials",
         "price":  "$299",
         "duration":  "60 minutes",
-        "tagLine":  "Stimulate collagen \u0026 reveal radiant skin naturallyâ€”no surgery, minimal downtime."
+        "tagLine":  "Stimulate collagen \u0026 reveal radiant skin naturally—no surgery, minimal downtime."
     },
     {
         "slug":  "lhr-front-or-back-of-neck",
@@ -329,7 +324,7 @@
     },
     {
         "slug":  "gut-health-ibs-uc-crohn-s",
-        "name":  "GUT HEALTH (IBS, UC, CROHNâ€™S)",
+        "name":  "GUT HEALTH (IBS, UC, CROHN'S)",
         "category":  "IV Drips",
         "price":  "$250",
         "duration":  "60 minutes",
@@ -390,14 +385,6 @@
         "price":  "$160",
         "duration":  "60 minutes",
         "tagLine":  "Gentle Exfoliation \u0026 Hair Removal Without Any Downtime."
-    },
-    {
-        "slug":  "nad-iv-drip-therapy-2",
-        "name":  "NAD +IV DRIP THERAPY",
-        "category":  "IV Drips",
-        "price":  "$850",
-        "duration":  "60 minutes",
-        "tagLine":  "Single Dose +750mg"
     },
     {
         "slug":  "6-laser-hair-removal-treatment-package",
@@ -553,8 +540,8 @@
     },
     {
         "slug":  "hydrafacial-keravive",
-        "name":  "HydraFacialâ„¢ Keraviveâ„¢",
-        "category":  "HydraFacialâ„¢ Keraviveâ„¢",
+        "name":  "HydraFacial™ Keravive™",
+        "category":  "HydraFacial™ Keravive™",
         "price":  "$500",
         "duration":  "60 minutes",
         "tagLine":  "Cleanse, exfoliate, nourish, and hydrate the scalp"
@@ -637,7 +624,9 @@
         "category":  "Custom IV Drips",
         "price":  "$100",
         "duration":  "60 minutes",
-        "tagLine":  "Each vitamin add-on 25$"
+        "tagLine":  "Each vitamin add-on 25$",
+        "description":  "Our Custom IV Drips are fully personalized to your body’s needs—whether you’re battling fatigue, low immunity, dehydration, or recovering from stress, illness, or travel. Each drip starts with a brief consultation to determine the right combination of fluids, minerals, and optional vitamin add-ons.",
+        "contactAddress":  "45 Essex St, Millburn, NJ 07041, USA"
     },
     {
         "slug":  "botox-189-new-client-special",
