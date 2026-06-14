@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogList from '@/components/BlogList.astro';
+import blogData from '@/data/blog.json';
+
+// Map blog.json → BlogList Post shape (newest first — already ordered in source)
+const posts = blogData.map((p: Record<string, string>) => ({
+  slug: p.slug,
+  title: p.title,
+  excerpt: p.excerpt,
+  date: p.firstPublished,
+  featured_image: p.coverImage,
+}));
+---
+
+<BaseLayout
+  title="Blog | Menon Medispa & Wellness"
+  description="Read the latest wellness and beauty tips from Menon Medispa in Millburn NJ. Expert skincare advice, treatment guides, and spa news."
+  canonical="https://www.menonmedispa.com/blog"
+>
+
+  <BlogList
+    posts={posts}
+    heading="Menon Medispa &amp; Wellness Blog"
+  />
+
+</BaseLayout>

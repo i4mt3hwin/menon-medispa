@@ -1,190 +1,158 @@
 ---
 /**
- * BookingCalendarTemplate.astro — Wix /booking-calendar/{slug} faithful replication.
+ * BookingCalendarTemplate.astro — layout for /booking-calendar/[slug] pages.
+ * Replaces Wix Bookings with a Cal.com SchedulerEmbed (link variant until
+ * real Cal.com event URLs are set in site.ts calcomUrl).
  *
- * Original layout (from captured screenshots booking-calendar__*-desktop-full.png):
- *   - "Schedule your service" heading (centred, Playfair).
- *   - Introductory notice: "Please select the dates and times that work best for you.
- *     PLEASE NOTE: This is a request based on your availability and does not guarantee
- *     your appointment. A staff member will contact you to confirm availability and
- *     finalize your booking."
- *   - Two-column layout: [calendar/date-picker area] | [Service Details panel]
- *     The date picker is a Wix Bookings widget — replaced by Cal.com embed (operator decision).
- *     Service Details panel shows: service name + "More details" link.
- *   - SchedulerEmbed (Cal.com placeholder / iframe when configured).
- *
- * Per operator decision (2026-06-02): Wix Bookings replaced by Cal.com external embed.
- * The SchedulerEmbed renders a phone CTA while Cal.com URL is REPLACE-ME placeholder.
+ * Props:
+ *   service_title  — display name of the service
+ *   service_slug   — slug (used for cal.com event-type deep-link)
+ *   category       — optional category badge
+ *   description    — optional short description / tagLine
+ *   duration_note  — e.g. "60 minutes"
+ *   price_note     — e.g. "Starting at $150"
  */
+import BaseLayout from '../layouts/BaseLayout.astro';
 import SchedulerEmbed from './SchedulerEmbed.astro';
 import site from '../lib/site';
 
 interface Props {
-  serviceName: string;
-  serviceSlug?: string;
-  calSrc?: string;
+  service_title: string;
+  service_slug: string;
+  category?: string;
+  description?: string;
+  duration_note?: string;
+  price_note?: string;
 }
 
-const { serviceName, serviceSlug, calSrc } = Astro.props;
-const serviceUrl = serviceSlug ? `/service-page/${serviceSlug}` : null;
+const {
+  service_title,
+  service_slug,
+  category,
+  description,
+  duration_note,
+  price_note,
+} = Astro.props;
 ---
 
-<main class="bc-page">
-  <div class="bc-page__inner">
+<BaseLayout title={`Book: ${service_title} | Menon Medispa`}>
+  <article class="booking-page">
 
-    <h1 class="bc-page__title">Schedule your service</h1>
-
-    <p class="bc-page__notice">
-      Please select the dates and times that work best for you. PLEASE NOTE: This is a
-      request based on your availability and does not guarantee your appointment. A staff
-      member will contact you to confirm availability and finalize your booking.
-    </p>
-
-    <div class="bc-page__layout">
-      {/* Calendar / scheduler embed area */}
-      <div class="bc-page__scheduler">
-        <SchedulerEmbed src={calSrc} title={`Book ${serviceName}`} />
+    <!-- Page header -->
+    <header class="booking-page__header">
+      <div class="booking-page__header-inner">
+        {category && (
+          <span class="booking-page__badge">{category}</span>
+        )}
+        <h1 class="booking-page__title">Book: {service_title}</h1>
+        {description && (
+          <p class="booking-page__desc">{description}</p>
+        )}
+        {(duration_note || price_note) && (
+          <div class="booking-page__meta">
+            {duration_note && (
+              <span class="booking-page__meta-item">
+                <strong>Duration:</strong> {duration_note}
+              </span>
+            )}
+            {price_note && (
+              <span class="booking-page__meta-item">
+                <strong>Price:</strong> {price_note}
+              </span>
+            )}
+          </div>
+        )}
       </div>
+    </header>
 
-      {/* Service details panel */}
-      <aside class="bc-page__details" aria-label="Service Details">
-        <h2 class="bc-page__details-title">Service Details</h2>
-        <div class="bc-page__details-body">
-          <p class="bc-page__svc-name">{serviceName}</p>
-          {serviceUrl && (
-            <a href={serviceUrl} class="bc-page__more-link">More details</a>
-          )}
-        </div>
-        <div class="bc-page__contact">
-          <p>Questions? Call us:</p>
-          <a href={`tel:${site.phone.tel}`} class="bc-page__phone">{site.phone.display}</a>
-        </div>
-      </aside>
-    </div>
+    <!-- Scheduling embed / CTA -->
+    <SchedulerEmbed
+      heading={`Schedule Your ${service_title}`}
+      service_slug={service_slug}
+      variant="link"
+    />
 
-  </div>
-</main>
+    <!-- Phone fallback -->
+    <section class="booking-page__fallback">
+      <p class="booking-page__fallback-text">
+        Prefer to call?
+        <a href={site.phone.tel} class="booking-page__phone">{site.phone.display}</a>
+      </p>
+      <p class="booking-page__fallback-text">
+        Or <a href="/contact" class="booking-page__contact-link">send us a message</a>.
+      </p>
+    </section>
+
+  </article>
+</BaseLayout>
 
 <style>
-  /* ── Page shell ─────────────────────────────────────────────── */
-  .bc-page {
-    width: 100%;
-    background: #fff;
+  /* Header */
+  .booking-page__header {
+    background-color: var(--color-surface-dark);
+    color: var(--color-surface);
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
   }
-
-  .bc-page__inner {
-    max-width: 1100px;
+  .booking-page__header-inner {
+    max-width: 760px;
     margin: 0 auto;
-    padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 5vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-
-  /* ── Heading ────────────────────────────────────────────────── */
-  .bc-page__title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.875rem, 4vw, 2.75rem);
-    color: var(--color-ink);
-    margin: 0 0 1.25rem;
-    text-align: center;
-  }
-
-  /* ── Notice text (verbatim from captured) ───────────────────── */
-  .bc-page__notice {
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    max-width: 680px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  /* ── Two-column layout ──────────────────────────────────────── */
-  .bc-page__layout {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 2.5rem;
-    align-items: start;
-  }
-
-  /* ── Scheduler embed area ───────────────────────────────────── */
-  .bc-page__scheduler {
-    min-height: 400px;
-  }
-
-  /* ── Service details panel ──────────────────────────────────── */
-  .bc-page__details {
-    background: #f9f7f5;
-    border-radius: var(--radius-sm);
-    padding: 1.5rem;
-    border: 1px solid #e8e6e6;
-  }
-
-  .bc-page__details-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--text-xl);
-    color: var(--color-ink);
-    margin: 0 0 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .bc-page__details-body {
-    margin-bottom: 1.5rem;
-  }
-
-  .bc-page__svc-name {
-    font-family: var(--font-ui);
+  .booking-page__badge {
+    display: inline-block;
+    font-family: var(--font-cta);
+    font-size: 12px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-cta);
+  }
+  .booking-page__title {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .booking-page__desc {
+    font-family: var(--font-body);
     font-size: var(--text-base);
-    color: var(--color-ink);
-    margin: 0 0 0.5rem;
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.6;
   }
-
-  .bc-page__more-link {
-    font-family: var(--font-ui);
+  .booking-page__meta {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--color-primary);
-    text-decoration: none;
+    opacity: 0.8;
+  }
+  .booking-page__meta-item {
+    display: inline-block;
   }
 
-  .bc-page__more-link:hover {
-    text-decoration: underline;
+  /* Fallback contact */
+  .booking-page__fallback {
+    text-align: center;
+    padding: var(--space-lg) var(--space-md);
+    background-color: rgba(196,164,132,0.07);
   }
-
-  .bc-page__contact {
-    border-top: 1px solid #e0e0e0;
-    padding-top: 1rem;
-  }
-
-  .bc-page__contact p {
-    font-family: var(--font-ui);
+  .booking-page__fallback-text {
+    font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin: 0 0 0.25rem;
+    margin: 4px 0;
+    opacity: 0.8;
+  }
+  .booking-page__phone,
+  .booking-page__contact-link {
+    color: var(--color-cta);
+    font-weight: 600;
   }
 
-  .bc-page__phone {
-    font-family: var(--font-ui);
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-
-  .bc-page__phone:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Responsive ──────────────────────────────────────────────── */
-  @media (max-width: 768px) {
-    .bc-page__layout {
-      grid-template-columns: 1fr;
-    }
-
-    .bc-page__details {
-      order: -1; /* Show service details above the scheduler on mobile */
-    }
+  @media (max-width: 980px) {
+    .booking-page__title { font-size: 30px; }
   }
 </style>

@@ -1,26 +1,43 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+/**
+ * /service-page/[slug].astro
+ * Dynamic route — 81 visible Wix Bookings services.
+ * Content verbatim from src/data/services.json (generated from wix-api/bookings-services.json).
+ * Known limit: metadata-only for 78/81 services (no long description captured).
+ * Renders cleanly with title/category/price/duration/tagLine + Book CTA.
+ */
 import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
-import services from '@/data/services.json';
-import site from '@/lib/site';
+import servicesData from '@/data/services.json';
 
-export function getStaticPaths() {
-  return (services as any[]).map((s) => ({ params: { slug: s.slug }, props: { svc: s } }));
+export async function getStaticPaths() {
+  return servicesData.map((service: Record<string, string>) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
 }
 
-const { svc } = Astro.props as { svc: any };
-const title = `${svc.name} | ${site.legalName} | Millburn, NJ`;
-const description = svc.tagLine || svc.description?.slice(0, 155) ||
-  `${svc.name} at ${site.displayName} in Millburn, NJ.`;
+interface Service {
+  slug: string;
+  name: string;
+  category?: string;
+  price?: string;
+  duration?: string;
+  tagLine?: string;
+}
+
+const { service } = Astro.props as { service: Service };
+
+// tagLine acts as the short description — render as description_html if present.
+const descriptionHtml = service.tagLine
+  ? `<p>${service.tagLine}</p>`
+  : undefined;
 ---
-<BaseLayout title={title} description={description}>
-  <ServicePageTemplate
-    name={svc.name}
-    category={svc.category}
-    price={svc.price}
-    duration={svc.duration}
-    tagLine={svc.tagLine}
-    description={svc.description}
-    cover={svc.cover}
-  />
-</BaseLayout>
+
+<ServicePageTemplate
+  title={service.name}
+  slug={service.slug}
+  category={service.category}
+  price={service.price}
+  duration={service.duration}
+  description_html={descriptionHtml}
+/>

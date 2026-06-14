@@ -1,66 +1,37 @@
 ---
 /**
- * booking-calendar/[slug].astro — replaces the Wix Bookings calendar.
- *
- * Original showed a "Schedule your service" Wix calendar widget; per operator
- * decision (2026-06-02) scheduling moves to an external Cal.com embed.
- * Until the operator supplies real event-type URLs, SchedulerEmbed (via
- * BookingCalendarTemplate) renders a call-to-book placeholder — see site.calcomUrl.
- *
- * The 5 booking-calendar slugs come from the Wix booking-calendar sitemap;
- * service names are resolved from bookings-services metadata.
+ * /booking-calendar/[slug].astro
+ * Dynamic route — 81 booking pages (one per visible service).
+ * Replaces Wix Bookings date-picker with Cal.com SchedulerEmbed via BookingCalendarTemplate.
+ * Content verbatim from src/data/services.json (no fabrication).
  */
-import BaseLayout from '@/layouts/BaseLayout.astro';
 import BookingCalendarTemplate from '@/components/BookingCalendarTemplate.astro';
-import site from '@/lib/site';
+import servicesData from '@/data/services.json';
 
-// Mapping from booking-calendar slug → service name + service-page slug
-// Sourced verbatim from wix-api/bookings-services.json + booking-calendar sitemap.
-const BOOKING_SERVICES: Record<string, { name: string; serviceSlug: string }> = {
-  'botox-injectables': {
-    name: 'BOTOX® Injectables',
-    serviceSlug: 'botox-injectables',
-  },
-  'forever-radiant-experience': {
-    name: 'Forever Radiant Experience',
-    serviceSlug: 'forever-radiant-experience',
-  },
-  'give-the-gift-of-glow': {
-    name: 'GIVE THE GIFT OF GLOW',
-    serviceSlug: 'give-the-gift-of-glow',
-  },
-  'hydrafacial-keravive': {
-    name: 'HydraFacial™ Keravive™',
-    serviceSlug: 'hydrafacial-keravive',
-  },
-  'the-timeless-beauty-experience': {
-    name: 'THE TIMELESS BEAUTY EXPERIENCE',
-    serviceSlug: 'the-timeless-beauty-experience',
-  },
-};
-
-export function getStaticPaths() {
-  return [
-    'botox-injectables',
-    'forever-radiant-experience',
-    'give-the-gift-of-glow',
-    'hydrafacial-keravive',
-    'the-timeless-beauty-experience',
-  ].map((slug) => ({ params: { slug } }));
+export async function getStaticPaths() {
+  return servicesData.map((service: Record<string, string>) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
 }
 
-const { slug } = Astro.params;
-const svc = BOOKING_SERVICES[slug as string] ?? {
-  name: (slug || '').split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-  serviceSlug: slug as string,
-};
+interface Service {
+  slug: string;
+  name: string;
+  category?: string;
+  price?: string;
+  duration?: string;
+  tagLine?: string;
+}
+
+const { service } = Astro.props as { service: Service };
 ---
-<BaseLayout
-  title={`Schedule ${svc.name} | ${site.displayName} | Millburn, NJ`}
-  description={`Schedule your ${svc.name} appointment at ${site.displayName} in Millburn, NJ. Select a date and time that works for you.`}
->
-  <BookingCalendarTemplate
-    serviceName={svc.name}
-    serviceSlug={svc.serviceSlug}
-  />
-</BaseLayout>
+
+<BookingCalendarTemplate
+  service_title={service.name}
+  service_slug={service.slug}
+  category={service.category}
+  description={service.tagLine || undefined}
+  duration_note={service.duration}
+  price_note={service.price}
+/>
