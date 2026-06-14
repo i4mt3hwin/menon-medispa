@@ -1,21 +1,34 @@
 ---
-/**
- * Picture.astro — atomic image wrapper. Finished here (reused everywhere).
- * 03-build passes the rehosted local src + verbatim/described alt (SEO rule).
- */
 interface Props {
-  src: string;
+  src: string | { src: string; width?: number; height?: number; format?: string };
   alt: string;
   width?: number;
   height?: number;
   loading?: 'lazy' | 'eager';
-  shadow?: boolean;
-  rounded?: boolean;
-  class?: string;
+  class_name?: string;
+  style?: string;
+  object_fit?: 'cover' | 'contain' | 'fill' | 'none';
 }
 const {
-  src, alt, width, height, loading = 'lazy', shadow = false, rounded = false, class: cls = '',
+  src: srcProp,
+  alt,
+  width: widthProp,
+  height: heightProp,
+  loading     = 'lazy',
+  class_name  = '',
+  style       = '',
+  object_fit  = 'cover',
 } = Astro.props;
+
+// Handle both a plain string src and an Astro ImageMetadata import object
+const isImgObject = srcProp !== null && typeof srcProp === 'object';
+const src    = isImgObject ? (srcProp as { src: string }).src : (srcProp as string);
+const width  = widthProp  ?? (isImgObject ? (srcProp as { width?: number }).width  : undefined);
+const height = heightProp ?? (isImgObject ? (srcProp as { height?: number }).height : undefined);
+
+// Build inline style string — merge object_fit with caller-supplied style
+const fitStyle  = `object-fit: ${object_fit};`;
+const fullStyle = style ? `${fitStyle} ${style}` : fitStyle;
 ---
 <img
   src={src}
@@ -23,11 +36,15 @@ const {
   width={width}
   height={height}
   loading={loading}
-  class={`pic ${shadow ? 'pic--shadow' : ''} ${rounded ? 'pic--rounded' : ''} ${cls}`}
+  decoding="async"
+  class={`site-picture${class_name ? ` ${class_name}` : ''}`}
+  style={fullStyle}
 />
 
 <style>
-  .pic { display: block; max-width: 100%; height: auto; }
-  .pic--shadow { box-shadow: var(--shadow-img); }
-  .pic--rounded { border-radius: var(--radius-md); }
+  .site-picture {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
 </style>

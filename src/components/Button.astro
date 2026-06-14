@@ -1,44 +1,89 @@
 ---
-/**
- * Button.astro — atomic link/CTA. Token-driven; finished here (reused everywhere).
- * Variants observed: primary (filled mauve), ghost (outline), link (text), call.
- */
 interface Props {
-  text: string;
-  href: string;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'link' | 'call';
-  external?: boolean;
+  text?: string;
+  label?: string;
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  target?: '_blank' | '_self';
+  rel?: string;
+  type?: 'button' | 'submit' | 'reset';
   class?: string;
 }
-const { text, href, variant = 'primary', external = false, class: cls = '' } = Astro.props;
-const rel = external ? 'noopener' : undefined;
-const target = external ? '_blank' : undefined;
+const {
+  text,
+  label,
+  href,
+  variant = 'primary',
+  target,
+  rel,
+  type = 'button',
+  class: className = '',
+} = Astro.props;
+
+// Resolve label: prefer explicit text/label prop, else fall through to slot children
+const resolvedText = text ?? label;
+const variantClass = `btn--${variant}`;
 ---
-<a href={href} class={`btn btn--${variant} ${cls}`} rel={rel} target={target}>{text}</a>
+{href ? (
+  <a
+    href={href}
+    target={target}
+    rel={rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)}
+    class={`btn ${variantClass} ${className}`}
+  >{resolvedText ?? <slot />}</a>
+) : (
+  <button
+    type={type}
+    class={`btn ${variantClass} ${className}`}
+  >{resolvedText ?? <slot />}</button>
+)}
 
 <style>
   .btn {
     display: inline-block;
-    font-family: var(--font-ui);
+    font-family: var(--font-cta);
     font-size: var(--text-sm);
-    font-weight: 700;
-    text-decoration: none;
     border-radius: var(--radius-sm);
-    padding: 0.65rem 1.4rem;
-    transition: var(--default-transition-duration);
+    padding: 10px 24px;
+    text-decoration: none;
     cursor: pointer;
-    line-height: 1.2;
+    border: none;
+    line-height: 1.4;
+    transition: opacity 0.15s ease;
   }
-  .btn--primary { background: var(--color-primary); color: var(--color-surface); }
-  .btn--primary:hover { background: var(--color-secondary); }
-  .btn--secondary { background: var(--color-secondary); color: var(--color-surface); }
+  .btn:hover {
+    opacity: 0.88;
+  }
+  .btn:active {
+    opacity: 0.75;
+  }
+
+  /* Primary */
+  .btn--primary {
+    background-color: var(--color-cta);
+    color: var(--color-text);
+    box-shadow: var(--shadow-btn);
+  }
+
+  /* Secondary */
+  .btn--secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-cta);
+  }
+
+  /* Ghost */
   .btn--ghost {
-    background: transparent;
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+    background-color: transparent;
+    color: var(--color-text);
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding-left: 0;
+    padding-right: 0;
   }
-  .btn--ghost:hover { background: var(--color-primary); color: var(--color-surface); }
-  .btn--link { background: transparent; color: var(--color-primary); padding: 0; }
-  .btn--link:hover { text-decoration: underline; }
-  .btn--call { background: var(--color-primary); color: var(--color-surface); white-space: nowrap; }
+  .btn--ghost:hover {
+    opacity: 1;
+    text-decoration: none;
+  }
 </style>
