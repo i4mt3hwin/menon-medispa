@@ -80,8 +80,8 @@
         "tagLine":  "500ml."
     },
     {
-        "slug":  "juvÃ©derm-fillers",
-        "name":  "JuvÃ©derm Fillers",
+        "slug":  "juvederm-fillers",
+        "name":  "Juvéderm Fillers",
         "category":  "Fillers \u0026 Injectables",
         "price":  "VARIED",
         "duration":  "45 minutes",
@@ -169,7 +169,7 @@
     },
     {
         "slug":  "botox-injectables",
-        "name":  "BOTOXÂ® Injectables",
+        "name":  "BOTOX® Injectables",
         "category":  "Fillers \u0026 Injectables",
         "price":  "$14 per unit",
         "duration":  "30 minutes",
@@ -568,8 +568,8 @@
         "tagLine":  "Glowing Complexion, Radiant Skin"
     },
     {
-        "slug":  "hyperpigmentation-dÃ©colletÃ©",
-        "name":  "Hyperpigmentation DÃ©colletÃ©",
+        "slug":  "hyperpigmentation-decollete",
+        "name":  "Hyperpigmentation Décolleté",
         "category":  "Vascular Treatments",
         "price":  "$200-$350",
         "duration":  "59 minutes",

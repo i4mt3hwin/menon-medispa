@@ -1,0 +1,83 @@
+/* Generated from design-tokens.md. Source: structure.json computed styles + fonts.json.
+   All colors from captured computed styles only. Font sizes viewport-invariant.
+   Single breakpoint: 980px (Wix mobile). */
+@import "./fonts.css";
+
+:root {
+  /* ── Colors ── */
+  /* Warm sand / honey family — primary brand accent */
+  --color-cta: #C4A484;        /* CTA buttons (hero + footer): rgb(196,164,132) */
+  --color-cta-alt: #C9A876;    /* Header Call Now + subpage CTA: rgb(201,168,118) */
+  --color-accent: #D4A574;     /* Service card rows + section accent: rgb(212,165,116) */
+
+  /* Surface / text */
+  --color-surface: #FFFFFF;    /* Page bg, white sections */
+  --color-text: #000000;       /* All headings, body, button text */
+  --color-surface-dark: #1a1a2e; /* Gift card dark section bg — navy/charcoal */
+
+  /* ── Header tokens (do NOT override --color-surface) ── */
+  --color-header-bg: #82798A;       /* Muted mauve — operator-confirmed */
+  --color-header-text: #FFFFFF;     /* White nav text */
+  --color-header-active: #584B63;   /* Active/current nav item dim */
+  --color-brand-plum: #754D4D;      /* Nav hover accent */
+  --color-brand-plum-2: #584B63;    /* Dropdown link accent */
+  --color-dropdown-surface: #FAF7F5; /* Dropdown panel warm off-white */
+
+  /* ── Footer / newsletter dark band ── */
+  --color-footer-bg: #1a1a2e;        /* Dark navy/charcoal footer band */
+  --color-footer-newsletter-bg: #2c2c3e; /* Slightly lighter newsletter band */
+  --color-footer-text: #FFFFFF;       /* Footer text white */
+  --color-footer-text-muted: rgba(255,255,255,0.65); /* Muted footer text */
+
+  /* ── Typography — font stacks ── */
+  --font-display: "playfair display", "playfairdisplay-bold", serif;
+  --font-body: raleway-v2, sans-serif;
+  --font-ui: "lato-light", lato, sans-serif;
+  --font-accent: "didot-w01-italic", serif;
+  --font-cta: poppins-v2, sans-serif;
+
+  /* ── Type scale (viewport-invariant) ── */
+  --text-display-xl: 60px;   /* large stat/number callouts */
+  --text-display: 48px;      /* major section H2 headings */
+  --text-h1: 44px;           /* page H1 / hero sub-display */
+  --text-hero: 38px;         /* hero main heading (P used as display) */
+  --text-h2: 36px;           /* sub-H2 headings */
+  --text-h3: 30px;           /* tertiary headings */
+  --text-accent: 31px;       /* decorative italic (didot) */
+  --text-subheading: 24px;   /* card headings, subheadings */
+  --text-lg: 22px;           /* lead/intro text */
+  --text-base: 20px;         /* body paragraphs (dominant) */
+  --text-sm: 18px;           /* eyebrow / H1 superheading */
+  --text-xs: 16px;           /* fine print / captions */
+
+  /* ── Weights ── */
+  --weight-regular: 400;
+  --weight-bold: 700;
+
+  /* ── Spacing (rebuild convention — Wix uses fixed-height sections) ── */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 60px;
+  --space-xl: 96px;
+  --space-2xl: 128px;
+
+  /* ── Radii ── */
+  --radius-sm: 5px;   /* CTA buttons (captured: border-radius: 5px) */
+  --radius-md: 8px;   /* cards (convention) */
+
+  /* ── Shadows ── */
+  --shadow-btn: rgba(0,0,0,0.37) 3px 3px 6px 0px, rgb(0,0,0) 0px 3px 15px -38px;
+  --shadow-btn-alt: rgb(0,0,0) 0.42px 2.97px 17px -4px, rgb(0,0,0) 1.41px 1.41px 2px 0px;
+}
+
+/* ── Mobile override (980px — Wix single breakpoint) ── */
+/* Font sizes: no responsive deltas observed in capture — NO overrides emitted. */
+/* Layout: components handle column stacking via @media (max-width: 980px). */
+@media (max-width: 980px) {
+  :root {
+    /* Spacing: tighten section padding on mobile */
+    --space-xl: 60px;
+    --space-2xl: 80px;
+  }
+}

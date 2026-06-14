@@ -1,667 +1,745 @@
 ---
 /**
- * SiteHeader.astro — global site header / nav.
+ * SiteHeader.astro — Phase 3 Pass 1 COMPLETE
  *
- * REBUILT 2026-06-03: Added full dropdown submenu support.
- * Menu structure verbatim from 01-discovery/pages/home/rendered.html nav markup.
- * Background: white (#ffffff) — original Wix header transparent over white page bg.
- * Nav text: #000000 (captured original). Call Now CTA: brand primary #754d4d.
- * Header is 1440×135px per structure.json bbox.
- * Layout: top bar (social icons right), main row (logo | nav | call-now button).
+ * Sources:
+ *   nav.json           — 8 top-level items, verbatim labels + hrefs
+ *   structure.json §0  — is_master="header", sticky, z-index:55, h=135px, transition:0.2s
+ *   image-map.slice    — logo=02a84c58deec, ig=d85622e84ef0, fb=482f7439ea47, tt=de7ef3d7c470
+ *   site.ts            — phone (973) 494-8431 / tel:+19734948431
+ *   tokens.css         — CSS custom properties
  *
- * Dropdown submenus (hover on desktop, toggle on mobile):
- *   ABOUT    → Meet The Team, Patient Resources, Blog
- *   FACE     → Facials, Microneedling, Laser Facials, Fillers & Injectables
- *   BODY     → IV Therapy, Semaglutide, Vascular Treatments, Laser Hair Removal
- *   HAIR     → HydraFacial Keravive, PRP Hair Restoration
- *   CONTACT  → Consultation
+ * Desktop (1440px): [Logo left] [Nav center-right] [Social icons] [Call Now CTA]
+ * Sticky: position:sticky, z-index:55, transition:0.2s (from capture)
+ * .scrolled added via scroll listener when scrollY > 0
+ * Mobile (<=980px): hamburger toggle, full drawer with accordion sub-menus
  *
- * Phone: (973) 494-8431 (operator-confirmed canonical line).
- * Book CTA → site.calcomUrl placeholder.
- *
- * CSS: All rules scoped to .site-header to prevent any bleed from pages.css
- * or Tailwind preflight into the header, and to prevent the header from
- * affecting page body styles.
+ * Phone: (973) 494-8431 / tel:+19734948431 — operator-confirmed canonical
  */
-import site from '../lib/site';
 
-interface NavChild {
-  label: string;
-  href: string;
-}
-interface NavItem {
-  label: string;
-  href: string;
-  external?: boolean;
-  children?: NavChild[];
-}
-
-const nav: NavItem[] = [
-  { label: 'HOME', href: '/' },
-  {
-    label: 'ABOUT',
-    href: '/about',
-    children: [
-      { label: 'MEET THE TEAM', href: '/meet-the-team' },
-      { label: 'PATIENT RESOURCES', href: '/patient-resources' },
-      { label: 'BLOG', href: '/blog' },
-    ],
-  },
-  {
-    label: 'FACE',
-    href: '/face',
-    children: [
-      { label: 'FACIALS', href: '/menon-facials' },
-      { label: 'MICRONEEDLING', href: '/microneedling-millburn-nj' },
-      { label: 'LASER FACIALS', href: '/laser-facials' },
-      { label: 'FILLERS & INJECTABLES', href: '/fillers-injectables' },
-    ],
-  },
-  {
-    label: 'BODY',
-    href: '/body',
-    children: [
-      { label: 'IV THERAPY', href: '/iv-therapy-millburn-nj' },
-      { label: 'SEMAGLUTIDE', href: '/semaglutide' },
-      { label: 'VASCULAR TREATMENTS', href: '/vascular-treatments' },
-      { label: 'LASER HAIR REMOVAL', href: '/laser-hair-removal' },
-    ],
-  },
-  {
-    label: 'HAIR',
-    href: '/hair',
-    children: [
-      { label: 'HYDRAFACIAL KERAVIVE', href: '/hydrafacial-keravive' },
-      { label: 'PRP HAIR RESTORATION', href: '/platelet-rich-plasma-hair-millburn' },
-    ],
-  },
-  {
-    label: 'CONTACT',
-    href: '/contact',
-    children: [
-      { label: 'CONSULTATION', href: '/consultation' },
-    ],
-  },
-  { label: 'MENON REGENERATIVE INSTITUTE', href: 'http://www.menonregen.com', external: true },
-  { label: 'SALES', href: '/sale' },
-];
-
-const logoSrc = '/images/medispa-logo-horizontal.png';
+import { Image } from 'astro:assets';
+import logoImg from '@/assets/images/02a84c58deec.png';
+import igImg   from '@/assets/images/d85622e84ef0.png';
+import fbImg   from '@/assets/images/482f7439ea47.png';
+import ttImg   from '@/assets/images/de7ef3d7c470.png';
 ---
 
-<header class="site-header">
-  <!-- Top bar: social icons row -->
-  <div class="site-header__topbar">
-    <div class="site-header__social">
-      <a href={site.social.instagram} class="site-header__social-link" aria-label="Instagram" rel="noopener" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-        </svg>
-      </a>
-      <a href={site.social.facebook} class="site-header__social-link" aria-label="Facebook" rel="noopener" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-      </a>
-      <a href={site.social.tiktok} class="site-header__social-link" aria-label="TikTok" rel="noopener" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-        </svg>
-      </a>
-    </div>
-  </div>
+<header id="site-header" class="site-header">
+  <div class="header-inner">
 
-  <!-- Main nav row -->
-  <div class="site-header__inner">
-    <a class="site-header__logo" href="/" aria-label={site.displayName}>
-      <img src={logoSrc} alt={`${site.displayName} logo`} width="212" height="51" />
+    <!-- Logo -->
+    <a href="/" class="header-logo" aria-label="Menon Medispa home">
+      <Image
+        src={logoImg}
+        alt="Medispa Logo"
+        width={212}
+        height={51}
+        loading="eager"
+        decoding="async"
+      />
     </a>
 
-    <!-- Desktop nav -->
-    <nav class="site-header__nav" aria-label="Primary">
-      {nav.map((item) => (
-        <div class={`site-header__item${item.children ? ' site-header__item--has-dropdown' : ''}`}>
+    <!-- Desktop Navigation -->
+    <nav class="header-nav" aria-label="Main navigation">
+      <ul class="nav-list" role="list">
+
+        <!-- HOME -->
+        <li class="nav-item">
+          <a href="/" class="nav-link">HOME</a>
+        </li>
+
+        <!-- ABOUT (3 children) -->
+        <li class="nav-item has-dropdown">
+          <a href="/about" class="nav-link">ABOUT</a>
+          <ul class="dropdown" role="list">
+            <li><a href="/meet-the-team">MEET THE TEAM</a></li>
+            <li><a href="/patient-resources">PATIENT RESOURCES</a></li>
+            <li><a href="/blog">BLOG</a></li>
+          </ul>
+        </li>
+
+        <!-- FACE (14 children) -->
+        <li class="nav-item has-dropdown">
+          <a href="/face" class="nav-link">FACE</a>
+          <ul class="dropdown" role="list">
+            <li><a href="/menon-facials">FACIALS</a></li>
+            <li><a href="/acne-facial">ACNE FACIAL</a></li>
+            <li><a href="/chemical-peel-facial">CHEMICAL PEEL FACIAL</a></li>
+            <li><a href="/cupping-facial">CUPPING FACIAL</a></li>
+            <li><a href="/dermaplaning-facial">DERMAPLANING FACIAL</a></li>
+            <li><a href="/hydrafacial">HYDRAFACIAL</a></li>
+            <li><a href="/manual-lymph-facials">MANUAL LYMPH FACIALS</a></li>
+            <li><a href="/vitamin-c-facial">VITAMIN C FACIAL</a></li>
+            <li><a href="/microneedling-millburn-nj">MICRONEEDLING</a></li>
+            <li><a href="/laser-facials">LASER FACIALS</a></li>
+            <li><a href="/clear-lift-skin-rejuvination">CLEARLIFT SKIN REJUVENATION</a></li>
+            <li><a href="/fillers-injectables">FILLERS &amp; INJECTABLES</a></li>
+            <li><a href="/botox-millburn-nj">BOTOX</a></li>
+            <li><a href="/juvedermfillers">JUVEDERM FILLERS</a></li>
+          </ul>
+        </li>
+
+        <!-- BODY (14 children) -->
+        <li class="nav-item has-dropdown">
+          <a href="/body" class="nav-link">BODY</a>
+          <ul class="dropdown" role="list">
+            <li><a href="/iv-therapy-millburn-nj">IV THERAPY</a></li>
+            <li><a href="/anti-aging-beauty">ANTI-AGING &amp; BEAUTY</a></li>
+            <li><a href="/custom-iv-drip-therapy-millburn-nj">CUSTOMIZED IV DRIP</a></li>
+            <li><a href="/energy-performance">ENERGY &amp; PERFORMANCE</a></li>
+            <li><a href="/immunity-support">IMMUNITY SUPPORT</a></li>
+            <li><a href="/myers-cocktail-iv-therapy">MYERS COCKTAIL</a></li>
+            <li><a href="/nad-iv-drip-therapy">NAD+ IV DRIP THERAPY</a></li>
+            <li><a href="/recovery-detox">RECOVERY &amp; DETOX</a></li>
+            <li><a href="/vitamin-shots-millburn-nj">VITAMIN SHOTS</a></li>
+            <li><a href="/nad-injection">NAD+ INJECTION</a></li>
+            <li><a href="/targeted-health-solutions-iv">TARGETED HEALTH SOLUTIONS</a></li>
+            <li><a href="/semaglutide">SEMAGLUTIDE</a></li>
+            <li><a href="/vascular-treatments">VASCULAR TREATMENTS</a></li>
+            <li><a href="/laser-hair-removal">LASER HAIR REMOVAL</a></li>
+          </ul>
+        </li>
+
+        <!-- HAIR (2 children) -->
+        <li class="nav-item has-dropdown">
+          <a href="/hair" class="nav-link">HAIR</a>
+          <ul class="dropdown" role="list">
+            <li><a href="/hydrafacial-keravive">HYDRAFACIAL KERAVIVE</a></li>
+            <li><a href="/platelet-rich-plasma-hair-millburn">PRP HAIR RESTORATION</a></li>
+          </ul>
+        </li>
+
+        <!-- CONTACT (1 child) -->
+        <li class="nav-item has-dropdown">
+          <a href="/contact" class="nav-link">CONTACT</a>
+          <ul class="dropdown" role="list">
+            <li><a href="/consultation">CONSULTATION</a></li>
+          </ul>
+        </li>
+
+        <!-- MENON REGENERATIVE INSTITUTE (external) -->
+        <li class="nav-item">
           <a
-            class="site-header__link"
-            href={item.href}
-            {...(item.external ? { rel: 'noopener', target: '_blank' } : {})}
-            {...(item.children ? { 'aria-haspopup': 'true', 'aria-expanded': 'false' } : {})}
-          >
-            {item.label}
-            {item.children && (
-              <svg class="site-header__chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
-                <path d="M5 6L0 0h10L5 6z"/>
-              </svg>
-            )}
-          </a>
-          {item.children && (
-            <div class="site-header__dropdown" role="group" aria-label={item.label}>
-              {item.children.map((child) => (
-                <a class="site-header__dropdown-link" href={child.href}>
-                  {child.label}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+            href="http://www.menonregen.com"
+            class="nav-link nav-link--external"
+            target="_blank"
+            rel="noopener noreferrer"
+          >MENON REGENERATIVE INSTITUTE</a>
+        </li>
+
+        <!-- SALES -->
+        <li class="nav-item">
+          <a href="/sale" class="nav-link">SALES</a>
+        </li>
+
+      </ul>
     </nav>
 
-    <!-- Call Now CTA -->
-    <a class="site-header__call" href={`tel:${site.phone.tel}`}>
-      Call Now: {site.phone.display}
-    </a>
-
-    <!-- Mobile hamburger button -->
-    <button
-      class="site-header__hamburger"
-      id="site-header-hamburger"
-      aria-label="Toggle navigation menu"
-      aria-expanded="false"
-      aria-controls="site-header-mobile-menu"
-      type="button"
-    >
-      <span class="site-header__hamburger-bar"></span>
-      <span class="site-header__hamburger-bar"></span>
-      <span class="site-header__hamburger-bar"></span>
-    </button>
-  </div>
-
-  <!-- Mobile menu drawer -->
-  <nav
-    class="site-header__mobile-menu"
-    id="site-header-mobile-menu"
-    aria-label="Mobile navigation"
-    hidden
-  >
-    {nav.map((item) => (
-      <div class="site-header__mobile-item">
-        {item.children ? (
-          <>
-            <button
-              class="site-header__mobile-toggle"
-              aria-expanded="false"
-              type="button"
-            >
-              {item.label}
-              <svg class="site-header__mobile-chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
-                <path d="M5 6L0 0h10L5 6z"/>
-              </svg>
-            </button>
-            <div class="site-header__mobile-sub" hidden>
-              <a
-                class="site-header__mobile-link site-header__mobile-link--parent"
-                href={item.href}
-              >
-                {item.label} (All)
-              </a>
-              {item.children.map((child) => (
-                <a class="site-header__mobile-link" href={child.href}>
-                  {child.label}
-                </a>
-              ))}
-            </div>
-          </>
-        ) : (
-          <a
-            class="site-header__mobile-link site-header__mobile-link--top"
-            href={item.href}
-            {...(item.external ? { rel: 'noopener', target: '_blank' } : {})}
-          >
-            {item.label}
+    <!-- Right cluster: social icons + Call Now CTA -->
+    <div class="header-right">
+      <ul class="social-icons" role="list" aria-label="Social media links">
+        <li>
+          <a href="https://www.instagram.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <Image src={igImg} alt="Instagram" width={28} height={28} loading="eager" />
           </a>
-        )}
-      </div>
-    ))}
-    <div class="site-header__mobile-cta">
-      <a class="site-header__call site-header__call--mobile" href={`tel:${site.phone.tel}`}>
-        Call Now: {site.phone.display}
+        </li>
+        <li>
+          <a href="https://www.facebook.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <Image src={fbImg} alt="Facebook" width={28} height={28} loading="eager" />
+          </a>
+        </li>
+        <li>
+          <a href="https://www.tiktok.com/@menonregen" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <Image src={ttImg} alt="TikTok" width={28} height={28} loading="eager" />
+          </a>
+        </li>
+      </ul>
+
+      <a href="tel:+19734948431" class="header-cta">
+        Call Now: (973) 494-8431
       </a>
     </div>
+
+    <!-- Mobile hamburger (hidden on desktop) -->
+    <button
+      class="hamburger"
+      id="hamburger-btn"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+  </div><!-- /.header-inner -->
+
+  <!-- Mobile nav drawer (display:block on mobile, off-canvas via transform) -->
+  <nav
+    class="mobile-nav"
+    id="mobile-nav"
+    aria-label="Mobile navigation"
+    aria-hidden="true"
+  >
+    <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation menu">
+      &#x2715;
+    </button>
+
+    <ul class="mobile-nav-list" role="list">
+
+      <li><a href="/">HOME</a></li>
+
+      <!-- ABOUT accordion -->
+      <li class="mobile-has-sub">
+        <button class="mobile-sub-toggle" aria-expanded="false">
+          ABOUT <span class="mobile-sub-arrow" aria-hidden="true">+</span>
+        </button>
+        <ul class="mobile-sub" role="list" aria-hidden="true">
+          <li><a href="/about">About</a></li>
+          <li><a href="/meet-the-team">Meet the Team</a></li>
+          <li><a href="/patient-resources">Patient Resources</a></li>
+          <li><a href="/blog">Blog</a></li>
+        </ul>
+      </li>
+
+      <!-- FACE accordion -->
+      <li class="mobile-has-sub">
+        <button class="mobile-sub-toggle" aria-expanded="false">
+          FACE <span class="mobile-sub-arrow" aria-hidden="true">+</span>
+        </button>
+        <ul class="mobile-sub" role="list" aria-hidden="true">
+          <li><a href="/face">Face Overview</a></li>
+          <li><a href="/menon-facials">Facials</a></li>
+          <li><a href="/acne-facial">Acne Facial</a></li>
+          <li><a href="/chemical-peel-facial">Chemical Peel Facial</a></li>
+          <li><a href="/cupping-facial">Cupping Facial</a></li>
+          <li><a href="/dermaplaning-facial">Dermaplaning Facial</a></li>
+          <li><a href="/hydrafacial">HydraFacial</a></li>
+          <li><a href="/manual-lymph-facials">Manual Lymph Facials</a></li>
+          <li><a href="/vitamin-c-facial">Vitamin C Facial</a></li>
+          <li><a href="/microneedling-millburn-nj">Microneedling</a></li>
+          <li><a href="/laser-facials">Laser Facials</a></li>
+          <li><a href="/clear-lift-skin-rejuvination">ClearLift Skin Rejuvenation</a></li>
+          <li><a href="/fillers-injectables">Fillers &amp; Injectables</a></li>
+          <li><a href="/botox-millburn-nj">Botox</a></li>
+          <li><a href="/juvedermfillers">Juvederm Fillers</a></li>
+        </ul>
+      </li>
+
+      <!-- BODY accordion -->
+      <li class="mobile-has-sub">
+        <button class="mobile-sub-toggle" aria-expanded="false">
+          BODY <span class="mobile-sub-arrow" aria-hidden="true">+</span>
+        </button>
+        <ul class="mobile-sub" role="list" aria-hidden="true">
+          <li><a href="/body">Body Overview</a></li>
+          <li><a href="/iv-therapy-millburn-nj">IV Therapy</a></li>
+          <li><a href="/anti-aging-beauty">Anti-Aging &amp; Beauty</a></li>
+          <li><a href="/custom-iv-drip-therapy-millburn-nj">Customized IV Drip</a></li>
+          <li><a href="/energy-performance">Energy &amp; Performance</a></li>
+          <li><a href="/immunity-support">Immunity Support</a></li>
+          <li><a href="/myers-cocktail-iv-therapy">Myers Cocktail</a></li>
+          <li><a href="/nad-iv-drip-therapy">NAD+ IV Drip Therapy</a></li>
+          <li><a href="/recovery-detox">Recovery &amp; Detox</a></li>
+          <li><a href="/vitamin-shots-millburn-nj">Vitamin Shots</a></li>
+          <li><a href="/nad-injection">NAD+ Injection</a></li>
+          <li><a href="/targeted-health-solutions-iv">Targeted Health Solutions</a></li>
+          <li><a href="/semaglutide">Semaglutide</a></li>
+          <li><a href="/vascular-treatments">Vascular Treatments</a></li>
+          <li><a href="/laser-hair-removal">Laser Hair Removal</a></li>
+        </ul>
+      </li>
+
+      <!-- HAIR accordion -->
+      <li class="mobile-has-sub">
+        <button class="mobile-sub-toggle" aria-expanded="false">
+          HAIR <span class="mobile-sub-arrow" aria-hidden="true">+</span>
+        </button>
+        <ul class="mobile-sub" role="list" aria-hidden="true">
+          <li><a href="/hair">Hair Overview</a></li>
+          <li><a href="/hydrafacial-keravive">HydraFacial Keravive</a></li>
+          <li><a href="/platelet-rich-plasma-hair-millburn">PRP Hair Restoration</a></li>
+        </ul>
+      </li>
+
+      <!-- CONTACT accordion -->
+      <li class="mobile-has-sub">
+        <button class="mobile-sub-toggle" aria-expanded="false">
+          CONTACT <span class="mobile-sub-arrow" aria-hidden="true">+</span>
+        </button>
+        <ul class="mobile-sub" role="list" aria-hidden="true">
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/consultation">Consultation</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="http://www.menonregen.com" target="_blank" rel="noopener noreferrer">
+          MENON REGENERATIVE INSTITUTE
+        </a>
+      </li>
+
+      <li><a href="/sale">SALES</a></li>
+
+      <li class="mobile-cta-item">
+        <a href="tel:+19734948431" class="mobile-cta-phone">
+          Call Now: (973) 494-8431
+        </a>
+      </li>
+
+    </ul>
   </nav>
+
 </header>
 
 <style>
-  /* ==========================================================================
-     SiteHeader styles — ALL rules scoped under .site-header to prevent
-     Tailwind preflight or pages.css from bleeding in, and to prevent these
-     rules from affecting page body content.
-     ========================================================================== */
+/* ===== Site Header ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 55;
+  width: 100%;
+  background-color: var(--color-header-bg);
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
 
-  /* ---- Header shell ---- */
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 55;
-    background: #ffffff;
-    border-bottom: 1px solid #e8e6e6;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+.site-header.scrolled {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.09);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  height: 135px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+/* ── Logo ── */
+.header-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header-logo img {
+  display: block;
+  width: 212px;
+  height: 51px;
+  object-fit: contain;
+}
+
+/* ── Desktop Nav ── */
+.header-nav {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 8px;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--color-header-text);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  margin: 4px 0;
+  transition: color 0.08s cubic-bezier(0, 0, 1, 1);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-brand-plum);
+  outline: none;
+}
+
+/* Active / current page nav item */
+.nav-link[aria-current="page"] {
+  color: var(--color-header-active);
+}
+
+.nav-link--external {
+  font-size: 9px;
+}
+
+/* ── Dropdown Menus (CSS hover) ── */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background-color: var(--color-dropdown-surface);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  z-index: 100;
+}
+
+.has-dropdown:hover > .dropdown,
+.has-dropdown:focus-within > .dropdown {
+  display: block;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 8px 16px;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--color-brand-plum-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.1s, color 0.1s;
+}
+
+.dropdown li a:hover,
+.dropdown li a:focus-visible {
+  background-color: rgba(130, 121, 138, 0.12);
+  color: var(--color-brand-plum);
+  outline: none;
+}
+
+/* ── Right Cluster ── */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 6px;
+}
+
+.social-icons li a {
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.social-icons li a:hover {
+  opacity: 1;
+}
+
+.social-icons img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* Call Now CTA — white pill, black text (faithful to original) */
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-family: var(--font-cta);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-btn-alt);
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.header-cta:hover {
+  background-color: rgba(255,255,255,0.88);
+}
+
+/* ── Hamburger (hidden on desktop) ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-header-text);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile Nav Drawer ── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-surface);
+  z-index: 200;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 64px 24px 40px;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+.mobile-nav.is-open {
+  transform: translateX(0);
+}
+
+.mobile-nav-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 6px 10px;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-nav-list > li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.mobile-nav-list > li > a {
+  display: block;
+  padding: 14px 0;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.mobile-has-sub .mobile-sub-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 0;
+  background: none;
+  border: none;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.mobile-sub-arrow {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mobile-has-sub .mobile-sub-toggle[aria-expanded="true"] .mobile-sub-arrow {
+  transform: rotate(45deg);
+}
+
+.mobile-sub {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px 16px;
+  display: none;
+}
+
+.mobile-sub.is-open {
+  display: block;
+}
+
+.mobile-sub li a {
+  display: block;
+  padding: 8px 0;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text);
+  text-decoration: none;
+  opacity: 0.78;
+  transition: opacity 0.12s, color 0.12s;
+}
+
+.mobile-sub li a:hover {
+  opacity: 1;
+  color: var(--color-cta-alt);
+}
+
+.mobile-cta-item {
+  border-bottom: none !important;
+  padding: 20px 0 0;
+}
+
+.mobile-cta-phone {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: var(--color-cta-alt);
+  color: var(--color-text);
+  font-family: var(--font-cta);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
+}
+
+/* ── Mobile breakpoint (<=980px) ── */
+@media (max-width: 980px) {
+  .header-inner {
+    height: 72px;
+    padding: 0 16px;
   }
 
-  /* ---- Top bar (social icons row) ---- */
-  .site-header__topbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0.45rem 1.5rem 0;
-    box-sizing: border-box;
-  }
-
-  .site-header__social {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .site-header__social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    color: #2c2632;
-    text-decoration: none;
-    border-radius: 50%;
-    transition: color 0.2s;
-    flex-shrink: 0;
-  }
-
-  .site-header__social-link:hover {
-    color: #754d4d;
-  }
-
-  .site-header__social-link svg {
-    display: block;
-    flex-shrink: 0;
-  }
-
-  /* ---- Main nav row ---- */
-  .site-header__inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 0.6rem 1.5rem 0.75rem;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  /* ---- Logo ---- */
-  .site-header__logo {
-    display: block;
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-
-  .site-header__logo img {
-    display: block;
+  .header-logo img {
+    width: 160px;
     height: auto;
-    width: 180px;
   }
 
-  /* ---- Desktop Nav ---- */
-  .site-header__nav {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 0;
-    margin-left: auto;
-    list-style: none;
-    padding: 0;
-    margin-right: 0;
-  }
-
-  /* Each nav item wrapper (handles dropdown positioning) */
-  .site-header__item {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  /* Top-level nav link */
-  .site-header__link {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: #000000;
-    text-decoration: none;
-    white-space: nowrap;
-    padding: 0.5rem 0.6rem;
-    transition: color 0.18s;
-    cursor: pointer;
-  }
-
-  .site-header__link:hover,
-  .site-header__item--has-dropdown:hover .site-header__link,
-  .site-header__item--has-dropdown:focus-within .site-header__link {
-    color: #754d4d;
-  }
-
-  /* Dropdown chevron */
-  .site-header__chevron {
-    display: inline-block;
-    flex-shrink: 0;
-    transition: transform 0.2s;
-    margin-top: 1px;
-  }
-
-  .site-header__item--has-dropdown:hover .site-header__chevron,
-  .site-header__item--has-dropdown:focus-within .site-header__chevron {
-    transform: rotate(180deg);
-  }
-
-  /* ---- Dropdown panel ---- */
-  .site-header__dropdown {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ffffff;
-    border: 1px solid #e8e6e6;
-    border-top: 2px solid #754d4d;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-    min-width: 200px;
-    padding: 0.5rem 0;
-    z-index: 100;
-    /* Hidden by default */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateX(-50%) translateY(-4px);
-    transition: opacity 0.18s, visibility 0.18s, transform 0.18s;
-  }
-
-  /* Show dropdown on hover or focus-within */
-  .site-header__item--has-dropdown:hover .site-header__dropdown,
-  .site-header__item--has-dropdown:focus-within .site-header__dropdown {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  /* Dropdown links */
-  .site-header__dropdown-link {
-    display: block;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #584b63;
-    text-decoration: none;
-    padding: 0.6rem 1.25rem;
-    white-space: nowrap;
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .site-header__dropdown-link:hover {
-    background: #f8f4f0;
-    color: #754d4d;
-  }
-
-  /* ---- Call Now CTA ---- */
-  .site-header__call {
-    display: inline-block;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: #ffffff;
-    background: #754d4d;
-    padding: 0.55rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background 0.2s;
-    box-shadow: 0.42px 2.97px 17px -4px rgba(0,0,0,0.6);
-  }
-
-  .site-header__call:hover {
-    background: #584b63;
-    color: #ffffff;
-  }
-
-  /* ---- Hamburger (hidden on desktop) ---- */
-  .site-header__hamburger {
+  .header-nav,
+  .header-right {
     display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 26px;
-    height: 18px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    flex-shrink: 0;
+  }
+
+  .hamburger {
+    display: flex;
     margin-left: auto;
   }
 
-  .site-header__hamburger-bar {
+  .mobile-nav {
     display: block;
-    width: 100%;
-    height: 2px;
-    background: #000000;
-    border-radius: 2px;
-    transition: transform 0.25s, opacity 0.25s;
   }
-
-  /* Hamburger open state — X icon */
-  .site-header__hamburger[aria-expanded="true"] .site-header__hamburger-bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  .site-header__hamburger[aria-expanded="true"] .site-header__hamburger-bar:nth-child(2) {
-    opacity: 0;
-  }
-  .site-header__hamburger[aria-expanded="true"] .site-header__hamburger-bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
-
-  /* ---- Mobile menu drawer ---- */
-  .site-header__mobile-menu {
-    display: block;
-    background: #ffffff;
-    border-top: 1px solid #e8e6e6;
-    padding: 0.5rem 0 1rem;
-    max-height: 80vh;
-    overflow-y: auto;
-    /* Hidden via [hidden] attribute — JS toggles it */
-  }
-
-  .site-header__mobile-menu[hidden] {
-    display: none !important;
-  }
-
-  .site-header__mobile-item {
-    border-bottom: 1px solid #f0eeee;
-  }
-
-  /* Mobile top-level flat link */
-  .site-header__mobile-link--top {
-    display: block;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: #000000;
-    text-decoration: none;
-    padding: 0.85rem 1.25rem;
-    transition: color 0.15s;
-  }
-
-  .site-header__mobile-link--top:hover {
-    color: #754d4d;
-  }
-
-  /* Mobile accordion toggle button */
-  .site-header__mobile-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: #000000;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.85rem 1.25rem;
-    text-align: left;
-    transition: color 0.15s;
-  }
-
-  .site-header__mobile-toggle:hover {
-    color: #754d4d;
-  }
-
-  .site-header__mobile-chevron {
-    flex-shrink: 0;
-    transition: transform 0.2s;
-  }
-
-  .site-header__mobile-toggle[aria-expanded="true"] .site-header__mobile-chevron {
-    transform: rotate(180deg);
-  }
-
-  /* Mobile sub-menu */
-  .site-header__mobile-sub {
-    background: #f8f4f0;
-    padding: 0.25rem 0;
-  }
-
-  .site-header__mobile-sub[hidden] {
-    display: none !important;
-  }
-
-  .site-header__mobile-link {
-    display: block;
-    font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: #584b63;
-    text-decoration: none;
-    padding: 0.6rem 1.75rem;
-    transition: color 0.15s;
-  }
-
-  .site-header__mobile-link--parent {
-    color: #754d4d;
-    border-bottom: 1px solid #ece8e4;
-    padding-bottom: 0.65rem;
-    margin-bottom: 0.1rem;
-  }
-
-  .site-header__mobile-link:hover {
-    color: #754d4d;
-  }
-
-  /* Mobile CTA */
-  .site-header__mobile-cta {
-    padding: 1rem 1.25rem 0.5rem;
-  }
-
-  .site-header__call--mobile {
-    display: block;
-    text-align: center;
-    padding: 0.7rem 1rem;
-  }
-
-  /* ============================================================
-     RESPONSIVE — Tablet / Mobile
-     ============================================================ */
-
-  @media (max-width: 1200px) {
-    .site-header__link {
-      font-size: 0.72rem;
-      padding: 0.5rem 0.45rem;
-    }
-    .site-header__logo img {
-      width: 150px;
-    }
-    .site-header__inner {
-      gap: 0.75rem;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    /* On tablet/mobile: hide desktop nav + social bar, show hamburger */
-    .site-header__topbar {
-      display: none;
-    }
-    .site-header__nav {
-      display: none;
-    }
-    .site-header__call {
-      display: none;
-    }
-    .site-header__hamburger {
-      display: flex;
-    }
-    .site-header__inner {
-      padding: 0.75rem 1.25rem;
-      gap: 1rem;
-    }
-    .site-header__logo img {
-      width: 160px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .site-header__logo img {
-      width: 140px;
-    }
-  }
+}
 </style>
 
 <script>
-  // Mobile menu toggle
-  const hamburger = document.getElementById('site-header-hamburger') as HTMLButtonElement | null;
-  const mobileMenu = document.getElementById('site-header-mobile-menu') as HTMLElement | null;
+// ── Sticky scroll state ──
+(function () {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+  const onScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
 
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
-      hamburger.setAttribute('aria-expanded', String(!isOpen));
-      if (isOpen) {
-        mobileMenu.setAttribute('hidden', '');
-      } else {
-        mobileMenu.removeAttribute('hidden');
-      }
-    });
-  }
+// ── Mobile nav toggle ──
+(function () {
+  const btn      = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+  const nav      = document.getElementById('mobile-nav') as HTMLElement | null;
+  const closeBtn = document.getElementById('mobile-nav-close') as HTMLButtonElement | null;
 
-  // Mobile accordion sub-menu toggles
-  const mobileToggles = document.querySelectorAll<HTMLButtonElement>('.site-header__mobile-toggle');
-  mobileToggles.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const sub = btn.nextElementSibling as HTMLElement | null;
-      if (!sub) return;
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!isOpen));
-      if (isOpen) {
-        sub.setAttribute('hidden', '');
-      } else {
-        sub.removeAttribute('hidden');
+  if (!btn || !nav) return;
+
+  const open = () => {
+    nav.classList.add('is-open');
+    nav.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    nav.classList.remove('is-open');
+    nav.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  btn.addEventListener('click', () => {
+    btn.getAttribute('aria-expanded') === 'true' ? close() : open();
+  });
+
+  closeBtn?.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+
+  // ── Mobile accordion sub-menus ──
+  const toggles = nav.querySelectorAll<HTMLButtonElement>('.mobile-sub-toggle');
+  toggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      const sub = toggle.nextElementSibling as HTMLElement | null;
+
+      // Collapse sibling accordions
+      toggles.forEach((other) => {
+        if (other !== toggle) {
+          other.setAttribute('aria-expanded', 'false');
+          const otherSub = other.nextElementSibling as HTMLElement | null;
+          otherSub?.classList.remove('is-open');
+          otherSub?.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      // Toggle this one
+      const next = !expanded;
+      toggle.setAttribute('aria-expanded', String(next));
+      if (sub) {
+        sub.classList.toggle('is-open', next);
+        sub.setAttribute('aria-hidden', String(!next));
       }
     });
   });
-
-  // Close mobile menu on resize to desktop
-  const mql = window.matchMedia('(min-width: 1025px)');
-  mql.addEventListener('change', (e) => {
-    if (e.matches && hamburger && mobileMenu) {
-      hamburger.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('hidden', '');
-    }
-  });
+})();
 </script>

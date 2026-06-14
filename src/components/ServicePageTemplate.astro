@@ -1,294 +1,338 @@
 ---
 /**
- * ServicePageTemplate.astro — Wix /service-page/{slug} faithful replication.
+ * ServicePageTemplate.astro — canonical layout for individual service pages.
+ * Covers the 81 services formerly at /service-page/{slug} on the Wix site.
+ * All props are rendered verbatim; zero summarization.
  *
- * Layout (verbatim from captured screenshots + structure.json):
- *   1. Cover image (360×360 centred square) — only for the 3 services with captured images.
- *   2. H1 service name (Playfair Bold, centred).
- *   3. tagLine in muted Raleway under the title.
- *   4. 3-cell meta row: duration | price | category (bordered table cells, centred).
- *   5. Gold "Request to book" CTA → Cal.com placeholder.
- *   6. "Service Description" block — only rendered for the 3 services with captured text;
- *      for the 78 metadata-only services this section is intentionally absent (Path-2:
- *      no fabrication). Template looks complete and intentional without it.
- *   7. "Contact Details" section with address.
- *
- * Known limits (Path-2 capture cost-decision, flagged here):
- *   - 78 of 81 services have only metadata (no description). Shown as-is.
- *   - 80 of 81 services have no captured cover image (cover = null). Rendered without image.
- *   - 1 service (botox-injectables) has cover + description; 2 others have description only.
+ * Props:
+ *   title                — service name (required)
+ *   slug                 — URL slug (required)
+ *   category             — optional category badge text
+ *   description_html     — intro/description HTML (rendered with set:html)
+ *   duration             — e.g. "60 minutes"
+ *   price                — e.g. "Starting at $150"
+ *   benefits             — bullet list of benefit strings
+ *   what_to_expect_html  — what-to-expect section HTML
+ *   aftercare_html       — aftercare instructions HTML
+ *   faqs                 — array of {question, answer} pairs
+ *   hero_image_src       — hero image URL
+ *   hero_image_alt       — hero image alt text
  */
+import BaseLayout from '../layouts/BaseLayout.astro';
 import site from '../lib/site';
 
 interface Props {
-  name: string;
+  title: string;
+  slug: string;
   category?: string;
+  description_html?: string;
+  duration?: string;
   price?: string;
-  duration?: number | null;
-  tagLine?: string;
-  description?: string;
-  cover?: string | null;
+  benefits?: string[];
+  what_to_expect_html?: string;
+  aftercare_html?: string;
+  faqs?: Array<{ question: string; answer: string }>;
+  hero_image_src?: string;
+  hero_image_alt?: string;
 }
 
-const { name, category, price, duration, tagLine, description, cover } = Astro.props;
-const CALCOM = site.calcomUrl;
+const {
+  title,
+  slug,
+  category,
+  description_html,
+  duration,
+  price,
+  benefits = [],
+  what_to_expect_html,
+  aftercare_html,
+  faqs = [],
+  hero_image_src,
+  hero_image_alt,
+} = Astro.props;
 
-// Duration formatting: the captured pages show "1 hr" for 60 min, "30 min" etc.
-function formatDuration(min: number | null | undefined): string {
-  if (!min) return '';
-  if (min >= 60 && min % 60 === 0) return `${min / 60} hr`;
-  if (min > 60) return `${Math.floor(min / 60)} hr ${min % 60} min`;
-  return `${min} min`;
-}
-
-const durationLabel = duration ? formatDuration(duration) : '';
-const descLines = (description || '').split('\n').filter((l) => l.trim());
-const hasDesc = descLines.length > 0;
-
-// Build meta cells — only show cells that have data
-const metaCells: { label: string }[] = [];
-if (durationLabel) metaCells.push({ label: durationLabel });
-if (price) metaCells.push({ label: price });
-if (category) metaCells.push({ label: category });
+const bookingUrl = site.calcomUrl;
+const bookingLabel = `Book ${title}`;
 ---
 
-<main class="svc-page">
-  <div class="svc-page__inner">
+<BaseLayout title={title}>
+  <article class="service-page">
 
-    {/* Cover image — only when a captured image exists */}
-    {cover && (
-      <div class="svc-page__img-wrap">
-        <img class="svc-page__img" src={cover} alt={name} loading="eager" width="360" height="360" />
-      </div>
-    )}
-
-    {/* Title + tagLine */}
-    <h1 class="svc-page__name">{name}</h1>
-    {tagLine && <p class="svc-page__tag">{tagLine}</p>}
-
-    {/* Meta row: duration | price | category */}
-    {metaCells.length > 0 && (
-      <div class="svc-page__meta-row" role="list">
-        {metaCells.map((cell, i) => (
-          <div class="svc-page__meta-cell" role="listitem"
-               data-first={i === 0 ? '' : undefined}
-               data-last={i === metaCells.length - 1 ? '' : undefined}>
-            {cell.label}
+    <!-- Hero — background-color fallback ensures no black void when image 404s -->
+    <section class="service-page__hero" style={hero_image_src ? `background-color: var(--color-header-bg); background-image: url('${hero_image_src}');` : 'background-color: var(--color-header-bg);'}>
+      <div class="service-page__hero-overlay">
+        {category && (
+          <span class="service-page__badge">{category}</span>
+        )}
+        <h1 class="service-page__title">{title}</h1>
+        {(duration || price) && (
+          <div class="service-page__meta">
+            {duration && <span class="service-page__meta-item">{duration}</span>}
+            {price && <span class="service-page__meta-item">{price}</span>}
           </div>
-        ))}
+        )}
+        <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="service-page__hero-btn">
+          Book an Appointment
+        </a>
       </div>
-    )}
+    </section>
 
-    {/* Book CTA */}
-    <div class="svc-page__cta-wrap">
-      <a class="svc-page__book sp-btn sp-btn--gold" href={CALCOM} rel="noopener" target="_blank">
-        Request to book
-      </a>
-    </div>
-
-    <hr class="svc-page__rule" />
-
-    {/* Service Description — only when captured text exists */}
-    {hasDesc && (
-      <section class="svc-page__desc" aria-label="Service Description">
-        <h2 class="svc-page__section-title">Service Description</h2>
-        {descLines.map((line) => <p class="svc-page__desc-p">{line}</p>)}
+    <!-- Description -->
+    {description_html && (
+      <section class="service-page__section">
+        <div class="service-page__container">
+          <div class="service-page__richtext" set:html={description_html} />
+        </div>
       </section>
     )}
 
-    {/* Contact Details */}
-    <section class="svc-page__contact" aria-label="Contact Details">
-      <h2 class="svc-page__section-title">Contact Details</h2>
-      <ul class="svc-page__contact-list">
-        <li>
-          <span class="svc-page__contact-name">{site.affiliatedName}</span><br />
-          <span>{site.address.street}, {site.address.locality}, {site.address.region} {site.address.postalCode}, USA</span>
-        </li>
-        <li>
-          <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a>
-        </li>
-        <li>
-          <a href={`mailto:${site.email}`}>{site.email}</a>
-        </li>
-      </ul>
+    <!-- Benefits -->
+    {benefits.length > 0 && (
+      <section class="service-page__section service-page__section--tinted">
+        <div class="service-page__container">
+          <h2 class="service-page__h2">Benefits</h2>
+          <ul class="service-page__benefits">
+            {benefits.map((b) => (
+              <li class="service-page__benefit-item">{b}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- What to Expect -->
+    {what_to_expect_html && (
+      <section class="service-page__section">
+        <div class="service-page__container">
+          <h2 class="service-page__h2">What to Expect</h2>
+          <div class="service-page__richtext" set:html={what_to_expect_html} />
+        </div>
+      </section>
+    )}
+
+    <!-- Aftercare -->
+    {aftercare_html && (
+      <section class="service-page__section service-page__section--tinted">
+        <div class="service-page__container">
+          <h2 class="service-page__h2">Aftercare</h2>
+          <div class="service-page__richtext" set:html={aftercare_html} />
+        </div>
+      </section>
+    )}
+
+    <!-- FAQs -->
+    {faqs.length > 0 && (
+      <section class="service-page__section">
+        <div class="service-page__container">
+          <h2 class="service-page__h2">Frequently Asked Questions</h2>
+          <div class="service-page__faqs">
+            {faqs.map((faq) => (
+              <details class="service-page__faq">
+                <summary class="service-page__faq-q">{faq.question}</summary>
+                <div class="service-page__faq-a">{faq.answer}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Final CTA -->
+    <section class="service-page__cta-section">
+      <div class="service-page__container service-page__cta-inner">
+        <h2 class="service-page__cta-heading">Ready to experience {title}?</h2>
+        <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="service-page__cta-btn">
+          {bookingLabel}
+        </a>
+      </div>
     </section>
 
-    <hr class="svc-page__rule" />
-  </div>
-</main>
+  </article>
+</BaseLayout>
 
 <style>
-  /* ── Page shell ─────────────────────────────────────────────── */
-  .svc-page {
-    width: 100%;
-    background: #fff;
-  }
-
-  .svc-page__inner {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: clamp(2.5rem, 5vw, 4.5rem) 1.5rem;
-    text-align: center;
-  }
-
-  /* ── Cover image (360×360, centred) ────────────────────────── */
-  .svc-page__img-wrap {
+  /* Hero */
+  .service-page__hero {
+    position: relative;
+    min-height: 420px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-surface-dark);
     display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
+    align-items: flex-end;
   }
-
-  .svc-page__img {
-    width: 360px;
-    height: 360px;
-    max-width: 100%;
-    object-fit: cover;
+  .service-page__hero-overlay {
+    width: 100%;
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 60%, transparent 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .service-page__badge {
+    display: inline-block;
+    background-color: var(--color-cta);
+    color: #fff;
+    font-family: var(--font-cta);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
     border-radius: var(--radius-sm);
   }
-
-  /* ── Title & tagLine ────────────────────────────────────────── */
-  .svc-page__name {
+  .service-page__title {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.875rem, 4vw, 3rem);
-    color: var(--color-ink);
-    margin: 0 0 0.5rem;
-    text-wrap: balance;
+    font-size: var(--text-h1);
+    margin: 0;
+    line-height: 1.15;
   }
-
-  .svc-page__tag {
-    font-family: var(--font-ui);
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    margin: 0 0 1.5rem;
-  }
-
-  /* ── Meta row (duration | price | category) ─────────────────── */
-  .svc-page__meta-row {
+  .service-page__meta {
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-    margin: 0 auto 1.75rem;
-    max-width: 520px;
-    border: 1px solid #ccc;
-  }
-
-  .svc-page__meta-cell {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    font-family: var(--font-ui);
+    gap: var(--space-md);
+    font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--color-ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    opacity: 0.88;
   }
-
-  .svc-page__meta-cell + .svc-page__meta-cell {
-    border-left: 1px solid #ccc;
+  .service-page__meta-item {
+    display: inline-block;
   }
-
-  /* ── CTA button ─────────────────────────────────────────────── */
-  .svc-page__cta-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-
-  .svc-page__book {
-    /* inherits sp-btn sp-btn--gold from pages.css */
+  .service-page__hero-btn {
+    display: inline-block;
+    background-color: var(--color-cta);
+    color: #fff;
+    font-family: var(--font-cta);
     font-size: var(--text-base);
-    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    margin-top: 8px;
+    transition: opacity 0.2s;
   }
+  .service-page__hero-btn:hover { opacity: 0.86; }
 
-  /* ── Divider ────────────────────────────────────────────────── */
-  .svc-page__rule {
-    border: none;
-    border-top: 1px solid #e0e0e0;
-    margin: 0 0 2.5rem;
+  /* Sections */
+  .service-page__section {
+    padding: var(--space-xl) var(--space-md);
   }
-
-  /* ── Section titles (Service Description / Contact Details) ─── */
-  .svc-page__section-title {
+  .service-page__section--tinted {
+    background-color: rgba(196,164,132,0.07);
+  }
+  .service-page__container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .service-page__h2 {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--text-xl);
-    color: var(--color-ink);
-    margin: 0 0 1rem;
+    font-size: var(--text-h2);
+    margin-bottom: var(--space-md);
   }
-
-  /* ── Description text ───────────────────────────────────────── */
-  .svc-page__desc {
-    text-align: left;
-    margin-bottom: 2.5rem;
-    max-width: 720px;
-    margin-inline: auto;
-    margin-bottom: 2.5rem;
-  }
-
-  .svc-page__desc .svc-page__section-title {
-    text-align: center;
-  }
-
-  .svc-page__desc-p {
-    font-family: var(--font-ui);
+  .service-page__richtext {
+    font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: 1.7;
-    color: var(--color-text);
-    margin: 0 0 1rem;
+    line-height: 1.75;
   }
 
-  /* ── Contact Details ────────────────────────────────────────── */
-  .svc-page__contact {
-    margin-bottom: 2rem;
-  }
-
-  .svc-page__contact-list {
+  /* Benefits */
+  .service-page__benefits {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px var(--space-md);
+  }
+  .service-page__benefit-item {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding-left: 20px;
+    position: relative;
+  }
+  .service-page__benefit-item::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-cta);
+    font-weight: 700;
+  }
+
+  /* FAQs */
+  .service-page__faqs {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 12px;
   }
-
-  .svc-page__contact-list li {
-    font-family: var(--font-ui);
+  .service-page__faq {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .service-page__faq-q {
+    font-family: var(--font-body);
     font-size: var(--text-base);
-    color: var(--color-text);
-    line-height: 1.5;
-  }
-
-  .svc-page__contact-name {
     font-weight: 600;
-    color: var(--color-primary);
+    padding: 16px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .service-page__faq-q::-webkit-details-marker { display: none; }
+  .service-page__faq-q::after {
+    content: '+';
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-cta);
+    flex-shrink: 0;
+  }
+  details[open] .service-page__faq-q::after { content: '−'; }
+  .service-page__faq-a {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    padding: 0 16px 16px;
   }
 
-  .svc-page__contact-list a {
-    color: var(--color-primary);
+  /* Final CTA */
+  .service-page__cta-section {
+    background-color: var(--color-surface-dark);
+    color: var(--color-surface);
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+  }
+  .service-page__cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .service-page__cta-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    margin: 0;
+  }
+  .service-page__cta-btn {
+    display: inline-block;
+    background-color: var(--color-cta);
+    color: #fff;
+    font-family: var(--font-cta);
+    font-size: var(--text-base);
+    font-weight: 600;
+    padding: 16px 48px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
   }
+  .service-page__cta-btn:hover { opacity: 0.86; }
 
-  .svc-page__contact-list a:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Responsive ──────────────────────────────────────────────── */
-  @media (max-width: 560px) {
-    .svc-page__meta-row {
-      flex-direction: column;
-    }
-
-    .svc-page__meta-cell + .svc-page__meta-cell {
-      border-left: none;
-      border-top: 1px solid #ccc;
-    }
-
-    .svc-page__img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1;
-    }
+  @media (max-width: 980px) {
+    .service-page__title { font-size: 32px; }
+    .service-page__h2 { font-size: 26px; }
+    .service-page__benefits { grid-template-columns: 1fr; }
   }
 </style>

@@ -11,7 +11,8 @@
  * that's 02-synthesize (components) + 03-build-replicate (pages). This layout
  * just renders a <slot/> so the scaffold compiles and pages can mount.
  */
-import '../styles/global.css';
+import '../styles/tokens.css';
+/* tokens.css @imports fonts.css — all design tokens + font faces loaded here */
 import site from '../lib/site';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -73,11 +74,14 @@ const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
     <!-- Icons — TODO(03-build): replace with the captured Menon favicon set. -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts: self-hosted (see global.css @import './fonts.css'). Preload the
-         two above-the-fold faces (Raleway = LCP body/nav, Playfair = display).
-         Mirrors 03-design/fonts-head.html. -->
-    <link rel="preload" href="/fonts/raleway.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Fonts: self-hosted via tokens.css → fonts.css @font-face.
+         Preload LCP-critical faces:
+           Raleway-v2 400 latin primary block → d42b96c5612a.woff2 (body — dominant 3867+ uses)
+           Playfair Display 400 latin primary block → 973711d84225.woff2 (headings)
+           Lato 400 latin primary block → 3f18028a04b3.woff2 (UI/eyebrow) -->
+    <link rel="preload" href="/fonts/d42b96c5612a.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/973711d84225.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/3f18028a04b3.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
