@@ -3,7 +3,6 @@
  * home__section_15.astro, "June SALES" lightbox dialog
  * _is_lightbox: true  |  _trigger_text: "Flash Sale"
  * Rendered as an accessible <dialog> element, initially hidden.
- * The Flash Sale trigger button (elsewhere on the page) opens it via JS.
  */
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServicesGrid from '@/components/ServicesGrid.astro';
@@ -13,16 +12,6 @@ import brotoxImg from '@/assets/images/56a3e3ac1335.jpg';
 import hydrafacialImg from '@/assets/images/86072f9cbd9c.jpg';
 import ivImg from '@/assets/images/dd355e57f3dd.jpg';
 ---
-
-<!-- Flash Sale trigger button (wired to open the dialog) -->
-<button
-  class="flash-sale-trigger btn btn--primary"
-  aria-haspopup="dialog"
-  aria-controls="june-sales-dialog"
-  onclick="document.getElementById('june-sales-dialog').showModal()"
->
-  Flash Sale
-</button>
 
 <!-- June SALES dialog lightbox -->
 <dialog
@@ -129,24 +118,6 @@ import ivImg from '@/assets/images/dd355e57f3dd.jpg';
 </dialog>
 
 <style>
-  /* Trigger button, matches primary CTA style */
-  .flash-sale-trigger {
-    background-color: var(--color-cta);
-    color: var(--color-text);
-    box-shadow: var(--shadow-btn);
-    border-radius: var(--radius-sm);
-    padding: 10px 24px;
-    font-family: var(--font-cta);
-    font-size: var(--text-sm);
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.15s ease;
-  }
-
-  .flash-sale-trigger:hover {
-    opacity: 0.88;
-  }
-
   /* Dialog backdrop + positioning */
   .june-sales-dialog {
     position: fixed;

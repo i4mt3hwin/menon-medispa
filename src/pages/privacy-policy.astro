@@ -1,0 +1,260 @@
+---
+/**
+ * /privacy-policy — plain-language privacy policy grounded in the site's ACTUAL
+ * data practices (lead forms + Find Your Glow quiz + booking + analytics). Written
+ * to be readable: a short-version summary card, a table of contents, then clearly
+ * headed sections. NOT legal advice — operator should have counsel skim before launch.
+ * Contact details pull from site.ts so they stay consistent.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+
+const updated = 'June 2026';
+
+const toc = [
+  ['who-we-are', 'Who we are'],
+  ['what-we-collect', 'Information we collect'],
+  ['how-we-use', 'How we use it'],
+  ['health-info', 'A note on health information'],
+  ['cookies', 'Cookies & tracking'],
+  ['how-we-protect', 'How we protect your information'],
+  ['sharing', 'How we share information'],
+  ['your-choices', 'Your choices & rights'],
+  ['marketing', 'Email & text messages'],
+  ['children', "Children's privacy"],
+  ['retention', 'How long we keep it'],
+  ['changes', 'Changes to this policy'],
+  ['contact', 'Contact us'],
+];
+---
+
+<BaseLayout
+  title="Privacy Policy | Menon Medispa & Wellness | Millburn, NJ"
+  description="How Menon Medispa & Wellness collects, uses, shares, and protects your personal information, including our Find Your Glow quiz, marketing emails, and website analytics."
+>
+  <section class="section section--mauve pp-hero">
+    <div class="container--narrow">
+      <p class="pp-hero__eyebrow">Menon Medispa &amp; Wellness</p>
+      <h1 class="pp-hero__title">Privacy Policy</h1>
+      <p class="pp-hero__updated">Last updated: {updated}</p>
+    </div>
+  </section>
+
+  <div class="section pp-body">
+    <div class="container--narrow">
+      <p class="pp-lede">
+        This policy explains what personal information we collect when you use this website, how we use and
+        protect it, and the choices you have. We've tried to write it in plain English. If anything is unclear,
+        please <a href={`mailto:${site.email}`}>email us</a>.
+      </p>
+
+      <!-- The short version -->
+      <div class="pp-summary">
+        <h2 class="pp-summary__title">The short version</h2>
+        <ul>
+          <li>We only collect what we need to reply to you, book your appointment, or (with your permission) send you offers, usually your name, email, and phone number.</li>
+          <li>Our <a href="/find-your-glow">Find Your Glow</a> quiz works entirely in your browser. Your skin answers and recommendations are never sent to us or stored. If you enter your email, we save only your email (not your answers).</li>
+          <li>We never sell your information.</li>
+          <li>We use standard website analytics and advertising tools (Google, Meta, Microsoft Clarity, WhatConverts) that rely on cookies.</li>
+          <li>You can unsubscribe from emails anytime, reply STOP to texts, or ask us to delete your information.</li>
+        </ul>
+      </div>
+
+      <!-- TOC -->
+      <nav class="pp-toc" aria-label="Sections">
+        <p class="pp-toc__label">On this page</p>
+        <ol>
+          {toc.map(([id, label]) => (<li><a href={`#${id}`}>{label}</a></li>))}
+        </ol>
+      </nav>
+
+      <div class="pp-prose">
+        <h2 id="who-we-are">Who we are</h2>
+        <p>
+          This website is operated by Menon Medispa &amp; Wellness ("Menon Medispa," "we," "us," or "our"),
+          located at {site.address.formatted}. When this policy says "the site," we mean
+          {' '}{site.url.replace('https://www.', '')} and the pages and tools on it. You can reach us anytime
+          using the details in the <a href="#contact">Contact us</a> section below.
+        </p>
+
+        <h2 id="what-we-collect">Information we collect</h2>
+        <p>We collect information in three ways:</p>
+
+        <h3>1. Information you give us</h3>
+        <p>
+          When you fill out a contact, consultation, or appointment-request form, join our email list, or save
+          your quiz results, you may give us your name, email address, phone number, and any message you choose
+          to include. We only ask for what we need to help you.
+        </p>
+
+        <h3>2. Your Find Your Glow quiz answers (not stored)</h3>
+        <p>
+          Our Find Your Glow quiz is designed to protect your privacy. Your answers about your skin are processed
+          entirely on your own device, and your personalized results are shown right in your browser. We do not
+          receive or store your quiz answers, your concerns, or your recommendations. If you choose to enter your
+          email at the end to join our list, we save only your contact details and consent, never your skin answers.
+        </p>
+
+        <h3>3. Information collected automatically</h3>
+        <p>
+          Like most websites, we automatically collect some technical and usage information when you visit, such
+          as your device and browser type, approximate location, the pages you view, and how you arrived. This is
+          collected through cookies and similar technologies (see <a href="#cookies">Cookies &amp; tracking</a>).
+        </p>
+
+        <h2 id="how-we-use">How we use it</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>respond to your questions and requests;</li>
+          <li>schedule and manage consultations and appointments;</li>
+          <li>send you marketing messages, tips, and offers if you have asked to receive them;</li>
+          <li>operate, secure, and improve the website; and</li>
+          <li>meet our legal and regulatory obligations.</li>
+        </ul>
+
+        <h2 id="health-info">A note on health information</h2>
+        <p>
+          We do not collect medical or treatment records through this website. The quiz and our forms are for
+          general, non-diagnostic and scheduling purposes only, and our website lead system is intentionally built
+          so that it does not store medical information. Any health information you share directly with our
+          providers during a consultation or treatment is kept separately as part of your care and is handled in
+          line with applicable medical-privacy laws, including HIPAA where it applies. This website is not a
+          substitute for professional medical advice.
+        </p>
+
+        <h2 id="cookies">Cookies &amp; tracking technologies</h2>
+        <p>
+          Cookies are small files stored on your device that help websites work and help owners understand how
+          their site is used. We use cookies and similar technologies for analytics and advertising, including:
+        </p>
+        <ul>
+          <li><strong>Google</strong> (Analytics and Ads) to measure site traffic and the performance of our ads;</li>
+          <li><strong>Meta (Facebook) Pixel</strong> to measure and improve our advertising on Facebook and Instagram;</li>
+          <li><strong>Microsoft Clarity</strong> to understand how visitors use our pages through aggregated heatmaps and session insights; and</li>
+          <li><strong>WhatConverts</strong> to understand which marketing brings in calls and inquiries.</li>
+        </ul>
+        <p>
+          You can control cookies through your browser settings, and you can opt out of interest-based advertising
+          through your <a href="https://www.facebook.com/settings?tab=ads" target="_blank" rel="noopener noreferrer">Meta ad settings</a>,
+          your <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google ad settings</a>,
+          and the <a href="https://optout.networkadvertising.org" target="_blank" rel="noopener noreferrer">Network Advertising Initiative</a> opt-out page.
+          If your browser sends a "Do Not Track" signal, we do not currently respond to it, but you can use the controls above.
+        </p>
+
+        <h2 id="how-we-protect">How we protect your information</h2>
+        <p>Protecting your information matters to us. The steps we take include:</p>
+        <ul>
+          <li><strong>Collecting as little as possible.</strong> We ask only for the details we need.</li>
+          <li><strong>Keeping health information out of the website.</strong> Our lead system is built to store no medical or treatment information, and the quiz never sends us your skin answers.</li>
+          <li><strong>Encrypting data in transit.</strong> The site is served securely over HTTPS.</li>
+          <li><strong>Keeping your data first-party.</strong> Form and signup information goes to our own secured systems and a notification to our team. We never sell it.</li>
+          <li><strong>Recording your consent.</strong> When you opt in to emails or texts, we record the exact wording you agreed to and when, so your preferences are clear.</li>
+          <li><strong>Keeping marketing and booking separate.</strong> Our email list is kept apart from appointment and care records.</li>
+          <li><strong>Guarding our forms</strong> against automated spam and abuse.</li>
+        </ul>
+        <p>
+          No website or internet transmission is ever completely secure, so we cannot promise absolute security,
+          but we work to protect your information using reasonable, industry-standard safeguards.
+        </p>
+
+        <h2 id="sharing">How we share information</h2>
+        <p>
+          <strong>We do not sell your personal information.</strong> We share it only in these limited ways:
+        </p>
+        <ul>
+          <li><strong>With service providers</strong> who help us run the business, such as our website hosting, email delivery, scheduling, and analytics partners, and only so they can perform those services for us;</li>
+          <li><strong>When required by law,</strong> or to protect the rights, safety, and property of our patients, our team, or the public; and</li>
+          <li><strong>As part of a business transfer,</strong> such as a merger or sale, in which case we would let you know.</li>
+        </ul>
+
+        <h2 id="your-choices">Your choices &amp; rights</h2>
+        <p>You are in control of your information. You can:</p>
+        <ul>
+          <li><strong>Unsubscribe</strong> from marketing emails at any time using the link in any email;</li>
+          <li><strong>Stop texts</strong> by replying STOP to any message;</li>
+          <li><strong>Access, correct, or delete</strong> the information we hold about you by emailing <a href={`mailto:${site.email}`}>{site.email}</a>; and</li>
+          <li><strong>Exercise state privacy rights.</strong> Depending on where you live, you may have additional rights over your personal information. Contact us and we will honor the rights that apply to you.</li>
+        </ul>
+
+        <h2 id="marketing">Email &amp; text messages</h2>
+        <p>
+          We only send marketing emails to people who have asked to receive them, and every email includes an easy
+          way to unsubscribe. Text messages are strictly opt-in: we will only text you if you have checked the box
+          to agree, and message and data rates may apply. Reply STOP to opt out or HELP for help at any time.
+        </p>
+
+        <h2 id="children">Children's privacy</h2>
+        <p>
+          This website is intended for adults. We do not knowingly collect personal information from children, and
+          you must be 18 or older to request an appointment or make a purchase. If you believe a child has provided
+          us information, please contact us and we will delete it.
+        </p>
+
+        <h2 id="retention">How long we keep it</h2>
+        <p>
+          We keep your information only for as long as we need it for the purposes described above, to provide our
+          services, and to meet legal requirements. If you unsubscribe or ask us to delete your information, we will
+          do so unless we are required to keep it.
+        </p>
+
+        <h2 id="changes">Changes to this policy</h2>
+        <p>
+          We may update this policy from time to time. When we do, we will change the "Last updated" date at the top
+          of this page. If the changes are significant, we will provide a more prominent notice.
+        </p>
+
+        <h2 id="contact">Contact us</h2>
+        <p>If you have any questions about this policy or your information, please reach out:</p>
+        <ul class="pp-contact">
+          <li><strong>Menon Medispa &amp; Wellness</strong></li>
+          <li>{site.address.formatted}</li>
+          <li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>Phone: <a href={site.contact.phoneHref}>{site.phone.display}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pp-hero { text-align: center; }
+  .pp-hero__eyebrow {
+    font-family: var(--font-ui); font-size: var(--text-xs); letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgb(255 255 255 / 0.8); margin: 0 0 var(--space-xs);
+  }
+  .pp-hero__title { font-family: var(--font-display); font-weight: 400; font-size: var(--text-display); margin: 0; line-height: 1.1; }
+  .pp-hero__updated { font-family: var(--font-ui); font-size: var(--text-sm); color: rgb(255 255 255 / 0.78); margin: var(--space-sm) 0 0; }
+
+  .pp-lede { font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.7; color: var(--color-text); margin: 0 0 var(--space-lg); }
+  .pp-lede a, .pp-prose a, .pp-summary a, .pp-toc a { color: #8a6d44; text-underline-offset: 2px; }
+
+  .pp-summary {
+    background: rgb(196 164 132 / 0.1); border: 1px solid rgb(196 164 132 / 0.4);
+    border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-lg);
+  }
+  .pp-summary__title { font-family: var(--font-display); font-weight: 400; font-size: var(--text-h3); margin: 0 0 var(--space-sm); }
+  .pp-summary ul { margin: 0; padding-left: 1.25em; display: flex; flex-direction: column; gap: 8px; }
+  .pp-summary li { font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6; }
+
+  .pp-toc { margin-bottom: var(--space-xl); }
+  .pp-toc__label { font-family: var(--font-ui); font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-cta-alt); margin: 0 0 var(--space-sm); }
+  .pp-toc ol { columns: 2; column-gap: var(--space-lg); margin: 0; padding-left: 1.2em; }
+  .pp-toc li { font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.9; break-inside: avoid; }
+
+  .pp-prose { font-family: var(--font-body); font-size: var(--text-base); line-height: 1.75; color: var(--color-text); }
+  .pp-prose h2 {
+    font-family: var(--font-display); font-weight: 400; font-size: var(--text-h2); line-height: 1.2;
+    margin: var(--space-xl) 0 var(--space-sm); padding-top: var(--space-sm);
+    border-top: 1px solid rgb(196 164 132 / 0.3); scroll-margin-top: 100px;
+  }
+  .pp-prose h3 { font-family: var(--font-display); font-weight: 400; font-size: var(--text-subheading); margin: var(--space-md) 0 var(--space-xs); }
+  .pp-prose p { margin: 0 0 1em; }
+  .pp-prose ul { padding-left: 1.4em; margin: 0 0 1.2em; display: flex; flex-direction: column; gap: 8px; }
+  .pp-prose li { line-height: 1.6; }
+  .pp-contact { list-style: none; padding-left: 0; gap: 4px; }
+
+  @media (max-width: 600px) {
+    .pp-toc ol { columns: 1; }
+    .pp-summary { padding: var(--space-md); }
+  }
+</style>

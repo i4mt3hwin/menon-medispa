@@ -178,7 +178,7 @@ const year = new Date().getFullYear();
         &copy; {year} {site.legalName}. All rights reserved.
       </p>
       <ul class="footer-bar__links" role="list">
-        <li><a href="/store-policy">Privacy Policy</a></li>
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
         <li><a href="/terms-of-use">Terms of Use</a></li>
         <li><a href="/shipping-and-returns">Shipping &amp; Returns</a></li>
       </ul>
@@ -198,8 +198,9 @@ const year = new Date().getFullYear();
 /* ── Newsletter band ── */
 .footer-newsletter {
   background-color: var(--color-footer-newsletter-bg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 28px 24px;
+  border-top: 1px solid rgba(26, 26, 46, 0.08);
+  border-bottom: 1px solid rgba(26, 26, 46, 0.14);
+  padding: 34px 24px;
 }
 
 .footer-newsletter__inner {
@@ -222,7 +223,7 @@ const year = new Date().getFullYear();
   font-family: var(--font-display);
   font-size: var(--text-h3);
   font-weight: 400;
-  color: var(--color-footer-text);
+  color: var(--color-footer-bg);
   margin: 0;
   line-height: 1.15;
 }
@@ -230,7 +231,7 @@ const year = new Date().getFullYear();
 .footer-newsletter__sub {
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  color: var(--color-footer-text-muted);
+  color: rgba(26, 26, 46, 0.76);
   margin: 0;
 }
 
@@ -252,35 +253,41 @@ const year = new Date().getFullYear();
   padding: 10px 14px;
   font-family: var(--font-body);
   font-size: var(--text-xs);
-  color: var(--color-text);
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-footer-bg);
+  background-color: var(--color-surface);
+  border: 1px solid rgba(26, 26, 46, 0.18);
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   box-sizing: border-box;
   outline: none;
 }
 
+.footer-newsletter__input::placeholder {
+  color: rgba(26, 26, 46, 0.62);
+}
+
 .footer-newsletter__input:focus {
-  border-color: var(--color-cta-alt);
+  border-color: var(--color-cta);
+  box-shadow: 0 0 0 3px rgba(196, 164, 132, 0.24);
 }
 
 .footer-newsletter__btn {
   padding: 10px 22px;
   background-color: var(--color-cta);
-  color: var(--color-text);
+  color: var(--color-footer-bg);
   font-family: var(--font-cta);
   font-size: var(--text-xs);
   font-weight: 600;
-  border: 1px solid transparent;
+  border: 1px solid var(--color-cta);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
 .footer-newsletter__btn:hover {
   background-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .footer-newsletter__social {
@@ -295,7 +302,8 @@ const year = new Date().getFullYear();
 .footer-newsletter__social li a {
   display: flex;
   align-items: center;
-  opacity: 0.8;
+  opacity: 0.74;
+  filter: brightness(0) saturate(100%) invert(8%) sepia(15%) saturate(1085%) hue-rotate(202deg) brightness(94%) contrast(96%);
   transition: opacity 0.15s;
 }
 
@@ -551,7 +559,9 @@ const year = new Date().getFullYear();
 /* ── Centered footer (operator request) ── */
 .footer-newsletter__inner { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .footer-newsletter__text { align-items: center; }
-.footer-newsletter__actions { justify-content: center; width: auto; }
+.footer-newsletter__actions { justify-content: center; width: min(100%, 460px); }
+.footer-newsletter__form { flex: 1; min-width: 0; }
+.footer-newsletter__input { min-width: 0; }
 .footer-main__inner { justify-items: center; }
 .footer-col { text-align: center; }
 .footer-col__list { align-items: center; }

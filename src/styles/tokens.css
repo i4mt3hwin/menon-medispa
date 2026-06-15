@@ -25,7 +25,7 @@
 
   /* ── Footer / newsletter dark band ── */
   --color-footer-bg: #1a1a2e;        /* Dark navy/charcoal footer band */
-  --color-footer-newsletter-bg: #2c2c3e; /* Slightly lighter newsletter band */
+  --color-footer-newsletter-bg: #FAF7F5; /* Warm off-white newsletter band */
   --color-footer-text: #FFFFFF;       /* Footer text white */
   --color-footer-text-muted: rgba(255,255,255,0.65); /* Muted footer text */
 

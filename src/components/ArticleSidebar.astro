@@ -1,0 +1,148 @@
+---
+/**
+ * ArticleSidebar.astro, the sticky conversion rail for a blog post.
+ *
+ * Slotted into ServiceLayout's `aside`. On desktop it sticks; on mobile (<=900px)
+ * it drops above the article (the QuickFacts Book CTA self-hides on mobile because
+ * the fixed MobileCtaBar covers booking there).
+ *
+ * Stacks: Article snapshot + Book CTA (QuickFacts) → "Related treatment" link →
+ * Related posts (same topic) → Find Your Glow promo.
+ */
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import type { PostCard } from '@/lib/blog';
+
+interface Props {
+  categoryLabel: string;
+  date: string;       // formatted
+  readTime: number;
+  serviceSlug: string;
+  serviceLabel: string;
+  related: PostCard[];
+}
+const { categoryLabel, date, readTime, serviceSlug, serviceLabel, related } = Astro.props;
+
+const facts = [
+  { label: 'Topic', value: categoryLabel },
+  { label: 'Published', value: date },
+  { label: 'Read time', value: `${readTime} min` },
+];
+---
+
+<QuickFacts
+  heading="Article snapshot"
+  items={facts}
+  cta
+  ctaLabel="Book a Consultation"
+  reviewText="100+ 5-Star Reviews"
+/>
+
+<!-- Extras: desktop sticky rail only. On mobile the whole aside drops ABOVE the
+     article (ServiceLayout order:-1), so these move to a full-width band below the
+     body instead (see BlogPostTemplate .post-more) to keep the article reachable. -->
+<div class="article-aside__extras">
+  <a href={`/${serviceSlug}`} class="article-aside-treatment">
+    <span class="article-aside-treatment__label">Related treatment</span>
+    <span class="article-aside-treatment__name">{serviceLabel}</span>
+    <span class="article-aside-treatment__cue">Explore &rarr;</span>
+  </a>
+
+  {related.length > 0 && (
+    <RelatedPosts heading={`More in ${categoryLabel}`} posts={related} layout="sidebar" />
+  )}
+
+  <a href="/find-your-glow" class="article-aside-glow">
+    <span class="article-aside-glow__eyebrow">Free 2-minute quiz</span>
+    <span class="article-aside-glow__title">Find Your Glow</span>
+    <span class="article-aside-glow__body">Get matched to the right treatments and a custom skin routine.</span>
+    <span class="article-aside-glow__cue">Take the quiz &rarr;</span>
+  </a>
+</div>
+
+<style>
+  .article-aside__extras {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  /* On mobile the aside sits above the article; show only the snapshot + booking
+     there and relocate these extras to the full-width band below the body. */
+  @media (max-width: 900px) {
+    .article-aside__extras { display: none; }
+  }
+
+  .article-aside-treatment {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 16px 18px;
+    border: 1px solid rgb(0 0 0 / 0.08);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .article-aside-treatment:hover { border-color: var(--color-cta); transform: translateY(-2px); }
+  .article-aside-treatment__label {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    opacity: 0.6;
+  }
+  .article-aside-treatment__name {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    line-height: 1.2;
+    color: var(--color-text);
+  }
+  .article-aside-treatment__cue {
+    font-family: var(--font-cta);
+    font-size: var(--text-sm);
+    color: var(--color-cta);
+    margin-top: 2px;
+  }
+
+  /* Glow promo, warm gradient card */
+  .article-aside-glow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(150deg, rgb(196 164 132 / 0.18), rgb(130 121 138 / 0.14));
+    border: 1px solid rgb(196 164 132 / 0.35);
+    text-decoration: none;
+  }
+  .article-aside-glow__eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+  .article-aside-glow__title {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    line-height: 1.2;
+    color: var(--color-text);
+  }
+  .article-aside-glow__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text);
+    opacity: 0.85;
+  }
+  .article-aside-glow__cue {
+    font-family: var(--font-cta);
+    font-size: var(--text-sm);
+    color: var(--color-cta);
+    margin-top: 4px;
+  }
+
+  /* Match the rest of the rail: on mobile this whole block sits above the article,
+     so keep the promo + related-treatment compact but visible (booking is in the bar). */
+</style>

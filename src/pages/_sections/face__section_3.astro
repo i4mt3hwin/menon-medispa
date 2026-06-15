@@ -162,6 +162,10 @@ const treatments = [
   @media (max-width: 600px) {
     .face-grid__cards {
       grid-template-columns: 1fr;
+      /* explicit width: the cards are aspect-ratio boxes with all-absolute content (0 intrinsic
+         width), and `margin:0 auto` cancels flex-stretch in the column — without this the grid
+         collapses to 0 width and the cards vanish on mobile. */
+      width: 100%;
       max-width: 360px;
       margin: 0 auto;
     }

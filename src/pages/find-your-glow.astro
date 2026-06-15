@@ -40,6 +40,7 @@ const pageDesc =
     id="glow-quiz"
     data-consent-email-text={consentEmailText}
     data-consent-sms-text={consentSmsText}
+    data-booking-url={site.calcomUrl}
   >
     <!-- ============================ INTRO HERO ============================ -->
     <section class="glow-hero">
@@ -147,9 +148,9 @@ const pageDesc =
               </div>
               <button class="btn btn--primary btn--lg btn--block" type="submit">Reveal my Glow Plan</button>
               <p class="glow-gate__fine">
-                We use your answers as cosmetic preferences to tailor suggestions and email your plan. This is
-                educational, not medical advice. We never sell your details. See our
-                <a href="/store-policy">privacy policy</a>.
+                Your quiz answers stay in your browser and are never stored. We only keep your email to send
+                occasional skincare tips and offers, and you can unsubscribe anytime. Educational, not medical
+                advice. See our <a href="/privacy-policy">privacy policy</a>.
               </p>
             </form>
             <div class="glow-nav" style="margin-top:18px;">
@@ -304,14 +305,14 @@ const pageDesc =
       return a;
     }
 
-    function sendLead(d: any, result: any) {
-      // First-party capture only. Deliberately NOT pushed to Meta/Google/Clarity/dataLayer.
+    function sendLead(d: any) {
+      // EMAIL-LIST capture ONLY: name/email/phone/consent. The quiz answers,
+      // concerns, skin type and recommendations are NEVER sent or stored — nothing
+      // health-related is persisted or linked to booking (HIPAA). Also never pushed
+      // to ad/tracking pixels (Meta/Google/Clarity/dataLayer).
       const payload: Record<string, string> = {
         name: d.name, email: d.email, phone: d.phone || '',
-        service_interest: result.serviceInterest,
-        message: result.interestSummary,
         source_page: '/find-your-glow',
-        send_confirmation: 'on',
         consent_email: d.consentEmail ? 'on' : 'false',
         consent_email_text: root.dataset.consentEmailText || '',
         company_website: d.hp || '',
@@ -344,13 +345,14 @@ const pageDesc =
       loader.hidden = false;
       scrollStage();
 
-      sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp') }, result);
+      sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp') });
 
       window.setTimeout(() => { loader.hidden = true; renderResults(result, name.split(/\s+/)[0]); }, reduced ? 200 : 1500);
     });
 
     const SKIN: Record<string, string> = { oily: 'Oily skin', combination: 'Combination skin', dry: 'Dry skin', normal: 'Normal skin' };
     const SENS: Record<string, string> = { low: 'Resilient', mid: 'Balanced sensitivity', high: 'Sensitive skin' };
+    const BOOKING_URL = root.dataset.bookingUrl || '/request-appointment';
 
     const tcard = (t: any, i: number) => `
       <article class="glow-tcard" style="animation-delay:${(i * 0.12).toFixed(2)}s">
@@ -369,7 +371,7 @@ const pageDesc =
           ${t.cautionNote ? `<p class="glow-tcard__why glow-tcard__caution">${icon('alert')}<span>${t.cautionNote}</span></p>` : ''}
           <div class="glow-tcard__actions">
             <a class="btn btn--secondary btn--sm" href="${t.href}">Learn more</a>
-            <a class="btn btn--primary btn--sm" href="/consultation">Book</a>
+            <a class="btn btn--primary btn--sm" href="${BOOKING_URL}">Book</a>
           </div>
         </div>
       </article>`;
@@ -432,7 +434,7 @@ const pageDesc =
           <h3>See it in person</h3>
           <p>Your provider will confirm the perfect plan for your skin at a personalized consultation${preg ? ', and keep everything pregnancy-safe' : ''}.</p>
           <div class="glow-cta__actions">
-            <a class="btn btn--primary btn--lg" href="/consultation">Book your consultation</a>
+            <a class="btn btn--primary btn--lg" href="${BOOKING_URL}">Book your consultation</a>
             <a class="btn btn--secondary btn--on-dark btn--lg" href="tel:+19734948431">Call (973) 494-8431</a>
           </div>
         </div>

@@ -99,16 +99,19 @@ export const site = {
   currency: 'USD',
   wixSiteId: '726ff7e6-f929-4c22-a4c9-5c64aa5b9473',
 
-  /* --- Scheduling (Cal.com external embed, replaces Wix Bookings) ---
-     ⚠️ PLACEHOLDER. Operator deferred the real Cal.com event-type URLs (2026-06-02).
-     Swap this ONE constant pre-go-live; every "Book"/"Schedule" CTA + the
-     BookingCalendarTemplate read from it. Do NOT mistake this for a live URL. */
-  calcomUrl: 'https://cal.com/REPLACE-ME',
+  /* --- Scheduling (self-hosted "request + confirm" booking) ---
+     Every "Book"/"Schedule" CTA + the BookingCalendarTemplate read from this ONE
+     value. It points at the internal /request-appointment page: a calendar form
+     that POSTs to /api/lead (-> D1 + front-desk email via Resend). Kept under the
+     `calcomUrl` key so the many existing CTA consumers need no edits.
+     (Cal.com was evaluated and dropped — too costly for HIPAA, and unnecessary
+     for a NON-PHI request flow. See booking plan + project changelog.) */
+  calcomUrl: '/request-appointment',
 
   /* --- Convenience helpers (used by ChatAssistant + LeadForm + CTAs) --- */
   contact: {
     phoneHref: 'tel:+19734948431',
-    bookingUrl: 'https://cal.com/REPLACE-ME', // === calcomUrl (placeholder)
+    bookingUrl: '/request-appointment', // === calcomUrl
   },
 
   /* --- Integrations (analytics carry-over + chat) --- */

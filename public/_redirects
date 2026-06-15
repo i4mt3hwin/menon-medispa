@@ -1,8 +1,6 @@
-# Cloudflare Pages _redirects — Menon Medispa rebuild (03-build-replicate).
+# Cloudflare Pages _redirects — Menon Medispa rebuild.
 # Only pages NOT built at their original path are redirected. Every captured
-# content page keeps its original URL (no regression). Booking-calendar URLs are
-# kept live (Cal.com embed) per the operator's external-scheduler decision, so
-# they are NOT redirected here.
+# content page keeps its original URL (no regression).
 
 # Members area (out of scope) -> home.
 /members            /            301
@@ -11,3 +9,93 @@
 # copy-of-* duplicate/template pages (flagged for cut) -> their canonical page.
 /copy-of-store-policy   /store-policy    301
 /copy-of-menon-facials  /menon-facials   301
+
+# ── Legacy Wix /service-page/ thin pages (removed). Each -> its rich page or the
+#    closest category hub. Per-service price/duration is already shown inline on
+#    the listing/category pages, so nothing customer-facing is lost.
+/service-page/6-laser-hair-removal-treatment-package   /laser-hair-removal                  301
+/service-page/acne-facial                              /acne-facial                         301
+/service-page/age-defying-deluxe                       /anti-aging-beauty                   301
+/service-page/age-defying-signature                    /anti-aging-beauty                   301
+/service-page/b-complex-vitamin-shot                   /vitamin-shots-millburn-nj           301
+/service-page/b12-vitamin-shot                         /vitamin-shots-millburn-nj           301
+/service-page/botox-189-new-client-special             /botox-millburn-nj                   301
+/service-page/botox-injectables                        /botox-millburn-nj                   301
+/service-page/chemical-peel-facial                     /chemical-peel-facial                301
+/service-page/cupping-facial                           /cupping-facial                      301
+/service-page/customized-mineral-iv-drip               /custom-iv-drip-therapy-millburn-nj  301
+/service-page/deluxe-hydrafacial                       /hydrafacial                         301
+/service-page/dermaplaning-facial                      /dermaplaning-facial                 301
+/service-page/detox-hangover-drip                      /recovery-detox                      301
+/service-page/dye-vl-facial-veins                      /vascular-treatments                 301
+/service-page/dye-vl-rosacea                           /vascular-treatments                 301
+/service-page/energy-deluxe                            /energy-performance                  301
+/service-page/energy-shot-b12-glutathione              /vitamin-shots-millburn-nj           301
+/service-page/energy-signature                         /energy-performance                  301
+/service-page/forever-radiant-experience               /anti-aging-beauty                   301
+/service-page/give-the-gift-of-glow                    /short-hills-medispa-treatments      301
+/service-page/glass-facial-with-salmon-dna             /glass-facial                        301
+/service-page/glow-shot-biotin-glutathione             /vitamin-shots-millburn-nj           301
+/service-page/glutathione-vitamin-shot                 /vitamin-shots-millburn-nj           301
+/service-page/gua-sha-stone-facial                     /menon-facials                       301
+/service-page/gut-health-ibs-uc-crohn-s                /targeted-health-solutions-iv        301
+/service-page/gut-health-ibs-uc-crohns                 /targeted-health-solutions-iv        301
+/service-page/heart-health-diabetes-drip               /targeted-health-solutions-iv        301
+/service-page/hydrafacial-keravive                     /hydrafacial-keravive                301
+/service-page/hydrafacial-keravive-package             /hydrafacial-keravive                301
+/service-page/hyperpigmentation-decollete              /vascular-treatments                 301
+/service-page/hyperpigmentation-face                   /vascular-treatments                 301
+/service-page/hyperpigmentation-neck                   /vascular-treatments                 301
+/service-page/hyperpigmentation-photorejuvenation      /laser-facials                       301
+/service-page/immunity-deluxe                          /immunity-support                    301
+/service-page/immunity-signature                       /immunity-support                    301
+/service-page/juvederm-fillers                         /juvedermfillers                     301
+/service-page/laser-spot-treatment                     /laser-facials                       301
+/service-page/lhr-abdomen                              /laser-hair-removal                  301
+/service-page/lhr-bikini-not-brazilian                 /laser-hair-removal                  301
+/service-page/lhr-brazilian                            /laser-hair-removal                  301
+/service-page/lhr-breasts                              /laser-hair-removal                  301
+/service-page/lhr-chin                                 /laser-hair-removal                  301
+/service-page/lhr-ears                                 /laser-hair-removal                  301
+/service-page/lhr-fingers                              /laser-hair-removal                  301
+/service-page/lhr-front-or-back-of-neck                /laser-hair-removal                  301
+/service-page/lhr-full-arms                            /laser-hair-removal                  301
+/service-page/lhr-full-back                            /laser-hair-removal                  301
+/service-page/lhr-full-chest                           /laser-hair-removal                  301
+/service-page/lhr-full-face                            /laser-hair-removal                  301
+/service-page/lhr-full-legs                            /laser-hair-removal                  301
+/service-page/lhr-in-between-brows                     /laser-hair-removal                  301
+/service-page/lhr-lower-arms                           /laser-hair-removal                  301
+/service-page/lhr-lower-legs                           /laser-hair-removal                  301
+/service-page/lhr-shoulders                            /laser-hair-removal                  301
+/service-page/lhr-sideburns                            /laser-hair-removal                  301
+/service-page/lhr-toes                                 /laser-hair-removal                  301
+/service-page/lhr-underarms                            /laser-hair-removal                  301
+/service-page/lhr-upper-arms                           /laser-hair-removal                  301
+/service-page/lhr-upper-legs                           /laser-hair-removal                  301
+/service-page/lhr-upper-lip                            /laser-hair-removal                  301
+/service-page/manual-lymph-drainage-facial             /manual-lymph-facials                301
+/service-page/microneedling                            /microneedling-millburn-nj           301
+/service-page/microneedling-3-sessions                 /microneedling-millburn-nj           301
+/service-page/myers-cocktail                           /myers-cocktail-iv-therapy           301
+/service-page/nad-injection                            /nad-injection                       301
+/service-page/nad-iv-drip-therapy                      /nad-iv-drip-therapy                 301
+/service-page/pain-management-autoimmune-disease       /targeted-health-solutions-iv        301
+/service-page/platelet-rich-plasma-hair-restoration    /platelet-rich-plasma-hair-millburn  301
+/service-page/platinum-hydrafacial                     /hydrafacial                         301
+/service-page/prenatal-pregnancy-fertility-drip        /targeted-health-solutions-iv        301
+/service-page/recovery-deluxe                          /recovery-detox                      301
+/service-page/recovery-signature                       /recovery-detox                      301
+/service-page/semaglutide-medical-weightloss           /semaglutide                         301
+/service-page/signature-hydrafacial                    /hydrafacial                         301
+/service-page/spot-treatment                           /vascular-treatments                 301
+/service-page/the-timeless-beauty-experience           /anti-aging-beauty                   301
+/service-page/ultimate-immunity-b12-b-complex          /vitamin-shots-millburn-nj           301
+/service-page/v-tox-carboxy-combo                      /face                                301
+/service-page/vitamin-c-facial                         /vitamin-c-facial                    301
+# Catch-all for any /service-page/ slug not mapped above -> all-treatments hub.
+/service-page/*                                        /short-hills-medispa-treatments      301
+
+# ── Legacy Wix /booking-calendar/ pages (removed; Cal.com dropped in favour of the
+#    self-hosted /request-appointment flow). All -> the booking form.
+/booking-calendar/*                                    /request-appointment                 301

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS leads (
   service_interest TEXT,                     -- a category the visitor selected (NOT a clinical record)
   message          TEXT,                     -- free text; form label warns "no medical details"
   preferred_date   TEXT,                     -- appointment-request only
-  preferred_window TEXT,                     -- e.g. 'morning' | 'afternoon' | 'evening'
+  preferred_window TEXT,                     -- requested time, e.g. '2:30 PM' (legacy: morning/afternoon/evening)
   source_page      TEXT,
   utm_source       TEXT,
   utm_medium       TEXT,

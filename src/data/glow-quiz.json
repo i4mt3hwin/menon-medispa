@@ -121,8 +121,8 @@
       "kind": "lead",
       "key": "lead",
       "kicker": "Your plan is ready",
-      "question": "Where should we send your Glow Plan?",
-      "hint": "See your personalized treatments and routine, and we'll email you a copy."
+      "question": "See your Glow Plan",
+      "hint": "Add your name and email to unlock your matched treatments and routine."
     }
   ]
 }

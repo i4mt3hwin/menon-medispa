@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+---
+<BaseLayout
+  title="Thank You | Menon Medispa"
+  description="Thank you, we received your message."
+  noindex={true}
+>
+  <section class="ty">
+    <div class="container ty__inner">
+      <div class="ty__icon" aria-hidden="true">&#10003;</div>
+      <h1 class="ty__title">Thank you</h1>
+      <p class="ty__text">We received your message and will be in touch shortly.</p>
+      <p class="ty__text">Need us sooner? Call <a href={site.phone.tel}>{site.phone.display}</a>.</p>
+      <a class="btn btn--primary btn--lg" href="/">Back to home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ty { padding: var(--space-xl) 0; }
+  .ty__inner { max-width: 560px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+  .ty__icon {
+    width: 64px; height: 64px; border-radius: 50%; background: var(--color-cta); color: var(--color-surface);
+    display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: var(--space-xs);
+  }
+  .ty__title { font-family: var(--font-display); font-size: var(--text-h1); margin: 0; }
+  .ty__text { font-family: var(--font-body); font-size: var(--text-base); opacity: 0.85; margin: 0; }
+  .ty__text a { color: var(--color-cta); font-weight: 600; }
+  .ty .btn { margin-top: var(--space-sm); }
+</style>

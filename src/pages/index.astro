@@ -10,9 +10,21 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import site from '@/lib/site';
 import { getReview } from '@/lib/reviews';
+import { getAllPosts, formatDate } from '@/lib/blog';
 
 // Homepage testimonial, pulled from the curated provider-safe reviews pool.
 const homeReview = getReview('general');
+
+// Recent Posts section, the 3 newest real posts (valid slugs + topic chips).
+const recentPosts = getAllPosts().slice(0, 3).map((p) => ({
+  slug: p.slug,
+  title: p.title,
+  excerpt: p.excerpt,
+  date: formatDate(p.date),
+  featured_image: p.coverImage,
+  category: p.topic.label,
+  categorySlug: p.topic.slug,
+}));
 
 import posterImg from '@/assets/images/f2a8f8988125.jpg';
 import hydrafacialImg from '@/assets/images/86072f9cbd9c.jpg';
@@ -30,9 +42,6 @@ import naturalBeautyImg from '@/assets/services/natural-beauty-body.webp';
 import modelCurlyHairImg from '@/assets/services/model-curly-hair.webp';
 import skinFirstBg from '@/assets/home/your-skin-comes-first-bg.webp';
 import videoPosterImg from '@/assets/home/exceptional-experience-video-poster.webp';
-import post1Img from '@/assets/images/2c734ddea5ed.png';
-import post2Img from '@/assets/images/cdeb1a3077ee.jpg';
-import post3Img from '@/assets/images/0b093327272f.png';
 import staffImg from '@/assets/images/b1a819f35921.webp';
 
 // Monthly specials, content carried over verbatim from the former static section.
@@ -226,7 +235,7 @@ const faqPage = {
       font-size: var(--text-sm);
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--color-cta);
+      color: var(--color-text);
       margin: 0;
     }
     .intro-band__title {
@@ -616,52 +625,32 @@ const faqPage = {
     }
   </style>
 
-  {/* ════════ 8 · MONTHLY SPECIALS (scroller) ════════ */}
-  <section class="specials section">
+  {/* ════════ 8 · MONTHLY SPECIALS ════════ */}
+  <section class="specials section section--tint">
     <div class="container">
       <div class="specials__header">
-        <RichText html="MUST TRY" font="var(--font-ui)" size="var(--text-xs)" class="specials__eyebrow" />
+        <p class="specials__eyebrow">MUST TRY</p>
         <SectionHeading text="Monthly Specials" tag="h2" align="center" font="display" />
       </div>
-    </div>
 
-    <div class="specials-marquee" aria-label="Monthly specials">
-      <div class="specials-marquee__track">
-        <div class="specials-marquee__group">
-          {specials.map((s) => (
-            <div class="special-card">
-              <div class="special-card__img-wrap">
-                <img src={s.img} alt={s.alt} class="special-card__img" loading="lazy" decoding="async" width="300" height="200" />
-              </div>
-              <div class="special-card__body">
-                <a href={s.book} class="special-card__title">{s.title}</a>
+      <div class="specials-grid" aria-label="Monthly specials">
+        {specials.map((s) => (
+          <article class="special-card">
+            <a href={s.more} class="special-card__media" aria-label={`Learn more about ${s.title}`}>
+              <img src={s.img} alt={s.alt} class="special-card__img" loading="lazy" decoding="async" width="420" height="320" />
+            </a>
+            <div class="special-card__body">
+              <div class="special-card__copy">
+                <a href={s.more} class="special-card__title">{s.title}</a>
                 <p class="special-card__price">{s.price}</p>
-                <div class="special-card__links">
-                  <a href={s.book} class="btn btn--primary btn--sm">Book Now</a>
-                  <a href={s.more} class="special-card__more">Read More</a>
-                </div>
+              </div>
+              <div class="special-card__links">
+                <a href={s.book} class="btn btn--primary btn--sm">Book Now</a>
+                <a href={s.more} class="special-card__more">Read More</a>
               </div>
             </div>
-          ))}
-        </div>
-        {/* duplicate set, decorative, drives the seamless loop */}
-        <div class="specials-marquee__group specials-marquee__group--dup" aria-hidden="true">
-          {specials.map((s) => (
-            <div class="special-card">
-              <div class="special-card__img-wrap">
-                <img src={s.img} alt="" class="special-card__img" loading="lazy" decoding="async" width="300" height="200" />
-              </div>
-              <div class="special-card__body">
-                <a href={s.book} class="special-card__title" tabindex="-1">{s.title}</a>
-                <p class="special-card__price">{s.price}</p>
-                <div class="special-card__links">
-                  <a href={s.book} class="btn btn--primary btn--sm" tabindex="-1">Book Now</a>
-                  <a href={s.more} class="special-card__more" tabindex="-1">Read More</a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -674,43 +663,58 @@ const faqPage = {
       gap: var(--space-xs);
       margin-bottom: var(--space-lg);
     }
-    .specials__eyebrow { text-align: center; letter-spacing: 0.14em; }
-    .specials-marquee {
-      width: 100%;
-      overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-      mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    .specials__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      color: rgb(26 26 46 / 0.72);
+      margin: 0;
     }
-    .specials-marquee__track { display: flex; width: max-content; animation: specials-scroll 38s linear infinite; }
-    .specials-marquee:hover .specials-marquee__track { animation-play-state: paused; }
-    .specials-marquee__group {
-      display: flex;
+    .specials-grid {
+      --specials-gap: clamp(18px, 2vw, 32px);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--specials-gap);
       align-items: stretch;
-      flex: 0 0 auto;
-      gap: var(--space-md);
-      padding-right: var(--space-md);
-    }
-    @keyframes specials-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
     }
     .special-card {
-      flex: 0 0 300px;
       display: flex;
       flex-direction: column;
       background: var(--color-surface);
       border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10);
+      box-shadow: 0 8px 8px rgb(26 26 46 / 0.08);
+      min-width: 0;
     }
-    .special-card__img-wrap { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
-    .special-card__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .special-card__media {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: rgb(26 26 46 / 0.06);
+    }
+    .special-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .special-card:hover .special-card__img,
+    .special-card:focus-within .special-card__img {
+      transform: scale(1.04);
+    }
     .special-card__body {
       display: flex;
       flex-direction: column;
-      gap: var(--space-xs);
-      padding: var(--space-sm) var(--space-md) var(--space-md);
+      gap: var(--space-md);
+      padding: 22px;
       flex: 1;
+    }
+    .special-card__copy {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .special-card__title {
       font-family: var(--font-display);
@@ -718,42 +722,59 @@ const faqPage = {
       color: var(--color-text);
       line-height: 1.25;
       text-decoration: none;
+      text-wrap: balance;
     }
-    .special-card__title:hover { text-decoration: underline; }
+    .special-card__title:hover { color: var(--color-brand-plum); }
     .special-card__price {
       font-family: var(--font-body);
-      font-size: var(--text-base);
+      font-size: var(--text-lg);
       font-weight: var(--weight-bold);
-      color: var(--color-text);
+      color: var(--color-brand-plum);
       margin: 0;
     }
     .special-card__links {
       display: flex;
       align-items: center;
-      gap: var(--space-md);
+      justify-content: space-between;
+      gap: var(--space-sm);
       margin-top: auto;
-      padding-top: var(--space-xs);
     }
     .special-card__more {
       font-family: var(--font-body);
       font-size: var(--text-sm);
       color: var(--color-text);
       text-decoration: underline;
-      text-underline-offset: 2px;
+      text-underline-offset: 3px;
+      white-space: nowrap;
     }
-    @media (max-width: 768px) {
-      .specials-marquee {
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: var(--space-xs);
+    .special-card__more:hover { color: var(--color-brand-plum); }
+    @media (max-width: 1024px) {
+      .specials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .specials-marquee__track { animation: none; }
-      .specials-marquee__group--dup { display: none; }
-      .specials-marquee__group { padding-inline: var(--container-pad); }
-      .special-card { scroll-snap-align: start; flex-basis: 78vw; max-width: 320px; }
+      .special-card:nth-child(3) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc((100% - var(--specials-gap)) / 2);
+      }
     }
-    @media (prefers-reduced-motion: reduce) { .specials-marquee__track { animation: none; } }
+    @media (max-width: 680px) {
+      .specials-grid { grid-template-columns: 1fr; }
+      .special-card:nth-child(3) {
+        grid-column: auto;
+        width: 100%;
+      }
+      .special-card__media { aspect-ratio: 16 / 11; }
+      .special-card__body { padding: var(--space-md); }
+      .special-card__links { align-items: stretch; flex-direction: column; }
+      .special-card__links .btn { width: 100%; }
+      .special-card__more { text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .special-card__img { transition: none; }
+      .special-card:hover .special-card__img,
+      .special-card:focus-within .special-card__img { transform: none; }
+    }
   </style>
 
   {/* ════════ 9 · TESTIMONIALS ════════ */}
@@ -871,24 +892,25 @@ const faqPage = {
   </style>
 
   {/* ════════ 11 · RECENT POSTS ════════ */}
-  <section class="home-section-11 section section--tint">
+  <section class="home-section-11 section">
     <div class="container">
-      <SectionHeading text="Recent Posts" tag="h2" align="center" font="display" />
+      <SectionHeading text="Insights" tag="h2" align="center" font="display" />
 
       <BlogList
         heading=""
-        posts={[
-          { slug: 'is-botox-safe', title: 'Is Botox Safe?', featured_image: post1Img.src },
-          { slug: 'what-to-expect-your-first-botox-appointment', title: 'What To Expect: Your First Botox Appointment', featured_image: post2Img.src },
-          { slug: 'what-is-hydrafacial', title: 'What is HydraFacial?', featured_image: post3Img.src },
-        ]}
+        posts={recentPosts}
       />
+
+      <div class="home-section-11__more">
+        <a href="/blog" class="btn btn--secondary btn--lg">View all articles</a>
+      </div>
     </div>
   </section>
 
   <style>
-    .home-section-11 .container .section-heading { margin-bottom: var(--space-md); }
+    .home-section-11 .container .section-heading { margin-bottom: var(--space-xl); }
     .home-section-11 :global(.blog-list) { padding: 0; }
+    .home-section-11__more { text-align: center; margin-top: var(--space-lg); }
   </style>
 
   {/* ════════ 12 · BEGIN YOUR TRANSFORMATION + CONTACT ════════ */}
@@ -960,16 +982,7 @@ const faqPage = {
     }
   </style>
 
-  {/* ════════ Flash-Sale dialog (hidden until triggered) ════════ */}
-  <button
-    class="flash-sale-trigger btn btn--primary"
-    aria-haspopup="dialog"
-    aria-controls="june-sales-dialog"
-    onclick="document.getElementById('june-sales-dialog').showModal()"
-  >
-    Flash Sale
-  </button>
-
+  {/* ════════ Flash-Sale dialog (hidden, no homepage trigger) ════════ */}
   <dialog id="june-sales-dialog" class="june-sales-dialog" aria-label="June SALES">
     <div class="june-sales-dialog__inner">
 

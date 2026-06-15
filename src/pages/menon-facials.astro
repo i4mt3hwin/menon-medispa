@@ -105,6 +105,12 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Wrapped in a div so this picker grid is NOT a `body > section` and is therefore exempt
+       from the scroll-reveal hidden state (base.css `html.reveal-ready body > section:not(.hero)`
+       starts at opacity:0). The picker must always be visible — never stranded at opacity:0 if the
+       IntersectionObserver doesn't fire (e.g. tall section below the fold on a narrow viewport). -->
+  <div class="picker-no-reveal"><SignatureFacials /></div>
+
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
@@ -128,7 +134,7 @@ const jsonld = buildServiceSchema({
 
       <p class="svc-eyebrow">Your Best Skin Starts Here</p>
 
-      <p>Choosing the right facial is the first step to your best skin. Browse our specialized treatments below and discover the perfect match for your skin goals. And if you're still unsure, our skin experts are here to guide you, schedule a complimentary consultation and we'll create a personalized skin health plan just for you.</p>
+      <p>Choosing the right facial is the first step to your best skin. Browse our specialized treatments above and discover the perfect match for your skin goals. And if you're still unsure, our skin experts are here to guide you, schedule a complimentary consultation and we'll create a personalized skin health plan just for you.</p>
 
       <ul class="svc-features">
         <li>
@@ -166,8 +172,6 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
-  <SignatureFacials />
-
   <ServiceTestimonial slug="menon-facials" />
 
   <div id="add-ons"></div>
@@ -183,4 +187,4 @@ const jsonld = buildServiceSchema({
   <SalePopup />
 
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/5/6/8/10 reused verbatim. -->
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/5/6/8/10 reused verbatim. Action-first reorder: SignatureFacials grid moved above the intro prose (matches /face + /body); "below" -> "above" since grid now precedes the prose. -->

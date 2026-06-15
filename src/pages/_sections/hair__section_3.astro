@@ -25,19 +25,6 @@ const treatments = [
 <section class="section hair-grid">
   <div class="container">
 
-    <div class="hair-grid__intro">
-      <h4 class="hair-grid__intro-heading">Expert Hair Revitalization Services</h4>
-      <p class="hair-grid__intro-body">
-        At Menon MediSpa, we blend clinical expertise with luxury to deliver transformative hair restoration and scalp treatments. Our advanced HydraFacial Keravive and PRP therapies address hair thinning and scalp health concerns using proven technologies.
-      </p>
-      <p class="hair-grid__intro-body">
-        Our medical-grade hair services address specific scalp concerns using innovative technologies and pharmaceutical-grade products. Led by expert medical professionals, each treatment is tailored to your unique hair and scalp profile.
-      </p>
-      <p class="hair-grid__intro-body">
-        From revitalizing scalp health to stimulating new hair growth, our cutting-edge treatments provide visible, long-lasting results. Experience the difference of clinically-effective hair restoration in our serene Millburn, NJ medical spa.
-      </p>
-    </div>
-
     <div class="hair-grid__cards-section">
       <h3 class="hair-grid__cards-heading">Comprehensive Hair Treatments &amp; Solutions</h3>
       <p class="hair-grid__cards-sub">
@@ -56,6 +43,19 @@ const treatments = [
           />
         ))}
       </div>
+    </div>
+
+    <div class="hair-grid__intro">
+      <h4 class="hair-grid__intro-heading">Expert Hair Revitalization Services</h4>
+      <p class="hair-grid__intro-body">
+        At Menon MediSpa, we blend clinical expertise with luxury to deliver transformative hair restoration and scalp treatments. Our advanced HydraFacial Keravive and PRP therapies address hair thinning and scalp health concerns using proven technologies.
+      </p>
+      <p class="hair-grid__intro-body">
+        Our medical-grade hair services address specific scalp concerns using innovative technologies and pharmaceutical-grade products. Led by expert medical professionals, each treatment is tailored to your unique hair and scalp profile.
+      </p>
+      <p class="hair-grid__intro-body">
+        From revitalizing scalp health to stimulating new hair growth, our cutting-edge treatments provide visible, long-lasting results. Experience the difference of clinically-effective hair restoration in our serene Millburn, NJ medical spa.
+      </p>
     </div>
 
   </div>
@@ -135,6 +135,9 @@ const treatments = [
   @media (max-width: 600px) {
     .hair-grid__cards {
       grid-template-columns: 1fr;
+      /* explicit width: aspect-ratio cards have 0 intrinsic width + `margin:0 auto` cancels
+         flex-stretch, so without this the grid collapses to 0 and the cards vanish on mobile. */
+      width: 100%;
       max-width: 380px;
       margin: 0 auto;
     }

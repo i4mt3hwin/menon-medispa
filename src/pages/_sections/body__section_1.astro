@@ -7,9 +7,9 @@ import reviewIcon2 from '@/assets/images/305afeda5f9a.png';
 import reviewIcon3 from '@/assets/images/b95880091b44.png';
 ---
 
-<section class="media-bg section s1-body-hero" style="--scrim-strength:0.60">
+<section class="media-bg section s1-body-hero" style="--scrim-strength:0.60" data-pillar-hero>
   <img
-    class="media-bg__img media-bg__img--blur"
+    class="media-bg__img s1-body__bg"
     src={heroImg.src}
     alt=""
     aria-hidden="true"
@@ -19,18 +19,23 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
     height="266"
   />
   <span class="media-bg__scrim media-bg__scrim--l"></span>
+  <canvas class="pillar-hero__particles" data-pillar-hero-canvas aria-hidden="true"></canvas>
 
   <div class="media-bg__inner container on-media">
     <div class="s1-body__layout">
 
       <div class="s1-body__text">
 
-        <h1 class="s1-body__heading">
-          Advanced Solutions for Total Body Wellness
+        <h1 class="s1-body__eyebrow">
+          Body Treatments &amp; Wellness in Millburn, NJ
         </h1>
 
+        <h2 class="s1-body__heading">
+          Feel more comfortable in the mirror, in your clothes, and in your routine.
+        </h2>
+
         <p class="s1-body__body">
-          From radiant skin with Laser Hair Removal to renewed vitality with Semaglutide and IV Therapy, discover our physician-led approach to looking and feeling your best.
+          Laser hair removal, IV therapy, semaglutide, and vascular treatments are guided by a physician-led team in Millburn.
         </p>
 
         <div class="s1-body__ctas">
@@ -82,18 +87,6 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
 
       </div>
 
-      <div class="s1-body__img-col">
-        <img
-          src={heroImg.src}
-          alt="Body treatments at Menon Medispa Millburn NJ"
-          class="s1-body__img"
-          loading="eager"
-          decoding="async"
-          width="404"
-          height="266"
-        />
-      </div>
-
     </div>
   </div>
 </section>
@@ -101,16 +94,37 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
 <style>
   .s1-body-hero {
     min-height: clamp(520px, 68vh, 660px);
+    padding-block: 0;
+    background: #1b1522;
   }
 
   .media-bg__inner.container {
+    position: relative;
+    z-index: 3;
     padding-block: clamp(58px, 8vw, 92px);
   }
 
+  .s1-body__bg {
+    object-position: 78% 50%;
+    transform: scale(1.02);
+  }
+
+  .s1-body-hero .media-bg__scrim--l {
+    z-index: 1;
+    background:
+      linear-gradient(90deg, #1b1522 0%, rgb(27 21 34 / 0.96) 34%, rgb(27 21 34 / 0.68) 58%, rgb(27 21 34 / 0.2) 100%),
+      linear-gradient(0deg, rgb(27 21 34 / 0.48) 0%, transparent 58%);
+  }
+
+  .pillar-hero__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
   .s1-body__layout {
-    display: flex;
-    align-items: center;
-    gap: clamp(40px, 7vw, 96px);
+    display: block;
   }
 
   .s1-body__text {
@@ -121,12 +135,21 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
     max-width: 620px;
   }
 
+  .s1-body__eyebrow {
+    font-family: var(--font-body);
+    font-size: clamp(0.88rem, 1.2vw, 1rem);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    line-height: 1.35;
+    color: var(--color-gold);
+  }
+
   .s1-body__heading {
     font-family: var(--font-display);
-    font-size: clamp(2.15rem, 4vw, 3.6rem);
+    font-size: clamp(2.25rem, 4.35vw, 4.15rem);
     font-weight: var(--weight-regular);
     margin: 0;
-    line-height: 1.08;
+    line-height: 1.04;
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
@@ -202,29 +225,7 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
     line-height: 1.3;
   }
 
-  .s1-body__img-col {
-    flex-shrink: 0;
-    width: min(38vw, 454px);
-    padding: 10px;
-    border: 1px solid rgb(255 255 255 / 0.18);
-    border-radius: var(--radius-sm);
-    background: rgb(255 255 255 / 0.08);
-    box-shadow: 0 24px 70px rgb(0 0 0 / 0.22);
-  }
-
-  .s1-body__img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-    box-shadow: none;
-  }
-
   @media (max-width: 1024px) {
-    .s1-body__img-col {
-      width: 360px;
-    }
   }
 
   @media (max-width: 768px) {
@@ -232,20 +233,15 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
       min-height: auto;
     }
 
-    .s1-body__layout {
-      flex-direction: column-reverse;
+    .s1-body-hero .media-bg__scrim--l {
+      background:
+        linear-gradient(90deg, rgb(27 21 34 / 0.9) 0%, rgb(27 21 34 / 0.7) 100%),
+        linear-gradient(0deg, rgb(27 21 34 / 0.42), transparent);
     }
 
     .s1-body__text {
       max-width: 100%;
     }
-
-    .s1-body__img-col {
-      width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
-    }
-
     .s1-body__ctas {
       flex-direction: column;
       width: 100%;
@@ -265,3 +261,58 @@ import reviewIcon3 from '@/assets/images/b95880091b44.png';
     }
   }
 </style>
+
+<script>
+  (function () {
+    const hero = document.querySelector('[data-pillar-hero]');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canvas = hero.querySelector('[data-pillar-hero-canvas]');
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = 0, h = 0, dpr = 1, parts = [], raf = 0, running = false;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = hero.clientWidth; h = hero.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function spawn(init) {
+      return { x: Math.random() * w, y: init ? Math.random() * h : h + 14, r: 0.5 + Math.random() * 1.1, vy: 0.05 + Math.random() * 0.18, vx: (Math.random() - 0.5) * 0.12, a: 0.12 + Math.random() * 0.30, white: Math.random() < 0.32 };
+    }
+    function build() {
+      const n = Math.max(12, Math.min(30, Math.round((w * h) / 54000)));
+      parts = [];
+      for (let i = 0; i < n; i++) parts.push(spawn(true));
+    }
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of parts) {
+        p.y -= p.vy; p.x += p.vx;
+        if (p.y < -14) Object.assign(p, spawn(false));
+        const rad = p.r * 7;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+        const c = p.white ? '245,239,228' : '226,186,120';
+        g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')');
+        g.addColorStop(0.5, 'rgba(' + c + ',' + (p.a * 0.35) + ')');
+        g.addColorStop(1, 'rgba(' + c + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 6.2832); ctx.fill();
+      }
+      raf = requestAnimationFrame(step);
+    }
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(step); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    size(); build();
+    let rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { size(); build(); }, 150); }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) { entries.forEach(function (entry) { entry.isIntersecting ? start() : stop(); }); }, { threshold: 0.01 }).observe(hero);
+    } else {
+      start();
+    }
+  })();
+</script>

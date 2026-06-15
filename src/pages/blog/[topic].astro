@@ -1,0 +1,129 @@
+---
+/**
+ * /blog/[topic], a topic hub page (one per taxonomy topic).
+ * Topic hero (label + description over a representative cover) → posts grid →
+ * testimonial → CTA. SEO: per-topic title/description + CollectionPage/Breadcrumb.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogList from '@/components/BlogList.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+import site from '@/lib/site';
+import { getTopics, getPostsByTopic, formatDate } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  return getTopics()
+    .filter((t) => t.count > 0)
+    .map((topic) => ({ params: { topic: topic.slug }, props: { topic } }));
+}
+
+const { topic } = Astro.props;
+const posts = getPostsByTopic(topic.slug);
+const heroImage = posts[0]?.coverImage;
+
+const cards = posts.map((p) => ({
+  slug: p.slug,
+  title: p.title,
+  excerpt: p.excerpt,
+  date: formatDate(p.date),
+  featured_image: p.coverImage,
+  category: topic.label,
+  categorySlug: topic.slug,
+}));
+
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${topic.label} | Menon Medispa Blog`,
+    description: topic.description,
+    url: `${site.url}/blog/${topic.slug}`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site.url}/blog` },
+      { '@type': 'ListItem', position: 3, name: topic.label, item: `${site.url}/blog/${topic.slug}` },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${topic.label} Articles | Menon Medispa & Wellness`}
+  description={topic.description}
+  canonical={`${site.url}/blog/${topic.slug}`}
+  ogImage={heroImage}
+  jsonld={jsonld}
+>
+
+  <!-- Topic hero -->
+  <section class="topic-hero hero media-bg" style="--scrim-strength:0.55">
+    {heroImage && (
+      <img class="media-bg__img media-bg__img--blur" src={heroImage} alt="" aria-hidden="true" loading="eager" decoding="async" />
+    )}
+    <span class="media-bg__scrim media-bg__scrim--b"></span>
+    <div class="media-bg__inner container on-media topic-hero__inner">
+      <p class="topic-hero__crumb"><a href="/blog">Blog</a> <span aria-hidden="true">/</span> {topic.label}</p>
+      <h1 class="topic-hero__title">{topic.label}</h1>
+      <p class="topic-hero__desc">{topic.description}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <BlogList posts={cards} heading="" />
+    </div>
+  </section>
+
+  <ServiceTestimonial slug={topic.reviewTag} />
+
+  <CtaBanner
+    heading={`Considering ${topic.serviceLabel}?`}
+    subtext="Book a consultation with our Millburn team to talk through your options."
+    cta_text="Request an Appointment"
+    cta_href={site.calcomUrl}
+    bg_image_url={heroImage}
+  />
+
+</BaseLayout>
+
+<style>
+  .topic-hero {
+    min-height: clamp(300px, 38vw, 420px);
+    display: flex;
+    align-items: flex-end;
+  }
+  .topic-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 760px;
+    padding-block: var(--space-xl) var(--space-lg);
+  }
+  .topic-hero__crumb {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    margin: 0;
+    opacity: 0.9;
+  }
+  .topic-hero__crumb a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+  .topic-hero__title {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: var(--weight-regular);
+    line-height: 1.1;
+    margin: 0;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.4);
+  }
+  .topic-hero__desc {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    margin: 0;
+    max-width: 640px;
+  }
+</style>

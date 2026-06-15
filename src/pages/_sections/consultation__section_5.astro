@@ -16,7 +16,8 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
           there&rsquo;s no obligation.
         </p>
 
-        <form class="con-request__form" name="consultation-request" method="POST" data-netlify="true">
+        <div data-leadform-root>
+        <form class="con-request__form" method="POST" action="/api/lead" novalidate>
           <div class="con-request__field-row">
             <div class="con-request__field">
               <label for="con-first-name" class="con-request__label">First Name <span aria-hidden="true">*</span></label>
@@ -41,15 +42,28 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
 
           <div class="con-request__field">
             <label for="con-concerns" class="con-request__label">What would you like to work on? <span aria-hidden="true">*</span></label>
-            <textarea id="con-concerns" name="skin_concerns" required rows="4" class="con-request__textarea" placeholder="Tell us about your primary skin concerns and goals..."></textarea>
+            <textarea id="con-concerns" name="message" required rows="4" class="con-request__textarea" placeholder="Tell us about your goals (no medical details, please)..."></textarea>
+            <p class="con-request__warn">Please do not include medical details, conditions, or photos here.</p>
           </div>
 
+          <input type="hidden" name="name" value="" />
+          <input type="hidden" name="type" value="appointment_request" />
+          <input type="hidden" name="send_confirmation" value="on" />
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="con-request__hp" aria-hidden="true" />
+
+          <p class="con-request__error" data-form-error hidden></p>
           <button type="submit" class="btn btn--primary btn--block btn--lg con-request__submit">
             Request My Consultation
           </button>
 
           <p class="con-request__fineprint">We respect your privacy. No spam, ever.</p>
         </form>
+        <div class="con-request__success" data-form-success hidden>
+          <h3 class="con-request__heading">Request received</h3>
+          <p class="con-request__sub">Thanks! We will reach out within 24 hours to plan your consultation.</p>
+          <p class="con-request__sub">Prefer to talk now? Call <a href="tel:+19734948431">(973) 494-8431</a>.</p>
+        </div>
+        </div>
       </div>
 
       {/* Right: social proof + reassurance */}
@@ -99,7 +113,7 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
 
   /* ---- Form ---- */
   .con-request__form-col { display: flex; flex-direction: column; gap: var(--space-xs); }
-  .con-request__eyebrow { margin: 0; color: var(--color-cta); }
+  .con-request__eyebrow { margin: 0; color: var(--color-text); }
 
   .con-request__heading {
     font-family: var(--font-display);
@@ -230,4 +244,43 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
   @media (max-width: 600px) {
     .con-request__field-row { flex-direction: column; }
   }
+
+  /* Lead-form wiring (submit handler in lib/leadForm.ts) */
+  .con-request__warn {
+    font-family: var(--font-body); font-size: var(--text-xs); color: #8a5a00; opacity: 0.85; margin: 4px 0 0; line-height: 1.4;
+  }
+  .con-request__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .con-request__error {
+    font-family: var(--font-body); font-size: var(--text-sm); color: #b00020;
+    background: rgba(176,0,32,0.07); border: 1px solid rgba(176,0,32,0.2); border-radius: var(--radius-sm);
+    padding: 10px 12px; margin: 0;
+  }
+  .con-request__success {
+    display: flex; flex-direction: column; gap: var(--space-xs);
+    padding: var(--space-lg); background: #fff; border: 1px solid rgba(0,0,0,0.08);
+    border-radius: var(--radius-sm); box-shadow: 0 4px 18px rgb(0 0 0 / 0.05);
+  }
+  .con-request__success a { color: var(--color-cta); font-weight: 600; }
+  /* The `hidden` attribute must beat the display:flex above. */
+  .con-request__success[hidden] { display: none; }
 </style>
+
+<script>
+  import { enhanceLeadForm } from '../../lib/leadForm';
+
+  const form = document.querySelector('.con-request__form') as HTMLFormElement | null;
+  if (form) {
+    const nameHidden = form.querySelector('input[name="name"]') as HTMLInputElement;
+    const first = form.querySelector('#con-first-name') as HTMLInputElement;
+    const last = form.querySelector('#con-last-name') as HTMLInputElement;
+    const syncName = () => { nameHidden.value = `${first.value} ${last.value}`.trim(); };
+    first.addEventListener('input', syncName);
+    last.addEventListener('input', syncName);
+    // Runs before the enhancer's submit handler (added below), so the hidden
+    // `name` is populated before the payload is read from the form.
+    form.addEventListener('submit', syncName);
+    enhanceLeadForm(form, {
+      validate: (d) => (!d.message || !d.message.trim() ? 'Please tell us what you would like to work on.' : null),
+    });
+  }
+</script>

@@ -1,302 +1,137 @@
 ---
 /**
- * BlogPostTemplate.astro, template for /post/[slug] pages.
- * Full post content rendered verbatim via set:html, zero summarization.
+ * BlogPostTemplate.astro, the unified blog post layout.
  *
- * Props:
- *   title, post title (required)
- *   slug, URL slug (required)
- *   date, publication date string
- *   author, author name
- *   featured_image_src, featured image URL
- *   featured_image_alt, featured image alt text (defaults to title)
- *   content_html, full post HTML, rendered with set:html
- *   category, category label
+ * Mirrors the redesigned service pages: editorial hero → two-column body
+ * (ServiceLayout: prose main + sticky conversion sidebar) → testimonial → CTA
+ * band → mobile CTA bar. The article body is slotted into ServiceLayout's main
+ * column, so it inherits the shared `.service-article__main` prose vocabulary
+ * (h2/h3/p/ul/li/figure/a) with no per-post styling.
+ *
+ * SEO: passes description + OG image + article type + BlogPosting/Breadcrumb
+ * JSON-LD through to BaseLayout.
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import site from '../lib/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import ArticleHero from '@/components/ArticleHero.astro';
+import ArticleSidebar from '@/components/ArticleSidebar.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import site from '@/lib/site';
+import type { PostCard } from '@/lib/blog';
 
 interface Props {
   title: string;
   slug: string;
-  date?: string;
-  author?: string;
-  featured_image_src?: string;
-  featured_image_alt?: string;
+  description: string;
+  date: string;          // formatted
+  readTime: number;
+  coverImage?: string;
   content_html: string;
-  category?: string;
+  topicLabel: string;
+  topicSlug: string;
+  serviceSlug: string;
+  serviceLabel: string;
+  reviewTag: string;
+  related: PostCard[];
+  jsonld: Record<string, unknown>[];
 }
-
 const {
-  title,
-  slug,
-  date,
-  author,
-  featured_image_src,
-  featured_image_alt,
-  content_html,
-  category,
+  title, slug, description, date, readTime, coverImage, content_html,
+  topicLabel, topicSlug, serviceSlug, serviceLabel, reviewTag, related, jsonld,
 } = Astro.props;
 ---
 
-<BaseLayout title={title}>
-  <article class="blog-post">
+<BaseLayout
+  title={`${title} | Menon Medispa`}
+  description={description}
+  canonical={`${site.url}/post/${slug}`}
+  ogImage={coverImage}
+  ogType="article"
+  jsonld={jsonld}
+>
+  <ArticleHero
+    title={title}
+    categoryLabel={topicLabel}
+    categorySlug={topicSlug}
+    date={date}
+    readTime={readTime}
+    image={coverImage}
+    imageAlt={title}
+  />
 
-    <!-- Post header -->
-    <header class="blog-post__header section--dark">
-      <div class="blog-post__header-inner container container--narrow">
-        {category && (
-          <span class="blog-post__category">{category}</span>
-        )}
-        <h1 class="blog-post__title">{title}</h1>
-        {(date || author) && (
-          <div class="blog-post__meta">
-            {date && <time class="blog-post__date" datetime={date}>{date}</time>}
-            {date && author && <span class="blog-post__meta-sep" aria-hidden="true"> · </span>}
-            {author && <span class="blog-post__author">{author}</span>}
-          </div>
-        )}
-      </div>
-    </header>
+  <ServiceLayout>
+    <div class="blog-body" set:html={content_html} />
+    <ArticleSidebar
+      slot="aside"
+      categoryLabel={topicLabel}
+      date={date}
+      readTime={readTime}
+      serviceSlug={serviceSlug}
+      serviceLabel={serviceLabel}
+      related={related}
+    />
+  </ServiceLayout>
 
-    <!-- Featured image -->
-    {featured_image_src && (
-      <figure class="blog-post__hero">
-        <img
-          src={featured_image_src}
-          alt={featured_image_alt ?? title}
-          class="blog-post__hero-img"
-          loading="eager"
-          decoding="sync"
-        />
-      </figure>
-    )}
-
-    <!-- Full post content, rendered verbatim, zero summarization -->
-    <div class="blog-post__body section">
-      <div class="blog-post__content container container--narrow" set:html={content_html} />
+  {related.length > 0 && (
+    <div class="post-more">
+      <RelatedPosts heading={`More in ${topicLabel}`} posts={related} layout="band" />
     </div>
+  )}
 
-    <!-- CTA section -->
-    <section class="blog-post__cta section section--tint">
-      <div class="blog-post__cta-inner container">
-        <h2 class="blog-post__cta-heading">Ready to learn more?</h2>
-        <p class="blog-post__cta-text">Our team at Menon Medispa is here to help you find the right treatment for your goals.</p>
-        <div class="blog-post__cta-btns">
-          <a
-            href={site.calcomUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn--primary btn--lg"
-          >
-            Book an Appointment
-          </a>
-          <a href="/contact" class="btn btn--secondary btn--lg">
-            Contact Us
-          </a>
-        </div>
-      </div>
-    </section>
+  <ServiceTestimonial slug={reviewTag} />
 
-  </article>
+  <CtaBanner
+    heading="Ready to book your visit?"
+    subtext="Our team in Millburn will help you find the right treatment for your goals."
+    cta_text="Request an Appointment"
+    cta_href={site.calcomUrl}
+    bg_image_url={coverImage}
+  />
+
+  <MobileCtaBar ctaLabel="Book Online" />
 </BaseLayout>
 
 <style>
-  .blog-post {
-    max-width: 100%;
+  /* The "More in <topic>" band duplicates the sticky rail's related list, so it is
+     for mobile only (where the rail's extras are hidden). Hidden on desktop. */
+  .post-more { display: none; }
+  @media (max-width: 900px) {
+    .post-more { display: block; }
   }
+</style>
 
-  /* Header */
-  .blog-post__header {
-    padding-block: var(--space-xl) var(--space-lg);
-  }
-
-  .blog-post__header-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .blog-post__category {
-    display: inline-block;
-    font-family: var(--font-cta);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-cta);
-  }
-
-  .blog-post__title {
-    font-family: var(--font-display);
-    font-size: var(--text-h1);
-    margin: 0;
-    line-height: 1.2;
-    color: #fff;
-    text-wrap: balance;
-  }
-
-  .blog-post__meta {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    opacity: 0.7;
-    color: #fff;
-  }
-
-  .blog-post__date, .blog-post__author.blog-post__meta-sep {
-    display: inline;
-  }
-
-  /* Featured image, responsive height, reduced on mobile */
-  .blog-post__hero {
-    margin: 0;
-  }
-
-  .blog-post__hero-img {
-    width: 100%;
-    max-height: clamp(220px, 32vw, 480px);
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Body */
-  .blog-post__body {
-    /* section class provides block padding */
-  }
-
-  .blog-post__content {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    line-height: 1.8;
+<!-- Blog-body extras the shared prose vocabulary doesn't cover (lead paragraph,
+     blockquote, captioned figures). Global because the body is injected via set:html. -->
+<style is:global>
+  .service-article__main .blog-body > p:first-of-type {
+    font-size: var(--text-lg);
+    line-height: 1.6;
     color: var(--color-text);
   }
-
-  /* Reset common rich-text elements */
-  .blog-post__content h2 {
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    margin: var(--space-lg) 0 var(--space-md);
-    text-wrap: balance;
-  }
-
-  .blog-post__content h3 {
-    font-family: var(--font-display);
-    font-size: 26px;
-    margin: var(--space-md) 0 12px;
-  }
-
-  .blog-post__content p {
-    margin: 0 0 var(--space-md);
-  }
-
-  .blog-post__content ul, .blog-post__content ol {
-    padding-left: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .blog-post__content li {
-    margin-bottom: 8px;
-  }
-
-  .blog-post__content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--radius-sm);
-    margin: var(--space-md) 0;
-  }
-
-  .blog-post__content a {
-    color: var(--color-cta);
-  }
-
-  .blog-post__content blockquote {
+  .service-article__main .blog-body blockquote {
     border-left: 3px solid var(--color-cta);
     padding-left: var(--space-md);
     margin: var(--space-md) 0;
     font-style: italic;
-    opacity: 0.85;
+    opacity: 0.9;
   }
-
-  /* Excerpt-only fallback styles (renders when full body is unavailable) */
-  :global(.post-excerpt-lede) {
-    font-size: var(--text-lg) !important;
-    line-height: 1.7 !important;
-    font-style: italic;
+  .service-article__main .blog-body figure.post-figure {
+    margin: var(--space-md) 0;
+  }
+  .service-article__main .blog-body figure.post-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+  .service-article__main .blog-body figcaption {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
     color: var(--color-text);
-    border-left: 4px solid var(--color-cta);
-    padding-left: var(--space-md);
-    margin-bottom: var(--space-lg) !important;
-  }
-
-  :global(.post-excerpt-cta-block) {
-    background: rgba(196,164,132,0.08);
-    border-radius: var(--radius-sm);
-    padding: var(--space-md) var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  :global(.post-excerpt-cta-link) {
-    display: inline-block;
-    background-color: var(--color-cta);
-    color: #fff;
-    font-family: var(--font-cta);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    align-self: flex-start;
-    transition: opacity 0.2s;
-  }
-
-  :global(.post-excerpt-cta-link):hover { opacity: 0.86; }
-
-  /* CTA */
-  .blog-post__cta-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    text-align: center;
-  }
-
-  .blog-post__cta-heading {
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    margin: 0;
-    text-wrap: balance;
-  }
-
-  .blog-post__cta-text {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    margin: 0;
-    opacity: 0.8;
-    max-width: 560px;
-  }
-
-  .blog-post__cta-btns {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  /* Phone */
-  @media (max-width: 600px) {
-    .blog-post__hero-img {
-      max-height: 220px;
-    }
-
-    .blog-post__cta-btns {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .blog-post__cta-btns .btn {
-      text-align: center;
-    }
+    opacity: 0.7;
+    margin-top: var(--space-xs);
   }
 </style>

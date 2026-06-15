@@ -1,105 +1,37 @@
 ---
 /**
- * SchedulerEmbed.astro, replaces Wix Bookings with Cal.com.
+ * SchedulerEmbed.astro — renders the self-hosted BookingRequest form.
  *
- * ⚠️  PLACEHOLDER: site.calcomUrl is 'https://cal.com/REPLACE-ME'.
- *     Swap that one constant in lib/site.ts before go-live; all scheduling
- *     CTAs read from it. The inline embed will not render until the real URL
- *     is in place, which is why variant='link' is the safe default.
+ * Previously wrapped a Cal.com embed; Cal.com was dropped in favour of the
+ * internal /request-appointment flow (calendar form -> /api/lead -> D1 +
+ * front-desk email). Kept as a thin wrapper so its one consumer
+ * (BookingCalendarTemplate) needs no structural change.
  *
  * Props:
- *   heading, optional section heading (e.g. "Book an Appointment")
- *   service_slug, optional Cal.com event-type slug appended to the base URL
- *   variant, 'inline' | 'link' (default: 'link')
- *                   'inline' renders the Cal.com inline embed widget.
- *                   'link'   renders a styled CTA button linking out to Cal.com.
+ *   heading  — section heading
+ *   prefill  — service name to pre-select in the booking form
  */
-import site from '../lib/site';
+import BookingRequest from './BookingRequest.astro';
 
 interface Props {
   heading?: string;
+  prefill?: string;
+  /** @deprecated retained for backward compatibility; no longer used. */
   service_slug?: string;
+  /** @deprecated retained for backward compatibility; no longer used. */
   variant?: 'inline' | 'link';
 }
 
-const { heading, service_slug, variant = 'link' } = Astro.props;
-
-const calUrl = service_slug ? `${site.calcomUrl}/${service_slug}` : site.calcomUrl;
-const displayHeading = heading ?? 'Book an Appointment';
+const { heading, prefill } = Astro.props as Props;
 ---
 
 <section class="scheduler-embed">
   <div class="scheduler-embed__inner">
-    <h2 class="scheduler-embed__heading">{displayHeading}</h2>
-
-    {variant === 'inline' ? (
-      /**
-       * Cal.com inline embed, requires the Cal.com embed snippet in ThirdPartyScripts.
-       * Uses the data-cal-* attribute API; Cal.com's loader script picks these up
-       * automatically and replaces this div with the booking calendar.
-       */
-      <>
-        <div
-          data-cal-link={calUrl}
-          data-cal-namespace="menon-medispa"
-          data-cal-config='{"layout":"month_view"}'
-          style="width: 100%; min-height: 680px; overflow: scroll;"
-        />
-        <noscript>
-          <p style="font-family: var(--font-body); font-size: var(--text-base); text-align: center;">
-            <a href={calUrl} target="_blank" rel="noopener noreferrer" style="color: var(--color-cta);">
-              Book your appointment online
-            </a>
-          </p>
-        </noscript>
-      </>
-    ) : (
-      <div class="scheduler-embed__cta-wrap">
-        <a
-          href={calUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="scheduler-embed__btn"
-        >
-          {displayHeading}
-        </a>
-      </div>
-    )}
+    <BookingRequest heading={heading ?? 'Book an Appointment'} prefill={prefill} />
   </div>
 </section>
 
 <style>
-  .scheduler-embed {
-    padding: var(--space-xl) var(--space-md);
-  }
-  .scheduler-embed__inner {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .scheduler-embed__heading {
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    margin-bottom: var(--space-md);
-  }
-  .scheduler-embed__cta-wrap {
-    display: flex;
-    justify-content: center;
-  }
-  .scheduler-embed__btn {
-    display: inline-block;
-    background-color: var(--color-cta);
-    color: var(--color-surface);
-    font-family: var(--font-cta);
-    font-size: var(--text-base);
-    font-weight: 600;
-    padding: 16px 40px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: opacity 0.2s;
-  }
-  .scheduler-embed__btn:hover {
-    opacity: 0.85;
-  }
+  .scheduler-embed { padding: var(--space-xl) var(--space-md); }
+  .scheduler-embed__inner { max-width: 900px; margin: 0 auto; }
 </style>

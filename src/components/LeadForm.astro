@@ -55,7 +55,9 @@ const {
 </section>
 <style>
   .lead-form { padding: var(--space-xl) var(--space-md); }
-  .lead-form__form { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 560px; }
+  /* center the form column instead of pinning it to the far left of the full-width band */
+  .lead-form > h2 { text-align: center; max-width: 560px; margin: 0 auto var(--space-md); }
+  .lead-form__form { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 560px; margin-inline: auto; }
   .lead-form__field { display: flex; flex-direction: column; gap: 4px; }
   .lead-form__field input, .lead-form__field textarea { padding: 8px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: var(--text-base); width: 100%; box-sizing: border-box; }
   .lead-form__field textarea { resize: vertical; }

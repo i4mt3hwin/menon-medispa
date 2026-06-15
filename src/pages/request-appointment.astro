@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookingRequest from '@/components/BookingRequest.astro';
+---
+<BaseLayout
+  title="Request an Appointment | Menon Medispa"
+  description="Request your appointment at Menon Medispa in Millburn, NJ. Pick a date and time of day and our team will confirm by phone or email."
+>
+  <section class="ra">
+    <div class="container">
+      <div class="ra__intro">
+        <p class="eyebrow">Booking</p>
+        <h1 class="ra__title">Request Your Appointment</h1>
+        <p class="ra__sub">
+          Choose a day and time that works for you. We will reach out to confirm, usually the same day.
+        </p>
+      </div>
+      <BookingRequest heading="Pick your date and time" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ra { padding: var(--space-xl) 0; }
+  .ra__intro { max-width: 680px; margin: 0 auto var(--space-lg); text-align: center; }
+  .ra__title { font-family: var(--font-display); font-size: var(--text-h1); margin: 8px 0; line-height: 1.15; }
+  .ra__sub { font-family: var(--font-body); font-size: var(--text-base); opacity: 0.85; margin: 0; }
+</style>

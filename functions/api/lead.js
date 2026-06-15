@@ -70,7 +70,7 @@ export async function onRequestPost({ request, env }) {
     const rows = [
       ['Name', name], ['Email', email], ['Phone', phone],
       ['Service interest', data.service_interest], ['Preferred date', data.preferred_date],
-      ['Preferred window', data.preferred_window], ['Message', data.message],
+      ['Preferred time', data.preferred_window], ['Message', data.message],
       ['Page', data.source_page]
     ].filter(([, v]) => v).map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(v)}</td></tr>`).join('');
     const send = (to, html) => fetch('https://api.resend.com/emails', {

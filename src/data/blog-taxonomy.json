@@ -1,0 +1,87 @@
+{
+  "topics": [
+    {
+      "slug": "injectables",
+      "label": "Injectables",
+      "description": "Botox, dermal fillers, and Qwo, explained. What to expect, how they work, and getting natural-looking results at our Millburn medispa.",
+      "reviewTag": "botox",
+      "serviceSlug": "botox-millburn-nj",
+      "serviceLabel": "Botox & Injectables"
+    },
+    {
+      "slug": "facials",
+      "label": "Facials & Skin Treatments",
+      "description": "HydraFacial, microneedling, dermaplaning, and peels. Guides to the in-office facial treatments that refresh and renew your skin.",
+      "reviewTag": "hydrafacial",
+      "serviceSlug": "hydrafacial",
+      "serviceLabel": "HydraFacial & Facials"
+    },
+    {
+      "slug": "skincare",
+      "label": "Skincare & Anti-Aging",
+      "description": "At-home routines, anti-aging tips, and product guidance to help you build healthier skin between visits.",
+      "reviewTag": "facial",
+      "serviceSlug": "face",
+      "serviceLabel": "Face Treatments"
+    },
+    {
+      "slug": "laser",
+      "label": "Laser & Vascular",
+      "description": "Laser hair removal and vascular treatments like spider vein removal. How they work and what results to expect.",
+      "reviewTag": "laser-hair-removal",
+      "serviceSlug": "laser-hair-removal",
+      "serviceLabel": "Laser Hair Removal"
+    },
+    {
+      "slug": "wellness",
+      "label": "Massage & Wellness",
+      "description": "Massage, lymphatic drainage, and IV therapy. Wellness treatments that help you feel as good as you look.",
+      "reviewTag": "iv-therapy",
+      "serviceSlug": "iv-therapy-millburn-nj",
+      "serviceLabel": "IV Therapy & Wellness"
+    },
+    {
+      "slug": "hair",
+      "label": "Hair Restoration",
+      "description": "Hair restoration therapy and PRP. How modern treatments help address thinning hair.",
+      "reviewTag": "general",
+      "serviceSlug": "hair",
+      "serviceLabel": "Hair Restoration"
+    }
+  ],
+  "assignments": {
+    "is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj": "injectables",
+    "first-botox-appointment-a-step-by-step-guide": "injectables",
+    "the-ultimate-guide-to-fillers-injectables-what-you-need-to-know-before-getting-started": "injectables",
+    "the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite-1": "injectables",
+    "need-a-quick-fix-for-those-pesky-wrinkles-try-botox-tired-of-seeing-wrinkles-every-time-you-loo": "injectables",
+    "a-guide-to-dermal-fillers": "injectables",
+    "the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite": "injectables",
+
+    "why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation": "facials",
+    "how-micropeels-can-transform-your-skin-s-appearance-to-a-new-youthful-skin-non-surgically": "facials",
+    "dermaplaning-what-is-it-conditions-it-helps-why-you-should-start-using-it-today": "facials",
+    "the-complete-guide-to-microneedling-therapy-and-the-skinpen": "facials",
+    "the-complete-guide-to-hydrafacial-and-how-it-can-improve-your-skin-health": "facials",
+
+    "2023-skin-care-resolutions-5-tips-for-starting-the-year-right": "skincare",
+    "medical-spa-the-importance-of-a-consultation": "skincare",
+    "the-best-ways-to-care-for-your-skin": "skincare",
+    "the-ultimate-guide-to-uncovering-healthy-younger-looking-skin": "skincare",
+    "how-to-choose-the-right-skin-care-service-for-you": "skincare",
+    "why-you-need-to-know-about-menon-medispa-and-wellness": "skincare",
+    "reversing-the-signs-of-aging-with-obagi-products": "skincare",
+
+    "spring-into-smoothness-laser-hair-removal-special": "laser",
+    "how-to-get-rid-of-spider-veins-with-laser-treatment": "laser",
+    "laser-hair-removal-everything-you-need-to-know": "laser",
+
+    "5-holiday-self-care-treats-for-you-because-you-deserve-it": "wellness",
+    "discover-the-various-advantages-of-massage": "wellness",
+    "the-many-benefits-of-lymphatic-drainage-massage-1": "wellness",
+    "five-reasons-why-you-might-need-iv-treatment": "wellness",
+    "the-many-benefits-of-lymphatic-drainage-massage": "wellness",
+
+    "the-benefits-of-hair-restoration-therapy": "hair"
+  }
+}

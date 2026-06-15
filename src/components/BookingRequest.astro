@@ -1,0 +1,433 @@
+---
+/**
+ * BookingRequest.astro — self-hosted "request + confirm" booking.
+ *
+ * A vanilla-JS month calendar + time-of-day window picker + contact fields that
+ * POST to /api/lead (type=appointment_request). The row lands in D1 and the
+ * front desk is emailed (Resend). This is a REQUEST, not a live-availability
+ * booking — staff confirms. NON-PHI by design: no medical fields, and the
+ * free-text box warns against medical detail. See lib/leadForm.ts for submit.
+ *
+ * Props:
+ *   heading   — section heading
+ *   prefill   — pre-selected service_interest (e.g. the service name on a
+ *               /booking-calendar/[slug] page)
+ */
+import services from '../data/services.json';
+import site from '../lib/site';
+
+interface Props {
+  heading?: string;
+  prefill?: string;
+}
+const { heading = 'Request an Appointment', prefill } = Astro.props as Props;
+
+// Distinct service categories (data-driven — stays in sync with services.json).
+const categories = Array.from(
+  new Set((services as Array<{ category?: string }>).map((s) => s.category).filter(Boolean) as string[])
+).sort((a, b) => a.localeCompare(b));
+
+const baseOptions = ['General consultation', ...categories];
+const options = prefill && !baseOptions.includes(prefill) ? [prefill, ...baseOptions] : baseOptions;
+const selectedService = prefill && options.includes(prefill) ? prefill : 'General consultation';
+const labelFor = (opt: string) => (opt === 'General consultation' ? "I'm not sure yet — general consultation" : opt);
+
+// Day-of-week (0=Sun … 6=Sat) -> {opens, closes}, derived from site.hours. Sunday absent = closed.
+const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const hoursByDow: Record<number, { opens: string; closes: string }> = {};
+for (const block of site.hours) {
+  for (const day of block.days) {
+    const i = DOW.indexOf(day);
+    if (i >= 0) hoursByDow[i] = { opens: block.opens, closes: block.closes };
+  }
+}
+
+const CONSENT_EMAIL_TEXT =
+  'I agree to receive appointment updates and occasional offers from Menon Medispa by email. I can unsubscribe anytime.';
+const HORIZON_DAYS = 60;
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+---
+
+<div class="bk" data-booking data-hours={JSON.stringify(hoursByDow)} data-horizon={HORIZON_DAYS}>
+  <div data-leadform-root>
+    <form class="bk__form" method="POST" action="/api/lead" novalidate>
+      <h2 class="bk__heading">{heading}</h2>
+      <p class="bk__lead">Pick a day and a time that works for you. We will call or email to confirm.</p>
+
+      <!-- Step 1: date -->
+      <fieldset class="bk__step">
+        <legend class="bk__step-label"><span class="bk__step-num">1</span> Choose a date</legend>
+        <div class="bk-cal" role="group" aria-label="Choose an appointment date">
+          <div class="bk-cal__head">
+            <button type="button" class="bk-cal__nav" data-cal-prev aria-label="Previous month">&#8249;</button>
+            <span class="bk-cal__month" data-cal-month aria-live="polite"></span>
+            <button type="button" class="bk-cal__nav" data-cal-next aria-label="Next month">&#8250;</button>
+          </div>
+          <div class="bk-cal__weekdays" aria-hidden="true">
+            {WEEKDAYS.map((d) => <span class="bk-cal__weekday">{d}</span>)}
+          </div>
+          <div class="bk-cal__grid" data-cal-grid></div>
+          <p class="bk-cal__note">Open Mon–Fri 10–6, Sat 10–4. Closed Sundays.</p>
+        </div>
+      </fieldset>
+
+      <!-- Time (revealed after a date is chosen) -->
+      <fieldset class="bk__step bk__times" data-times hidden>
+        <legend class="bk__step-label bk__step-label--sub"><span data-time-hint>Choose a time</span></legend>
+        <div class="bk__slots" data-slots></div>
+        <p class="bk__times-note">These are requested times — we will confirm by phone or email.</p>
+      </fieldset>
+
+      <!-- Step 3: details -->
+      <fieldset class="bk__step">
+        <legend class="bk__step-label"><span class="bk__step-num">2</span> Your details</legend>
+
+        <div class="bk__field" data-service-field>
+          <label for="bk-service">What are you interested in?</label>
+          <select id="bk-service" name="service_interest" data-prefill={prefill}>
+            {options.map((opt) => (
+              <option value={opt} selected={opt === selectedService}>{labelFor(opt)}</option>
+            ))}
+          </select>
+        </div>
+        <div class="bk__locked" data-service-locked hidden>
+          <div class="bk__locked-text">
+            <span class="bk__locked-eyebrow">Booking</span>
+            <span class="bk__locked-name" data-locked-name></span>
+          </div>
+          <button type="button" class="bk__locked-change" data-change>Change</button>
+        </div>
+
+        <div class="bk__row">
+          <div class="bk__field">
+            <label for="bk-name">Name <span aria-hidden="true">*</span></label>
+            <input id="bk-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="bk__field">
+            <label for="bk-phone">Phone</label>
+            <input id="bk-phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="bk__field">
+          <label for="bk-email">Email <span aria-hidden="true">*</span></label>
+          <input id="bk-email" name="email" type="email" autocomplete="email" />
+          <p class="bk__hint">We need an email or a phone number so we can confirm.</p>
+        </div>
+
+        <div class="bk__field">
+          <label for="bk-message">Anything we should know? <span class="bk__optional">(optional)</span></label>
+          <textarea id="bk-message" name="message" rows="3" placeholder="Questions, scheduling notes, etc."></textarea>
+          <p class="bk__hint bk__hint--warn">Please do not include any medical details, conditions, or photos here.</p>
+        </div>
+
+        <label class="bk__consent">
+          <input type="checkbox" name="consent_email" value="on" />
+          <span>{CONSENT_EMAIL_TEXT}</span>
+        </label>
+      </fieldset>
+
+      <!-- Hidden / system fields -->
+      <input type="hidden" name="type" value="appointment_request" />
+      <input type="hidden" name="preferred_date" value="" />
+      <input type="hidden" name="preferred_window" value="" />
+      <input type="hidden" name="consent_email_text" value={CONSENT_EMAIL_TEXT} />
+      <input type="hidden" name="consent_version" value="1" />
+      <input type="hidden" name="send_confirmation" value="on" />
+      <!-- Honeypot: real people leave this empty. -->
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="bk__hp" aria-hidden="true" />
+
+      <p class="bk__error" data-form-error hidden></p>
+      <button type="submit" class="bk__submit">Request Appointment</button>
+      <p class="bk__fallback">Prefer to call? <a href={site.phone.tel}>{site.phone.display}</a></p>
+    </form>
+
+    <div class="bk__success" data-form-success hidden>
+      <div class="bk__success-icon" aria-hidden="true">&#10003;</div>
+      <h2 class="bk__heading">Request received</h2>
+      <p>Thanks — we have your request and will call or email you shortly to confirm your appointment.</p>
+      <p class="bk__fallback">Need to reach us now? <a href={site.phone.tel}>{site.phone.display}</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { enhanceLeadForm } from '../lib/leadForm';
+
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const SLOT_MINUTES = 30; // request-grid granularity
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const iso = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const toMin = (hhmm: string) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
+  const fmtTime = (mins: number) => {
+    let h = Math.floor(mins / 60); const m = mins % 60;
+    const ap = h < 12 ? 'AM' : 'PM';
+    h = h % 12; if (h === 0) h = 12;
+    return `${h}:${pad(m)} ${ap}`;
+  };
+  const periodOf = (mins: number) => (mins < 720 ? 'Morning' : mins < 960 ? 'Afternoon' : 'Evening');
+
+  function ensureOption(select: HTMLSelectElement, value: string) {
+    if (!Array.from(select.options).some((o) => o.value === value)) {
+      const opt = document.createElement('option');
+      opt.value = value; opt.textContent = value;
+      select.insertBefore(opt, select.firstChild);
+    }
+  }
+
+  function initBooking(root: HTMLElement) {
+    const hours: Record<string, { opens: string; closes: string }> = JSON.parse(root.dataset.hours || '{}');
+    const horizon = parseInt(root.dataset.horizon || '60', 10);
+    const form = root.querySelector('form') as HTMLFormElement;
+    const grid = root.querySelector('[data-cal-grid]') as HTMLElement;
+    const monthLabel = root.querySelector('[data-cal-month]') as HTMLElement;
+    const prevBtn = root.querySelector('[data-cal-prev]') as HTMLButtonElement;
+    const nextBtn = root.querySelector('[data-cal-next]') as HTMLButtonElement;
+    const dateInput = root.querySelector('input[name="preferred_date"]') as HTMLInputElement;
+    const timeInput = root.querySelector('input[name="preferred_window"]') as HTMLInputElement;
+    const timesWrap = root.querySelector('[data-times]') as HTMLElement;
+    const slotsWrap = root.querySelector('[data-slots]') as HTMLElement;
+    const timeHint = root.querySelector('[data-time-hint]') as HTMLElement | null;
+
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + horizon);
+    let view = new Date(today.getFullYear(), today.getMonth(), 1);
+    let selected: Date | null = null;
+
+    const closed = (d: Date) => !hours[String(d.getDay())];
+    const past = (d: Date) => d < today;
+    const beyond = (d: Date) => d > maxDate;
+
+    function renderSlots(d: Date) {
+      slotsWrap.innerHTML = '';
+      timeInput.value = '';
+      const h = hours[String(d.getDay())];
+      if (!h) return;
+      const open = toMin(h.opens), close = toMin(h.closes);
+      const groups: Record<string, number[]> = { Morning: [], Afternoon: [], Evening: [] };
+      for (let t = open; t <= close - SLOT_MINUTES; t += SLOT_MINUTES) groups[periodOf(t)].push(t);
+      (['Morning', 'Afternoon', 'Evening'] as const).forEach((label) => {
+        const times = groups[label];
+        if (!times.length) return;
+        const group = document.createElement('div');
+        group.className = 'bk__slot-group';
+        const gl = document.createElement('span');
+        gl.className = 'bk__slot-group-label';
+        gl.textContent = label;
+        group.appendChild(gl);
+        const row = document.createElement('div');
+        row.className = 'bk__slot-row';
+        times.forEach((t) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'bk__slot';
+          b.textContent = fmtTime(t);
+          b.setAttribute('aria-pressed', 'false');
+          b.addEventListener('click', () => {
+            slotsWrap.querySelectorAll('.bk__slot').forEach((x) => { x.classList.remove('is-selected'); x.setAttribute('aria-pressed', 'false'); });
+            b.classList.add('is-selected');
+            b.setAttribute('aria-pressed', 'true');
+            timeInput.value = b.textContent || '';
+          });
+          row.appendChild(b);
+        });
+        group.appendChild(row);
+        slotsWrap.appendChild(group);
+      });
+    }
+
+    function renderMonth() {
+      monthLabel.textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
+      grid.innerHTML = '';
+      const startDow = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+      const daysInMonth = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      for (let i = 0; i < startDow; i++) {
+        const blank = document.createElement('div');
+        blank.className = 'bk-cal__cell bk-cal__cell--empty';
+        grid.appendChild(blank);
+      }
+      for (let day = 1; day <= daysInMonth; day++) {
+        const d = new Date(view.getFullYear(), view.getMonth(), day);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'bk-cal__day';
+        btn.textContent = String(day);
+        btn.setAttribute('aria-label', d.toDateString());
+        if (past(d) || beyond(d) || closed(d)) {
+          btn.disabled = true;
+          btn.classList.add('is-disabled');
+        } else {
+          btn.addEventListener('click', () => selectDate(d));
+        }
+        if (selected && iso(d) === iso(selected)) {
+          btn.classList.add('is-selected');
+          btn.setAttribute('aria-pressed', 'true');
+        }
+        grid.appendChild(btn);
+      }
+      prevBtn.disabled = view.getFullYear() === today.getFullYear() && view.getMonth() === today.getMonth();
+      nextBtn.disabled = view.getFullYear() === maxDate.getFullYear() && view.getMonth() === maxDate.getMonth();
+    }
+
+    function selectDate(d: Date) {
+      selected = d;
+      dateInput.value = iso(d);
+      renderMonth();
+      renderSlots(d);
+      timesWrap.hidden = false;
+      if (timeHint) timeHint.textContent = `Choose a time on ${d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}`;
+      timesWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    prevBtn.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
+    nextBtn.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
+
+    renderMonth();
+
+    // Service lock: pre-select + lock the service when it comes from the URL (?service=)
+    // or the SSR `prefill` (per-service booking-calendar pages) — so we don't ask again.
+    const select = root.querySelector('select[name="service_interest"]') as HTMLSelectElement | null;
+    const fieldWrap = root.querySelector('[data-service-field]') as HTMLElement | null;
+    const lockedWrap = root.querySelector('[data-service-locked]') as HTMLElement | null;
+    const lockedName = root.querySelector('[data-locked-name]') as HTMLElement | null;
+    const changeBtn = root.querySelector('[data-change]') as HTMLButtonElement | null;
+    if (select && fieldWrap && lockedWrap) {
+      const urlSvc = new URLSearchParams(location.search).get('service');
+      const svc = (urlSvc && urlSvc.trim()) || select.dataset.prefill || '';
+      if (svc) {
+        ensureOption(select, svc);
+        select.value = svc;
+        if (lockedName) lockedName.textContent = svc;
+        lockedWrap.hidden = false;
+        fieldWrap.hidden = true;
+      }
+      changeBtn?.addEventListener('click', () => { lockedWrap.hidden = true; fieldWrap.hidden = false; });
+    }
+
+    enhanceLeadForm(form, {
+      validate: (data) => {
+        if (!data.preferred_date) return 'Please pick a date on the calendar.';
+        if (!data.preferred_window) return 'Please choose a time.';
+        return null;
+      },
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-booking]').forEach(initBooking);
+</script>
+
+<style>
+  .bk { max-width: 680px; margin: 0 auto; }
+  .bk__form { display: flex; flex-direction: column; gap: var(--space-md); }
+  .bk__heading { font-family: var(--font-display); font-size: var(--text-h2); margin: 0; line-height: 1.2; }
+  .bk__lead { font-family: var(--font-body); font-size: var(--text-base); opacity: 0.85; margin: 0; }
+
+  .bk__step { border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
+  /* The `hidden` attribute must beat the display rules above (UA display:none is too weak). */
+  .bk__step[hidden], .bk__success[hidden] { display: none; }
+  .bk__step-label { font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-bold); display: flex; align-items: center; gap: 10px; padding: 0; }
+  .bk__step-label--sub { margin-left: 34px; font-weight: 600; opacity: 0.85; }
+  .bk__step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--color-cta); color: var(--color-surface);
+    font-size: 13px; font-weight: 700; flex: none;
+  }
+
+  /* Calendar */
+  .bk-cal { border: 1px solid rgba(0,0,0,0.12); border-radius: var(--radius-sm); padding: var(--space-sm); background: #fff; }
+  .bk-cal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-xs); }
+  .bk-cal__month { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; }
+  .bk-cal__nav {
+    width: 36px; height: 36px; border: 1px solid rgba(0,0,0,0.15); background: #fff;
+    border-radius: var(--radius-sm); cursor: pointer; font-size: 20px; line-height: 1; color: var(--color-text);
+  }
+  .bk-cal__nav:hover:not(:disabled) { border-color: var(--color-cta); color: var(--color-cta); }
+  .bk-cal__nav:disabled { opacity: 0.3; cursor: not-allowed; }
+  .bk-cal__weekdays, .bk-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .bk-cal__weekday { text-align: center; font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.6; padding: 4px 0; }
+  .bk-cal__cell--empty { aspect-ratio: 1; }
+  .bk-cal__day {
+    aspect-ratio: 1; width: 100%; border: 1px solid transparent; background: rgba(0,0,0,0.03);
+    border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-body); font-size: var(--text-sm);
+    color: var(--color-text); transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .bk-cal__day:hover:not(.is-disabled) { border-color: var(--color-cta); }
+  .bk-cal__day.is-selected { background: var(--color-cta); color: var(--color-surface); border-color: var(--color-cta); font-weight: 700; }
+  .bk-cal__day.is-disabled { opacity: 0.32; cursor: not-allowed; text-decoration: line-through; }
+  .bk-cal__note { font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.6; margin: var(--space-xs) 0 0; }
+
+  /* Time slots */
+  .bk__field[hidden], .bk__locked[hidden] { display: none; }
+  .bk__times-note { font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.6; margin: 4px 0 0; }
+  .bk__slots { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .bk__slot-group { display: flex; flex-direction: column; gap: 6px; }
+  .bk__slot-group-label { font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.55; text-transform: uppercase; letter-spacing: 0.05em; }
+  .bk__slot-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bk__slot {
+    padding: 8px 14px; border: 1px solid rgba(0,0,0,0.18); background: #fff; border-radius: var(--radius-sm);
+    cursor: pointer; font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-text);
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .bk__slot:hover { border-color: var(--color-cta); }
+  .bk__slot.is-selected { background: var(--color-cta); color: var(--color-surface); border-color: var(--color-cta); font-weight: 600; }
+
+  /* Service lock */
+  .bk__locked {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm);
+    padding: 12px 14px; border: 1px solid var(--color-cta); border-radius: var(--radius-sm); background: rgba(196,164,132,0.08);
+  }
+  .bk__locked-text { display: flex; flex-direction: column; gap: 1px; }
+  .bk__locked-eyebrow { font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
+  .bk__locked-name { font-family: var(--font-display); font-size: var(--text-base); }
+  .bk__locked-change {
+    flex: none; background: none; border: none; cursor: pointer; color: var(--color-cta);
+    font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600; text-decoration: underline;
+  }
+
+  /* Fields */
+  .bk__row { display: flex; gap: var(--space-sm); }
+  .bk__row .bk__field { flex: 1; }
+  .bk__field { display: flex; flex-direction: column; gap: 4px; }
+  .bk__field label { font-family: var(--font-body); font-size: var(--text-xs); font-weight: var(--weight-bold); }
+  .bk__field label span[aria-hidden] { color: var(--color-cta); }
+  .bk__optional { font-weight: 400; opacity: 0.6; }
+  .bk__field input, .bk__field select, .bk__field textarea {
+    padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-sm);
+    font-family: var(--font-body); font-size: var(--text-base); width: 100%; box-sizing: border-box; background: #fff; color: var(--color-text);
+  }
+  .bk__field input:focus, .bk__field select:focus, .bk__field textarea:focus { outline: none; border-color: var(--color-cta); }
+  .bk__field textarea { resize: vertical; }
+  .bk__hint { font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.65; margin: 0; }
+  .bk__hint--warn { opacity: 0.8; color: #8a5a00; }
+
+  .bk__consent { display: flex; gap: 8px; align-items: flex-start; font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.85; line-height: 1.4; }
+  .bk__consent input { margin-top: 2px; flex: none; }
+
+  .bk__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+  .bk__error {
+    font-family: var(--font-body); font-size: var(--text-sm); color: #b00020;
+    background: rgba(176,0,32,0.07); border: 1px solid rgba(176,0,32,0.2); border-radius: var(--radius-sm); padding: 10px 12px; margin: 0;
+  }
+  .bk__submit {
+    background: var(--color-cta); color: var(--color-surface); border: none; border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-btn); padding: 14px 24px; font-family: var(--font-cta); font-size: var(--text-base);
+    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+  }
+  .bk__submit:hover:not(:disabled) { opacity: 0.9; }
+  .bk__submit:disabled { opacity: 0.6; cursor: progress; }
+  .bk__fallback { font-family: var(--font-body); font-size: var(--text-sm); text-align: center; margin: 0; opacity: 0.8; }
+  .bk__fallback a { color: var(--color-cta); font-weight: 600; }
+
+  .bk__success { text-align: center; display: flex; flex-direction: column; gap: var(--space-sm); align-items: center; padding: var(--space-lg) 0; }
+  .bk__success-icon {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--color-cta); color: var(--color-surface);
+    display: flex; align-items: center; justify-content: center; font-size: 28px;
+  }
+  .bk__success p { font-family: var(--font-body); font-size: var(--text-base); margin: 0; opacity: 0.9; }
+
+  @media (max-width: 520px) {
+    .bk__row { flex-direction: column; }
+  }
+</style>

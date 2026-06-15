@@ -17,6 +17,7 @@ import '../styles/base.css';
 /* base.css, redesign layout system: container, section rhythm, responsive
    type, button system, and the media-background/overlay treatment. */
 import site from '../lib/site';
+import { resolveBooking } from '../lib/bookingRoutes';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ChatAssistant from '../components/ChatAssistant.astro';
@@ -61,6 +62,11 @@ const ogImageURL = ogImage
   : undefined;
 
 const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
+
+// Context-aware booking routing: broad pages -> /consultation, specific treatment
+// pages -> /request-appointment?service=<name>. A small inline script (end of body)
+// applies this to every booking link. See lib/bookingRoutes.ts.
+const book = resolveBooking(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -111,7 +117,7 @@ const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
 
     <slot name="head" />
   </head>
-  <body>
+  <body data-book-mode={book.mode} data-book-service={book.service}>
     <SiteHeader />
     <slot />
     <SiteFooter />
@@ -137,6 +143,27 @@ const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
           });
         }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
         els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
+
+    <!-- Context-aware booking routing: rewrite generic booking links per page (see lib/bookingRoutes.ts). -->
+    <script is:inline>
+      (function () {
+        var b = document.body;
+        var mode = b.getAttribute('data-book-mode');
+        var svc = b.getAttribute('data-book-service');
+        var links = document.querySelectorAll('a[href^="/request-appointment"]');
+        for (var i = 0; i < links.length; i++) {
+          var a = links[i];
+          var href = a.getAttribute('href') || '';
+          if (href.indexOf('service=') !== -1) continue; /* an explicit tier/service always wins */
+          /* A CTA that says "consultation" (or opts in via data-book) always goes to the
+             guided consultation — e.g. the bottom-of-page CTA on a specific treatment page. */
+          var txt = (a.textContent || '').toLowerCase();
+          var wantsConsult = a.getAttribute('data-book') === 'consultation' || txt.indexOf('consultation') !== -1;
+          if (mode === 'consultation' || wantsConsult) { a.setAttribute('href', '/consultation'); continue; }
+          if (svc) { a.setAttribute('href', '/request-appointment?service=' + encodeURIComponent(svc)); }
+        }
       })();
     </script>
   </body>

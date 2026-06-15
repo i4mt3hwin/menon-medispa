@@ -14,6 +14,7 @@ interface Post {
   date?: string;
   featured_image?: string;
   category?: string;
+  categorySlug?: string;
 }
 
 interface Props {
@@ -56,7 +57,9 @@ function truncate(str: string | undefined, max: number): string {
             )}
             <div class="blog-list__body">
               {post.category && (
-                <span class="blog-list__category">{post.category}</span>
+                post.categorySlug
+                  ? <a href={`/blog/${post.categorySlug}`} class="blog-list__category blog-list__category--link">{post.category}</a>
+                  : <span class="blog-list__category">{post.category}</span>
               )}
               <h2 class="blog-list__title">
                 <a href={`/post/${post.slug}`} class="blog-list__title-link">{post.title}</a>
@@ -150,6 +153,8 @@ function truncate(str: string | undefined, max: number): string {
     letter-spacing: 0.08em;
     color: var(--color-cta);
   }
+  .blog-list__category--link { text-decoration: none; }
+  .blog-list__category--link:hover { text-decoration: underline; }
 
   .blog-list__title {
     font-family: var(--font-display);

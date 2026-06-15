@@ -1,28 +1,270 @@
 ---
+/**
+ * /blog, the blog aggregation hub.
+ * Featured (newest) post → topic filter pills → one section per topic (3 cards +
+ * "view all" link to the topic hub). Cards reuse BlogList; topics come from
+ * src/lib/blog. SEO: meta description + CollectionPage/Breadcrumb JSON-LD.
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogList from '@/components/BlogList.astro';
-import blogData from '@/data/blog.json';
+import CtaBanner from '@/components/CtaBanner.astro';
+import site from '@/lib/site';
+import { getAllPosts, getTopics, getPostsByTopic, formatDate } from '@/lib/blog';
 
-// Map blog.json → BlogList Post shape (newest first, already ordered in source)
-const posts = blogData.map((p: Record<string, string>) => ({
+const all = getAllPosts();
+const topics = getTopics().filter((t) => t.count > 0);
+const featured = all[0];
+
+const toCard = (p: typeof all[number]) => ({
   slug: p.slug,
   title: p.title,
   excerpt: p.excerpt,
-  date: p.firstPublished,
+  date: formatDate(p.date),
   featured_image: p.coverImage,
+  category: p.topic.label,
+  categorySlug: p.topic.slug,
+});
+
+const sections = topics.map((t) => ({
+  topic: t,
+  posts: getPostsByTopic(t.slug).filter((p) => p.slug !== featured.slug).slice(0, 3).map(toCard),
 }));
+
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Menon Medispa & Wellness Blog',
+    description:
+      'Expert skincare advice, treatment guides, and wellness tips from Menon Medispa in Millburn, NJ.',
+    url: `${site.url}/blog`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site.url}/blog` },
+    ],
+  },
+];
 ---
 
 <BaseLayout
   title="Blog | Menon Medispa & Wellness"
-  description="Read the latest wellness and beauty tips from Menon Medispa in Millburn NJ. Expert skincare advice, treatment guides, and spa news."
-  canonical="https://www.menonmedispa.com/blog"
+  description="Expert skincare advice, treatment guides, and wellness tips from Menon Medispa in Millburn, NJ. Botox, HydraFacial, laser, fillers, and more."
+  canonical={`${site.url}/blog`}
+  jsonld={jsonld}
 >
 
-  <BlogList
-    posts={posts}
-    heading="Menon Medispa &amp; Wellness Blog"
+  <!-- Hub header -->
+  <section class="blog-hub-head section--tight">
+    <div class="container">
+      <p class="blog-hub-head__eyebrow">Menon Medispa &amp; Wellness</p>
+      <h1 class="blog-hub-head__title">The Blog</h1>
+      <p class="blog-hub-head__intro">Treatment guides, skincare tips, and wellness advice from our team in Millburn, NJ.</p>
+
+      <ul class="blog-hub-pills" role="list">
+        {topics.map((t) => (
+          <li><a href={`/blog/${t.slug}`} class="blog-hub-pill">{t.label} <span class="blog-hub-pill__count">{t.count}</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Featured post -->
+  {featured && (
+    <section class="blog-feature section--tight">
+      <div class="container">
+        <a href={`/post/${featured.slug}`} class="blog-feature__card">
+          {featured.coverImage && (
+            <span class="blog-feature__media">
+              <img src={featured.coverImage} alt={featured.title} loading="eager" decoding="async" />
+            </span>
+          )}
+          <span class="blog-feature__body">
+            <span class="blog-feature__eyebrow">Featured &middot; {featured.topic.label}</span>
+            <span class="blog-feature__title">{featured.title}</span>
+            <span class="blog-feature__excerpt">{featured.excerpt}</span>
+            <span class="blog-feature__meta">{formatDate(featured.date)} &middot; {featured.readTime} min read</span>
+            <span class="blog-feature__cue">Read article &rarr;</span>
+          </span>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- One section per topic -->
+  {sections.map((s) => (
+    s.posts.length > 0 && (
+      <section class="blog-topic-row section--tight">
+        <div class="container">
+          <div class="blog-topic-row__head">
+            <h2 class="blog-topic-row__title">
+              <a href={`/blog/${s.topic.slug}`}>{s.topic.label}</a>
+            </h2>
+            <a href={`/blog/${s.topic.slug}`} class="blog-topic-row__all">View all {s.topic.count} &rarr;</a>
+          </div>
+          <BlogList posts={s.posts} heading="" />
+        </div>
+      </section>
+    )
+  ))}
+
+  <CtaBanner
+    heading="Ready to book your visit?"
+    subtext="Our team in Millburn will help you find the right treatment for your goals."
+    cta_text="Request an Appointment"
+    cta_href={site.calcomUrl}
   />
 
 </BaseLayout>
-<!-- fidelity-report: {"sections_expected":1,"widgets_expected":149,"images_referenced":35,"images_resolved":0,"responsive_overrides_expected":1,"responsive_signals_built":6,"findings_high":100,"findings_medium":39,"fidelity_pct":0,"dropped":["missing-text","truncated-text","list-count-mismatch","missing-link"]} -->
+
+<style>
+  .blog-hub-head .container { text-align: center; }
+  .blog-hub-head__eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0 0 8px;
+  }
+  .blog-hub-head__title {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.1;
+  }
+  .blog-hub-head__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    opacity: 0.82;
+    max-width: 620px;
+    margin: var(--space-sm) auto 0;
+    line-height: 1.55;
+  }
+  .blog-hub-pills {
+    list-style: none;
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .blog-hub-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-cta);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 999px;
+    transition: border-color 0.18s ease, background 0.18s ease;
+  }
+  .blog-hub-pill:hover { border-color: var(--color-cta); background: rgb(196 164 132 / 0.08); }
+  .blog-hub-pill__count {
+    font-size: 12px;
+    color: var(--color-cta);
+    font-weight: 600;
+  }
+
+  /* Featured card */
+  .blog-feature__card {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: stretch;
+    border: 1px solid rgb(0 0 0 / 0.08);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface);
+    text-decoration: none;
+    box-shadow: 0 10px 34px rgb(27 21 34 / 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .blog-feature__card:hover { transform: translateY(-3px); box-shadow: 0 18px 46px rgb(27 21 34 / 0.16); }
+  .blog-feature__media { display: block; overflow: hidden; min-height: 320px; }
+  .blog-feature__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+  .blog-feature__card:hover .blog-feature__media img { transform: scale(1.04); }
+  .blog-feature__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: var(--space-lg);
+    justify-content: center;
+  }
+  .blog-feature__eyebrow {
+    font-family: var(--font-cta);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
+  }
+  .blog-feature__title {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    line-height: 1.16;
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+  .blog-feature__excerpt {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    opacity: 0.82;
+  }
+  .blog-feature__meta {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.6;
+  }
+  .blog-feature__cue {
+    font-family: var(--font-cta);
+    font-size: var(--text-base);
+    color: var(--color-cta);
+    margin-top: 2px;
+  }
+
+  /* Topic rows */
+  .blog-topic-row__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  .blog-topic-row__title {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .blog-topic-row__title a { color: var(--color-text); text-decoration: none; }
+  .blog-topic-row__title a:hover { color: var(--color-cta); }
+  .blog-topic-row__all {
+    flex: 0 0 auto;
+    font-family: var(--font-cta);
+    font-size: var(--text-sm);
+    color: var(--color-cta);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .blog-topic-row__all:hover { text-decoration: underline; }
+  .blog-topic-row + .blog-topic-row { padding-top: 0; }
+
+  @media (max-width: 760px) {
+    .blog-feature__card { grid-template-columns: 1fr; }
+    .blog-feature__media { min-height: 220px; max-height: 260px; }
+    .blog-feature__body { padding: var(--space-md); }
+  }
+</style>

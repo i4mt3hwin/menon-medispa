@@ -150,6 +150,9 @@ const treatments = [
   @media (max-width: 600px) {
     .body-grid__cards {
       grid-template-columns: 1fr;
+      /* explicit width: aspect-ratio cards have 0 intrinsic width + `margin:0 auto` cancels
+         flex-stretch, so without this the grid collapses to 0 and the cards vanish on mobile. */
+      width: 100%;
       max-width: 360px;
       margin: 0 auto;
     }

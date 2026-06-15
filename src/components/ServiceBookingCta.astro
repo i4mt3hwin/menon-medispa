@@ -71,7 +71,12 @@ const cardList: Card[] = (cards && cards.length)
 
     <div class="svc-booking__cards">
       {cardList.map((c) => {
-        const href = c.bookHref ?? site.calcomUrl;
+        // Each pricing tier carries its own service so "Book" next to e.g. "Platinum
+        // HydraFacial" pre-selects that exact tier (the BaseLayout rewrite leaves
+        // links that already carry ?service= alone). Explicit bookHref still wins.
+        const href = c.bookHref ?? (c.title
+          ? `/request-appointment?service=${encodeURIComponent(c.title)}`
+          : site.calcomUrl);
         const ext = href.startsWith('http');
         return (
           <div class="svc-booking__card">
@@ -129,7 +134,7 @@ const cardList: Card[] = (cards && cards.length)
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: var(--weight-bold);
-    color: var(--color-cta);
+    color: var(--color-text);
     margin: 0 0 var(--space-sm);
   }
 

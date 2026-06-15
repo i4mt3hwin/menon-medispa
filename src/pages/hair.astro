@@ -46,7 +46,9 @@ const jsonld = [
 >
   <Section1 />
   <Section2 />
-  <Section3 />
+  <!-- Wrapped so the treatment-picker grid is exempt from scroll-reveal (base.css) and is never
+       stranded at opacity:0 if the IntersectionObserver doesn't fire on a narrow/short viewport. -->
+  <div class="picker-no-reveal"><Section3 /></div>
   <Section4 />
   <Section5 />
   <Section6 />
