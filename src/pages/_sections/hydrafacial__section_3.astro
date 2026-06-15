@@ -1,0 +1,50 @@
+---
+import FeatureList from '@/components/FeatureList.astro';
+---
+
+<section class="section s3-problem">
+  <div class="container--narrow">
+
+    <h2 class="s3-problem__heading">The Challenge of Maintaining Healthy, Radiant Skin</h2>
+
+    <p class="s3-problem__body">Dealing with skin problems can be frustrating and confidence-draining.</p>
+
+    <p class="s3-problem__body">Environmental factors and aging leave skin looking dull, uneven, and congested despite your best efforts.</p>
+
+    <p class="s3-problem__body">When searching for a hydrafacial near me, you deserve a treatment that delivers real, lasting results.</p>
+
+    <FeatureList
+      items={[
+        "Conventional products rarely penetrate deep enough to address the root causes of skin concerns",
+        "Seasonal changes and stress constantly challenge skin's balance",
+        "Different facial areas have completely different needs",
+      ]}
+    />
+
+    <p class="s3-problem__body">Traditional facial treatments offer only temporary relief without addressing underlying skin health.</p>
+
+    <p class="s3-problem__body">With diverse skin types, standard facials frequently disappoint and leave clients searching for something more effective.</p>
+
+    <p class="s3-problem__body">Thankfully we found the answer.</p>
+
+  </div>
+</section>
+
+<style>
+  .s3-problem__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+  }
+
+  .s3-problem__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.6;
+  }
+</style>

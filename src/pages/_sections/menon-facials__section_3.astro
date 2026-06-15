@@ -1,0 +1,113 @@
+---
+// Section 3, Signature Facials repeater grid
+// 7 service cards linking to individual facial treatment pages
+import ServicesGrid from '@/components/ServicesGrid.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import RichText from '@/components/RichText.astro';
+
+import img1 from '@/assets/images/a2e5efb60e6b.jpeg';
+import img2 from '@/assets/images/39875cd4ea73.png';
+import img3 from '@/assets/images/2d2699eae2a5.jpeg';
+import img4 from '@/assets/images/444eec26c889.jpg';
+import img5 from '@/assets/images/6608c4cfc0e4.png';
+import img6 from '@/assets/images/853360c33f23.jpg';
+import img7 from '@/assets/images/3cc130d2907a.png';
+---
+
+<section class="section section--tint mf-s3">
+  <div class="container">
+    <div class="mf-s3__header">
+      <SectionHeading
+        text="Signature Facials"
+        tag="h2"
+        align="center"
+        font="display"
+      />
+      <RichText
+        html="<p>Choose from our five specialized facial treatments, each designed to target specific skin concerns and deliver immediate, visible results. Click to learn more.</p>"
+        font="var(--font-body)"
+        size="var(--text-sm)"
+      />
+    </div>
+  </div>
+
+  <ServicesGrid
+    columns={4}
+    items={[
+      {
+        title: "Dermaplaning Facial",
+        href: "/dermaplaning-facial",
+        image_src: img1.src,
+        image_alt: "Dermaplaning Facial at Menon Medispa",
+        cta_text: "Dermaplaning Facial",
+      },
+      {
+        title: "Manual Lymph Drainage",
+        href: "/manual-lymph-facials",
+        image_src: img2.src,
+        image_alt: "Manual Lymph Drainage Facial at Menon Medispa",
+        cta_text: "Manual Lymph Drainage",
+      },
+      {
+        title: "Cupping Facial",
+        href: "/cupping-facial",
+        image_src: img3.src,
+        image_alt: "Cupping Facial at Menon Medispa",
+        cta_text: "Cupping Facial",
+      },
+      {
+        title: "Chemical Peel Facial",
+        href: "/chemical-peel-facial",
+        image_src: img4.src,
+        image_alt: "Chemical Peel Facial at Menon Medispa",
+        cta_text: "Chemical Peel Facial",
+      },
+      {
+        title: "Vitamin C Facial",
+        href: "/vitamin-c-facial",
+        image_src: img5.src,
+        image_alt: "Vitamin C Facial at Menon Medispa",
+        cta_text: "Vitamin C Facial",
+      },
+      {
+        title: "Acne Facial",
+        href: "/acne-facial",
+        image_src: img6.src,
+        image_alt: "Acne Facial at Menon Medispa",
+        cta_text: "Acne Facial",
+      },
+      {
+        title: "Glass Facial",
+        href: "/glass-facial",
+        image_src: img7.src,
+        image_alt: "Glass Facial at Menon Medispa",
+        cta_text: "Glass Facial",
+      },
+    ]}
+  />
+</section>
+
+<style>
+  .mf-s3__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  /* ServicesGrid renders its own section wrapper, remove extra padding when nested */
+  .mf-s3 :global(.services-grid) {
+    padding: 0;
+  }
+
+  @media (max-width: 768px) {
+    .mf-s3__header {
+      margin-bottom: var(--space-md);
+    }
+  }
+</style>

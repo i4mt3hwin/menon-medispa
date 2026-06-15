@@ -1,0 +1,24 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import singleImg from '@/assets/images/02127013d183.jpg';
+import packageImg from '@/assets/images/34c4970766aa.jpg';
+---
+<ServiceBookingCta
+  heading={`Book Appointment`}
+  cards={[
+    {
+      image: singleImg,
+      imageAlt: `HydraFacial Keravive single treatment`,
+      title: `HydraFacial™ Keravive™`,
+      tagline: `Cleanse, exfoliate, nourish, and hydrate the scalp`,
+      price: `$500`,
+    },
+    {
+      image: packageImg,
+      imageAlt: `HydraFacial Keravive package`,
+      title: `HydraFacial™ Keravive™ Package`,
+      tagline: `3 HydraFacial™ Keravive™ Treatments`,
+      price: `$1,295`,
+    },
+  ]}
+/>

@@ -1,0 +1,150 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/juvedermfillers__section_1.astro';
+import Pricing from '@/pages/_sections/juvedermfillers__section_5.astro';
+import FinalCta from '@/pages/_sections/juvedermfillers__section_7.astro';
+
+import heroImg from '@/assets/images/8ec275b96db1.jpeg';
+
+const slug = 'juvedermfillers';
+const posts = getRelatedPosts(slug);
+
+// FAQ: section_6 questions exist but all answers are blank/placeholder — no faqItems rendered.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Expert Juvéderm Fillers in Millburn, NJ',
+  description:
+    'Our board-certified practitioners use FDA-approved Juvéderm fillers to restore volume, smooth wrinkles, and enhance your natural features. Natural-looking results that last up to 2 years.',
+  url: '/juvedermfillers',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Injectables',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Juvéderm Fillers', url: '/juvedermfillers' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Expert Juvéderm Fillers in Millburn NJ | Menon Medispa"
+  description="Our board-certified practitioners use FDA-approved Juvéderm fillers to restore volume, smooth wrinkles, and enhance your natural features. Natural-looking results that last up to 2 years."
+  canonical="https://www.menonmedispa.com/juvedermfillers"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="JUVÉDERM FILLERS · MILLBURN, NJ"
+    h1="Expert Juvéderm Fillers in Millburn, NJ"
+    subhead="FDA-approved fillers that restore volume, smooth wrinkles, and enhance your natural features, with natural-looking results that last up to 2 years."
+    image={heroImg}
+    imageAlt="Juvéderm filler treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $750"
+    note="Board-certified practitioners. Comprehensive consultation included."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Juvéderm Is The Gold Standard For Non-Surgical Facial Rejuvenation</h2>
+      <p class="svc-lead">Transform your appearance with the most trusted dermal filler, delivered by board-certified experts who prioritize natural-looking results and your safety above all else.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Immediate and Long-Lasting Results</h3>
+          <p>You'll see instant volume restoration and wrinkle reduction right after your treatment, with results that continue improving over 2 weeks as the filler integrates naturally. Juvéderm can last 12–24 months depending on the formula used, giving you exceptional value compared to other treatments that require frequent touch-ups.</p>
+        </li>
+        <li>
+          <h3>Natural-Looking Enhancement</h3>
+          <p>Juvéderm's smooth gel consistency blends seamlessly with your natural tissues to create subtle, beautiful results that enhance your features without looking overdone. Our expert injectors have an artistic eye for facial proportions and will customize your treatment to complement your unique bone structure and aesthetic goals.</p>
+        </li>
+        <li>
+          <h3>FDA-Approved Safety and Proven Track Record</h3>
+          <p>Juvéderm has been safely used in millions of treatments worldwide with an excellent safety profile. The hyaluronic acid formula is naturally compatible with your skin and can be reversed if needed. Our board-certified practitioners follow strict injection protocols to minimize risks and ensure optimal results.</p>
+        </li>
+        <li>
+          <h3>Versatile Treatment for Multiple Concerns</h3>
+          <p>Whether you want fuller lips, lifted cheeks, smoothed nasolabial folds, or enhanced jawline definition, Juvéderm offers specialized formulas for each area. We can address multiple aging concerns in one appointment, giving you a comprehensive facial rejuvenation that looks completely natural and balanced.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="svc-block">
+      <h2>What To Expect During Your Professional Juvéderm Treatment</h2>
+      <p class="svc-lead">Every step is designed for your comfort and optimal results. Here's exactly what happens during your treatment at our Millburn practice.</p>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Comprehensive Consultation &amp; Assessment (15–20 minutes)</h3>
+          <p>Your treatment begins with a detailed facial analysis where our board-certified practitioner evaluates your facial structure, discusses your goals, and creates a customized treatment plan. We'll explain which Juvéderm formulas are best for your specific needs and show you expected results.</p>
+        </li>
+        <li>
+          <h3>Preparation &amp; Numbing (10–15 minutes)</h3>
+          <p>The treatment areas are thoroughly cleansed and marked for precise injection placement. We apply topical numbing cream to ensure your comfort throughout the procedure. The injection sites are carefully planned to achieve natural-looking, balanced results.</p>
+        </li>
+        <li>
+          <h3>Precision Juvéderm Injection (20–30 minutes)</h3>
+          <p>Using advanced injection techniques, we carefully place the Juvéderm filler in precise locations to achieve your desired results. You'll feel only minimal discomfort due to the numbing cream and Juvéderm's built-in lidocaine. We massage and shape the filler to ensure smooth, even distribution.</p>
+        </li>
+        <li>
+          <h3>Post-Treatment Care &amp; Instructions (5–10 minutes)</h3>
+          <p>We provide detailed aftercare instructions and schedule your follow-up appointment. You'll receive ice packs to minimize any swelling and specific guidelines to optimize your healing and results. Most clients can return to normal activities immediately.</p>
+        </li>
+      </ul>
+
+      <div class="svc-accent">
+        <h3>Completely Comfortable &amp; Safe</h3>
+        <p>Most clients are surprised by how comfortable Juvéderm injections are. The combination of topical numbing and lidocaine in the filler itself minimizes discomfort. The entire process is quicker than most people expect.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'From $750' },
+          { label: 'Appointment', value: 'About 45 minutes' },
+          { label: 'Results', value: 'Immediate, lasting 12–24 months' },
+          { label: 'Performed by', value: 'Board-certified practitioners' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="juvedermfillers" />
+
+  <Pricing />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_1 (TrustBar), section_5 (Pricing), section_7 (FinalCta). Inlined: section_2 (why Juvederm features), section_4 (treatment process steps). FAQ lifted: section_6 questions-only, all answers blank — faqItems empty, FaqColumn omitted, flagged. Promo removed: section_8 (June SALES), replaced by SalePopup. Testimonial swapped: section_3 (hardcoded quote) replaced by <ServiceTestimonial slug="juvedermfillers" /> for provider-safe curated reviews. -->

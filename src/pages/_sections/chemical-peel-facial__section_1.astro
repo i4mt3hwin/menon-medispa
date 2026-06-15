@@ -1,0 +1,240 @@
+---
+import site from '@/lib/site';
+
+import heroBg from '@/assets/images/651c7c197b52.png';
+import heroImg from '@/assets/images/444eec26c889.jpg';
+import reviewIcon1 from '@/assets/images/90411e0041df.png';
+import reviewIcon2 from '@/assets/images/305afeda5f9a.png';
+import reviewIcon3 from '@/assets/images/b95880091b44.png';
+---
+
+<section class="media-bg section s1-hero cpf-s1-hero" style="--scrim-strength:0.60">
+  <img class="media-bg__img media-bg__img--blur" src={heroBg.src} alt="" aria-hidden="true"
+       loading="eager" decoding="async" width="1440" height="596" />
+  <span class="media-bg__scrim media-bg__scrim--l"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="cpf-s1__layout">
+
+      <div class="cpf-s1__text">
+        <h1 class="cpf-s1__heading">
+          Expert Chemical Peel Facials in Millburn NJ
+        </h1>
+
+        <h2 class="cpf-s1__subheading">
+          Reveal Fresh, Radiant Skin and Erase Years of Sun Damage in One Treatment
+        </h2>
+
+        <p class="cpf-s1__body">
+          Our professional chemical peels safely remove damaged skin layers to reveal smoother, brighter skin underneath. Perfect for reducing acne scars, fine lines, dark spots, and uneven skin tone with minimal downtime.
+        </p>
+
+        <div class="cpf-s1__ctas">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Your Chemical Peel Facial Today
+          </a>
+        </div>
+
+        <div class="cpf-s1__social-proof">
+          <div class="cpf-s1__social-icons">
+            <img
+              src={reviewIcon1.src}
+              alt="Review platform"
+              class="cpf-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="46"
+              height="50"
+            />
+            <img
+              src={reviewIcon2.src}
+              alt="Review platform"
+              class="cpf-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+            <img
+              src={reviewIcon3.src}
+              alt="Review platform"
+              class="cpf-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+          </div>
+          <div class="cpf-s1__stars-block">
+            <p class="cpf-s1__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <p class="cpf-s1__review-count">100+ 5 Star Reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpf-s1__img-col">
+        <img
+          src={heroImg.src}
+          alt="Chemical peel facial treatment at Menon Medispa Millburn NJ"
+          class="cpf-s1__hero-img"
+          loading="eager"
+          decoding="async"
+          width="465"
+          height="440"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .cpf-s1-hero {
+    min-height: 596px;
+  }
+
+  .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .cpf-s1__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .cpf-s1__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .cpf-s1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .cpf-s1__subheading {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .cpf-s1__body {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .cpf-s1__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .cpf-s1__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .cpf-s1__social-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .cpf-s1__social-icon {
+    display: block;
+    object-fit: contain;
+    filter: brightness(1.15);
+  }
+
+  .cpf-s1__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cpf-s1__stars {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .cpf-s1__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .cpf-s1__img-col {
+    flex-shrink: 0;
+    width: 465px;
+  }
+
+  .cpf-s1__hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.35);
+  }
+
+  @media (max-width: 1024px) {
+    .cpf-s1__img-col {
+      width: 360px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cpf-s1-hero {
+      min-height: auto;
+    }
+
+    .cpf-s1__layout {
+      flex-direction: column-reverse;
+    }
+
+    .cpf-s1__text {
+      max-width: 100%;
+    }
+
+    .cpf-s1__img-col {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .cpf-s1__ctas {
+      flex-direction: column;
+    }
+
+    .cpf-s1__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .cpf-s1__social-proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

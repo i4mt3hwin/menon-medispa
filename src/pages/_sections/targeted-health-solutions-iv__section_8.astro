@@ -1,0 +1,151 @@
+---
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<LeadForm placeholder="Looking for something?" />
+
+<section class="section s8-faq">
+  <div class="container container--narrow">
+
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+
+    <div class="s8-faq__list">
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">
+          <span class="s8-faq__question-text">Do I need a doctor's referral to receive these therapies?</span>
+          <span class="s8-faq__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="s8-faq__answer"></div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">
+          <span class="s8-faq__question-text">Can I receive these drips while undergoing other medical treatments?</span>
+          <span class="s8-faq__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="s8-faq__answer"></div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">
+          <span class="s8-faq__question-text">Who is a good candidate for these specialized drips?</span>
+          <span class="s8-faq__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="s8-faq__answer"></div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">
+          <span class="s8-faq__question-text">Why is IV therapy beneficial for chronic health conditions?</span>
+          <span class="s8-faq__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="s8-faq__answer"></div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">
+          <span class="s8-faq__question-text">Is this a cure for my condition?</span>
+          <span class="s8-faq__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="s8-faq__answer"></div>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .s8-faq__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s8-faq__item:first-of-type {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s8-faq__question {
+    cursor: pointer;
+    padding: var(--space-sm) 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .s8-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .s8-faq__question-text {
+    flex: 1;
+  }
+
+  .s8-faq__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+
+  .s8-faq__icon::before, .s8-faq__icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-cta);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .s8-faq__icon::before {
+    width: 14px;
+    height: 2px;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+  }
+
+  .s8-faq__icon::after {
+    width: 2px;
+    height: 14px;
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  details[open] .s8-faq__icon::after {
+    transform: translateX(-50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .s8-faq__answer {
+    padding: 0 0 var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .s8-faq__icon, .s8-faq__icon::before, .s8-faq__icon::after {
+      transition: none;
+    }
+  }
+</style>

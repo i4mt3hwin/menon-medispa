@@ -1,0 +1,135 @@
+---
+import ServicesGrid from '@/components/ServicesGrid.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import site from '@/lib/site';
+
+import vogueLogo from '@/assets/images/abe70978be24.jpg';
+import cosmoLogo from '@/assets/images/a907a2a5b193.jpg';
+import bazaarLogo from '@/assets/images/c1cefa7e9c95.jpg';
+import fortuneLogo from '@/assets/images/349d72d3c082.webp';
+
+import botoxImg from '@/assets/images/1f114dd47995.jpeg';
+import juvedermImg from '@/assets/images/8ec275b96db1.jpeg';
+import keraviveImg from '@/assets/images/02127013d183.jpg';
+---
+
+<!-- Featured In -->
+<section class="section section--tint sh3-featured-in">
+  <div class="container">
+    <h2 class="sh3-featured-in__heading">We Offer Treatments Featured In</h2>
+    <div class="sh3-featured-in__logos">
+      <img src={vogueLogo.src} alt="Vogue" loading="lazy" decoding="async" class="sh3-featured-in__logo" />
+      <img src={cosmoLogo.src} alt="Cosmopolitan" loading="lazy" decoding="async" class="sh3-featured-in__logo" />
+      <img src={bazaarLogo.src} alt="Harper's Bazaar" loading="lazy" decoding="async" class="sh3-featured-in__logo" />
+      <img src={fortuneLogo.src} alt="Fortune" loading="lazy" decoding="async" class="sh3-featured-in__logo" />
+    </div>
+  </div>
+</section>
+
+<!-- Our Popular Treatments -->
+<section class="section sh3-popular-treatments">
+  <div class="container">
+    <h2 class="sh3-popular-treatments__heading">Our Popular Treatments</h2>
+    <p class="sh3-popular-treatments__intro">Discover why discerning clients choose to make the quick 5-minute drive to our Millburn medispa for these top-rated services.</p>
+    <ServicesGrid columns={3}>
+      <ServiceCard
+        image_src={botoxImg.src}
+        image_alt="BOTOX® Injectables"
+        title="BOTOX® Injectables"
+        price="$14/unit"
+        cta_text="Book Now"
+        cta_href={site.calcomUrl}
+      />
+      <ServiceCard
+        image_src={juvedermImg.src}
+        image_alt="Juvéderm Fillers"
+        title="Juvéderm Fillers"
+        price="From $750"
+        cta_text="Book Now"
+        cta_href={site.calcomUrl}
+      />
+      <ServiceCard
+        image_src={keraviveImg.src}
+        image_alt="HydraFacial™ Keravive™"
+        title="HydraFacial™ Keravive™"
+        price="$500"
+        cta_text="Book Now"
+        cta_href={site.calcomUrl}
+      />
+    </ServicesGrid>
+  </div>
+</section>
+
+<!-- Premium Care, Minutes From Home -->
+<section class="section section--tight sh3-premium-care">
+  <div class="container">
+    <h2 class="sh3-premium-care__heading">Premium Care, Minutes From Home</h2>
+  </div>
+</section>
+
+<style>
+  /* Featured In */
+  .sh3-featured-in__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+  }
+
+  .sh3-featured-in__logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .sh3-featured-in__logo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(1);
+    opacity: 0.7;
+  }
+
+  /* Popular Treatments */
+  .sh3-popular-treatments__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+  }
+
+  .sh3-popular-treatments__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-md);
+    line-height: 1.6;
+  }
+
+  /* Premium Care */
+  .sh3-premium-care__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 768px) {
+    .sh3-featured-in__logo {
+      height: 36px;
+    }
+  }
+</style>

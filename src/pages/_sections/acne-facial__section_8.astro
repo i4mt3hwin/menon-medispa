@@ -1,0 +1,224 @@
+---
+import addon1Img from '@/assets/images/71fd4437d1c9.png';
+import addon2Img from '@/assets/images/a822a2b001cc.png';
+import addon3Img from '@/assets/images/4bc097ff8839.png';
+import addon4Img from '@/assets/images/129e4e075fac.png';
+import addon5Img from '@/assets/images/145f8747aa55.png';
+import addon6Img from '@/assets/images/016978cac38f.png';
+---
+
+<section class="section section--tint af-s8">
+  <div class="container">
+
+    <h2 class="af-s8__heading">Addons</h2>
+
+    <p class="af-s8__intro">
+      Enhance your acne facial results with these targeted add-ons designed to accelerate healing, boost hydration, and maximize skin clarity.
+    </p>
+
+    <div class="af-s8__grid">
+
+      <div class="af-s8__card">
+        <div class="af-s8__card-img-wrap">
+          <img
+            src={addon1Img.src}
+            alt="Customized Hydrogel Mask add-on at Menon Medispa"
+            class="af-s8__card-img"
+            loading="lazy"
+            decoding="async"
+            width="110"
+            height="110"
+          />
+        </div>
+        <div class="af-s8__card-body">
+          <h3 class="af-s8__card-title">Customized Hydrogel Mask</h3>
+          <p class="af-s8__card-price">$25</p>
+        </div>
+      </div>
+
+      <div class="af-s8__card">
+        <div class="af-s8__card-img-wrap">
+          <img
+            src={addon2Img.src}
+            alt="Eye Treatment add-on at Menon Medispa"
+            class="af-s8__card-img"
+            loading="lazy"
+            decoding="async"
+            width="110"
+            height="110"
+          />
+        </div>
+        <div class="af-s8__card-body">
+          <h3 class="af-s8__card-title">Eye Treatment</h3>
+          <p class="af-s8__card-price">$10</p>
+        </div>
+      </div>
+
+      <div class="af-s8__card">
+        <div class="af-s8__card-img-wrap">
+          <img
+            src={addon3Img.src}
+            alt="Manual Lymph Drainage add-on at Menon Medispa"
+            class="af-s8__card-img"
+            loading="lazy"
+            decoding="async"
+            width="110"
+            height="110"
+          />
+        </div>
+        <div class="af-s8__card-body">
+          <h3 class="af-s8__card-title">Manual Lymph Drainage</h3>
+          <p class="af-s8__card-price">$50</p>
+        </div>
+      </div>
+
+      <div class="af-s8__card">
+        <div class="af-s8__card-img-wrap">
+          <img
+            src={addon4Img.src}
+            alt="LED Light Therapy add-on at Menon Medispa"
+            class="af-s8__card-img"
+            loading="lazy"
+            decoding="async"
+            width="110"
+            height="110"
+          />
+        </div>
+        <div class="af-s8__card-body">
+          <h3 class="af-s8__card-title">LED Light Therapy</h3>
+          <p class="af-s8__card-price">$35</p>
+        </div>
+      </div>
+
+      <div class="af-s8__card">
+        <div class="af-s8__card-img-wrap">
+          <img
+            src={addon5Img.src}
+            alt="Hydrafacial Lip Perk add-on at Menon Medispa"
+            class="af-s8__card-img"
+            loading="lazy"
+            decoding="async"
+            width="110"
+            height="110"
+          />
+        </div>
+        <div class="af-s8__card-body">
+          <h3 class="af-s8__card-title">Hydrafacial Lip Perk</h3>
+          <p class="af-s8__card-price">$30</p>
+        </div>
+      </div>
+
+      <div class="af-s8__card">
+        <div class="af-s8__card-img-wrap">
+          <img
+            src={addon6Img.src}
+            alt="Hydrafacial Eye Perk add-on at Menon Medispa"
+            class="af-s8__card-img"
+            loading="lazy"
+            decoding="async"
+            width="110"
+            height="110"
+          />
+        </div>
+        <div class="af-s8__card-body">
+          <h3 class="af-s8__card-title">Hydrafacial Eye Perk</h3>
+          <p class="af-s8__card-price">$40</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .af-s8__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .af-s8__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.6;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    margin-bottom: var(--space-lg);
+  }
+
+  .af-s8__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .af-s8__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    text-align: center;
+  }
+
+  .af-s8__card-img-wrap {
+    width: 110px;
+    height: 110px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .af-s8__card-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .af-s8__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .af-s8__card-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .af-s8__card-price {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .af-s8__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .af-s8__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

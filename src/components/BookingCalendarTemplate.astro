@@ -1,16 +1,16 @@
 ---
 /**
- * BookingCalendarTemplate.astro — layout for /booking-calendar/[slug] pages.
+ * BookingCalendarTemplate.astro, layout for /booking-calendar/[slug] pages.
  * Replaces Wix Bookings with a Cal.com SchedulerEmbed (link variant until
  * real Cal.com event URLs are set in site.ts calcomUrl).
  *
  * Props:
- *   service_title  — display name of the service
- *   service_slug   — slug (used for cal.com event-type deep-link)
- *   category       — optional category badge
- *   description    — optional short description / tagLine
- *   duration_note  — e.g. "60 minutes"
- *   price_note     — e.g. "Starting at $150"
+ *   service_title, display name of the service
+ *   service_slug, slug (used for cal.com event-type deep-link)
+ *   category, optional category badge
+ *   description, optional short description / tagLine
+ *   duration_note, e.g. "60 minutes"
+ *   price_note, e.g. "Starting at $150"
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SchedulerEmbed from './SchedulerEmbed.astro';
@@ -146,8 +146,7 @@ const {
     margin: 4px 0;
     opacity: 0.8;
   }
-  .booking-page__phone,
-  .booking-page__contact-link {
+  .booking-page__phone, .booking-page__contact-link {
     color: var(--color-cta);
     font-weight: 600;
   }

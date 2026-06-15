@@ -1,0 +1,278 @@
+/* ============================================================================
+   base, .css, redesign layout system (loaded after tokens, .css + fonts, .css).
+   Adds the shared scaffolding the original build lacked: a real container, a
+   section rhythm, responsive type, one button system, and a reusable
+   media-background + overlay/blur treatment so text pops over photos.
+   Tokens/colors/fonts are unchanged, this only adds layout structure.
+   ============================================================================ */
+
+:root {
+  /* ── Layout ── */
+  --container-max: 1200px;     /* default content width */
+  --container-narrow: 760px;   /* article / prose width */
+  --container-wide: 1320px;    /* full-bleed-ish galleries */
+  --container-pad: 24px;       /* gutter */
+  --section-py: 84px;          /* vertical rhythm between sections */
+
+  /* ── Button scale ── */
+  --btn-py: 14px;
+  --btn-px: 28px;
+  --btn-fs: var(--text-sm);
+
+  /* ── Media overlay (fresh Refined scrim) ── */
+  --scrim-rgb: 30 24 41;       /* deep plum-charcoal */
+  --scrim-strength: 0.55;      /* default darken so light text pops */
+  --media-blur: 3px;           /* subtle background blur */
+
+  /* ── Review stars ── */
+  --color-star: #E6B450;       /* warm gold for ★ ratings */
+}
+
+/* Gold star rating, bigger + standout. Apply to a ★★★★★ element. */
+.stars {
+  color: var(--color-star);
+  font-size: 1.5em;
+  letter-spacing: 3px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* Responsive type, the captured scale is viewport-invariant and too large on
+   small screens. Scale the display sizes down at tablet/phone. */
+@media (max-width: 1024px) {
+  :root {
+    --text-display-xl: 48px;
+    --text-display: 40px;
+    --text-h1: 36px;
+    --text-hero: 32px;
+    --text-h2: 30px;
+    --text-h3: 26px;
+    --section-py: 60px;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --text-display-xl: 36px;
+    --text-display: 31px;
+    --text-h1: 29px;
+    --text-hero: 27px;
+    --text-h2: 25px;
+    --text-h3: 22px;
+    --text-subheading: 21px;
+    --text-lg: 19px;
+    --text-base: 18px;
+    --text-sm: 16px;
+    --section-py: 46px;
+    --container-pad: 18px;
+  }
+}
+
+/* ── Container ── */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+/* Narrow/wide are modifiers for .container but are also used standalone across
+   sections, make them self-centering so a bare `.container--narrow` still
+   centers (was pinning left without the .container base). */
+.container--narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+.container--wide {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ── Section rhythm ── */
+.section { padding-block: var(--section-py); }
+.section--tight { padding-block: calc(var(--section-py) * 0.62); }
+.section--tint  { background-color: rgb(196 164 132 / 0.07); }   /* warm sand */
+.section--mauve { background-color: var(--color-header-bg); color: #fff; }
+.section--dark  { background-color: var(--color-surface-dark); color: #fff; }
+
+/* ── Eyebrow / kicker ── */
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-xs);
+  opacity: 0.85;
+}
+
+/* ── Vertical stack helper ── */
+.stack > * + * { margin-top: var(--space-sm); }
+
+/* ============================================================================
+   Button system, single source of truth. Button, .astro and any inline
+   `<a class="btn btn--primary">` share this. Component-scoped .btn overrides
+   (e, .g. specials cards) still win locally by design.
+   ============================================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-cta);
+  font-weight: 600;
+  font-size: var(--btn-fs);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  padding: var(--btn-py) var(--btn-px);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, opacity 0.15s ease,
+              background-color 0.2s ease;
+}
+.btn:hover  { opacity: 0.92; }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--color-cta); outline-offset: 2px; }
+
+.btn--sm { --btn-py: 10px; --btn-px: 20px; --btn-fs: var(--text-xs); }
+.btn--lg { --btn-py: 16px; --btn-px: 40px; --btn-fs: var(--text-base); }
+.btn--block { display: flex; width: 100%; }
+
+.btn--primary {
+  background-color: var(--color-cta);
+  color: var(--color-text);
+  box-shadow: var(--shadow-btn);
+}
+.btn--secondary {
+  background-color: transparent;
+  color: currentColor;
+  border-color: var(--color-cta);
+}
+.btn--ghost {
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-inline: 0;
+}
+.btn--ghost:hover { text-decoration: none; opacity: 1; }
+
+/* On a dark/photo background, outline + text go light */
+.btn--on-dark.btn--secondary { border-color: rgba(255, 255, 255, 0.75); color: #fff; }
+
+/* ============================================================================
+   Media background + overlay treatment.
+   Layered pattern (preferred, supports blur of a real <img>, same image file):
+
+     <section class="media-bg">
+       <img class="media-bg__img media-bg__img--blur" src=… alt="" aria-hidden="true" />
+       <span class="media-bg__scrim media-bg__scrim--l"></span>
+       <div class="media-bg__inner container"> …content… </div>
+     </section>
+   ============================================================================ */
+.media-bg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.media-bg__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.media-bg__img--blur {
+  filter: blur(var(--media-blur));
+  transform: scale(1.06);   /* hides blurred edges */
+}
+.media-bg__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgb(var(--scrim-rgb) / var(--scrim-strength));
+}
+/* directional / branded variants */
+.media-bg__scrim--b {
+  background: linear-gradient(to top,
+    rgb(var(--scrim-rgb) / 0.82) 0%,
+    rgb(var(--scrim-rgb) / 0.32) 55%,
+    rgb(var(--scrim-rgb) / 0.05) 100%);
+}
+.media-bg__scrim--l {
+  background: linear-gradient(to right,
+    rgb(var(--scrim-rgb) / 0.78) 0%,
+    rgb(var(--scrim-rgb) / 0.45) 52%,
+    rgb(var(--scrim-rgb) / 0.12) 100%);
+}
+.media-bg__scrim--brand {
+  background: linear-gradient(160deg,
+    rgb(88 75 99 / 0.66) 0%,
+    rgb(48 36 50 / 0.58) 100%);
+}
+.media-bg__inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Pseudo-element scrim for sections that keep a CSS background-image (no blur).
+   Wrap content in `.u-scrim__content`. */
+.u-scrim { position: relative; isolation: isolate; }
+.u-scrim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgb(var(--scrim-rgb) / var(--scrim-strength));
+}
+.u-scrim__content { position: relative; z-index: 2; }
+
+/* Light text helper for content sitting on a scrim/photo */
+.on-media, .on-media :where(h1, h2, h3, h4, h5, h6, p, li, span, a) { color: #fff; }
+.on-media :where(p, li) { text-shadow: 0 1px 12px rgb(0 0 0 / 0.35); }
+/* The gold primary button keeps its dark text on photo backgrounds — white-on-gold reads low-contrast. */
+.on-media .btn--primary { color: var(--color-text); }
+
+/* ============================================================================
+   Scroll reveal, sections fade + rise as they enter the viewport.
+   The hidden state is gated on html.reveal-ready (added by an inline <head>
+   script), so if JS is disabled nothing is ever hidden (graceful + SEO-safe).
+   The hero is excluded (it has its own entrance). Honors reduced-motion.
+   ============================================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready :is(body > section:not(.hero), [data-reveal]) {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s cubic-bezier(0.2, 0.7, 0.2, 1),
+                transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: opacity, transform;
+  }
+  html.reveal-ready :is(body > section:not(.hero), [data-reveal]).is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  /* Optional stagger for direct children of a flagged container */
+  html.reveal-ready [data-reveal-children] > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+                transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  html.reveal-ready [data-reveal-children].is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+  html.reveal-ready [data-reveal-children].is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+  html.reveal-ready [data-reveal-children].is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+  html.reveal-ready [data-reveal-children].is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+  html.reveal-ready [data-reveal-children].is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+  html.reveal-ready [data-reveal-children].is-visible > *:nth-child(6) { transition-delay: 0.40s; }
+}

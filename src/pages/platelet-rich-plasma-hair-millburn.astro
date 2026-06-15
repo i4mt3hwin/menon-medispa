@@ -1,0 +1,200 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import SalePopup from '@/components/SalePopup.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Full-width experiential bands, kept verbatim from the original build
+import StatsBar   from '@/pages/_sections/platelet-rich-plasma-hair-millburn__section_2.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Process    from '@/pages/_sections/platelet-rich-plasma-hair-millburn__section_7.astro';
+import ServiceMenu from '@/pages/_sections/platelet-rich-plasma-hair-millburn__section_5.astro';
+import FinalCta   from '@/pages/_sections/platelet-rich-plasma-hair-millburn__section_9.astro';
+
+import heroImg        from '@/assets/images/61235f21d512.jpeg';
+import beforeAfterImg1 from '@/assets/images/b6de27df4c69.png';
+import beforeAfterImg2 from '@/assets/images/bcdc3a29fdee.png';
+
+const slug = 'platelet-rich-plasma-hair-millburn';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What Is PRP Hair Restoration?',
+    answer:
+      'Platelet-Rich Plasma for Hair (PRP) is an innovative treatment derived from a small sample of your own blood. After collection, your blood is processed in a centrifuge to concentrate the platelets, which contain powerful growth factors essential for tissue regeneration and healing. At Menon Medispa, under the direction of regenerative medicine specialist Dr. Aditi Menon, we precisely inject this concentrated PRP solution into targeted areas of your scalp, awakening dormant hair follicles and stimulating the natural growth cycle.',
+  },
+  {
+    question: 'Am I a Good Candidate for PRP Hair Restoration?',
+    answer:
+      'Most people experiencing hair thinning or loss are excellent candidates for PRP treatments. These procedures are particularly effective for early to moderate stages of pattern baldness, stress-related hair thinning, postpartum hair loss, and age-related hair thinning. Ideal candidates are in good overall health without blood clotting disorders or certain autoimmune conditions. A thorough consultation will help determine your suitability. We recommend scheduling a consultation with Dr. Menon to determine your specific condition and goals.',
+  },
+  {
+    question: 'What Results Can I Expect?',
+    answer:
+      'Following PRP hair restoration treatments, you can typically expect reduced hair shedding within 2–3 weeks, increased hair thickness and strength over 2–3 months, improved hair growth in previously thinning areas after 4–6 months, and enhanced overall hair quality and resilience. For optimal results, we generally recommend a series of 3 treatments spaced 4–6 weeks apart, followed by maintenance sessions every 6–12 months.',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'What Is PRP Hair Restoration?',
+    answer_html: `<p>Platelet-Rich Plasma for Hair (PRP) is an innovative treatment derived from a small sample of your own blood. After collection, your blood is processed in a centrifuge to concentrate the platelets, which contain powerful growth factors essential for tissue regeneration and healing.</p><p>At Menon Medispa, under the direction of regenerative medicine specialist Dr. Aditi Menon, we precisely inject this concentrated PRP solution into targeted areas of your scalp, awakening dormant hair follicles and stimulating the natural growth cycle.</p>`,
+  },
+  {
+    question: 'Am I a Good Candidate for PRP Hair Restoration?',
+    answer_html: `<p>Most people experiencing hair thinning or loss are excellent candidates for PRP treatments. These procedures are particularly effective for:</p><ul><li>Early to moderate stages of pattern baldness</li><li>Stress-related hair thinning</li><li>Postpartum hair loss</li><li>Age-related hair thinning</li></ul><p>Ideal candidates are in good overall health without blood clotting disorders or certain autoimmune conditions. A thorough consultation will help determine your suitability.</p><p>We recommend scheduling a consultation with Dr. Menon to determine your specific condition and goals.</p>`,
+  },
+  {
+    question: 'What Results Can I Expect?',
+    answer_html: `<p>Following PRP hair restoration treatments, you can typically expect:</p><ul><li>Reduced hair shedding within 2–3 weeks</li><li>Increased hair thickness and strength over 2–3 months</li><li>Improved hair growth in previously thinning areas after 4–6 months</li><li>Enhanced overall hair quality and resilience</li></ul><p>For optimal results, we generally recommend a series of 3 treatments spaced 4–6 weeks apart, followed by maintenance sessions every 6–12 months.</p>`,
+  },
+];
+
+const jsonld = buildServiceSchema({
+  name: 'Platelet-Rich Plasma Hair Restoration in Millburn, NJ',
+  description:
+    'Restore thinning hair naturally with PRP treatments in Millburn, NJ. Menon Medispa uses your body\'s own growth factors to stimulate hair regrowth without surgery.',
+  url: '/platelet-rich-plasma-hair-millburn',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Hair Restoration',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Hair', url: '/hair' },
+    { name: 'PRP Hair Restoration', url: '/platelet-rich-plasma-hair-millburn' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Platelet-Rich Plasma For Hair | Millburn, NJ"
+  description="Restore thinning hair naturally with PRP treatments in Millburn, NJ. Menon Medispa uses your body's own growth factors to stimulate hair regrowth without surgery."
+  canonical="https://www.menonmedispa.com/platelet-rich-plasma-hair-millburn"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="PRP HAIR RESTORATION · MILLBURN, NJ"
+    h1="Thicker, Fuller Hair with PRP Hair Restoration in Millburn, NJ"
+    subhead="A natural, non-surgical approach that uses your body's own growth factors to restore thinning hair."
+    image={heroImg}
+    imageAlt="PRP hair restoration treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $800 per session"
+    note="Performed under the direction of Dr. Aditi Menon, MD."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <StatsBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>The Challenge of Hair Loss and Thinning</h2>
+      <p class="svc-lead">Hair loss is a naturally occurring issue that affects millions of people, often striking earlier and more profoundly than expected. For many, it's not just a cosmetic concern, it's an emotional one.</p>
+
+      <p class="svc-eyebrow">Physical Impact</p>
+      <ul class="svc-checks">
+        <li>Changes in the visible shape of the head and hairline</li>
+        <li>Scalp sensitivity and exposure</li>
+        <li>Increased risk of sunburn on the scalp</li>
+      </ul>
+
+      <p class="svc-eyebrow">Emotional Toll</p>
+      <ul class="svc-checks">
+        <li>Frustration from trying treatments that don't deliver</li>
+        <li>Decreased confidence and self-esteem</li>
+        <li>The effort of concealing or compensating for hair loss</li>
+      </ul>
+
+      <div class="svc-accent">
+        <h3>Did You Know?</h3>
+        <p>For many experiencing hair loss, simply finding the right treatment can be more challenging than the hair loss itself. The market is flooded with products that overpromise and underdeliver. PRP therapy offers a scientifically-backed solution that works with your body, not against it.</p>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h2>The Platelet-Rich Plasma Hair Restoration Solution</h2>
+      <p class="svc-lead">PRP Hair Restoration is a cutting-edge, non-surgical treatment that uses the regenerative power of your own blood to stimulate natural hair growth and combat thinning.</p>
+
+      <ul class="svc-checks">
+        <li>Derived from your own blood, no foreign substances</li>
+        <li>Targets the root cause of hair loss at the follicle level</li>
+        <li>Stimulates dormant follicles to re-enter the growth phase</li>
+      </ul>
+
+      <figure>
+        <img src={beforeAfterImg1.src} alt="Before and after men hair restoration at Menon Medispa" width="336" height="334" loading="lazy" decoding="async" />
+      </figure>
+      <figure>
+        <img src={beforeAfterImg2.src} alt="Before and after men hair restoration results at Menon Medispa" width="330" height="334" loading="lazy" decoding="async" />
+      </figure>
+
+      <p class="svc-eyebrow">How It Works</p>
+      <p>The process begins with a simple blood draw. Your blood is then placed in a centrifuge, which spins it at high speed to separate and concentrate the platelets. This platelet-rich plasma is packed with growth factors that, when injected into the scalp, trigger natural hair regrowth.</p>
+      <p>At Menon Medispa, this treatment is performed under the direction of Dr. Aditi Menon, a regenerative medicine specialist who ensures precision and care in every session.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Non-Surgical</h3>
+          <p>No incisions, no downtime, a natural treatment using your own biology</p>
+        </li>
+        <li>
+          <h3>Targeted Results</h3>
+          <p>PRP is injected precisely into thinning areas of the scalp to maximize regrowth</p>
+        </li>
+        <li>
+          <h3>Proven Approach</h3>
+          <p>Growth factors from your own platelets awaken dormant follicles safely</p>
+        </li>
+        <li>
+          <h3>Expert Care</h3>
+          <p>Performed under the direction of Dr. Aditi Menon, regenerative medicine specialist</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$800 per session' },
+          { label: 'Appointment', value: 'About 60–90 minutes' },
+          { label: 'Results', value: 'Reduced shedding in 2–3 weeks' },
+          { label: 'Series', value: '3 sessions, 4–6 weeks apart' },
+          { label: 'Performed by', value: 'Dr. Aditi Menon, MD' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="platelet-rich-plasma-hair-millburn" />
+
+  <Process />
+
+  <ServiceMenu />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/5/6/7/9 reused verbatim. FAQ (section_8) lifted into main column as FaqColumn. Prose from sections 3/4 lifted into main column svc-blocks. -->

@@ -1,6 +1,6 @@
 ---
-// Phase 3 Pass 1 — FeatureList.astro
-// Styled <ul> with icon bullets. Renders ALL items — zero summarization.
+// Phase 3 Pass 1, FeatureList.astro
+// Styled <ul> with icon bullets. Renders ALL items, zero summarization.
 // items: string[] | {text:string}[] | {title:string,body?:string}[]
 
 type FeatureItem = string | { text?: string; title?: string; body?: string };
@@ -34,7 +34,7 @@ const bulletChar = iconChar[icon] ?? '✓';
 // Normalise each item to an HTML string
 function itemToHtml(item: FeatureItem): string {
   if (typeof item === 'string') return item;
-  if (item.title && item.body) return `<strong>${item.title}</strong> — ${item.body}`;
+  if (item.title && item.body) return `<strong>${item.title}</strong>, ${item.body}`;
   if (item.title) return item.title;
   if (item.text) return item.text;
   return '';
@@ -97,7 +97,8 @@ function itemToHtml(item: FeatureItem): string {
     flex: 1;
   }
 
-  @media (max-width: 980px) {
+  /* Tablet + phone: collapse 2-col to 1 */
+  @media (max-width: 600px) {
     .feature-list--cols-2 {
       grid-template-columns: 1fr;
     }

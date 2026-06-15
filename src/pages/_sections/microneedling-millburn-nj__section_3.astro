@@ -1,0 +1,112 @@
+---
+{/* BREAKDANCE: hand-authored from structure.json */}
+import site from '@/lib/site';
+---
+
+<section class="section section--tint s3-why">
+  <div class="container">
+
+    <h2 class="s3-why__heading">Why Microneedling Works When Other Treatments Haven't</h2>
+
+    <div class="s3-why__cards">
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Precision Technology</h3>
+        <p class="s3-why__card-body">The SkinPen creates micro-channels at precise depths to target your specific skin concerns, from acne scars to fine lines.</p>
+      </div>
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Natural Healing Response</h3>
+        <p class="s3-why__card-body">By triggering the skin's natural healing response, microneedling stimulates collagen and elastin production for results that improve over time.</p>
+      </div>
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Universal Compatibility</h3>
+        <p class="s3-why__card-body">Unlike laser treatments, microneedling is safe for all skin types and tones with no risk of hyperpigmentation.</p>
+      </div>
+
+    </div>
+
+    <div class="s3-why__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s3-why__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+  }
+
+  .s3-why__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .s3-why__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s3-why__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-why__card-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s3-why__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .s3-why__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s3-why__cards {
+      grid-template-columns: 1fr;
+    }
+
+    .s3-why__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

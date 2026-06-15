@@ -1,0 +1,95 @@
+---
+import bgImg from '@/assets/images/30cfb9e87c60.png';
+import googleBadge from '@/assets/images/5be44787b3a9.png';
+---
+
+<section class="media-bg section s4-testimonial hair-testimonial" style="--scrim-strength:0.58">
+  <img class="media-bg__img media-bg__img--blur" src={bgImg.src} alt="" aria-hidden="true"
+       loading="lazy" decoding="async" width="1440" height="585" />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="hair-testimonial__inner">
+
+      <h3 class="hair-testimonial__label">What Our Clients Say</h3>
+
+      <blockquote class="hair-testimonial__quote">
+        <p class="hair-testimonial__quote-text">
+          &ldquo;Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.&rdquo;
+        </p>
+        <footer class="hair-testimonial__attribution">
+          <span class="hair-testimonial__author">Alexa C.</span>
+        </footer>
+      </blockquote>
+
+      <div class="hair-testimonial__badge">
+        <img
+          src={googleBadge.src}
+          alt="5-star Google rating"
+          class="hair-testimonial__badge-img"
+          loading="lazy"
+          decoding="async"
+          width="143"
+          height="74"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .hair-testimonial__inner {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .hair-testimonial__label {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .hair-testimonial__quote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .hair-testimonial__quote-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-style: italic;
+    margin: 0 0 var(--space-sm);
+    line-height: 1.7;
+  }
+
+  .hair-testimonial__attribution {
+    font-style: normal;
+  }
+
+  .hair-testimonial__author {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    font-style: normal;
+  }
+
+  .hair-testimonial__badge {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hair-testimonial__badge-img {
+    display: block;
+    width: 143px;
+    height: auto;
+    object-fit: contain;
+  }
+</style>

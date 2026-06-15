@@ -1,0 +1,133 @@
+---
+---
+
+<!-- Section 4: Why choose us (trust / value props) -->
+<section class="section con-why">
+  <div class="container">
+
+    <div class="con-why__head">
+      <p class="eyebrow">Why Menon Medispa</p>
+      <h2 class="con-why__heading">Expert Care, Built Around You</h2>
+      <p class="con-why__intro">
+        A consultation here isn&rsquo;t a sales pitch. It&rsquo;s a thoughtful, medically-informed plan
+        from a team that treats your skin like its own.
+      </p>
+    </div>
+
+    <div class="con-why__grid">
+
+      <div class="con-why__card">
+        <span class="con-why__icon" aria-hidden="true">&#128270;</span>
+        <h3 class="con-why__card-title">Expert Assessment</h3>
+        <p class="con-why__card-body">
+          Licensed professionals analyze your skin type, concerns, and goals to build a treatment
+          roadmap that&rsquo;s genuinely yours.
+        </p>
+      </div>
+
+      <div class="con-why__card">
+        <span class="con-why__icon" aria-hidden="true">&#10024;</span>
+        <h3 class="con-why__card-title">Customized Treatment Plans</h3>
+        <p class="con-why__card-body">
+          No two skins are alike. Your plan is tailored to your needs and desired outcomes, never a
+          one-size-fits-all package.
+        </p>
+      </div>
+
+      <div class="con-why__card">
+        <span class="con-why__icon" aria-hidden="true">&#129516;</span>
+        <h3 class="con-why__card-title">Advanced Technology</h3>
+        <p class="con-why__card-body">
+          We pair medical-grade technology with evidence-based treatments to deliver exceptional,
+          lasting results for every skin type.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .con-why .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .con-why__head {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .con-why__head .eyebrow { margin: 0; color: var(--color-cta); }
+
+  .con-why__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .con-why__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .con-why__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .con-why__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-lg);
+    background: rgba(196, 164, 132, 0.07);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .con-why__icon {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .con-why__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: var(--space-xs) 0 0;
+    line-height: 1.25;
+  }
+
+  .con-why__card-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 900px) {
+    .con-why__grid {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+  }
+</style>

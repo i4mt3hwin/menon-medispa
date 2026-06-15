@@ -1,0 +1,115 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+const faqs = [
+  {
+    question: 'Does facial cupping hurt or leave marks?',
+    answer_html: '',
+  },
+  {
+    question: 'How often should I get cupping facials for best results?',
+    answer_html: '',
+  },
+  {
+    question: 'Will I see results right away or does it take multiple treatments?',
+    answer_html: '',
+  },
+  {
+    question: "Who shouldn't get facial cupping?",
+    answer_html: '',
+  },
+  {
+    question: 'How is this different from regular facial massage?',
+    answer_html: '',
+  },
+];
+---
+
+<!-- Section 8: FAQ with search prompt -->
+<section class="section s8-faq">
+  <div class="container--narrow s8-faq__inner">
+
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+
+    <div class="s8-faq__search">
+      <LeadForm
+        heading=""
+        fields={['message']}
+        submit_label="Search"
+      />
+    </div>
+
+    <FaqAccordion items={faqs} />
+
+  </div>
+</section>
+
+<style>
+  .s8-faq__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .s8-faq__search {
+    max-width: 560px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Strip default lead-form padding, inline here as a search widget */
+  .s8-faq__search :global(.lead-form) {
+    padding: 0;
+  }
+
+  .s8-faq__search :global(.lead-form h2) {
+    display: none;
+  }
+
+  .s8-faq__search :global(.lead-form__form) {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: var(--space-xs);
+    max-width: 100%;
+  }
+
+  .s8-faq__search :global(.lead-form__field) {
+    flex: 1;
+  }
+
+  .s8-faq__search :global(.lead-form__field textarea) {
+    resize: none;
+    min-height: 44px;
+    height: 44px;
+  }
+
+  /* Remove the FAQ component's own heading since we render ours above */
+  .s8-faq :global(.faq-accordion) {
+    padding: 0;
+  }
+
+  @media (max-width: 768px) {
+    .s8-faq__heading {
+      font-size: var(--text-h3);
+    }
+
+    .s8-faq__search :global(.lead-form__form) {
+      flex-direction: column;
+    }
+  }
+</style>

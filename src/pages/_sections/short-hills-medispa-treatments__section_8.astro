@@ -1,0 +1,61 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<section class="section sh8-faq">
+  <div class="container--narrow sh8-faq__inner">
+
+    <h2 class="sh8-faq__heading">Frequently asked questions</h2>
+
+    <FaqAccordion
+      items={[
+        {
+          question: "What services does Menon Medispa in Millburn, NJ offer?",
+          answer: ""
+        },
+        {
+          question: "What areas do you serve from your Millburn, New Jersey location?",
+          answer: ""
+        },
+        {
+          question: "How do I schedule an appointment at Menon Medispa?",
+          answer: ""
+        },
+        {
+          question: "What makes Menon Medispa different from other medispas?",
+          answer: ""
+        },
+        {
+          question: "What should I expect during my first visit to Menon Medispa?",
+          answer: ""
+        }
+      ]}
+    />
+
+    <!-- Wix form replaced with LeadForm per project rules -->
+    <LeadForm
+      heading="Have a Question?"
+      subheading="Send us a message and we'll get back to you."
+    />
+
+  </div>
+</section>
+
+<style>
+  .sh8-faq__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .sh8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    line-height: 1.3;
+  }
+</style>

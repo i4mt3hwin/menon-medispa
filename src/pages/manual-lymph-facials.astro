@@ -1,0 +1,128 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/manual-lymph-facials__section_2.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Process from '@/pages/_sections/manual-lymph-facials__section_5.astro';
+import ServiceCard from '@/pages/_sections/manual-lymph-facials__section_6.astro';
+import AddOns from '@/pages/_sections/manual-lymph-facials__section_7.astro';
+import FinalCta from '@/pages/_sections/manual-lymph-facials__section_9.astro';
+
+import heroImg from '@/assets/images/39875cd4ea73.png';
+
+const slug = 'manual-lymph-facials';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers in the original section_8 are blank placeholders — omitted per guardrail.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Manual Lymph Drainage Facials in Millburn, NJ',
+  description:
+    'Gentle manual lymph drainage facials in Millburn NJ. Reduce puffiness, sculpt contours, and reveal your natural glow. Book at Menon Medispa.',
+  url: '/manual-lymph-facials',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Manual Lymph Facials', url: '/manual-lymph-facials' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Expert Manual Lymph Drainage Facials in Millburn NJ | Menon Medispa"
+  description="Gentle manual lymph drainage facials in Millburn NJ. Reduce puffiness, sculpt contours, and reveal your natural glow. Book at Menon Medispa."
+  canonical="https://www.menonmedispa.com/manual-lymph-facials"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="MANUAL LYMPH DRAINAGE · MILLBURN, NJ"
+    h1="Expert Manual Lymph Drainage Facials in Millburn, NJ"
+    subhead="Reduce facial puffiness and reveal your natural glow in just one treatment, with a gentle, painless technique."
+    image={heroImg}
+    imageAlt="Manual lymph drainage facial treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $155"
+    note="Complimentary consultation to match you to the right treatment."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Manual Lymph Drainage Transforms Your Skin From The Inside Out</h2>
+
+      <p class="svc-lead">Our gentle manual lymph drainage technique helps eliminate toxins, reduces under-eye bags, and sculpts your facial contours naturally. Perfect for anyone dealing with morning puffiness, dull skin, or wanting a non-surgical way to look more refreshed and defined.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Immediate Visible Results</h3>
+          <p>You'll notice reduced puffiness and a more sculpted jawline right after your treatment. Most clients see their under-eye bags diminish by 40-50% and experience an instant glow that lasts for days. The gentle pressure helps move stagnant fluid, revealing the defined facial structure hiding underneath.</p>
+        </li>
+        <li>
+          <h3>Long-Term Skin Health Benefits</h3>
+          <p>Regular lymph drainage sessions train your lymphatic system to work more efficiently on its own. After 3–4 treatments spaced 2 weeks apart, many clients notice their morning puffiness is dramatically reduced even on days between treatments. Your skin tone becomes more even and firm.</p>
+        </li>
+        <li>
+          <h3>Natural Detoxification Process</h3>
+          <p>This treatment works with your body's lymphatic system to naturally eliminate waste and toxins that make your skin look dull and puffy. By improving lymphatic circulation, your skin gets better nutrients and oxygen delivery, which means healthier, more radiant skin that glows from within.</p>
+        </li>
+        <li>
+          <h3>Perfect Recovery Treatment</h3>
+          <p>Whether you're dealing with sinus congestion, recovering from dental work, or had cosmetic procedures, lymph drainage speeds healing and reduces swelling. It's gentle enough to use during recovery periods when other treatments would be too harsh for your sensitive skin.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$155' },
+          { label: 'Appointment', value: '60 minutes' },
+          { label: 'Results', value: 'Visible immediately' },
+          { label: 'Downtime', value: 'None' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="manual-lymph-facials" />
+
+  <Process />
+
+  <ServiceCard />
+
+  <AddOns />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/5/6/7/9 kept verbatim; section_3 why-cards re-flowed into svc-features; section_4 testimonial swapped to <ServiceTestimonial slug="manual-lymph-facials" /> (provider-safe curated reviews); section_8 FAQ omitted (all answers blank/placeholder); section_10 June SALES promo removed (replaced by SalePopup). -->

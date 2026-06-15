@@ -1,0 +1,79 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import packageImg from '@/assets/images/c28a6e6b3030.jpg';
+---
+<ServiceBookingCta
+  heading={`Laser Hair Removal Packages`}
+  cards={[
+    {
+      image: packageImg,
+      imageAlt: `6 Laser Hair Removal Treatment Package at Menon Medispa`,
+      title: `6 Laser Hair Removal Treatment Package`,
+      tagline: `6 Sessions, choose from Small, Medium, Large & Extra Large Area`,
+      price: `From $200`,
+    },
+  ]}
+/>
+
+<section class="section section--tint lhr-s8-pricetable">
+  <div class="container">
+    <PriceTable
+      heading="Laser Hair Removal Packages"
+      sections={[
+        {
+          title: "6-Session Packages",
+          items: [
+            { name: "Small Area, 6 Sessions", price: "From $200", description: "Upper lip, chin, sideburns, or similar small zones" },
+            { name: "Medium Area, 6 Sessions", price: "From $350", description: "Underarms, bikini line, lower face, or similar medium zones" },
+            { name: "Large Area, 6 Sessions", price: "From $500", description: "Full legs, back, chest, or similar large zones" },
+            { name: "Extra Large Area, 6 Sessions", price: "From $700", description: "Full body or extra-large combined zones" },
+          ],
+        },
+        {
+          title: "Individual Treatments",
+          items: [
+            { name: "Small Area, Single Session", price: "From $75" },
+            { name: "Medium Area, Single Session", price: "From $125" },
+            { name: "Large Area, Single Session", price: "From $175" },
+            { name: "Extra Large Area, Single Session", price: "From $225" },
+          ],
+        },
+      ]}
+    />
+
+    <div class="lhr-s8__note">
+      <p class="lhr-s8__note-text">Pricing varies by treatment area and individual assessment. Call <a href="tel:9734948431">(973) 494-8431</a> for a personalized quote or schedule a complimentary consultation.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lhr-s8-pricetable .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  /* Collapse PriceTable's own padding */
+  .lhr-s8-pricetable :global(.price-table) {
+    padding: 0;
+  }
+
+  .lhr-s8__note {
+    text-align: center;
+    opacity: 0.75;
+  }
+
+  .lhr-s8__note-text {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .lhr-s8__note-text a {
+    color: inherit;
+  }
+</style>

@@ -1,0 +1,117 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section section--tint s4-process">
+  <div class="container">
+
+    <div class="s4-process__intro">
+      <h2 class="s4-process__heading">What to Expect During Your NAD+ Injection</h2>
+      <p class="s4-process__body">Your appointment is fast, easy, and designed to fit seamlessly into your schedule. Here's how it works at our Millburn spa.</p>
+    </div>
+
+    <div class="s4-process__steps">
+
+      <div class="s4-process__step">
+        <h3 class="s4-process__step-title">Step 1: Brief Consultation (2-3 minutes)</h3>
+        <p class="s4-process__step-body">Your provider will check in with you about your wellness goals and answer any questions. If it's your first NAD+ Injection, we'll explain exactly what to expect.</p>
+      </div>
+
+      <div class="s4-process__step">
+        <h3 class="s4-process__step-title">Step 2: Quick Injection (1-2 minutes)</h3>
+        <p class="s4-process__step-body">The injection itself takes just a minute or two. Most clients describe it as a small pinch. No IV lines, no lengthy sessions. Just a simple shot.</p>
+      </div>
+
+      <div class="s4-process__step">
+        <h3 class="s4-process__step-title">Step 3: Get Back to Your Day</h3>
+        <p class="s4-process__step-body">There's no downtime and no recovery needed. You can return to work, errands, or your daily routine right away. Many clients start noticing more energy and mental clarity within hours.</p>
+      </div>
+
+    </div>
+
+    <div class="s4-process__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s4-process__intro {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .s4-process__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s4-process__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s4-process__steps {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .s4-process__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .s4-process__step-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .s4-process__step-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s4-process__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 600px) {
+    .s4-process__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

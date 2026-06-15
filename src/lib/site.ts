@@ -1,5 +1,5 @@
 /**
- * site.ts — single source of truth for business constants (NAP, hours, social).
+ * site.ts, single source of truth for business constants (NAP, hours, social).
  *
  * Seeded in P03 from 02-research/business-metadata.md (which itself is drawn
  * ONLY from captured artifacts: Tier-A wix-api/business-info.json + the
@@ -7,7 +7,7 @@
  *
  * Consumed by BaseLayout.astro (meta + JSON-LD), Footer, Contact, schema, etc.
  *
- * ⚠️ UNRESOLVED CONFLICTS FROM P02 — flagged, NOT silently resolved. See the
+ * ⚠️ UNRESOLVED CONFLICTS FROM P02, flagged, NOT silently resolved. See the
  * `phone` and `geo` fields below. The operator must confirm the canonical phone
  * line and geo before go-live. The VISIBLE/display defaults follow the Path-2
  * rule: keep exactly what the original site displays to users.
@@ -20,14 +20,14 @@ export const site = {
   // Short display name (Wix siteDisplayName).
   displayName: 'Menon Medispa',
   // Affiliated name that appears on some contact/sales lines + Bookings location.
-  // Informational only — do NOT treat as a NAP error; keep visible text verbatim.
+  // Informational only, do NOT treat as a NAP error; keep visible text verbatim.
   affiliatedName: 'Menon Regenerative Institute',
 
   /* --- URLs --- */
   url: 'https://www.menonmedispa.com', // current production (Wix). Update at P06 cutover.
   schemaId: 'https://www.menonmedispa.com/#localbusiness', // keep stable @id from original
 
-  /* --- Address (consistent across all sources — no conflict) --- */
+  /* --- Address (consistent across all sources, no conflict) --- */
   address: {
     street: '45 Essex St, Suite 202', // visible footer form (schema abbreviated as "STE 202")
     locality: 'Millburn',
@@ -37,7 +37,7 @@ export const site = {
     formatted: '45 Essex St, Suite 202, Millburn, NJ 07041',
   },
 
-  /* --- Phone — RESOLVED by operator (2026-06-02). Canonical = (973) 494-8431. ---
+  /* --- Phone, RESOLVED by operator (2026-06-02). Canonical = (973) 494-8431. ---
      The capture found 3 numbers (visible 358-5771, Wix/Ads 382-5002, on-page-schema
      494-8431); the operator confirmed 494-8431 as the one true line and directed the
      other two be removed everywhere. This is an authorized deviation from pure
@@ -57,18 +57,18 @@ export const site = {
   /* --- Hours (from original on-page OpeningHoursSpecification; profile had none) --- */
   hours: [
     { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '18:00' },
-    { days: ['Saturday'], opens: '10:00', closes: '14:00' },
+    { days: ['Saturday'], opens: '10:00', closes: '16:00' },
     // Sunday: closed (not listed in original schema).
   ],
 
-  /* --- Geo — ⚠️ minor conflict (~250m). Default = on-page schema (what site shipped). ---
+  /* --- Geo, ⚠️ minor conflict (~250m). Default = on-page schema (what site shipped). ---
      Wix profile alt: { lat: 40.7255347, lng: -74.3040754 }. TODO(operator): confirm. */
   geo: {
     lat: 40.7244443,
     lng: -74.3069069,
   },
 
-  /* --- Social (sameAs) — from on-page schema + footer, consistent --- */
+  /* --- Social (sameAs), from on-page schema + footer, consistent --- */
   social: {
     instagram: 'https://www.instagram.com/menonmedispa/',
     facebook: 'https://www.facebook.com/menonmedispa/',
@@ -99,7 +99,7 @@ export const site = {
   currency: 'USD',
   wixSiteId: '726ff7e6-f929-4c22-a4c9-5c64aa5b9473',
 
-  /* --- Scheduling (Cal.com external embed — replaces Wix Bookings) ---
+  /* --- Scheduling (Cal.com external embed, replaces Wix Bookings) ---
      ⚠️ PLACEHOLDER. Operator deferred the real Cal.com event-type URLs (2026-06-02).
      Swap this ONE constant pre-go-live; every "Book"/"Schedule" CTA + the
      BookingCalendarTemplate read from it. Do NOT mistake this for a live URL. */
@@ -114,7 +114,7 @@ export const site = {
   /* --- Integrations (analytics carry-over + chat) --- */
   integrations: {
     /* Analytics / tracking carried over verbatim per operator decision (2026-06-02).
-       GA4 measurement ID unconfirmed at build — left null so no fake ID ships;
+       GA4 measurement ID unconfirmed at build, left null so no fake ID ships;
        operator pastes it pre-go-live. The others have confirmed captured IDs.
        ProveSrc / Omnisend / Sentry / the obfuscated 159358-domain pre-WhatConverts
        tracker are intentionally NOT here (operator-decide → left out / flagged). */
@@ -144,7 +144,7 @@ export type Site = typeof site;
 export default site;
 
 /**
- * NAV — primary navigation (verbatim labels + local hrefs), used by the chat
+ * NAV, primary navigation (verbatim labels + local hrefs), used by the chat
  * assistant's services branch and any nav consumer. Mirrors SiteHeader.astro.
  */
 export const NAV = {

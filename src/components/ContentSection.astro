@@ -40,7 +40,10 @@ const headingSize =
       ? 'var(--text-h2)'
       : 'var(--text-h3)';
 
-// Build inline background style — always add a fallback color so a 404 image
+// Does this section have a background image requiring scrim treatment?
+const hasBgImage = Boolean(bg_image_url);
+
+// Build inline background style, always add a fallback color so a 404 image
 // degrades to a warm brand tint rather than a pure black void.
 const bgStyle = bg_image_url
   ? `background-color: var(--color-header-bg); background-image: url('${bg_image_url}'); background-size: cover; background-position: center;`
@@ -50,74 +53,85 @@ const bgStyle = bg_image_url
 ---
 
 <section
-  class={`content-section content-section--image-${image_position} content-section--pad-${padding}`}
+  class:list={[
+    'content-section',
+    `content-section--image-${image_position}`,
+    `content-section--pad-${padding}`,
+    hasBgImage ? 'u-scrim' : '',
+  ]}
   style={bgStyle || undefined}
 >
-  {/* Text column */}
-  <div class="content-section__text">
-    {heading && (
-      <Tag
-        class="content-section__heading"
-        style={`font-family: ${headingFont}; font-size: ${headingSize};`}
-      >
-        {heading}
-      </Tag>
-    )}
+  <div class:list={['content-section__inner', 'container', hasBgImage ? 'u-scrim__content' : '']}>
+    {/* Text column */}
+    <div class="content-section__text">
+      {heading && (
+        <Tag
+          class="content-section__heading"
+          style={`font-family: ${headingFont}; font-size: ${headingSize};`}
+        >
+          {heading}
+        </Tag>
+      )}
 
-    {body_html && (
-      <div class="content-section__body" set:html={body_html} />
-    )}
+      {body_html && (
+        <div class="content-section__body" set:html={body_html} />
+      )}
 
-    {body_paragraphs.length > 0 && body_paragraphs.map((p) => (
-      <p class="content-section__para">{p}</p>
-    ))}
+      {body_paragraphs.length > 0 && body_paragraphs.map((p) => (
+        <p class="content-section__para">{p}</p>
+      ))}
 
-    {ctas.length > 0 && (
-      <div class="content-section__ctas">
-        {ctas.map((cta) => (
-          <a
-            href={cta.href}
-            class={`content-section__cta content-section__cta--${cta.variant ?? 'primary'}`}
-          >
-            {cta.text}
-          </a>
-        ))}
+      {ctas.length > 0 && (
+        <div class="content-section__ctas">
+          {ctas.map((cta) => (
+            <a
+              href={cta.href}
+              class:list={['btn', cta.variant === 'secondary' ? 'btn--secondary' : 'btn--primary']}
+            >
+              {cta.text}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+
+    {/* Image column */}
+    {image_position !== 'none' && image_src && (
+      <div class="content-section__image">
+        <img
+          src={image_src}
+          alt={image_alt}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     )}
   </div>
-
-  {/* Image column */}
-  {image_position !== 'none' && image_src && (
-    <div class="content-section__image">
-      <img
-        src={image_src}
-        alt={image_alt}
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-  )}
 </section>
 
 <style>
   .content-section {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
     width: 100%;
     box-sizing: border-box;
   }
 
-  /* Padding variants */
-  .content-section--pad-sm  { padding: var(--space-md)  var(--space-md); }
-  .content-section--pad-md  { padding: var(--space-lg)  var(--space-md); }
-  .content-section--pad-lg  { padding: var(--space-xl)  var(--space-lg); }
-  .content-section--pad-xl  { padding: var(--space-2xl) var(--space-xl); }
+  /* Padding variants, applied to the outer section; inner .container gets inline padding */
+  .content-section--pad-sm  { padding-block: var(--space-md); }
+  .content-section--pad-md  { padding-block: var(--space-lg); }
+  .content-section--pad-lg  { padding-block: var(--section-py); }
+  .content-section--pad-xl  { padding-block: calc(var(--section-py) * 1.25); }
 
-  /* Image position — default image right (text left) */
-  .content-section--image-right  { flex-direction: row; }
-  .content-section--image-left   { flex-direction: row-reverse; }
-  .content-section--image-none   { flex-direction: row; }
+  /* Inner flex row */
+  .content-section__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  /* Image position, default image right (text left) */
+  .content-section--image-right  .content-section__inner { flex-direction: row; }
+  .content-section--image-left   .content-section__inner { flex-direction: row-reverse; }
+  .content-section--image-none   .content-section__inner { flex-direction: row; }
 
   .content-section__text {
     flex: 1;
@@ -137,6 +151,7 @@ const bgStyle = bg_image_url
     height: auto;
     display: block;
     object-fit: cover;
+    border-radius: var(--radius-sm);
   }
 
   /* Heading */
@@ -145,11 +160,11 @@ const bgStyle = bg_image_url
     color: var(--color-text);
     margin: 0;
     line-height: 1.2;
+    text-wrap: balance;
   }
 
   /* Body from HTML or paragraphs */
-  .content-section__body,
-  .content-section__para {
+  .content-section__body, .content-section__para {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     font-weight: var(--weight-regular);
@@ -166,42 +181,20 @@ const bgStyle = bg_image_url
     margin-top: var(--space-xs);
   }
 
-  .content-section__cta {
-    display: inline-block;
-    padding: 8px 16px;
-    font-family: var(--font-ui);
-    font-size: 14px;
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: opacity 0.2s;
-    text-align: center;
+  /* Tablet: stack image below text */
+  @media (max-width: 1024px) {
+    .content-section__inner {
+      gap: var(--space-md);
+    }
   }
 
-  .content-section__cta:hover {
-    opacity: 0.88;
-  }
-
-  .content-section__cta--primary {
-    background-color: var(--color-cta);
-    color: var(--color-text);
-    box-shadow: var(--shadow-btn);
-  }
-
-  .content-section__cta--secondary {
-    background-color: transparent;
-    color: var(--color-text);
-    border: 1px solid var(--color-cta);
-  }
-
-  /* Mobile: always stack */
-  @media (max-width: 980px) {
-    .content-section {
+  /* Phone: always stack */
+  @media (max-width: 600px) {
+    .content-section__inner {
       flex-direction: column !important;
-      padding: var(--space-lg) var(--space-sm);
     }
 
-    .content-section__text,
-    .content-section__image {
+    .content-section__text, .content-section__image {
       flex: none;
       width: 100%;
     }

@@ -1,0 +1,168 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/nad-iv-drip-therapy__section_2.astro';
+import Dosage from '@/pages/_sections/nad-iv-drip-therapy__section_3.astro';
+import Gallery from '@/pages/_sections/nad-iv-drip-therapy__section_4.astro';
+import Process from '@/pages/_sections/nad-iv-drip-therapy__section_5.astro';
+import Pricing from '@/pages/_sections/nad-iv-drip-therapy__section_6.astro';
+import VolumeNote from '@/pages/_sections/nad-iv-drip-therapy__section_7.astro';
+import FinalCta from '@/pages/_sections/nad-iv-drip-therapy__section_9.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'nad-iv-drip-therapy';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What exactly is NAD+?',
+    answer:
+      'NAD+ (Nicotinamide Adenine Dinucleotide) is a coenzyme found in every cell of your body that is essential for energy production, DNA repair, and regulating hundreds of metabolic processes. It is a critical molecule for life, and its levels naturally decline as we age.',
+  },
+  {
+    question: 'How does NAD+ relate to aging?',
+    answer:
+      'As we age, NAD+ levels in our cells can drop by as much as 50%. This decline is directly linked to many hallmarks of aging, including decreased energy, slower metabolism, reduced cognitive function, and an impaired ability to repair cellular damage. By replenishing NAD+ levels, we can support the body\'s natural repair mechanisms.',
+  },
+  {
+    question: 'Who is an ideal candidate for NAD+ IV Therapy?',
+    answer:
+      'NAD+ IV therapy is beneficial for a wide range of individuals, including those experiencing chronic fatigue or brain fog, athletes seeking enhanced recovery, individuals interested in anti-aging and longevity, and those looking to support their overall cellular health. A brief consultation with our team will help determine if it is the right fit for you.',
+  },
+  {
+    question: 'Are there any side effects during the NAD+ infusion?',
+    answer:
+      'Some clients experience mild and temporary sensations during the infusion, such as slight nausea, a feeling of tightness in the chest, or lightheadedness. These are normal responses and are managed by slowing the infusion rate. Our staff is trained to ensure your comfort throughout the entire session.',
+  },
+  {
+    question: 'How many NAD+ sessions will I need?',
+    answer:
+      'The number of sessions depends on your individual health goals. For general wellness and a noticeable energy boost, many clients benefit from a series of 3–5 initial sessions. For more significant anti-aging or therapeutic goals, a longer protocol may be recommended. Our team will work with you to create a personalized plan.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'NAD+ IV Therapy in Millburn, NJ',
+  description:
+    'Experience the future of wellness with NAD+ IV Therapy in Millburn, NJ. Our targeted infusions promote cellular repair, boost energy, and support longevity at Menon Medispa.',
+  url: '/nad-iv-drip-therapy',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Drip Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'NAD+ IV Drip Therapy', url: '/nad-iv-drip-therapy' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="NAD+ IV Therapy in Millburn NJ | Cellular Repair & Anti-Aging"
+  description="Experience the future of wellness with NAD+ IV Therapy in Millburn, NJ. Our targeted infusions promote cellular repair, boost energy, and support longevity at Menon Medispa."
+  canonical="https://www.menonmedispa.com/nad-iv-drip-therapy"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="NAD+ IV THERAPY · MILLBURN, NJ"
+    h1="NAD+ IV Therapy in Millburn, NJ"
+    subhead="Repair your body and renew your mind at the cellular level."
+    image={heroImg}
+    imageAlt="IV neural tree illustration for NAD+ IV Drip Therapy at Menon Medispa in Millburn, NJ"
+    price="Starting at $500"
+    note="Complimentary consultation to find the right dosage for your goals."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Harness the Power of the Miracle Molecule</h2>
+      <p class="svc-lead">Harness the power of the "miracle molecule" to combat fatigue, slow aging, and sharpen your mental edge with our NAD+ IV Therapy sessions at Menon Medispa in Millburn, NJ.</p>
+
+      <p class="svc-eyebrow">What Is NAD+?</p>
+      <p>NAD+ (Nicotinamide Adenine Dinucleotide) is a coenzyme found in every cell of your body, essential for energy production, DNA repair, and regulating hundreds of metabolic processes. It is a critical molecule for life, and its levels naturally decline as we age.</p>
+      <p>As we age, NAD+ levels in our cells can drop by as much as 50%. This decline is directly linked to many hallmarks of aging, including decreased energy, slower metabolism, reduced cognitive function, and an impaired ability to repair cellular damage.</p>
+
+      <p class="svc-eyebrow">Why IV Delivery?</p>
+      <p>This is the cutting edge of anti-aging and regenerative wellness. NAD+ IV therapy delivers a potent dose of this essential coenzyme directly into your bloodstream for maximum absorption and effect. Oral supplements must survive the digestive process, losing much of their potency before reaching your cells. IV infusion bypasses this entirely, delivering NAD+ at full concentration to where it is needed most.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Promote Cellular Repair</h3>
+          <p>Replenish NAD+ to support your body's natural DNA repair and cellular renewal processes</p>
+        </li>
+        <li>
+          <h3>Improve Mental Clarity</h3>
+          <p>Many clients report sharper focus and reduced brain fog after their infusion</p>
+        </li>
+        <li>
+          <h3>Boost Energy at a Cellular Level</h3>
+          <p>Restore the coenzyme your cells need to produce energy efficiently</p>
+        </li>
+        <li>
+          <h3>Support Longevity</h3>
+          <p>NAD+ activates sirtuins, proteins associated with healthy aging and longevity</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">Who Benefits from NAD+ IV Therapy?</p>
+      <p>NAD+ IV therapy is beneficial for a wide range of individuals, including those experiencing chronic fatigue or brain fog, athletes seeking enhanced recovery, individuals interested in anti-aging and longevity, and those looking to support their overall cellular health. A brief consultation with our team will help determine if it is the right fit for you.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'Starting at $500' },
+          { label: 'Session length', value: '2–4 hours' },
+          { label: 'Dosage options', value: '250mg, 500mg, 750mg' },
+          { label: 'Initial series', value: '3–5 sessions' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Dosage />
+
+  <Gallery />
+
+  <Process />
+
+  <Pricing />
+
+  <VolumeNote />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/4/5/6/7/9 reused verbatim; section_8 FAQ lifted into FaqColumn; section_1 hero inlined into ServiceHero + prose block; no promo band to remove. -->

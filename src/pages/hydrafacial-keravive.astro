@@ -1,0 +1,182 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/hydrafacial-keravive__section_2.astro';
+import Process from '@/pages/_sections/hydrafacial-keravive__section_3.astro';
+import Results from '@/pages/_sections/hydrafacial-keravive__section_4.astro';
+import Pricing from '@/pages/_sections/hydrafacial-keravive__section_5.astro';
+import FinalCta from '@/pages/_sections/hydrafacial-keravive__section_7.astro';
+
+import heroImg from '@/assets/images/61235f21d512.jpeg';
+
+const slug = 'hydrafacial-keravive';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'Who is a good candidate for HydraFacial Keravive?',
+    answer:
+      'HydraFacial Keravive is ideal for anyone experiencing thinning hair, excess scalp buildup, dryness, or an unhealthy scalp environment. It is suitable for all hair types and works well alongside other hair restoration treatments such as PRP therapy or minoxidil.',
+  },
+  {
+    question: 'Is the treatment painful or uncomfortable?',
+    answer:
+      'No, HydraFacial Keravive is a gentle, non-invasive treatment. Most clients describe the sensation as relaxing and soothing. There is no pain associated with the procedure, and clients can return to normal activities immediately afterward.',
+  },
+  {
+    question: 'How many treatments will I need to see results?',
+    answer:
+      'A series of three monthly in-office treatments is recommended for optimal results, followed by maintenance sessions every 3 to 6 months. Many clients notice improvements in scalp health and hair texture after just one session.',
+  },
+  {
+    question: 'Is there any downtime after the treatment?',
+    answer:
+      'There is no downtime with HydraFacial Keravive. You can wash and style your hair as normal and resume all daily activities immediately after your appointment.',
+  },
+  {
+    question: 'Can this treatment be combined with PRP or other hair loss solutions?',
+    answer:
+      'Yes, HydraFacial Keravive works excellently as a complement to PRP (platelet-rich plasma) injections, laser hair therapy, and other hair restoration treatments. By optimizing the scalp environment, Keravive can enhance the effectiveness of these additional therapies.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'HydraFacial Keravive in Millburn, NJ',
+  description:
+    'HydraFacial Keravive scalp health treatment at Menon Medispa in Millburn, NJ. A revolutionary three-step program that cleanses, stimulates, nourishes, and hydrates the scalp for fuller, healthier-looking hair.',
+  url: '/hydrafacial-keravive',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Hair',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Hair', url: '/hair' },
+    { name: 'HydraFacial Keravive', url: '/hydrafacial-keravive' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="HydraFacial™ Keravive™ in Millburn NJ | Menon Medispa"
+  description="Rejuvenate Your Scalp to Reveal Fuller, Healthier-Looking Hair. HydraFacial Keravive scalp treatment at Menon Medispa in Millburn, NJ. Book your consultation today."
+  canonical="https://www.menonmedispa.com/hydrafacial-keravive"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="HYDRAFACIAL KERAVIVE · MILLBURN, NJ"
+    h1="Healthier Scalp, Fuller-Looking Hair with HydraFacial Keravive in Millburn, NJ"
+    subhead="A revolutionary three-step scalp health program that cleanses, nourishes, and hydrates your scalp for visibly fuller, healthier hair, with no downtime."
+    image={heroImg}
+    imageAlt="HydraFacial Keravive scalp treatment at Menon Medispa Millburn NJ"
+    price="Starting at $500 per session"
+    note="Free personal scalp consultation available."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Rejuvenate Your Scalp to Reveal Fuller, Healthier-Looking Hair</h2>
+      <p class="svc-lead">Experience the innovative HydraFacial Keravive treatment at Menon Medispa in Millburn, NJ, a revolutionary three-step scalp health program designed to cleanse, stimulate, nourish, and hydrate the scalp for fuller, healthier-looking hair.</p>
+
+      <p>HydraFacial Keravive is the first-of-its-kind scalp health treatment that cleanses, stimulates, nourishes, and hydrates the scalp using HydraFacial technology. The treatment targets the scalp and hair follicles, removing follicle-clogging debris and delivering a powerful blend of growth factors and skin proteins directly to the scalp.</p>
+
+      <p>The treatment is completed with a take-home spray to extend the benefits and help you maintain healthier-looking hair between appointments. Most clients see noticeable improvements in scalp health and hair appearance after just a few sessions.</p>
+
+      <p class="svc-eyebrow">A Three-Step Process</p>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Cleanse + Exfoliate</h3>
+          <p>HydraFacial Vortex Technology deeply cleanses and exfoliates the scalp, removing follicle-clogging sebum, dirt, and environmental debris.</p>
+        </li>
+        <li>
+          <h3>Hydrate + Nourish</h3>
+          <p>A proprietary blend of growth factors, skin proteins, and hyaluronic acid is infused into the scalp to nourish and hydrate hair follicles for a healthier environment.</p>
+        </li>
+        <li>
+          <h3>Extend + Enhance</h3>
+          <p>A take-home HydraFacial Keravive Peptide Complex Spray is provided to extend the benefits of the in-office treatment and support ongoing scalp health.</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">An Excellent Complement to Hair Restoration</p>
+
+      <p>HydraFacial Keravive is an excellent complement to hair restoration treatments such as PRP, microneedling, or medication. By creating a healthy scalp environment, it maximizes the effectiveness of all other treatments you may be undergoing.</p>
+
+      <p>Clinical studies show that 97% of patients reported an improvement in scalp health after three treatments, with 93% reporting improvement in hair fullness and 79% reporting reduction in hair shedding.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Deep Scalp Cleanse</h3>
+          <p>Removes follicle-clogging sebum, dirt, and debris with Vortex Technology</p>
+        </li>
+        <li>
+          <h3>Growth Factor Infusion</h3>
+          <p>Delivers growth factors, skin proteins, and hyaluronic acid directly to follicles</p>
+        </li>
+        <li>
+          <h3>No Downtime</h3>
+          <p>Resume all daily activities immediately, including washing and styling your hair</p>
+        </li>
+        <li>
+          <h3>Combines With Other Treatments</h3>
+          <p>Enhances PRP, laser therapy, and other hair restoration approaches</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$500 per session' },
+          { label: 'Package', value: '$1,295 for 3 treatments' },
+          { label: 'Recommended', value: '3 monthly sessions' },
+          { label: 'Downtime', value: 'None' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Process />
+
+  <Results />
+
+  <Pricing />
+
+  <LeadForm />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/4/5/7 reused verbatim; section_6 FAQ lifted into FaqColumn; section_9 promo removed (replaced by SalePopup); prose from sections 1+3+4 re-flowed into main column. LeadForm (dropped during conversion) restored from section_6, placed before FinalCta. -->

@@ -1,0 +1,161 @@
+---
+import TestimonialStrip from '@/components/TestimonialStrip.astro';
+import Picture from '@/components/Picture.astro';
+
+import testimonialsBg from '@/assets/testimonials/what-our-clients-say-bg.webp';
+import avatar1 from '@/assets/testimonials/reviewer-avatar-1.webp';
+import avatar2 from '@/assets/testimonials/reviewer-avatar-2.webp';
+import avatar3 from '@/assets/testimonials/reviewer-avatar-3.webp';
+---
+
+<section class="home-section-7">
+  <div class="home-section-7__bg-wrap">
+    <img
+      src={testimonialsBg.src}
+      alt="Untitled-4.png"
+      class="home-section-7__bg"
+      loading="lazy"
+      decoding="async"
+      width="1440"
+      height="626"
+    />
+  </div>
+
+  <div class="home-section-7__content">
+    <TestimonialStrip
+      heading="What Our Clients Say"
+      layout="carousel"
+      testimonials={[
+        {
+          quote: `"Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them.`,
+          author: "Alexa C.",
+          rating: "★★★★★",
+        },
+      ]}
+    />
+
+    <div class="home-section-7__social-proof">
+      <div class="home-section-7__avatars">
+        <img
+          src={avatar1.src}
+          alt="Picture of a Client Who Reviewed Us"
+          class="home-section-7__avatar"
+          loading="lazy"
+          decoding="async"
+          width="46"
+          height="50"
+        />
+        <img
+          src={avatar2.src}
+          alt="Picture of a Client Who Reviewed Us"
+          class="home-section-7__avatar"
+          loading="lazy"
+          decoding="async"
+          width="52"
+          height="50"
+        />
+        <img
+          src={avatar3.src}
+          alt="Picture of a Client Who Reviewed Us"
+          class="home-section-7__avatar"
+          loading="lazy"
+          decoding="async"
+          width="52"
+          height="50"
+        />
+      </div>
+      <div class="home-section-7__stars-block">
+        <p class="home-section-7__stars">★★★★★</p>
+        <p class="home-section-7__review-count">100+ 5 Star Reviews</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-section-7 {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-section-7__bg-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .home-section-7__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .home-section-7__content {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-lg) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .home-section-7__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  .home-section-7__avatars {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .home-section-7__avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .home-section-7__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .home-section-7__stars {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .home-section-7__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 980px) {
+    .home-section-7__bg {
+      width: 980px;
+      max-width: 980px;
+    }
+
+    .home-section-7__content {
+      padding: var(--space-md) var(--space-sm);
+    }
+
+    .home-section-7__social-proof {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+  }
+</style>

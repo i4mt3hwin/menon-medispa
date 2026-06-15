@@ -1,5 +1,5 @@
 ---
-// Phase 3 Pass 1 — Gallery.astro
+// Phase 3 Pass 1, Gallery.astro
 // Multi-image responsive grid for service and about pages.
 
 interface GalleryImage {
@@ -98,27 +98,22 @@ const aspectRatio = aspectMap[aspect] ?? '1 / 1';
     height: auto;
   }
 
-  /* Tablet: 2 columns */
-  @media (max-width: 1024px) and (min-width: 981px) {
-    .gallery--cols-3,
-    .gallery--cols-4 {
+  /* Tablet (1024→601): 3-col→2-col, 4-col→2-col */
+  @media (max-width: 1024px) {
+    .gallery--cols-3, .gallery--cols-4 {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  /* Mobile: 1 column */
-  @media (max-width: 980px) {
-    .gallery--cols-2,
-    .gallery--cols-3,
-    .gallery--cols-4 {
+  /* Phone (≤600px): 2-col stays 2-col (small gallery), 3/4→1-col */
+  @media (max-width: 600px) {
+    .gallery--cols-3, .gallery--cols-4 {
       grid-template-columns: 1fr 1fr;
     }
   }
 
-  @media (max-width: 480px) {
-    .gallery--cols-2,
-    .gallery--cols-3,
-    .gallery--cols-4 {
+  @media (max-width: 420px) {
+    .gallery--cols-2, .gallery--cols-3.gallery--cols-4 {
       grid-template-columns: 1fr;
     }
   }

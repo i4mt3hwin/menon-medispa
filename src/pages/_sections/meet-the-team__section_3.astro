@@ -1,0 +1,101 @@
+---
+import imgClinic from '@/assets/images/68f97116134e.jpg';
+---
+
+<section class="section mtt-s3">
+  <div class="container">
+    <div class="mtt-s3__layout">
+
+      <div class="mtt-s3__text-col">
+
+        <p class="eyebrow">DR. ADITI MENON, MD</p>
+
+        <p class="mtt-s3__body">
+          Dr. Aditi Menon, MD is Board Certified in Physical Medicine and Rehabilitation, and specializes in musculoskeletal, pain and sports medicine.
+        </p>
+
+        <p class="mtt-s3__body">
+          Dr. Menon earned her medical degree at the State University of New York Brooklyn Downstate Medical Center College of Medicine. She then completed her residency in Physical Medicine and Rehabilitation at New York Presbyterian Hospital at New York-Presbyterian University Hospitals of Columbia Presbyterian and Weill Cornell with training in Hospital for Special Surgery and Memorial Sloan Kettering Cancer Center.
+        </p>
+
+        <p class="mtt-s3__body">
+          Dr. Menon is trained in regenerative medicine and her passion is aesthetics.
+        </p>
+
+        <p class="mtt-s3__body">
+          In her spare time, she teaches Indian classical dance and likes to spend time with her family.
+        </p>
+
+      </div>
+
+      <div class="mtt-s3__img-col">
+        <img
+          src={imgClinic.src}
+          alt="Clinic office"
+          class="mtt-s3__img"
+          loading="lazy"
+          decoding="async"
+          width="821"
+          height="772"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .mtt-s3__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .mtt-s3__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .mtt-s3__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .mtt-s3__img-col {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  .mtt-s3__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    aspect-ratio: 821 / 772;
+  }
+
+  @media (max-width: 1024px) {
+    .mtt-s3__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mtt-s3__layout {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .mtt-s3__img-col {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+import posterImg from '@/assets/images/3c38afa74542.jpg';
+---
+
+<section class="section section--tight s8-video">
+  <div class="s8-video__inner">
+    <video
+      class="s8-video__vid"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster={posterImg.src}
+      width="1440"
+      height="810"
+    >
+      <source src="https://video.wixstatic.com/video/f61cce_80b794ca0618415886d9a9fdd2179d86/720p/mp4/file.mp4" type="video/mp4" />
+      <track kind="descriptions" />
+    </video>
+  </div>
+</section>
+
+<style>
+  .s8-video {
+    padding-block: 0;
+    overflow: hidden;
+  }
+
+  .s8-video__inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .s8-video__vid {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .s8-video__vid {
+      min-height: 300px;
+      object-fit: cover;
+    }
+  }
+</style>

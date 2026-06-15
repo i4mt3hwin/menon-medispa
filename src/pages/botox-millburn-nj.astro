@@ -1,0 +1,198 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/botox-millburn-nj__section_2.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Gallery from '@/pages/_sections/botox-millburn-nj__section_6.astro';
+import Pricing from '@/pages/_sections/botox-millburn-nj__section_7.astro';
+import FinalCta from '@/pages/_sections/botox-millburn-nj__section_9.astro';
+
+import heroImg from '@/assets/images/f6d70f706248.jpg';
+import problemImg from '@/assets/images/9c00e61600b0.jpg';
+import differenceImg from '@/assets/images/2ea069e3f116.jpg';
+
+const slug = 'botox-millburn-nj';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What is Botox and how does it work?',
+    answer:
+      'Botox is an FDA-approved injectable neuromodulator derived from botulinum toxin type A. When injected into targeted facial muscles, it temporarily blocks the nerve signals that cause those muscles to contract. This relaxes the muscles responsible for expression lines, smoothing the overlying skin and reducing the appearance of wrinkles. Results typically last 3 to 4 months.',
+  },
+  {
+    question: 'What makes Botox at Menon Medispa different?',
+    answer:
+      'All Botox injections at Menon Medispa are administered by Dr. Menon herself. This physician-level expertise means your treatment is guided by a medical doctor with specialized training in facial anatomy and aesthetic medicine. Dr. Menon personally evaluates your facial dynamics and creates a customized treatment plan to achieve natural-looking results specific to your goals.',
+  },
+  {
+    question: 'Will I look "frozen" or unnatural?',
+    answer:
+      'No. The goal of Botox at Menon Medispa is to create a refreshed, natural appearance that preserves your expressive range. Dr. Menon uses a conservative, targeted approach that relaxes the specific muscles causing lines while allowing the surrounding muscles to move normally. The result is subtle, natural-looking improvement that enhances rather than alters your appearance.',
+  },
+  {
+    question: 'What should I expect during and after treatment?',
+    answer:
+      'The procedure takes approximately 15 minutes and involves a series of small injections using a fine needle. Most patients describe minimal discomfort. You can return to most normal activities immediately following treatment. Some mild redness or swelling at injection sites may occur and typically resolves within a few hours. Results begin appearing within 3 to 7 days, with full results visible at 2 weeks.',
+  },
+  {
+    question: 'How much does Botox cost and how often will I need it?',
+    answer:
+      'Botox at Menon Medispa is priced at $14 per unit. The number of units needed varies by the areas treated and your individual muscle strength, but most patients require between 20 to 50 units per session. Results typically last 3 to 4 months. Many patients find that with regular treatments, the effects last longer over time as muscles gradually weaken from less use.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Botox in Millburn, NJ',
+  description:
+    'Physician-administered Botox at Menon Medispa in Millburn, NJ. Natural-looking results for fine lines and wrinkles, performed by Dr. Menon. $14 per unit.',
+  url: '/botox-millburn-nj',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Injectables',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Botox', url: '/botox-millburn-nj' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Botox in Millburn NJ | Menon Medispa"
+  description="Get natural-looking Botox results from our expert injectors in Millburn NJ. All treatments administered by Dr. Menon. $14/unit. Book your consultation today."
+  canonical="https://www.menonmedispa.com/botox-millburn-nj"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="BOTOX · MILLBURN, NJ"
+    h1="Smooth, Natural-Looking Botox in Millburn, NJ"
+    subhead="Physician-administered Botox that softens fine lines and wrinkles while keeping your natural expressions, refreshed, never frozen."
+    image={heroImg}
+    imageAlt="Botox treatment by Dr. Menon at Menon Medispa in Millburn, NJ"
+    price="Starting at $14 per unit"
+    note="No-obligation consultation, performed by Dr. Menon, MD."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Most Anti-Aging Treatments Fail</h2>
+      <p class="svc-lead">Discover why traditional skincare leaves Millburn and Short Hills residents searching for real solutions.</p>
+      <figure>
+        <img src={problemImg.src} alt="Anti-aging skin concerns addressed at Menon Medispa Millburn NJ" width="488" height="428" loading="lazy" decoding="async" />
+      </figure>
+
+      <p class="svc-eyebrow">The Hidden Truth About Aging Skin</p>
+
+      <div class="svc-accent">
+        <h3>Creams Miss the Mark</h3>
+        <p>Traditional skincare products can't reach the underlying muscle contractions that cause expression lines. No matter how expensive, topical creams work only on the surface, leaving the real cause of wrinkles completely unaddressed.</p>
+      </div>
+      <div class="svc-accent">
+        <h3>At-Home Treatments Fall Short</h3>
+        <p>Facial exercises and DIY remedies rarely deliver significant results. Without addressing the muscular activity that creates lines over time, these approaches cannot produce the smooth, refreshed appearance that patients want.</p>
+      </div>
+      <div class="svc-accent">
+        <h3>Over-the-Counter Promises</h3>
+        <p>Anti-aging products offer temporary improvements but fail to address the root cause of dynamic wrinkles. The result is a cycle of purchasing products that deliver short-term hydration but no lasting change.</p>
+      </div>
+
+      <p class="svc-eyebrow">The Real Problem</p>
+      <p>Dynamic wrinkles form when facial muscles repeatedly contract during expressions like smiling, squinting, and frowning. Over time, these repeated movements create permanent creases in the overlying skin. This is a muscular issue, not a topical one.</p>
+      <p>As we age, our skin also loses collagen and elastin, making it less able to bounce back after muscle movements. The combination of weakened skin structure and constant muscular activity accelerates the formation of lines and wrinkles that cannot be reversed by surface-level treatments.</p>
+      <p>Understanding the true cause of aging skin makes it clear why so many anti-aging solutions fail to deliver lasting results.</p>
+
+      <p class="svc-eyebrow">The Better Way Forward</p>
+      <p>Botox at Menon Medispa directly addresses the muscular cause of expression lines. By temporarily relaxing the specific muscles responsible for wrinkle formation, Botox allows the overlying skin to smooth and recover, delivering visible results that no topical product can match.</p>
+      <p>Under the care of Dr. Menon, your Botox treatment is precisely calibrated to preserve your natural expressions while softening the lines that age you. The result is a refreshed, rested appearance that looks completely natural.</p>
+    </div>
+
+    <div class="svc-block">
+      <h2>The Menon Medispa Botox Difference</h2>
+      <h3>We understand the frustration of failed anti-aging attempts.</h3>
+      <figure>
+        <img src={differenceImg.src} alt="Botox treatment at Menon Medispa Millburn NJ" width="476" height="316" loading="lazy" decoding="async" />
+      </figure>
+      <p>That is why Dr. Menon has developed a physician-administered Botox program that delivers natural-looking results tailored to your facial anatomy and aesthetic goals. Unlike discount injection services, every treatment at Menon Medispa is performed with the precision of a medical doctor.</p>
+
+      <p class="svc-eyebrow">How It Works</p>
+      <p>Botox is an FDA-approved neuromodulator that temporarily blocks the nerve signals responsible for muscle contractions. When injected into targeted facial muscles, it relaxes those muscles, preventing the repeated movements that cause expression lines. The surrounding skin smooths as the muscle tension releases, revealing a refreshed, more youthful appearance.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Targeted Treatment</h3>
+          <p>Addresses facial muscles responsible for expression lines</p>
+        </li>
+        <li>
+          <h3>Natural Results</h3>
+          <p>Creates a relaxed appearance that looks refreshed, not frozen</p>
+        </li>
+        <li>
+          <h3>Quick Results</h3>
+          <p>Noticeable improvement with results visible within 3 to 7 days</p>
+        </li>
+        <li>
+          <h3>Expert Care</h3>
+          <p>Performed by Dr. Menon with personalized treatment planning</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">The Doctor's Difference</p>
+      <p>At Menon Medispa, all Botox injections are administered by Dr. Menon herself. This physician-level expertise means your treatment is guided by a comprehensive understanding of facial anatomy, muscle dynamics, and aesthetic medicine principles.</p>
+      <p>Dr. Menon takes the time to understand your individual concerns and goals before creating a treatment plan that targets specific areas while preserving the natural movement that makes your expressions uniquely yours.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$14 per unit' },
+          { label: 'Appointment', value: 'About 15 minutes' },
+          { label: 'Results', value: 'Visible in 3–7 days' },
+          { label: 'Performed by', value: 'Dr. Menon, MD' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="botox-millburn-nj" />
+
+  <div id="before-after"></div>
+  <Gallery />
+
+  <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/4/6/7/9/11 reused verbatim. -->

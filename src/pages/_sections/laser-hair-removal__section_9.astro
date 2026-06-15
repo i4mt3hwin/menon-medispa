@@ -1,0 +1,133 @@
+---
+import step1Img from '@/assets/images/477f5ddf38ad.jpg';
+import step2Img from '@/assets/images/869c7802ce00.jpg';
+import step3Img from '@/assets/images/75b1f138fae1.png';
+---
+
+<section class="section lhr-s9-steps">
+  <div class="container">
+
+    <h2 class="lhr-s9__heading">Our Laser Hair Removal Journey From Consultation to Results</h2>
+
+    <div class="lhr-s9__steps">
+
+      <div class="lhr-s9__step">
+        <div class="lhr-s9__step-img-wrap">
+          <img
+            src={step1Img.src}
+            alt="Personalized consultation for laser hair removal at Menon Medispa"
+            loading="lazy"
+            decoding="async"
+            width="121"
+            height="121"
+          />
+        </div>
+        <h3 class="lhr-s9__step-heading">
+          Personalized Consultation &amp; Test Patch
+        </h3>
+        <p class="lhr-s9__step-body">We begin with a thorough consultation to assess your skin tone, hair type, and treatment goals. Our medical team designs a customized laser hair removal plan and performs a test patch to ensure optimal settings for your unique profile before your first full session.</p>
+      </div>
+
+      <div class="lhr-s9__step">
+        <div class="lhr-s9__step-img-wrap">
+          <img
+            src={step2Img.src}
+            alt="Targeted laser hair removal treatment session at Menon Medispa Millburn NJ"
+            loading="lazy"
+            decoding="async"
+            width="121"
+            height="121"
+          />
+        </div>
+        <h3 class="lhr-s9__step-heading">
+          Targeted Treatment Sessions
+        </h3>
+        <p class="lhr-s9__step-body">Using our advanced laser technology, we precisely target unwanted hair at the follicle level. Each session is carefully calibrated for your skin and hair type, progressively reducing hair growth while protecting the surrounding skin. Most patients complete 6-8 sessions for optimal results.</p>
+      </div>
+
+      <div class="lhr-s9__step">
+        <div class="lhr-s9__step-img-wrap">
+          <img
+            src={step3Img.src}
+            alt="Follow-up care and maintenance after laser hair removal"
+            loading="lazy"
+            decoding="async"
+            width="121"
+            height="121"
+          />
+        </div>
+        <h3 class="lhr-s9__step-heading">
+          Follow-Up Care &amp; Maintenance
+        </h3>
+        <p class="lhr-s9__step-body">We carefully schedule your follow-up treatments to coincide with your hair's growth cycle, maximizing the effectiveness of each session. Our team provides detailed aftercare guidance and is available to answer any questions throughout your laser hair removal journey.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .lhr-s9__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .lhr-s9__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .lhr-s9__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .lhr-s9__step-img-wrap {
+    width: 121px;
+    height: 121px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .lhr-s9__step-img-wrap img {
+    width: 121px;
+    height: 121px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .lhr-s9__step-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lhr-s9__step-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .lhr-s9__steps {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

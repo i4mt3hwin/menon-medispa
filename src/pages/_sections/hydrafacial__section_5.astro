@@ -1,0 +1,105 @@
+---
+import FeatureList from '@/components/FeatureList.astro';
+---
+
+<section class="section section--tint s5-solution">
+  <div class="container">
+
+    <h2 class="s5-solution__heading">The HydraFacial&#8482; Solution: Advanced Skincare Technology</h2>
+
+    <p class="s5-solution__body">The HydraFacial&#8482; treatment rejuvenates and protects your skin's health while also helping to address the visible signs of aging. This non-invasive facial treatment addresses skin concerns from the inside out &#8212; deeply cleansing, exfoliating, extracting, and hydrating your skin using a patented Vortex-Fusion&#174; delivery system.</p>
+
+    <p class="s5-solution__body">For those searching for a hydra facial near me in New Jersey, Menon Medispa in Millburn brings the gold standard in skincare directly to you. Our licensed skincare specialists create personalized treatment plans that adapt to your unique skin needs.</p>
+
+    <FeatureList
+      items={[
+        "Advanced HydraFacial™ technology with patented Vortex-Fusion delivery system",
+        "Painless extraction process that targets fine lines, texture issues, and congestion",
+        "Superior results compared to traditional facial treatments",
+      ]}
+    />
+
+    <p class="s5-solution__body">The treatment uses unique, single-use HydroPeel Tips &#8212; vortex-cut spirals that create a vacuum effect, removing impurities from deep within pores while simultaneously infusing the skin with nourishing serums. This exclusive three-step process delivers real results without discomfort or downtime.</p>
+
+    <div class="s5-solution__steps">
+
+      <div class="s5-solution__step">
+        <h3 class="s5-solution__step-title">CLEANSE + PEEL</h3>
+        <p class="s5-solution__step-desc">Uncover a new layer of skin with gentle exfoliation and relaxing resurfacing.</p>
+      </div>
+
+      <div class="s5-solution__step">
+        <h3 class="s5-solution__step-title">EXTRACT + HYDRATE</h3>
+        <p class="s5-solution__step-desc">Remove debris from pores with painless suction. Nourish with intense moisturizers that quench skin.</p>
+      </div>
+
+      <div class="s5-solution__step">
+        <h3 class="s5-solution__step-title">FUSE + PROTECT</h3>
+        <p class="s5-solution__step-desc">Saturate the skin's surface with antioxidants and peptides to maximize your glow.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s5-solution__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+  }
+
+  .s5-solution__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .s5-solution__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  .s5-solution__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+    padding: var(--space-md);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+  }
+
+  .s5-solution__step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .s5-solution__step-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .s5-solution__steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,169 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/anti-aging-beauty__section_2.astro';
+import Formulas from '@/pages/_sections/anti-aging-beauty__section_3.astro';
+import Gallery from '@/pages/_sections/anti-aging-beauty__section_4.astro';
+import Process from '@/pages/_sections/anti-aging-beauty__section_5.astro';
+import Pricing from '@/pages/_sections/anti-aging-beauty__section_6.astro';
+import PricingNote from '@/pages/_sections/anti-aging-beauty__section_8.astro';
+import FinalCta from '@/pages/_sections/anti-aging-beauty__section_9.astro';
+
+import heroImg from '@/assets/images/1fb1073fea37.png';
+
+const slug = 'anti-aging-beauty';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What is Glutathione and why is it good for my skin?',
+    answer:
+      'Glutathione is a powerful antioxidant naturally produced by your body. It plays a key role in neutralizing free radicals, reducing oxidative stress, and inhibiting melanin production, which helps brighten the skin and reduce hyperpigmentation. As we age, glutathione levels decline, making IV supplementation an effective way to restore this beauty-essential compound at therapeutic levels.',
+  },
+  {
+    question: 'How is this IV drip better than topical creams or serums?',
+    answer:
+      'Topical skincare products must penetrate multiple layers of skin to reach the dermis where collagen and cellular activity occur, and most active ingredients are significantly diluted in this process. IV delivery bypasses the digestive and skin barrier entirely, delivering nutrients directly into your bloodstream for near-100% bioavailability. This means your cells receive far higher concentrations of active ingredients than any topical product can provide.',
+  },
+  {
+    question: 'How long does it take to see results for my skin, hair, and nails?',
+    answer:
+      'Many clients notice improved skin luminosity and energy within 24 to 48 hours of their first session. Visible improvements in skin texture, hair shine, and nail strength typically develop over 2 to 4 weeks as your body responds to the increased nutrient availability. For optimal results, we recommend a series of treatments spaced 2 to 4 weeks apart.',
+  },
+  {
+    question: 'How often should I get a Beauty IV drip to maintain results?',
+    answer:
+      'For initial results, we typically recommend a series of 3 to 4 sessions spaced 2 to 4 weeks apart. For maintenance, monthly or bi-monthly sessions help sustain and build upon your results over time. Your provider will recommend a personalized schedule based on your goals and response to treatment.',
+  },
+  {
+    question: 'Who is a good candidate for a Beauty IV Drip?',
+    answer:
+      'Our Anti-Aging & Beauty IV is suitable for most healthy adults looking to improve skin radiance, reduce signs of aging, or strengthen hair and nails. We conduct a brief health screening before treatment to ensure it is appropriate for you. Those who are pregnant, breastfeeding, or have certain medical conditions may not be candidates. Schedule a consultation to discuss whether this treatment is right for you.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Anti-Aging & Beauty IV Therapy in Millburn, NJ',
+  description:
+    'Rejuvenate from the inside out with Anti-Aging & Beauty IV Therapy at Menon Medispa in Millburn, NJ. Glutathione, Vitamin C, Biotin and more delivered directly for radiant skin, stronger hair, and lasting beauty.',
+  url: '/anti-aging-beauty',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Anti-Aging & Beauty IV Therapy', url: '/anti-aging-beauty' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Anti-Aging & Beauty IV Therapy in Millburn NJ | Menon Medispa"
+  description="Rejuvenate from the inside out with our Anti-Aging & Beauty IV Therapy in Millburn NJ. Glutathione, Vitamin C, Biotin and more delivered directly for radiant skin, stronger hair, and lasting beauty."
+  canonical="https://www.menonmedispa.com/anti-aging-beauty"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="ANTI-AGING & BEAUTY IV · MILLBURN, NJ"
+    h1="Anti-Aging & Beauty IV Therapy in Millburn, NJ"
+    subhead="Unlock a radiant glow and timeless beauty from within with physician-grade nutrients delivered directly to your cells."
+    image={heroImg}
+    imageAlt="Anti-Aging Beauty IV Therapy at Menon Medispa Millburn NJ"
+    price="Starting at $200"
+    note="Personalized consultation included. All IV Drips are 500ml."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Radiant Skin, Stronger Hair &amp; Nails, Starting from Within</h2>
+      <p class="svc-lead">Searching for the secret to glowing skin? True radiance starts on the inside.</p>
+
+      <p>Our Anti-Aging &amp; Beauty IV Drip delivers a powerful blend of Glutathione, Vitamin C, and Biotin directly into your bloodstream for visible skin, hair, and nail improvements that topical products simply cannot achieve.</p>
+
+      <p class="svc-eyebrow">Why IV Delivery Works Better</p>
+
+      <p>Topical skincare products must penetrate multiple layers of skin to reach the dermis where collagen and cellular activity occur, and most active ingredients are significantly diluted in this process. IV delivery bypasses the digestive and skin barrier entirely, delivering nutrients directly into your bloodstream for near-100% bioavailability. This means your cells receive far higher concentrations of active ingredients than any topical product can provide.</p>
+
+      <p class="svc-eyebrow">What to Expect</p>
+
+      <p>Many clients notice improved energy and a subtle skin glow within 24 hours. Over the following days and weeks, you will see continued improvements in skin brightness, hydration, hair shine, and nail strength as your body fully responds to the treatment. For optimal, cumulative results, we recommend a series of sessions spaced 2 to 4 weeks apart.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Brighten &amp; Hydrate Skin</h3>
+          <p>Glutathione and Vitamin C work together to reduce oxidative stress and support a luminous, even complexion</p>
+        </li>
+        <li>
+          <h3>Fight Signs of Aging</h3>
+          <p>Antioxidant-rich formulas help neutralize free radicals and support collagen at the cellular level</p>
+        </li>
+        <li>
+          <h3>Strengthen Hair &amp; Nails</h3>
+          <p>Biotin and targeted minerals support stronger, shinier hair and more resilient nails</p>
+        </li>
+        <li>
+          <h3>Near-100% Bioavailability</h3>
+          <p>IV delivery sends nutrients directly into your bloodstream, bypassing the gut and skin barrier entirely</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Starting price', value: '$200 (Signature)' },
+          { label: 'Deluxe formula', value: '$250' },
+          { label: 'Volume', value: '500ml (upgrade to 1000ml for $25)' },
+          { label: 'Session time', value: '45–60 minutes' },
+          { label: 'Results', value: 'Visible within 24–48 hours' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Formulas />
+
+  <Gallery />
+
+  <Process />
+
+  <Pricing />
+
+  <PricingNote />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_3 (Formulas), section_4 (Gallery), section_5 (Process), section_6 (Pricing), section_8 (PricingNote), section_9 (FinalCta). Section_1 (hero) extracted to ServiceHero. Section_7 (FAQ) lifted to FaqColumn. No promo band present. -->

@@ -1,0 +1,115 @@
+---
+import problemImg from '@/assets/images/82c8c6459d7d.png';
+---
+
+<section class="section lhr-s3-problem">
+  <div class="container">
+    <div class="lhr-s3__layout">
+
+      <div class="lhr-s3__content">
+
+        <h2 class="lhr-s3__heading">The Struggle with Unwanted Hair</h2>
+
+        <p class="lhr-s3__body">Dealing with unwanted hair is a constant battle. Traditional hair removal methods only offer temporary relief while creating ongoing problems:</p>
+
+        <ul class="lhr-s3__list">
+          <li>Daily shaving leaves skin irritated and stubble returns within days</li>
+          <li>Painful waxing sessions for bikini areas and sensitive zones require regular maintenance</li>
+          <li>Ingrown hairs and skin tone irregularities develop from repeated treatments</li>
+          <li>At-home laser devices rarely deliver the permanent hair reduction results they promise</li>
+        </ul>
+
+        <p class="lhr-s3__body">Meanwhile, hair growth continues relentlessly, creating a frustrating cycle of time spent on temporary fixes that never deliver the smooth, lasting results you deserve.</p>
+
+      </div>
+
+      <div class="lhr-s3__img-col">
+        <img
+          src={problemImg.src}
+          alt="Woman frustrated with traditional hair removal methods"
+          class="lhr-s3__img"
+          loading="lazy"
+          decoding="async"
+          width="415"
+          height="415"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .lhr-s3__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .lhr-s3__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .lhr-s3__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lhr-s3__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .lhr-s3__list {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+    padding-left: var(--space-md);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .lhr-s3__img-col {
+    flex-shrink: 0;
+    width: 415px;
+  }
+
+  .lhr-s3__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    .lhr-s3__img-col {
+      width: 320px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .lhr-s3__layout {
+      flex-direction: column-reverse;
+    }
+
+    .lhr-s3__img-col {
+      width: 100%;
+      max-width: 415px;
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+import sectionBg from '@/assets/images/30cfb9e87c60.png';
+import googleRatingImg from '@/assets/images/5be44787b3a9.png';
+---
+
+<section class="media-bg section s4-testimonial" style="--scrim-strength:0.58">
+  <img class="media-bg__img media-bg__img--blur" src={sectionBg.src} alt="" aria-hidden="true"
+       loading="lazy" decoding="async" width="1440" height="585" />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s4-testimonial__inner">
+
+      <h3 class="s4-testimonial__label">What Our Clients Say</h3>
+
+      <blockquote class="s4-testimonial__quote">
+        <p class="s4-testimonial__quote-text">
+          They have the best hydrafacials. Let me tell you, I&#39;ve had facials before, but this was on another level. My skin felt like it had been reborn! The process was gentle yet thorough, and I could literally see the gunk being extracted (which, yes, was oddly satisfying!).
+        </p>
+        <footer class="s4-testimonial__footer">
+          <cite class="s4-testimonial__cite">Rathi Vijay</cite>
+        </footer>
+      </blockquote>
+
+      <h6 class="s4-testimonial__sub-attribution">Millburn Resident</h6>
+
+      <div class="s4-testimonial__google-rating">
+        <img
+          src={googleRatingImg.src}
+          alt="Google 5 star rating"
+          class="s4-testimonial__stars-img"
+          loading="lazy"
+          decoding="async"
+          width="143"
+          height="74"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .s4-testimonial__inner {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .s4-testimonial__label {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s4-testimonial__quote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .s4-testimonial__quote-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .s4-testimonial__footer {
+    font-style: normal;
+  }
+
+  .s4-testimonial__cite {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    font-style: normal;
+  }
+
+  .s4-testimonial__sub-attribution {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+    opacity: 0.75;
+  }
+
+  .s4-testimonial__google-rating {
+    display: flex;
+    justify-content: center;
+  }
+
+  .s4-testimonial__stars-img {
+    display: block;
+    width: 143px;
+    height: 74px;
+    object-fit: contain;
+  }
+</style>

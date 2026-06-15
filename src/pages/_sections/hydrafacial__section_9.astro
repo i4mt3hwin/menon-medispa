@@ -1,0 +1,15 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import sigImg from '@/assets/images/3f237fc217e2.jpg';
+import deluxeImg from '@/assets/images/86072f9cbd9c.jpg';
+import platinumImg from '@/assets/images/52a268e013ba.png';
+---
+<ServiceBookingCta
+  heading={`HydraFacial Menu`}
+  body={`Please note: Prices are for display only. After booking a coordinator will reach out to confirm your appointment and discuss payment arrangements and any other questions you may have.`}
+  cards={[
+    { image: sigImg, imageAlt: `Signature HydraFacial`, title: `Signature HydraFacial`, tagline: `Deeply cleanses, extracts and hydrates the skin`, price: `$199`, duration: `30 min` },
+    { image: deluxeImg, imageAlt: `Deluxe HydraFacial`, title: `Deluxe HydraFacial`, tagline: `HydraFacial with LED Light Therapy and targeted boosters.`, price: `$250`, duration: `1 hr` },
+    { image: platinumImg, imageAlt: `Platinum HydraFacial`, title: `Platinum HydraFacial`, tagline: `HydraFacial, Lymphatic Drainage & LED Light Therapy`, price: `$325`, duration: `1 hr 20 min` },
+  ]}
+/>

@@ -1,0 +1,311 @@
+---
+import { site } from "@/lib/site";
+import imgImmunity from "@/assets/images/3d59d03b4558.webp";
+import imgRecovery from "@/assets/images/70cda053abb7.avif";
+import imgAgeDefying from "@/assets/images/f0e5c69d74a7.png";
+import imgEnergy from "@/assets/images/537a32cc1127.avif";
+import imgPainMgmt from "@/assets/images/83acb599cd71.avif";
+import imgPrenatal from "@/assets/images/3c30a3051b2e.avif";
+import imgHeartHealth from "@/assets/images/f9f4677de025.avif";
+import imgGutHealth from "@/assets/images/691dc2232fa0.avif";
+import imgDetox from "@/assets/images/f11ad22eea6c.avif";
+import imgMyers from "@/assets/images/76295e9a95ba.avif";
+import imgNad from "@/assets/images/f637bd9b255e.avif";
+
+const drips = [
+  {
+    name: "IMMUNITY Signature",
+    volume: "500ml",
+    price: "$200",
+    image: imgImmunity,
+    imageAlt: "IMMUNITY Signature IV Drip",
+    readMoreUrl: "/service-page/immunity-signature",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "IMMUNITY Deluxe",
+    volume: "500ml",
+    price: "$250",
+    image: imgImmunity,
+    imageAlt: "IMMUNITY Deluxe IV Drip",
+    readMoreUrl: "/service-page/immunity-deluxe",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "RECOVERY Signature",
+    volume: "500ml",
+    price: "$200",
+    image: imgRecovery,
+    imageAlt: "RECOVERY Signature IV Drip",
+    readMoreUrl: "/service-page/recovery-signature",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "RECOVERY Deluxe",
+    volume: "500ml",
+    price: "$250",
+    image: imgRecovery,
+    imageAlt: "RECOVERY Deluxe IV Drip",
+    readMoreUrl: "/service-page/recovery-deluxe",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "AGE - DEFYING (Signature)",
+    volume: "500ml",
+    price: "$200",
+    image: imgAgeDefying,
+    imageAlt: "AGE-DEFYING Signature IV Drip",
+    readMoreUrl: "/service-page/age-defying-signature",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "AGE - DEFYING (Deluxe)",
+    volume: "500ml",
+    price: "$250",
+    image: imgAgeDefying,
+    imageAlt: "AGE-DEFYING Deluxe IV Drip",
+    readMoreUrl: "/service-page/age-defying-deluxe",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "ENERGY (Signature)",
+    volume: "500ml",
+    price: "$200",
+    image: imgEnergy,
+    imageAlt: "ENERGY Signature IV Drip",
+    readMoreUrl: "/service-page/energy-signature",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "ENERGY (Deluxe)",
+    volume: "500ml",
+    price: "$250",
+    image: imgEnergy,
+    imageAlt: "ENERGY Deluxe IV Drip",
+    readMoreUrl: "/service-page/energy-deluxe",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "PAIN MANAGEMENT & AUTOIMMUNE DISEASE",
+    volume: "500ml",
+    price: "$250",
+    image: imgPainMgmt,
+    imageAlt: "Pain Management & Autoimmune Disease IV Drip",
+    readMoreUrl: "/service-page/pain-management-autoimmune-disease",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "PRENATAL/PREGNANCY/FERTILITY DRIP",
+    volume: "500ml",
+    price: "$250",
+    image: imgPrenatal,
+    imageAlt: "Prenatal/Pregnancy/Fertility IV Drip",
+    readMoreUrl: "/service-page/prenatal-pregnancy-fertility-drip",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "HEART HEALTH & DIABETES DRIP",
+    volume: "500ml",
+    price: "$250",
+    image: imgHeartHealth,
+    imageAlt: "Heart Health & Diabetes IV Drip",
+    readMoreUrl: "/service-page/heart-health-diabetes-drip",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "GUT HEALTH (IBS, UC, CROHN'S)",
+    volume: "500ml",
+    price: "$250",
+    image: imgGutHealth,
+    imageAlt: "Gut Health IV Drip, IBS, UC, Crohn's",
+    readMoreUrl: "/service-page/gut-health-ibs-uc-crohns",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "DETOX/ HANGOVER DRIP",
+    volume: "500ml",
+    price: "$250",
+    image: imgDetox,
+    imageAlt: "Detox/Hangover IV Drip",
+    readMoreUrl: "/service-page/detox-hangover-drip",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "MYERS COCKTAIL",
+    volume: "500ml",
+    price: "$250",
+    image: imgMyers,
+    imageAlt: "Myers Cocktail IV Drip",
+    readMoreUrl: "/service-page/myers-cocktail",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "NAD+ IV DRIP THERAPY",
+    volume: "Single Dose +250mg",
+    price: "$500",
+    image: imgNad,
+    imageAlt: "NAD+ IV Drip Therapy 250mg",
+    readMoreUrl: "/service-page/nad-iv-drip-therapy",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "NAD+ IV DRIP THERAPY",
+    volume: "Single Dose +500mg",
+    price: "$700",
+    image: imgNad,
+    imageAlt: "NAD+ IV Drip Therapy 500mg",
+    readMoreUrl: "/service-page/nad-iv-drip-therapy",
+    bookUrl: site.calcomUrl,
+  },
+  {
+    name: "NAD+ IV DRIP THERAPY",
+    volume: "Single Dose +750mg",
+    price: "$850",
+    image: imgNad,
+    imageAlt: "NAD+ IV Drip Therapy 750mg",
+    readMoreUrl: "/service-page/nad-iv-drip-therapy",
+    bookUrl: site.calcomUrl,
+  },
+];
+---
+
+<!-- Section 7: IV Drip Menu Pricing Table -->
+<section class="section s7-drip-menu">
+  <div class="container">
+    <div class="s7-drip-menu__grid">
+      {drips.map((drip) => (
+        <div class="s7-drip-menu__card">
+          <div class="s7-drip-menu__card-img-wrap">
+            <img
+              src={drip.image.src}
+              alt={drip.imageAlt}
+              class="s7-drip-menu__card-img"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="300"
+            />
+          </div>
+          <div class="s7-drip-menu__card-body">
+            <h3 class="s7-drip-menu__card-name">{drip.name}</h3>
+            <p class="s7-drip-menu__card-volume">{drip.volume}</p>
+            <p class="s7-drip-menu__card-price">{drip.price}</p>
+            <div class="s7-drip-menu__card-actions">
+              <a href={drip.readMoreUrl} class="btn btn--secondary btn--sm">Read More</a>
+              <a
+                href={drip.bookUrl}
+                class="btn btn--primary btn--sm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Book Now</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .s7-drip-menu__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .s7-drip-menu__card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-bg);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s7-drip-menu__card-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .s7-drip-menu__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .s7-drip-menu__card:hover .s7-drip-menu__card-img {
+    transform: scale(1.04);
+  }
+
+  .s7-drip-menu__card-body {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .s7-drip-menu__card-name {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s7-drip-menu__card-volume {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .s7-drip-menu__card-price {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .s7-drip-menu__card-actions {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: var(--space-xs);
+  }
+
+  @media (max-width: 1024px) {
+    .s7-drip-menu__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s7-drip-menu__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s7-drip-menu__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .s7-drip-menu__card-actions .btn {
+      flex: 1;
+      text-align: center;
+    }
+  }
+</style>

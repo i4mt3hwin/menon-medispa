@@ -1,0 +1,107 @@
+---
+import site from '@/lib/site'
+---
+
+<section class="section s5-steps">
+  <div class="container container--narrow">
+
+    <div class="s5-steps__intro">
+      <h2 class="s5-steps__heading">What To Expect During Your 60-Minute Dermaplane Facial Experience</h2>
+      <p class="s5-steps__sub">Every step is designed for your comfort and results. Here's exactly what happens during your session at Menon Medispa in Millburn, NJ.</p>
+    </div>
+
+    <div class="s5-steps__list">
+
+      <div class="s5-steps__item">
+        <p class="s5-steps__item-title"><strong>Step 1: Consultation &amp; Skin Analysis (5-10 minutes)</strong></p>
+        <p class="s5-steps__item-desc">Your esthetician will assess your skin type, discuss any concerns, and confirm dermaplaning is the right treatment for your complexion that day.</p>
+      </div>
+
+      <div class="s5-steps__item">
+        <p class="s5-steps__item-title"><strong>Step 2: Deep Cleansing &amp; Preparation (10-15 minutes)</strong></p>
+        <p class="s5-steps__item-desc">We use the Corthe Dermo Cleansing Foam to remove makeup, oil, and impurities and prepare your skin for dermaplaning. Your skin is then toned and prepped for the exfoliation step.</p>
+      </div>
+
+      <div class="s5-steps__item">
+        <p class="s5-steps__item-title"><strong>Step 3: Professional Dermaplaning (15-20 minutes)</strong></p>
+        <p class="s5-steps__item-desc">Using a sterile surgical blade held at a precise 45-degree angle, your esthetician gently glides across the skin to remove dead skin cells and fine vellus hair. The process is virtually painless.</p>
+      </div>
+
+      <div class="s5-steps__item">
+        <p class="s5-steps__item-title"><strong>Step 4: Serum &amp; Moisturizer Application (10-15 minutes)</strong></p>
+        <p class="s5-steps__item-desc">With your skin freshly exfoliated, we apply targeted serums and a hydrating moisturizer to lock in results. Your session finishes with a broad-spectrum SPF to protect your newly revealed skin.</p>
+      </div>
+
+    </div>
+
+    <div class="s5-steps__cta">
+      <a href={site.calcomUrl} class="btn btn--primary btn--lg">Schedule Now</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s5-steps__intro {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .s5-steps__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+  }
+
+  .s5-steps__sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s5-steps__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .s5-steps__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .s5-steps__item-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .s5-steps__item-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s5-steps__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .s5-steps__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

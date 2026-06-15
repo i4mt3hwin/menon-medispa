@@ -1,10 +1,10 @@
-/* Generated from 01-discovery/fonts.json — do not edit directly.
+/* Generated from 01-discovery/fonts, .json, do not edit directly.
    All families self-hosted (origin: self-hosted, all download_failed: false).
-   bunny.net Lato CDN link omitted — Lato is fully covered by @font-face below.
-   Source: page-snapshot.mjs v1.2.0 capture 2026-06-13. */
+   bunny, .net Lato CDN link omitted, Lato is fully covered by @font-face below.
+   Source: page-snapshot, .mjs v1.2.0 capture 2026-06-13. */
 
 /* ============================================================
-   AVENIR LT — avenir-lt-w01_35-light1475496 (Wix site branding)
+   AVENIR LT, avenir-lt-w01_35-light1475496 (Wix site branding)
    ============================================================ */
 @font-face {
   font-family: "avenir-lt-w01_35-light1475496";
@@ -17,7 +17,7 @@
 }
 
 /* ============================================================
-   DIDOT — didot-w01-italic (decorative italic accent)
+   DIDOT, didot-w01-italic (decorative italic accent)
    ============================================================ */
 @font-face {
   font-family: "didot-w01-italic";
@@ -30,7 +30,7 @@
 }
 
 /* ============================================================
-   DIN NEXT — din-next-w01-light
+   DIN NEXT, din-next-w01-light
    ============================================================ */
 @font-face {
   font-family: "din-next-w01-light";
@@ -44,7 +44,7 @@
 }
 
 /* ============================================================
-   LATO — body/UI (Google font, self-hosted via parastorage CDN capture)
+   LATO, body/UI (Google font, self-hosted via parastorage CDN capture)
    ============================================================ */
 @font-face {
   font-family: "lato";
@@ -84,7 +84,7 @@
 }
 
 /* ============================================================
-   LATO-LIGHT — eyebrow/UI text variant
+   LATO-LIGHT, eyebrow/UI text variant
    ============================================================ */
 @font-face {
   font-family: "lato-light";
@@ -116,7 +116,7 @@
 }
 
 /* ============================================================
-   PLAYFAIR DISPLAY — section headings, display
+   PLAYFAIR DISPLAY, section headings, display
    ============================================================ */
 @font-face {
   font-family: "playfair display";
@@ -164,7 +164,7 @@
 }
 
 /* ============================================================
-   PLAYFAIRDISPLAY-BOLD — bold variant (older v13 hashes)
+   PLAYFAIRDISPLAY-BOLD, bold variant (older v13 hashes)
    ============================================================ */
 @font-face {
   font-family: "playfairdisplay-bold";
@@ -196,8 +196,8 @@
 }
 
 /* ============================================================
-   RALEWAY-V2 — dominant body / hero text (3,867+ computed uses)
-   Primary LCP font — preloaded in fonts-head.html
+   RALEWAY-V2, dominant body / hero text (3,867+ computed uses)
+   Primary LCP font, preloaded in fonts-head, .html
    ============================================================ */
 @font-face {
   font-family: "raleway-v2";
@@ -241,7 +241,7 @@
 }
 
 /* ============================================================
-   GLOBAL BASE STYLES — apply brand fonts to all elements.
+   GLOBAL BASE STYLES, apply brand fonts to all elements.
    Without these rules the browser falls back to Times New Roman
    because @font-face alone does not apply the font.
    ============================================================ */

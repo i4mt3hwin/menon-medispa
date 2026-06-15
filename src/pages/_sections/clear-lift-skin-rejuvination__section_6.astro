@@ -1,0 +1,233 @@
+---
+import videoPosterImg from '@/assets/images/bf60da9a2083.jpg';
+---
+
+<section class="section section--tint s6-benefits">
+  <div class="container">
+
+    <h2 class="s6-benefits__heading">Why Choose ClearLift in at Menon Medispa in Millburn?</h2>
+
+    <p class="s6-benefits__intro">
+      Experience the most advanced, comfortable, and effective skin rejuvenation treatment available. Here's what sets ClearLift apart from other options.
+    </p>
+
+    <div class="s6-benefits__grid">
+
+      <div class="s6-benefits__card">
+        <h3 class="s6-benefits__card-heading">Zero Downtime Required</h3>
+        <p class="s6-benefits__card-text">Unlike traditional lasers or chemical peels, ClearLift allows you to return to all activities immediately after treatment.</p>
+      </div>
+
+      <div class="s6-benefits__card">
+        <h3 class="s6-benefits__card-heading">Completely Pain-Free</h3>
+        <p class="s6-benefits__card-text">Experience gentle warming sensations instead of pain. No numbing cream or anesthesia needed for comfortable treatment.</p>
+      </div>
+
+      <div class="s6-benefits__card">
+        <h3 class="s6-benefits__card-heading">Quick 30-Minute Sessions</h3>
+        <p class="s6-benefits__card-text">Fit your skin transformation into your busy schedule with efficient treatments during your lunch break.</p>
+      </div>
+
+      <div class="s6-benefits__card">
+        <h3 class="s6-benefits__card-heading">Safe for All Skin Types</h3>
+        <p class="s6-benefits__card-text">ClearLift works safely on all six Fitzpatrick skin types, including darker skin tones that other treatments can't address.</p>
+      </div>
+
+      <div class="s6-benefits__card">
+        <h3 class="s6-benefits__card-heading">FDA-Approved Technology</h3>
+        <p class="s6-benefits__card-text">ClearLift uses clinically proven Q-switched laser technology, backed by extensive research and safety studies.</p>
+      </div>
+
+      <div class="s6-benefits__card">
+        <h3 class="s6-benefits__card-heading">Long-Lasting Results</h3>
+        <p class="s6-benefits__card-text">Results improve over time as your skin naturally produces more collagen, with effects lasting up to 2 years.</p>
+      </div>
+
+    </div>
+
+    <div class="s6-benefits__bonus">
+
+      <div class="s6-benefits__bonus-text">
+        <h3 class="s6-benefits__bonus-heading">Beyond Facial Rejuvenation</h3>
+        <p class="s6-benefits__bonus-body">
+          ClearLift laser technology offers remarkable results for lip enhancement and rejuvenation. This gentle, non-invasive treatment stimulates collagen production in the delicate lip area, naturally improving lip definition, reducing fine lines around the mouth, and restoring a fuller, more youthful appearance.
+        </p>
+        <p class="s6-benefits__bonus-body">
+          The precision of ClearLift allows us to treat the lip borders and surrounding area without downtime, making it an ideal solution for those seeking subtle, natural lip enhancement without fillers.
+        </p>
+      </div>
+
+      <div class="s6-benefits__bonus-media">
+        <video
+          class="s6-benefits__video"
+          autoplay
+          loop
+          muted
+          playsinline
+          poster={videoPosterImg.src}
+          width="480"
+          height="270"
+        >
+          <source
+            src="https://video.wixstatic.com/video/2baa5c_a1e2e08938534d2a8f421b35a9a4de05/720p/mp4/file.mp4"
+            type="video/mp4"
+          />
+          <track kind="descriptions" />
+        </video>
+        <img
+          src={videoPosterImg.src}
+          alt="ClearLift lip enhancement treatment at Menon Medispa"
+          class="s6-benefits__poster"
+          loading="lazy"
+          decoding="async"
+          width="480"
+          height="270"
+        />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s6-benefits__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .s6-benefits__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0 auto var(--space-lg);
+    line-height: 1.7;
+    text-align: center;
+    max-width: 760px;
+  }
+
+  .s6-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .s6-benefits__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+  }
+
+  .s6-benefits__card-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s6-benefits__card-text {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .s6-benefits__bonus {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+  }
+
+  .s6-benefits__bonus-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .s6-benefits__bonus-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s6-benefits__bonus-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .s6-benefits__bonus-media {
+    flex-shrink: 0;
+    width: 420px;
+  }
+
+  .s6-benefits__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .s6-benefits__poster {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    .s6-benefits__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s6-benefits__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .s6-benefits__bonus {
+      flex-direction: column;
+      padding: var(--space-md);
+    }
+
+    .s6-benefits__bonus-media {
+      width: 100%;
+    }
+
+    .s6-benefits__video {
+      display: none;
+    }
+
+    .s6-benefits__poster {
+      display: block;
+    }
+  }
+</style>

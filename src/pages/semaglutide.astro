@@ -1,0 +1,204 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/semaglutide__section_2.astro';
+import Pricing from '@/pages/_sections/semaglutide__section_7.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import FinalCta from '@/pages/_sections/semaglutide__section_9.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'semaglutide';
+const posts = getRelatedPosts(slug);
+
+// FAQ: single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What is Semaglutide?',
+    answer:
+      'Semaglutide is an FDA-approved medication that belongs to a class of drugs called GLP-1 receptor agonists. It works by mimicking a hormone that targets areas of the brain involved in appetite regulation, helping you feel fuller longer and reducing hunger. Originally developed for treating type 2 diabetes, it has shown remarkable effectiveness for weight management.',
+  },
+  {
+    question: 'How does Semaglutide help with weight loss?',
+    answer:
+      'Semaglutide works in multiple ways to support weight loss: it slows stomach emptying so you feel full longer after eating, reduces appetite and hunger signals in the brain, decreases food cravings particularly for high-fat foods, helps regulate blood sugar levels, and supports feeling satisfied with smaller portions.',
+  },
+  {
+    question: 'How much weight can I expect to lose with Semaglutide?',
+    answer:
+      'Clinical studies have shown that people taking Semaglutide, combined with lifestyle modifications, typically lose 15-20% of their body weight over 68 weeks. Individual results vary based on starting weight, adherence to dietary and exercise recommendations, and other health factors. Dr. Menon will help set realistic expectations based on your specific situation.',
+  },
+  {
+    question: 'How is Semaglutide administered?',
+    answer:
+      'Semaglutide is administered as a once-weekly subcutaneous injection. At Menon Medispa, Dr. Aditi Menon will provide comprehensive training on self-administration or can administer the injection for you during office visits. The medication is typically started at a lower dose and gradually increased to minimize side effects.',
+  },
+  {
+    question: 'What side effects might I experience?',
+    answer:
+      'Common side effects of Semaglutide may include nausea (most common, especially when starting treatment), diarrhea, vomiting, constipation, abdominal pain, and headache. Most side effects are mild to moderate and tend to decrease over time. Dr. Menon employs a gradual dose escalation strategy to minimize these effects and will work with you to manage any discomfort.',
+  },
+];
+const faqItems = [
+  {
+    question: 'What is Semaglutide?',
+    answer_html:
+      '<p>Semaglutide is an FDA-approved medication that belongs to a class of drugs called GLP-1 receptor agonists. It works by mimicking a hormone that targets areas of the brain involved in appetite regulation, helping you feel fuller longer and reducing hunger. Originally developed for treating type 2 diabetes, it has shown remarkable effectiveness for weight management.</p>',
+  },
+  {
+    question: 'How does Semaglutide help with weight loss?',
+    answer_html:
+      '<p>Semaglutide works in multiple ways to support weight loss:</p><ul><li>Slows stomach emptying, helping you feel full longer after eating</li><li>Reduces appetite and hunger signals in the brain</li><li>Decreases food cravings, particularly for high-fat foods</li><li>Helps regulate blood sugar levels</li><li>Supports feeling satisfied with smaller portions</li></ul>',
+  },
+  {
+    question: 'How much weight can I expect to lose with Semaglutide?',
+    answer_html:
+      '<p>Clinical studies have shown that people taking Semaglutide, combined with lifestyle modifications, typically lose 15-20% of their body weight over 68 weeks. Individual results vary based on starting weight, adherence to dietary and exercise recommendations, and other health factors. Dr. Menon will help set realistic expectations based on your specific situation.</p>',
+  },
+  {
+    question: 'How is Semaglutide administered?',
+    answer_html:
+      '<p>Semaglutide is administered as a once-weekly subcutaneous injection. At Menon Medispa, Dr. Aditi Menon will provide comprehensive training on self-administration or can administer the injection for you during office visits. The medication is typically started at a lower dose and gradually increased to minimize side effects.</p>',
+  },
+  {
+    question: 'What side effects might I experience?',
+    answer_html:
+      '<p>Common side effects of Semaglutide may include:</p><ul><li>Nausea (most common, especially when starting treatment)</li><li>Diarrhea</li><li>Vomiting</li><li>Constipation</li><li>Abdominal pain</li><li>Headache</li></ul><p>Most side effects are mild to moderate and tend to decrease over time. Dr. Menon employs a gradual dose escalation strategy to minimize these effects and will work with you to manage any discomfort.</p>',
+  },
+];
+
+const jsonld = buildServiceSchema({
+  name: 'Semaglutide Medical Weight Loss in Millburn, NJ',
+  description:
+    'Physician-directed Semaglutide medical weight loss treatments in Millburn, NJ. Safe, effective, and tailored to your unique health needs for lasting results. Book a consultation with Dr. Aditi Menon today.',
+  url: '/semaglutide',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Medical Weight Loss',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Semaglutide', url: '/semaglutide' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Semaglutide Medical Weight Loss in Millburn NJ | Menon Medispa & Wellness"
+  description="Physician-directed Semaglutide medical weight loss treatments in Millburn, NJ. Safe, effective, and tailored to your unique health needs for lasting results. Book a consultation with Dr. Aditi Menon today."
+  canonical="https://www.menonmedispa.com/semaglutide"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="SEMAGLUTIDE · MILLBURN, NJ"
+    h1="Medical Weight Loss with Semaglutide in Millburn, NJ"
+    subhead="Physician-directed weight loss that targets your biology, not just your willpower, for sustainable, lasting results."
+    image={heroImg}
+    imageAlt="Semaglutide medical weight loss treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $100"
+    note="Consultation with Dr. Aditi Menon, MD."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>The Challenge of Sustainable Weight Loss</h2>
+
+      <p class="svc-lead">Losing weight can be one of life's most frustrating struggles. Despite countless diets, exercise programs, and willpower, many people find themselves trapped in a cycle of initial success followed by disappointing regain.</p>
+
+      <ul class="svc-checks">
+        <li>Traditional diets often fail because they don't address the biological factors driving hunger</li>
+        <li>Exercise alone rarely produces significant weight loss for those with metabolic challenges</li>
+        <li>Over-the-counter supplements promise results but deliver minimal, temporary changes</li>
+      </ul>
+
+      <p>The reality is that weight management isn't simply about willpower. Your body actively fights weight loss through powerful hormonal signals that increase hunger and slow metabolism. This biological resistance makes sustainable weight reduction nearly impossible for many people, especially those with insulin resistance, hormonal imbalances, or genetic predispositions.</p>
+
+      <p>For those who have struggled with their weight for years, each failed attempt chips away at confidence and motivation, leading many to believe that significant, lasting weight loss may be out of reach without medical intervention.</p>
+
+      <div class="svc-accent">
+        <p>But there is a better way forward, one based on medical science rather than willpower alone!</p>
+      </div>
+    </div>
+
+    <div class="svc-block">
+      <h2>Reimagine Weight Loss With The Semaglutide Difference</h2>
+
+      <p>We understand the frustration of failed weight loss attempts.</p>
+
+      <p>Our medically supervised Semaglutide program offers a scientifically proven approach that addresses the biological factors that make sustainable weight loss so challenging!</p>
+
+      <p class="svc-eyebrow">How Semaglutide Controls Appetite</p>
+
+      <ul class="svc-checks">
+        <li>Targets the brain's appetite regulation centers to naturally reduce hunger</li>
+        <li>Creates a feeling of fullness that lasts longer after meals</li>
+        <li>Allows for steady, sustainable weight loss of 1-2 pounds weekly</li>
+      </ul>
+
+      <p>Semaglutide works by mimicking a natural hormone called GLP-1 (glucagon-like peptide-1) that your digestive tract releases after eating. This powerful hormone lowers blood sugar by triggering insulin release while blocking excess sugar production. The result is reduced appetite, better portion control, and consistent weight loss without constant hunger.</p>
+
+      <p class="svc-eyebrow">Our Comprehensive Support System</p>
+
+      <ul class="svc-checks">
+        <li>Consultation with Dr. Menon and weekly check-ins</li>
+        <li>Custom nutrition plans tailored to your specific needs</li>
+        <li>Complete blood work and medical monitoring</li>
+        <li>Optional enhancement therapies with amino acids, vitamins, and minerals</li>
+      </ul>
+
+      <p class="svc-eyebrow">Beyond Weight Loss: Total Health Benefits</p>
+
+      <p>Unlike traditional diets that leave you constantly hungry and fighting cravings, Semaglutide helps you feel satisfied with smaller portions. This allows for sustainable lifestyle changes that lead to not just weight loss, but also improvements in blood pressure, cholesterol levels, and overall cardiovascular health.</p>
+
+      <p>Don't let another day pass struggling with ineffective diets and disappointing results. The science-backed solution you've been searching for is just one appointment away. Our Semaglutide program has helped countless patients achieve what they once thought impossible.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'From $100' },
+          { label: 'Frequency', value: 'Once-weekly injection' },
+          { label: 'Results', value: '15-20% body weight loss*' },
+          { label: 'Performed by', value: 'Dr. Aditi Menon, MD' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="semaglutide" />
+
+  <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_7 (Pricing), section_9 (FinalCta). Inlined: section_3 (problem prose), section_5 (difference prose), section_6 (mid-page CTA copy folded into section_5 block). FAQ lifted: section_8 to FaqColumn. Hero section_1 extracted to ServiceHero. No promo band found. section_4 (Testimonial) swapped to <ServiceTestimonial slug="semaglutide" /> (original scraped quote named departed staff; replaced by the provider-safe reviews DB). -->

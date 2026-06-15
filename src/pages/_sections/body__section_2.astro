@@ -1,0 +1,80 @@
+---
+---
+
+<section class="section section--tight section--tint s2-body-trust">
+  <div class="container">
+    <ul class="s2-body__bar">
+      <li class="s2-body__item">
+        <span class="s2-body__icon" aria-hidden="true">&#10003;</span>
+        Same-Week Appointments
+      </li>
+      <li class="s2-body__divider" aria-hidden="true"></li>
+      <li class="s2-body__item">
+        <span class="s2-body__icon" aria-hidden="true">&#10003;</span>
+        Medical-Grade Expertise
+      </li>
+      <li class="s2-body__divider" aria-hidden="true"></li>
+      <li class="s2-body__item">
+        <span class="s2-body__icon" aria-hidden="true">&#10003;</span>
+        State of the Art Equipment
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .s2-body__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .s2-body__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .s2-body__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-cta);
+    font-size: 13px;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+  .s2-body__divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.18);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .s2-body__bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .s2-body__divider {
+      display: none;
+    }
+  }
+</style>

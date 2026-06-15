@@ -1,0 +1,111 @@
+---
+import heroBg from "@/assets/images/651c7c197b52.png";
+import beforeAfter1 from "@/assets/images/180e95701089.png";
+import beforeAfter2 from "@/assets/images/f260f818780a.png";
+---
+
+<!-- Section 3: Before & After Gallery, See Our Before & After Results -->
+<section class="media-bg section s3-gallery" style="--scrim-strength:0.55">
+  <img class="media-bg__img" src={heroBg.src} alt="" aria-hidden="true"
+       loading="lazy" decoding="async" width="1440" height="596" />
+  <span class="media-bg__scrim media-bg__scrim--l"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s3-gallery__layout">
+
+      <div class="s3-gallery__text">
+        <h2 class="s3-gallery__heading">See Our Before &amp; After Results</h2>
+        <p class="s3-gallery__body">
+          Amazing transformation from laser facial treatments! This real before &amp; after comparison
+          shows the dramatic wrinkle reduction our clients achieve, especially around the delicate
+          under-eye area. See how our advanced ClearLift laser technology can turn back the clock on
+          aging - the results speak for themselves!
+        </p>
+      </div>
+
+      <div class="s3-gallery__images">
+        <img
+          src={beforeAfter1.src}
+          alt="Before and after laser facial results, wrinkle reduction under eyes"
+          class="s3-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="600"
+          height="600"
+        />
+        <img
+          src={beforeAfter2.src}
+          alt="Before and after ClearLift laser facial comparison"
+          class="s3-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="668"
+          height="376"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .s3-gallery__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .s3-gallery__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .s3-gallery__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .s3-gallery__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .s3-gallery__images {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .s3-gallery__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    .s3-gallery__layout {
+      gap: var(--space-md);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s3-gallery__layout {
+      flex-direction: column;
+    }
+
+    .s3-gallery__text, .s3-gallery__images {
+      width: 100%;
+    }
+  }
+</style>

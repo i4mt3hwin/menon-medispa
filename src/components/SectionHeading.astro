@@ -91,6 +91,7 @@ const headingStyle = [
     margin: 0;
     font-weight: var(--weight-bold);
     line-height: 1.2;
+    text-wrap: balance;
   }
 
   .section-heading__subtext {
@@ -99,9 +100,15 @@ const headingStyle = [
     font-weight: var(--weight-regular);
     line-height: 1.6;
     margin: var(--space-sm) 0 0;
+    max-width: 65ch;
   }
 
-  @media (max-width: 980px) {
+  /* Center-aligned: auto-center the subtext */
+  .section-heading[style*="center"] .section-heading__subtext {
+    margin-inline: auto;
+  }
+
+  @media (max-width: 1024px) {
     .section-heading__text {
       line-height: 1.3;
     }

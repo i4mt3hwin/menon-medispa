@@ -1,0 +1,81 @@
+---
+---
+
+<!-- Section 1: Feature Strip, Customized Treatment Plans | Medical-Grade | Expert Technicians -->
+<section class="section section--tight section--tint s2-trust">
+  <div class="container">
+    <ul class="s2-trust__bar">
+      <li class="s2-trust__item">
+        <span class="s2-trust__icon" aria-hidden="true">&#10003;</span>
+        Customized Treatment Plans
+      </li>
+      <li class="s2-trust__divider" aria-hidden="true"></li>
+      <li class="s2-trust__item">
+        <span class="s2-trust__icon" aria-hidden="true">&#10003;</span>
+        Medical-Grade
+      </li>
+      <li class="s2-trust__divider" aria-hidden="true"></li>
+      <li class="s2-trust__item">
+        <span class="s2-trust__icon" aria-hidden="true">&#10003;</span>
+        Expert Technicians
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .s2-trust__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .s2-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .s2-trust__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-cta);
+    font-size: 13px;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+  .s2-trust__divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.18);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .s2-trust__bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .s2-trust__divider {
+      display: none;
+    }
+  }
+</style>

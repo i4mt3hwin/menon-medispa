@@ -1,0 +1,449 @@
+---
+/**
+ * /find-your-glow, interactive treatment + at-home routine recommender.
+ * Server-renders the hero + all quiz steps + lead gate from the data files; a
+ * bundled client <script> drives navigation, runs src/lib/glow-engine, captures
+ * the lead to the first-party /api/lead (cosmetic-interest framing, NOT sent to
+ * any ad/tracking pixel), and renders the animated results.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import '@/styles/glow.css';
+import site from '@/lib/site';
+import { icon } from '@/lib/glow-icons';
+import concernsData from '@/data/glow-concerns.json';
+import quizData from '@/data/glow-quiz.json';
+import heroImg from '../assets/home/your-skin-comes-first-bg.webp';
+
+const concerns = concernsData.concerns;
+const steps = quizData.steps.map((s: any) =>
+  s.ref === 'concerns'
+    ? { ...s, options: concerns.map((c) => ({ value: c.id, label: c.label, sub: c.short, icon: c.icon })) }
+    : s
+);
+const questions = steps.filter((s: any) => s.kind !== 'lead');
+const leadStep: any = steps.find((s: any) => s.kind === 'lead');
+const questionCount = questions.length;
+
+const consentEmailText =
+  'I agree to receive personalized skincare tips, treatment ideas and exclusive offers by email from Menon Medispa. I can unsubscribe anytime.';
+const consentSmsText =
+  'I agree to receive occasional offers and reminders by text from Menon Medispa. Message and data rates may apply; reply STOP to opt out.';
+
+const pageTitle = 'Find Your Glow | Skin Quiz & Treatment Finder | Menon Medispa, Millburn NJ';
+const pageDesc =
+  'Take the 2-minute Find Your Glow quiz for personalized treatment recommendations and an at-home skincare routine, tailored to your skin by Menon Medispa in Millburn, NJ.';
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} canonical={`${site.url}/find-your-glow`} ogImage={heroImg.src}>
+  <main
+    class="glow-quiz"
+    id="glow-quiz"
+    data-consent-email-text={consentEmailText}
+    data-consent-sms-text={consentSmsText}
+  >
+    <!-- ============================ INTRO HERO ============================ -->
+    <section class="glow-hero">
+      <img class="glow-hero__img" src={heroImg.src} alt="" aria-hidden="true" />
+      <span class="glow-hero__scrim"></span>
+      <span class="glow-hero__bloom"></span>
+      <div class="glow-hero__inner">
+        <p class="glow-eyebrow">Menon Medispa · Skin Studio</p>
+        <h1>Find Your <span class="glow-accent">Glow</span></h1>
+        <p class="glow-hero__sub">
+          Answer a few questions about your skin and we’ll craft a personalized plan, the treatments
+          matched to you, plus a simple routine to glow at home.
+        </p>
+        <button class="btn btn--primary btn--lg" id="glow-begin" type="button">
+          Begin your glow plan <span class="glow-ico" set:html={icon('arrow')} />
+        </button>
+        <p class="glow-hero__meta">
+          <span>About 2 minutes</span><span class="glow-hero__dot"></span>
+          <span>Personalized to you</span><span class="glow-hero__dot"></span>
+          <span>No obligation</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================== STAGE ============================== -->
+    <div class="glow-stage" id="glow-stage" hidden>
+      <!-- progress -->
+      <div class="glow-progress" id="glow-progress" hidden>
+        <div class="glow-progress__row">
+          <span class="glow-progress__label">Step <b id="glow-step-num">1</b> of {questionCount}</span>
+          <span class="glow-progress__label" id="glow-step-name"></span>
+        </div>
+        <div class="glow-progress__track"><div class="glow-progress__fill" id="glow-progress-fill"></div></div>
+      </div>
+
+      <!-- question steps -->
+      {questions.map((step: any) => (
+        <div class="glow-step" data-kind={step.kind} data-key={step.key} data-max={step.max ?? ''}>
+          <div class="glow-step__head">
+            <p class="glow-step__kicker">{step.kicker}</p>
+            <h2 class="glow-step__q">{step.question}</h2>
+            <p class="glow-step__hint">{step.hint}</p>
+          </div>
+          <div
+            class="glow-options"
+            role={step.kind === 'single' ? 'radiogroup' : 'group'}
+            aria-label={step.question}
+          >
+            {step.options.map((opt: any) => (
+              <button
+                type="button"
+                class="glow-option"
+                data-value={opt.value}
+                role={step.kind === 'single' ? 'radio' : 'checkbox'}
+                aria-checked="false"
+              >
+                <span class="glow-option__icon" set:html={icon(opt.icon)} />
+                <span class="glow-option__body">
+                  <span class="glow-option__label">{opt.label}</span>
+                  {opt.sub && <span class="glow-option__sub">{opt.sub}</span>}
+                </span>
+                <span class="glow-option__check" set:html={icon('check')} />
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <!-- lead gate -->
+      <div class="glow-step glow-gate-step" data-kind="lead" data-key="lead">
+        <div class="glow-gate">
+          <div class="glow-gate__card">
+            <div class="glow-gate__seal" set:html={icon('spark')} />
+            <div class="glow-step__head">
+              <p class="glow-step__kicker">{leadStep.kicker}</p>
+              <h2 class="glow-step__q">{leadStep.question}</h2>
+              <p class="glow-step__hint">{leadStep.hint}</p>
+            </div>
+            <form id="glow-lead-form" novalidate>
+              <p class="glow-gate__error" id="glow-gate-error" role="alert"></p>
+              <div class="glow-field">
+                <label for="glow-name">First name</label>
+                <input id="glow-name" name="name" type="text" autocomplete="given-name" required />
+              </div>
+              <div class="glow-field">
+                <label for="glow-email">Email</label>
+                <input id="glow-email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="glow-field">
+                <label for="glow-phone">Phone <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+                <input id="glow-phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+              <label class="glow-consent">
+                <input type="checkbox" id="glow-consent-email" checked />
+                <span>{consentEmailText}</span>
+              </label>
+              <label class="glow-consent">
+                <input type="checkbox" id="glow-consent-sms" />
+                <span>{consentSmsText}</span>
+              </label>
+              <div class="glow-hp" aria-hidden="true">
+                <label>Leave this field empty
+                  <input type="text" id="glow-hp" name="company_website" tabindex="-1" autocomplete="off" />
+                </label>
+              </div>
+              <button class="btn btn--primary btn--lg btn--block" type="submit">Reveal my Glow Plan</button>
+              <p class="glow-gate__fine">
+                We use your answers as cosmetic preferences to tailor suggestions and email your plan. This is
+                educational, not medical advice. We never sell your details. See our
+                <a href="/store-policy">privacy policy</a>.
+              </p>
+            </form>
+            <div class="glow-nav" style="margin-top:18px;">
+              <button class="glow-back" id="glow-gate-back" type="button"><span set:html={icon('back')} /> Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- global nav -->
+      <div class="glow-nav" id="glow-nav" hidden>
+        <button class="glow-back" id="glow-back" type="button" hidden><span set:html={icon('back')} /> Back</button>
+        <span class="glow-nav__spacer"></span>
+        <button class="btn btn--primary glow-next" id="glow-next" type="button" disabled>
+          Continue <span set:html={icon('arrow')} />
+        </button>
+      </div>
+
+      <!-- building-your-plan loader -->
+      <div class="glow-loader" id="glow-loader" hidden>
+        <div class="glow-loader__ring"></div>
+        <p class="glow-loader__text">Crafting your Glow Plan…</p>
+        <p class="glow-loader__sub">Matching treatments and building your routine.</p>
+      </div>
+
+      <!-- results -->
+      <div class="glow-results" id="glow-results"></div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { recommend } from '../lib/glow-engine';
+  import { icon } from '../lib/glow-icons';
+  import { treatmentImages } from '../lib/glow-images';
+
+  const root = document.getElementById('glow-quiz');
+  if (root) {
+    const stage = document.getElementById('glow-stage')!;
+    const progress = document.getElementById('glow-progress')!;
+    const progressFill = document.getElementById('glow-progress-fill')!;
+    const stepNumEl = document.getElementById('glow-step-num')!;
+    const stepNameEl = document.getElementById('glow-step-name')!;
+    const nav = document.getElementById('glow-nav')!;
+    const backBtn = document.getElementById('glow-back') as HTMLButtonElement;
+    const nextBtn = document.getElementById('glow-next') as HTMLButtonElement;
+    const beginBtn = document.getElementById('glow-begin');
+    const loader = document.getElementById('glow-loader')!;
+    const results = document.getElementById('glow-results')!;
+    const form = document.getElementById('glow-lead-form') as HTMLFormElement;
+    const gateError = document.getElementById('glow-gate-error')!;
+    const gateBack = document.getElementById('glow-gate-back');
+
+    const els = Array.from(root.querySelectorAll<HTMLElement>('.glow-step'));
+    const questionEls = els.filter((e) => e.dataset.kind !== 'lead');
+    const questionCount = questionEls.length;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = -1;
+    let advanceTimer: number | undefined;
+
+    const isLead = (el: HTMLElement) => el.dataset.kind === 'lead';
+    const selectionsOf = (el: HTMLElement) =>
+      Array.from(el.querySelectorAll<HTMLElement>('.glow-option.is-selected')).map((b) => b.dataset.value!);
+
+    function scrollStage() {
+      const y = stage.getBoundingClientRect().top + window.scrollY - 84;
+      window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+    }
+
+    function updateChrome() {
+      const el = els[current];
+      const lead = isLead(el);
+      const single = el.dataset.kind === 'single';
+      progress.hidden = false;
+      stepNumEl.textContent = String(Math.min(current + 1, questionCount));
+      progressFill.style.width = (lead ? 100 : ((current + 1) / questionCount) * 100) + '%';
+      const kicker = el.querySelector('.glow-step__kicker');
+      stepNameEl.textContent = kicker ? kicker.textContent || '' : '';
+      // Continue appears ONLY on multi-select steps (pick several, then advance).
+      // Single-select steps auto-advance the moment you pick, so no button is shown —
+      // that removes the "sometimes I need Continue, sometimes I don't" confusion.
+      nextBtn.style.display = single ? 'none' : '';
+      nextBtn.disabled = false;
+      backBtn.hidden = current === 0;
+      nav.hidden = lead || (single && current === 0);
+    }
+
+    function setStep(i: number) {
+      if (i < 0 || i >= els.length) return;
+      window.clearTimeout(advanceTimer);
+      const prev = els[current];
+      if (prev && prev !== els[i]) {
+        if (reduced) {
+          prev.classList.remove('is-active');
+        } else {
+          prev.classList.add('is-leaving');
+          window.setTimeout(() => prev.classList.remove('is-active', 'is-leaving'), 320);
+        }
+      }
+      current = i;
+      const el = els[i];
+      window.setTimeout(() => el.classList.add('is-active'), reduced ? 0 : 120);
+      updateChrome();
+      const h = el.querySelector<HTMLElement>('.glow-step__q') || el.querySelector<HTMLElement>('h2');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    }
+
+    const goNext = () => { if (current < els.length - 1) { setStep(current + 1); scrollStage(); } };
+    const goBack = () => { if (current > 0) { setStep(current - 1); scrollStage(); } };
+
+    // option interactions
+    els.forEach((el) => {
+      if (isLead(el)) return;
+      const kind = el.dataset.kind;
+      const max = parseInt(el.dataset.max || '0', 10);
+      el.querySelectorAll<HTMLElement>('.glow-option').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (kind === 'single') {
+            el.querySelectorAll('.glow-option').forEach((b) => { b.classList.remove('is-selected'); b.setAttribute('aria-checked', 'false'); });
+            btn.classList.add('is-selected'); btn.setAttribute('aria-checked', 'true');
+            updateChrome();
+            window.clearTimeout(advanceTimer);
+            advanceTimer = window.setTimeout(goNext, reduced ? 0 : 440);
+          } else {
+            const on = btn.classList.contains('is-selected');
+            if (!on && max && selectionsOf(el).length >= max) {
+              btn.animate?.(
+                [{ transform: 'translateX(0)' }, { transform: 'translateX(-5px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }],
+                { duration: 240 }
+              );
+              return;
+            }
+            btn.classList.toggle('is-selected'); btn.setAttribute('aria-checked', String(!on));
+            updateChrome();
+          }
+        });
+      });
+    });
+
+    beginBtn?.addEventListener('click', () => { stage.hidden = false; setStep(0); scrollStage(); });
+    nextBtn?.addEventListener('click', goNext);
+    backBtn?.addEventListener('click', goBack);
+    gateBack?.addEventListener('click', goBack);
+
+    function collectAnswers(): any {
+      const a: any = { secondary: [], flags: [] };
+      questionEls.forEach((el) => {
+        const key = el.dataset.key!; const kind = el.dataset.kind;
+        const sel = selectionsOf(el);
+        a[key] = kind === 'single' ? sel[0] : sel;
+      });
+      return a;
+    }
+
+    function sendLead(d: any, result: any) {
+      // First-party capture only. Deliberately NOT pushed to Meta/Google/Clarity/dataLayer.
+      const payload: Record<string, string> = {
+        name: d.name, email: d.email, phone: d.phone || '',
+        service_interest: result.serviceInterest,
+        message: result.interestSummary,
+        source_page: '/find-your-glow',
+        send_confirmation: 'on',
+        consent_email: d.consentEmail ? 'on' : 'false',
+        consent_email_text: root.dataset.consentEmailText || '',
+        company_website: d.hp || '',
+      };
+      if (d.consentSms && d.phone) { payload.consent_sms = 'on'; payload.consent_sms_text = root.dataset.consentSmsText || ''; }
+      try {
+        fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});
+      } catch (_) { /* never block the results on a network error */ }
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = (id: string) => (form.querySelector('#' + id) as HTMLInputElement).value.trim();
+      const checked = (id: string) => (form.querySelector('#' + id) as HTMLInputElement).checked;
+      const name = val('glow-name'), email = val('glow-email'), phone = val('glow-phone');
+      const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+      if (!name || !emailOk) {
+        gateError.textContent = !name ? 'Please add your first name.' : 'Please enter a valid email address.';
+        gateError.classList.add('is-shown');
+        (form.querySelector(!name ? '#glow-name' : '#glow-email') as HTMLInputElement).focus();
+        return;
+      }
+      gateError.classList.remove('is-shown');
+
+      const answers = collectAnswers();
+      const result = recommend(answers);
+
+      els[current].classList.remove('is-active');
+      nav.hidden = true; progress.hidden = true;
+      loader.hidden = false;
+      scrollStage();
+
+      sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp') }, result);
+
+      window.setTimeout(() => { loader.hidden = true; renderResults(result, name.split(/\s+/)[0]); }, reduced ? 200 : 1500);
+    });
+
+    const SKIN: Record<string, string> = { oily: 'Oily skin', combination: 'Combination skin', dry: 'Dry skin', normal: 'Normal skin' };
+    const SENS: Record<string, string> = { low: 'Resilient', mid: 'Balanced sensitivity', high: 'Sensitive skin' };
+
+    const tcard = (t: any, i: number) => `
+      <article class="glow-tcard" style="animation-delay:${(i * 0.12).toFixed(2)}s">
+        ${treatmentImages[t.id]
+          ? `<div class="glow-tcard__photo" style="background-image:url('${treatmentImages[t.id]}')"><span class="glow-tcard__rank">${t.rankLabel}</span><span class="glow-tcard__match">${t.match}% match</span></div>`
+          : `<div class="glow-tcard__aura">${icon(t.icon)}<span class="glow-tcard__rank">${t.rankLabel}</span><span class="glow-tcard__match">${t.match}% match</span></div>`}
+        <div class="glow-tcard__body">
+          <span class="glow-tcard__cat">${t.category}</span>
+          <h4 class="glow-tcard__name">${t.name}</h4>
+          <p class="glow-tcard__why">${icon('spark')}<span>${t.why}</span></p>
+          <div class="glow-tcard__meta">
+            <span class="glow-tcard__tag">${icon('calendar')} ${t.downtime}</span>
+            <span class="glow-tcard__tag">${icon('refresh')} ${t.sessions}</span>
+            <span class="glow-tcard__tag">${icon('spark')} ${t.priceFrom}</span>
+          </div>
+          ${t.cautionNote ? `<p class="glow-tcard__why glow-tcard__caution">${icon('alert')}<span>${t.cautionNote}</span></p>` : ''}
+          <div class="glow-tcard__actions">
+            <a class="btn btn--secondary btn--sm" href="${t.href}">Learn more</a>
+            <a class="btn btn--primary btn--sm" href="/consultation">Book</a>
+          </div>
+        </div>
+      </article>`;
+
+    const rcol = (title: string, sub: string, items: any[], mod: string, ic: string, preg: boolean) =>
+      !items.length ? '' : `
+      <div class="glow-rcol glow-rcol--${mod}">
+        <div class="glow-rcol__head"><span class="glow-rcol__badge">${icon(ic)}</span>
+          <span class="glow-rcol__title">${title}<small>${sub}</small></span></div>
+        ${items.map((s, idx) => `<div class="glow-rstep">
+          <span class="glow-rstep__num">${idx + 1}</span>
+          <span class="glow-rstep__body">
+            <span class="glow-rstep__name">${s.name}</span>
+            <span class="glow-rstep__note">${s.note}</span>
+            ${preg && s.pregnancySafe ? `<span class="glow-rstep__flag">pregnancy-safe</span>` : ''}
+          </span></div>`).join('')}
+      </div>`;
+
+    const weeklyStrip = (items: any[], preg: boolean) =>
+      !items.length ? '' : `
+      <div class="glow-weekly">
+        <div class="glow-weekly__head"><span class="glow-rcol__badge glow-weekly__badge">${icon('refresh')}</span>
+          <span class="glow-rcol__title">Weekly<small>1–2× a week</small></span></div>
+        <div class="glow-weekly__items">
+          ${items.map((s: any) => `<div class="glow-weekly__item">
+            <span class="glow-rstep__name">${s.name}</span>
+            <span class="glow-rstep__note">${s.note}</span>
+            ${preg && s.pregnancySafe ? `<span class="glow-rstep__flag">pregnancy-safe</span>` : ''}
+          </div>`).join('')}
+        </div>
+      </div>`;
+
+    function renderResults(r: any, firstName: string) {
+      const preg = r.profile.pregnancy;
+      const chips = [
+        ...r.profile.concerns.map((c: any) => `<span class="glow-chip">${icon('spark')}${c.label}</span>`),
+        r.profile.skinType ? `<span class="glow-chip">${icon(r.profile.skinType)}${SKIN[r.profile.skinType] || 'Your skin'}</span>` : '',
+        r.profile.sensitivity ? `<span class="glow-chip">${icon('feather')}${SENS[r.profile.sensitivity] || ''}</span>` : '',
+      ].join('');
+      const cards = r.treatments.map(tcard).join('') ||
+        `<p class="glow-disclaimer">Let’s talk in person, a quick consultation is the best next step for your skin.</p>`;
+      const ampm =
+        rcol('Morning', 'AM ritual', r.routine.am, 'am', 'sun', preg) +
+        rcol('Evening', 'PM ritual', r.routine.pm, 'pm', 'moon', preg);
+      const weekly = weeklyStrip(r.routine.weekly, preg);
+
+      results.innerHTML = `
+        <div class="glow-results__head">
+          <p class="glow-eyebrow">Your personalized plan</p>
+          <h2>${firstName ? firstName + '’s' : 'Your'} Glow Plan</h2>
+          <p>Here’s where we’d begin, a few treatments matched to your skin, and a simple routine to support them at home.</p>
+          <div class="glow-profile">${chips}</div>
+        </div>
+        ${r.safetyNote ? `<p class="glow-safety"><strong>A note for you, </strong> ${r.safetyNote}</p>` : ''}
+        <div class="glow-section-title"><p class="glow-eyebrow">In the studio</p><h3>Treatments matched to you</h3></div>
+        <div class="glow-treatments">${cards}</div>
+        <div class="glow-section-title"><p class="glow-eyebrow">At home</p><h3>Your daily glow routine</h3></div>
+        <div class="glow-routine">${ampm}</div>${weekly}
+        <div class="glow-cta">
+          <h3>See it in person</h3>
+          <p>Your provider will confirm the perfect plan for your skin at a personalized consultation${preg ? ', and keep everything pregnancy-safe' : ''}.</p>
+          <div class="glow-cta__actions">
+            <a class="btn btn--primary btn--lg" href="/consultation">Book your consultation</a>
+            <a class="btn btn--secondary btn--on-dark btn--lg" href="tel:+19734948431">Call (973) 494-8431</a>
+          </div>
+        </div>
+        <p class="glow-disclaimer"><strong>Please note, </strong> Find Your Glow offers personalized suggestions based on what you shared. It is educational and not medical advice or a diagnosis. Your Menon Medispa provider confirms what’s right for your skin, including suitability and dosing, at your consultation. Every plan includes daily SPF, and treatments may include a patch test.</p>
+        <div class="glow-restart"><button class="btn btn--ghost" id="glow-restart" type="button">Start over</button></div>`;
+
+      results.classList.add('is-shown');
+      requestAnimationFrame(() => results.querySelectorAll('.glow-tcard').forEach((c) => c.classList.add('is-in')));
+      const y = results.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+      document.getElementById('glow-restart')?.addEventListener('click', () => location.reload());
+    }
+  }
+</script>

@@ -1,0 +1,266 @@
+---
+// Section 6, Add Ons repeater grid
+// 7 addon cards: image + heading + price (where available)
+import SectionHeading from '@/components/SectionHeading.astro';
+import RichText from '@/components/RichText.astro';
+
+import addon1Img from '@/assets/images/71fd4437d1c9.png';
+import addon2Img from '@/assets/images/a822a2b001cc.png';
+import addon3Img from '@/assets/images/faeaba32325b.png';
+import addon4Img from '@/assets/images/4bc097ff8839.png';
+import addon5Img from '@/assets/images/129e4e075fac.png';
+import addon6Img from '@/assets/images/145f8747aa55.png';
+import addon7Img from '@/assets/images/016978cac38f.png';
+---
+
+<section class="section mf-s6">
+  <div class="container">
+
+    <div class="mf-s6__header">
+      <SectionHeading
+        text="Add Ons"
+        tag="h2"
+        align="center"
+        font="display"
+      />
+      <RichText
+        html="<p>Enhance your facial results with these powerful add-ons designed to maximize your skin transformation and speed healing.</p>"
+        font="var(--font-body)"
+        size="var(--text-sm)"
+      />
+    </div>
+
+    <div class="mf-s6__grid">
+
+      <!-- Add-On 1: Customized Hydrogel Mask -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon1Img.src}
+            alt="Customized Hydrogel Mask add-on"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">Customized Hydrogel Mask</h3>
+          <p class="addon-card__price">$25</p>
+        </div>
+      </div>
+
+      <!-- Add-On 2: Eye Treatment -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon2Img.src}
+            alt="Eye Treatment add-on"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">Eye Treatment</h3>
+          <p class="addon-card__price">$10</p>
+        </div>
+      </div>
+
+      <!-- Add-On 3: Dermaplaning Add-On -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon3Img.src}
+            alt="Dermaplaning Add-On"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">Dermaplaning Add-On</h3>
+          <p class="addon-card__price">$50</p>
+        </div>
+      </div>
+
+      <!-- Add-On 4: Manual Lymph Drainage (no price available) -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon4Img.src}
+            alt="Manual Lymph Drainage add-on"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">Manual Lymph Drainage</h3>
+        </div>
+      </div>
+
+      <!-- Add-On 5: LED Light Therapy -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon5Img.src}
+            alt="LED Light Therapy add-on"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">LED Light Therapy</h3>
+          <p class="addon-card__price">$35</p>
+        </div>
+      </div>
+
+      <!-- Add-On 6: Hydrafacial Lip Perk -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon6Img.src}
+            alt="Hydrafacial Lip Perk add-on"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">Hydrafacial Lip Perk</h3>
+          <p class="addon-card__price">$30</p>
+        </div>
+      </div>
+
+      <!-- Add-On 7: Hydrafacial Eye Perk -->
+      <div class="addon-card">
+        <div class="addon-card__img-wrap">
+          <img
+            src={addon7Img.src}
+            alt="Hydrafacial Eye Perk add-on"
+            class="addon-card__img"
+            loading="lazy"
+            decoding="async"
+            width="220"
+            height="215"
+          />
+        </div>
+        <div class="addon-card__body">
+          <h3 class="addon-card__title">Hydrafacial Eye Perk</h3>
+          <p class="addon-card__price">$30</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .mf-s6__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .mf-s6__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  /* Addon card */
+  .addon-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    background-color: var(--color-surface);
+    transition: box-shadow 0.2s ease-in-out;
+  }
+
+  .addon-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .addon-card__img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .addon-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .addon-card__body {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .addon-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .addon-card__price {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-cta);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1024px) {
+    .mf-s6__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mf-s6__header {
+      margin-bottom: var(--space-md);
+    }
+
+    .mf-s6__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .mf-s6__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

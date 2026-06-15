@@ -1,22 +1,22 @@
 ---
 /**
- * ServicePageTemplate.astro — canonical layout for individual service pages.
+ * ServicePageTemplate.astro, canonical layout for individual service pages.
  * Covers the 81 services formerly at /service-page/{slug} on the Wix site.
  * All props are rendered verbatim; zero summarization.
  *
  * Props:
- *   title                — service name (required)
- *   slug                 — URL slug (required)
- *   category             — optional category badge text
- *   description_html     — intro/description HTML (rendered with set:html)
- *   duration             — e.g. "60 minutes"
- *   price                — e.g. "Starting at $150"
- *   benefits             — bullet list of benefit strings
- *   what_to_expect_html  — what-to-expect section HTML
- *   aftercare_html       — aftercare instructions HTML
- *   faqs                 — array of {question, answer} pairs
- *   hero_image_src       — hero image URL
- *   hero_image_alt       — hero image alt text
+ *   title, service name (required)
+ *   slug, URL slug (required)
+ *   category, optional category badge text
+ *   description_html, intro/description HTML (rendered with set:html)
+ *   duration, e.g. "60 minutes"
+ *   price, e.g. "Starting at $150"
+ *   benefits, bullet list of benefit strings
+ *   what_to_expect_html, what-to-expect section HTML
+ *   aftercare_html, aftercare instructions HTML
+ *   faqs, array of {question, answer} pairs
+ *   hero_image_src, hero image URL
+ *   hero_image_alt, hero image alt text
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import site from '../lib/site';
@@ -60,29 +60,56 @@ const bookingLabel = `Book ${title}`;
 <BaseLayout title={title}>
   <article class="service-page">
 
-    <!-- Hero — background-color fallback ensures no black void when image 404s -->
-    <section class="service-page__hero" style={hero_image_src ? `background-color: var(--color-header-bg); background-image: url('${hero_image_src}');` : 'background-color: var(--color-header-bg);'}>
-      <div class="service-page__hero-overlay">
-        {category && (
-          <span class="service-page__badge">{category}</span>
-        )}
-        <h1 class="service-page__title">{title}</h1>
-        {(duration || price) && (
-          <div class="service-page__meta">
-            {duration && <span class="service-page__meta-item">{duration}</span>}
-            {price && <span class="service-page__meta-item">{price}</span>}
-          </div>
-        )}
-        <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="service-page__hero-btn">
-          Book an Appointment
-        </a>
-      </div>
-    </section>
+    <!-- Hero, media-bg layered pattern: real <img> with blur + scrim so text pops -->
+    {hero_image_src ? (
+      <section class="service-page__hero media-bg" style="--scrim-strength: 0.58;">
+        <img
+          class="media-bg__img media-bg__img--blur"
+          src={hero_image_src}
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="media-bg__scrim media-bg__scrim--b"></span>
+        <div class="media-bg__inner service-page__hero-inner on-media">
+          {category && (
+            <span class="service-page__badge">{category}</span>
+          )}
+          <h1 class="service-page__title">{title}</h1>
+          {(duration || price) && (
+            <div class="service-page__meta">
+              {duration && <span class="service-page__meta-item">{duration}</span>}
+              {price && <span class="service-page__meta-item">{price}</span>}
+            </div>
+          )}
+          <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
+            Book an Appointment
+          </a>
+        </div>
+      </section>
+    ) : (
+      <section class="service-page__hero service-page__hero--color">
+        <div class="service-page__hero-inner on-media container">
+          {category && (
+            <span class="service-page__badge">{category}</span>
+          )}
+          <h1 class="service-page__title">{title}</h1>
+          {(duration || price) && (
+            <div class="service-page__meta">
+              {duration && <span class="service-page__meta-item">{duration}</span>}
+              {price && <span class="service-page__meta-item">{price}</span>}
+            </div>
+          )}
+          <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
+            Book an Appointment
+          </a>
+        </div>
+      </section>
+    )}
 
     <!-- Description -->
     {description_html && (
-      <section class="service-page__section">
-        <div class="service-page__container">
+      <section class="section">
+        <div class="container container--narrow">
           <div class="service-page__richtext" set:html={description_html} />
         </div>
       </section>
@@ -90,8 +117,8 @@ const bookingLabel = `Book ${title}`;
 
     <!-- Benefits -->
     {benefits.length > 0 && (
-      <section class="service-page__section service-page__section--tinted">
-        <div class="service-page__container">
+      <section class="section section--tint">
+        <div class="container container--narrow">
           <h2 class="service-page__h2">Benefits</h2>
           <ul class="service-page__benefits">
             {benefits.map((b) => (
@@ -104,8 +131,8 @@ const bookingLabel = `Book ${title}`;
 
     <!-- What to Expect -->
     {what_to_expect_html && (
-      <section class="service-page__section">
-        <div class="service-page__container">
+      <section class="section">
+        <div class="container container--narrow">
           <h2 class="service-page__h2">What to Expect</h2>
           <div class="service-page__richtext" set:html={what_to_expect_html} />
         </div>
@@ -114,8 +141,8 @@ const bookingLabel = `Book ${title}`;
 
     <!-- Aftercare -->
     {aftercare_html && (
-      <section class="service-page__section service-page__section--tinted">
-        <div class="service-page__container">
+      <section class="section section--tint">
+        <div class="container container--narrow">
           <h2 class="service-page__h2">Aftercare</h2>
           <div class="service-page__richtext" set:html={aftercare_html} />
         </div>
@@ -124,8 +151,8 @@ const bookingLabel = `Book ${title}`;
 
     <!-- FAQs -->
     {faqs.length > 0 && (
-      <section class="service-page__section">
-        <div class="service-page__container">
+      <section class="section">
+        <div class="container container--narrow">
           <h2 class="service-page__h2">Frequently Asked Questions</h2>
           <div class="service-page__faqs">
             {faqs.map((faq) => (
@@ -141,8 +168,8 @@ const bookingLabel = `Book ${title}`;
 
     <!-- Contact Details (captured from Wix for 3 services) -->
     {contact_html && (
-      <section class="service-page__section service-page__section--tinted">
-        <div class="service-page__container">
+      <section class="section section--tint">
+        <div class="container container--narrow">
           <h2 class="service-page__h2">Contact Details</h2>
           <div class="service-page__richtext" set:html={contact_html} />
         </div>
@@ -150,10 +177,10 @@ const bookingLabel = `Book ${title}`;
     )}
 
     <!-- Final CTA -->
-    <section class="service-page__cta-section">
-      <div class="service-page__container service-page__cta-inner">
+    <section class="section section--dark service-page__cta-section">
+      <div class="container service-page__cta-inner">
         <h2 class="service-page__cta-heading">Ready to experience {title}?</h2>
-        <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="service-page__cta-btn">
+        <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
           {bookingLabel}
         </a>
       </div>
@@ -165,24 +192,33 @@ const bookingLabel = `Book ${title}`;
 <style>
   /* Hero */
   .service-page__hero {
-    position: relative;
-    min-height: 420px;
-    background-size: cover;
-    background-position: center;
-    background-color: var(--color-surface-dark);
+    min-height: clamp(280px, 38vw, 520px);
     display: flex;
     align-items: flex-end;
   }
-  .service-page__hero-overlay {
+
+  /* Fallback hero, no image */
+  .service-page__hero--color {
+    background-color: var(--color-header-bg);
+    padding-block: var(--section-py);
+  }
+
+  .service-page__hero-inner {
     width: 100%;
-    padding: var(--space-xl) var(--space-md) var(--space-lg);
-    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 60%, transparent 100%);
-    color: #fff;
+    padding-block: var(--space-lg);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
+
+  /* When inside media-bg, hero-inner gets container padding from .container on the outer wrapper */
+  .media-bg .service-page__hero-inner {
+    padding-inline: var(--container-pad);
+    max-width: var(--container-max);
+    margin-inline: auto;
+  }
+
   .service-page__badge {
     display: inline-block;
     background-color: var(--color-cta);
@@ -195,53 +231,37 @@ const bookingLabel = `Book ${title}`;
     padding: 4px 12px;
     border-radius: var(--radius-sm);
   }
+
   .service-page__title {
     font-family: var(--font-display);
     font-size: var(--text-h1);
     margin: 0;
     line-height: 1.15;
+    text-wrap: balance;
   }
+
   .service-page__meta {
     display: flex;
     gap: var(--space-md);
     font-family: var(--font-body);
     font-size: var(--text-sm);
     opacity: 0.88;
+    flex-wrap: wrap;
   }
+
   .service-page__meta-item {
     display: inline-block;
   }
-  .service-page__hero-btn {
-    display: inline-block;
-    background-color: var(--color-cta);
-    color: #fff;
-    font-family: var(--font-cta);
-    font-size: var(--text-base);
-    font-weight: 600;
-    padding: 14px 36px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    margin-top: 8px;
-    transition: opacity 0.2s;
-  }
-  .service-page__hero-btn:hover { opacity: 0.86; }
 
-  /* Sections */
-  .service-page__section {
-    padding: var(--space-xl) var(--space-md);
-  }
-  .service-page__section--tinted {
-    background-color: rgba(196,164,132,0.07);
-  }
-  .service-page__container {
-    max-width: 760px;
-    margin: 0 auto;
-  }
+  /* Section headings */
   .service-page__h2 {
     font-family: var(--font-display);
     font-size: var(--text-h2);
     margin-bottom: var(--space-md);
+    text-wrap: balance;
   }
+
+  /* Rich text body */
   .service-page__richtext {
     font-family: var(--font-body);
     font-size: var(--text-base);
@@ -257,12 +277,14 @@ const bookingLabel = `Book ${title}`;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px var(--space-md);
   }
+
   .service-page__benefit-item {
     font-family: var(--font-body);
     font-size: var(--text-base);
     padding-left: 20px;
     position: relative;
   }
+
   .service-page__benefit-item::before {
     content: '✓';
     position: absolute;
@@ -277,11 +299,13 @@ const bookingLabel = `Book ${title}`;
     flex-direction: column;
     gap: 12px;
   }
+
   .service-page__faq {
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: var(--radius-sm);
     overflow: hidden;
   }
+
   .service-page__faq-q {
     font-family: var(--font-body);
     font-size: var(--text-base);
@@ -293,15 +317,20 @@ const bookingLabel = `Book ${title}`;
     justify-content: space-between;
     align-items: center;
   }
+
   .service-page__faq-q::-webkit-details-marker { display: none; }
+
   .service-page__faq-q::after {
     content: '+';
     font-size: 20px;
     font-weight: 400;
     color: var(--color-cta);
     flex-shrink: 0;
+    margin-left: var(--space-sm);
   }
+
   details[open] .service-page__faq-q::after { content: '−'; }
+
   .service-page__faq-a {
     font-family: var(--font-body);
     font-size: var(--text-sm);
@@ -311,40 +340,43 @@ const bookingLabel = `Book ${title}`;
 
   /* Final CTA */
   .service-page__cta-section {
-    background-color: var(--color-surface-dark);
-    color: var(--color-surface);
-    padding: var(--space-xl) var(--space-md);
     text-align: center;
   }
+
   .service-page__cta-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-md);
   }
+
   .service-page__cta-heading {
     font-family: var(--font-display);
     font-size: var(--text-h2);
     margin: 0;
+    text-wrap: balance;
   }
-  .service-page__cta-btn {
-    display: inline-block;
-    background-color: var(--color-cta);
-    color: #fff;
-    font-family: var(--font-cta);
-    font-size: var(--text-base);
-    font-weight: 600;
-    padding: 16px 48px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: opacity 0.2s;
-  }
-  .service-page__cta-btn:hover { opacity: 0.86; }
 
-  @media (max-width: 980px) {
-    .service-page__title { font-size: 32px; }
-    .service-page__h2 { font-size: 26px; }
-    .service-page__benefits { grid-template-columns: 1fr; }
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .service-page__hero {
+      min-height: clamp(240px, 34vw, 400px);
+    }
+  }
+
+  /* Phone */
+  @media (max-width: 600px) {
+    .service-page__hero {
+      min-height: 260px;
+    }
+
+    .service-page__benefits {
+      grid-template-columns: 1fr;
+    }
+
+    .service-page__meta {
+      flex-direction: column;
+      gap: 4px;
+    }
   }
 </style>

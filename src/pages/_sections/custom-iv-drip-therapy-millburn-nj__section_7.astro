@@ -1,0 +1,111 @@
+---
+import site from '@/lib/site';
+import officeImg from '@/assets/images/b1a819f35921.webp';
+---
+
+<section class="section section--dark iv-s7-cta">
+  <div class="container">
+    <div class="iv-s7__layout">
+
+      <div class="iv-s7__text">
+        <h2 class="iv-s7__heading">Begin Your Custom IV Drip Therapy Today</h2>
+
+        <p class="iv-s7__body">
+          Ready to experience the powerful benefits of personalized IV therapy? Take the first step toward restoring your energy, hydration, and nutrient balance with a fully customized IV Drip at Menon Medispa in Millburn, NJ.
+        </p>
+
+        <div class="iv-s7__actions">
+          <a href={site.calcomUrl} class="btn btn--primary btn--lg">
+            Schedule Consultation
+          </a>
+        </div>
+      </div>
+
+      <div class="iv-s7__img-col">
+        <img
+          src={officeImg.src}
+          alt="Menon Medispa Office Staff"
+          class="iv-s7__img"
+          loading="lazy"
+          decoding="async"
+          width="431"
+          height="560"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .iv-s7__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .iv-s7__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .iv-s7__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .iv-s7__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .iv-s7__actions {
+    margin-top: var(--space-xs);
+  }
+
+  .iv-s7__img-col {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  .iv-s7__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.4);
+  }
+
+  @media (max-width: 1024px) {
+    .iv-s7__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .iv-s7__layout {
+      flex-direction: column;
+    }
+
+    .iv-s7__img-col {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .iv-s7__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

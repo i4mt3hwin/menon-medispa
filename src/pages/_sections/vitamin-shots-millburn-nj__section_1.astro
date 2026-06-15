@@ -1,0 +1,133 @@
+---
+import site from '@/lib/site';
+import heroImg from '@/assets/images/be07a65c0c65.png';
+import socialProofImg from '@/assets/images/672f9a7e94fe.png';
+---
+
+<!-- Section 1: Hero, Vitamin Shots Millburn NJ -->
+<section class="section s1-hero vs-s1">
+  <div class="container">
+    <div class="vs-s1__layout">
+
+      <div class="vs-s1__text">
+        <h1 class="vs-s1__heading">Boost Your Energy and Radiance with Vitamin Shots in Millburn, NJ</h1>
+
+        <p class="vs-s1__body">
+          Join countless clients in Millburn and Short Hills, NJ who turn to Menon Medispa's Vitamin Shots for fast, effective wellness support. Our expertly formulated injections are designed to boost energy, strengthen immunity, and enhance your natural glow, whether you're feeling run down, preparing for a busy week, or just want to look and feel your absolute best.
+        </p>
+
+        <div class="vs-s1__ctas">
+          <a href={site.calcomUrl} class="btn btn--primary btn--lg">Book Your Vitamin Shots Therapy</a>
+        </div>
+
+        <div class="vs-s1__social-proof">
+          <img
+            src={socialProofImg.src}
+            alt="Menon Medispa Social Proof"
+            width="207"
+            height="70"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <div class="vs-s1__img-col">
+        <img
+          src={heroImg.src}
+          alt="Vitamin Booster Shot at Menon Medispa Millburn NJ"
+          class="vs-s1__img"
+          loading="eager"
+          decoding="async"
+          width="993"
+          height="595"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .vs-s1 {
+    background: var(--color-bg);
+  }
+
+  .vs-s1__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .vs-s1__text {
+    flex: 0 0 465px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .vs-s1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .vs-s1__body {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .vs-s1__ctas {
+    margin-top: var(--space-xs);
+  }
+
+  .vs-s1__social-proof {
+    margin-top: var(--space-xs);
+  }
+
+  .vs-s1__social-proof img {
+    display: block;
+    max-width: 207px;
+    height: auto;
+  }
+
+  .vs-s1__img-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .vs-s1__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 1024px) {
+    .vs-s1__text {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .vs-s1__layout {
+      flex-direction: column;
+    }
+
+    .vs-s1__text {
+      flex: unset;
+      width: 100%;
+    }
+
+    .vs-s1__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

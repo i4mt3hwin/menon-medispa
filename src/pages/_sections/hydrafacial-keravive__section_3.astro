@@ -1,0 +1,138 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section section--tint hfk-s3-process">
+  <div class="container">
+
+    <div class="hfk-s3__intro">
+      <h2 class="hfk-s3__heading">Your Rejuvenating Hydrafacial Keravive Experience</h2>
+
+      <p class="hfk-s3__body">
+        HydraFacial™ Keravive™ is the first-of-its-kind scalp health treatment that cleanses, stimulates, nourishes, and hydrates the scalp using HydraFacial™ technology. The treatment targets the scalp and hair follicles, removing follicle-clogging debris and delivering a powerful blend of growth factors and skin proteins directly to the scalp.
+      </p>
+
+      <p class="hfk-s3__body">
+        The treatment is completed with a take-home spray to extend the benefits and help you maintain healthier-looking hair between appointments. Most clients see noticeable improvements in scalp health and hair appearance after just a few sessions.
+      </p>
+    </div>
+
+    <div class="hfk-s3__steps">
+
+      <div class="hfk-s3__step">
+        <h3 class="hfk-s3__step-title">CLEANSE + EXFOLIATE</h3>
+        <p class="hfk-s3__step-body">
+          HydraFacial™ Vortex Technology deeply cleanses and exfoliates the scalp, removing follicle-clogging sebum, dirt, and environmental debris.
+        </p>
+      </div>
+
+      <div class="hfk-s3__step">
+        <h3 class="hfk-s3__step-title">HYDRATE + NOURISH</h3>
+        <p class="hfk-s3__step-body">
+          A proprietary blend of growth factors, skin proteins, and hyaluronic acid is infused into the scalp to nourish and hydrate hair follicles for a healthier environment.
+        </p>
+      </div>
+
+      <div class="hfk-s3__step">
+        <h3 class="hfk-s3__step-title">EXTEND + ENHANCE</h3>
+        <p class="hfk-s3__step-body">
+          A take-home HydraFacial™ Keravive™ Peptide Complex Spray is provided to extend the benefits of the in-office treatment and support ongoing scalp health.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="hfk-s3__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hfk-s3__intro {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hfk-s3__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .hfk-s3__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .hfk-s3__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    width: 100%;
+  }
+
+  .hfk-s3__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background: var(--color-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .hfk-s3__step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .hfk-s3__step-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .hfk-s3__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .hfk-s3__steps {
+      grid-template-columns: 1fr;
+    }
+
+    .hfk-s3__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+---
+
+<section class="section face-faq">
+  <div class="container--narrow">
+
+    <h2 class="face-faq__heading">Frequently asked questions</h2>
+
+    <FaqAccordion
+      items={[
+        {
+          question: "What treatment is right for my skin?",
+          answer_html: "<p>The best treatment depends on your specific skin type, concerns, and goals. We offer a complimentary skin consultation where our licensed aestheticians and medical team perform a thorough assessment to recommend the most effective, personalized treatment plan for you.</p>"
+        },
+        {
+          question: "How often should I receive professional facial treatments?",
+          answer_html: "<p>For most clients, we recommend professional facial treatments every 4&ndash;6 weeks. This aligns with the skin&rsquo;s natural renewal cycle and helps maintain optimal results. Your provider will tailor a treatment schedule based on your skin condition and the specific services you receive.</p>"
+        },
+        {
+          question: "Are your skin treatments safe for sensitive skin?",
+          answer_html: "<p>Yes. All of our medical-grade treatments are customizable to accommodate sensitive skin types. Before any service, our team conducts a detailed skin analysis to ensure the treatment protocol and products selected are appropriate and safe for your unique skin sensitivity.</p>"
+        },
+        {
+          question: "What can I expect during my first visit?",
+          answer_html: "<p>Your first visit begins with a detailed consultation and skin analysis so we can fully understand your concerns and goals. From there, your provider will recommend a treatment plan and, when appropriate, begin your first session. We&rsquo;ll also walk you through aftercare instructions and schedule follow-up appointments to keep your skin progressing.</p>"
+        },
+        {
+          question: "Who performs my treatment?",
+          answer_html: "<p>All treatments at Menon MediSpa are performed by our licensed medical aestheticians and trained medical professionals, operating under the supervision and medical direction of Dr. Aditi Menon, MD. You can trust that every service is delivered by a qualified expert in a safe, clinical environment.</p>"
+        }
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .face-faq .container--narrow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .face-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Override FaqAccordion heading so it doesn't double-render */
+  .face-faq :global(.faq-accordion__heading) {
+    display: none;
+  }
+</style>

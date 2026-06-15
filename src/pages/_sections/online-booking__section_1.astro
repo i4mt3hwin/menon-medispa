@@ -1,0 +1,179 @@
+---
+import img651c7c197b52 from '@/assets/images/651c7c197b52.png';
+---
+
+<section class="media-bg section ob1-hero" style="--scrim-strength:0.50">
+  <img
+    class="media-bg__img"
+    src={img651c7c197b52.src}
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    decoding="async"
+    width="1440"
+    height="822"
+  />
+  <span class="media-bg__scrim media-bg__scrim--b"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="ob1-hero__inner">
+
+      <h2 class="ob1-hero__heading">
+        How Would You Like to Book Your Treatment?
+      </h2>
+
+      <p class="ob1-hero__sub">
+        Choose the option that works best for you
+      </p>
+
+      <div class="ob1-hero__options">
+
+        <div class="ob1-hero__option">
+          <a href="/book-online" class="btn btn--primary btn--lg btn--block">
+            I Know What I Want
+          </a>
+          <p class="ob1-hero__option-desc">Browse our full treatment menu and book directly</p>
+        </div>
+
+        <div class="ob1-hero__option">
+          <a href="/consultation" class="btn btn--primary btn--lg btn--block">
+            I Need Some Help
+          </a>
+          <p class="ob1-hero__option-desc">
+            Schedule a consultation to discuss your skin goals. Consultations with the esthetician are FREE. Consultations with Dr. Menon are $50 (Goes towards Treatment)
+          </p>
+        </div>
+
+      </div>
+
+      <div class="ob1-hero__social-proof">
+        <div class="ob1-hero__social-icons">
+          <img src="https://static.wixstatic.com/media/2baa5c_5a17e71f666948a3b53ea0c203f1bcff~mv2.png" alt="Award" width="46" height="50" />
+          <img src="https://static.wixstatic.com/media/2baa5c_9e9f4b262eb94c559c286afada394168~mv2.png" alt="Award" width="52" height="50" />
+          <img src="https://static.wixstatic.com/media/2baa5c_e04a4d2ebc4741bc9f5af8f3ad92fd64~mv2.png" alt="Award" width="52" height="50" />
+        </div>
+        <div class="ob1-hero__stars-block">
+          <p class="ob1-hero__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+          <p class="ob1-hero__review-count">100+ 5 Star Reviews</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .ob1-hero {
+    min-height: 596px;
+  }
+
+  .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .ob1-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-sm);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .ob1-hero__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .ob1-hero__sub {
+    font-size: var(--text-lg);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .ob1-hero__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+    margin-top: var(--space-xs);
+  }
+
+  .ob1-hero__option {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    align-items: center;
+  }
+
+  .ob1-hero__option-desc {
+    font-size: var(--text-sm);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ob1-hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .ob1-hero__social-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .ob1-hero__social-icons img {
+    display: block;
+    object-fit: contain;
+    filter: brightness(1.15);
+  }
+
+  .ob1-hero__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+
+  .ob1-hero__stars {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .ob1-hero__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 768px) {
+    .ob1-hero {
+      min-height: auto;
+    }
+
+    .ob1-hero__social-proof {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .ob1-hero__stars-block {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .ob1-hero__inner {
+      max-width: 100%;
+    }
+  }
+</style>

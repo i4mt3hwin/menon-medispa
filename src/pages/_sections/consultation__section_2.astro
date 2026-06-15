@@ -1,0 +1,240 @@
+---
+import site from '@/lib/site';
+---
+
+<!-- Section 2: The offer, two consultation options (CRO: clear pricing + risk reversal) -->
+<section class="section con-offer">
+  <div class="container">
+
+    <div class="con-offer__head">
+      <p class="eyebrow">Two Ways to Begin</p>
+      <h2 class="con-offer__heading">Choose the Consultation That Fits You</h2>
+      <p class="con-offer__intro">
+        Not sure where to start? Either option ends the same way, with a clear, personalized plan
+        for your skin. No pressure, no obligation.
+      </p>
+    </div>
+
+    <div class="con-offer__cards">
+
+      <div class="con-offer__card">
+        <p class="con-offer__card-label">With a Licensed Esthetician</p>
+        <p class="con-offer__price"><span class="con-offer__price-num">Free</span></p>
+        <p class="con-offer__card-body">
+          A 30-minute skin assessment with a licensed esthetician who maps out the right treatments
+          for your skin type, concerns, and goals.
+        </p>
+        <ul class="con-offer__list">
+          <li>30-minute one-on-one assessment</li>
+          <li>Personalized treatment recommendations</li>
+          <li>Completely free, no obligation</li>
+        </ul>
+        <a href="#request" class="btn btn--secondary con-offer__cta">Request This Consultation</a>
+      </div>
+
+      <div class="con-offer__card con-offer__card--featured">
+        <span class="con-offer__badge">Most In-Depth</span>
+        <p class="con-offer__card-label">With Dr. Aditi Menon, MD</p>
+        <p class="con-offer__price"><span class="con-offer__price-num">$50</span> <span class="con-offer__price-note">applied to your treatment</span></p>
+        <p class="con-offer__card-body">
+          A 30-minute medical consultation with our physician and medical director, ideal for
+          injectables, lasers, and advanced treatment planning.
+        </p>
+        <ul class="con-offer__list">
+          <li>30 minutes with Dr. Menon, MD</li>
+          <li>Medical-grade treatment roadmap</li>
+          <li>The $50 fee is credited toward your treatment</li>
+        </ul>
+        <a href="#request" class="btn btn--primary con-offer__cta">Request This Consultation</a>
+      </div>
+
+    </div>
+
+    <p class="con-offer__reassure">
+      Prefer to talk first? Call us at
+      <a href={site.phone.tel} class="con-offer__phone">{site.phone.display}</a>, same-week appointments are usually available.
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .con-offer .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .con-offer__head {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .con-offer__head .eyebrow { margin: 0; color: var(--color-cta); }
+
+  .con-offer__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .con-offer__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .con-offer__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    align-items: stretch;
+  }
+
+  .con-offer__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 18px rgb(0 0 0 / 0.05);
+  }
+
+  .con-offer__card--featured {
+    border-color: var(--color-cta);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.12);
+  }
+
+  .con-offer__badge {
+    position: absolute;
+    top: -12px;
+    right: var(--space-md);
+    background: var(--color-cta);
+    color: #fff;
+    font-family: var(--font-cta);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  .con-offer__card-label {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .con-offer__price {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .con-offer__price-num {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .con-offer__price-note {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-cta);
+    font-weight: 600;
+  }
+
+  .con-offer__card-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .con-offer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .con-offer__list li {
+    position: relative;
+    padding-left: 26px;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .con-offer__list li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-cta);
+    color: #fff;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .con-offer__cta {
+    margin-top: auto;
+    text-align: center;
+  }
+
+  .con-offer__reassure {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .con-offer__phone {
+    color: var(--color-cta);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .con-offer__phone:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .con-offer__cards {
+      grid-template-columns: 1fr;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+  }
+</style>

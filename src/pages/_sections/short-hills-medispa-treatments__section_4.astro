@@ -1,0 +1,114 @@
+---
+import bgImg from '@/assets/images/f1618b776327.jpg';
+import faceImg1 from '@/assets/images/0a8150a5612c.jpg';
+import faceImg2 from '@/assets/images/2fc4656f8ac4.jpg';
+import hairImg from '@/assets/images/e6d509254f0c.jpg';
+---
+
+<section class="media-bg section sh4-gallery" style="--scrim-strength:0">
+  <img class="media-bg__img" src={bgImg.src} alt="" aria-hidden="true" loading="lazy" decoding="async" width="1440" height="900" />
+  <span class="media-bg__scrim media-bg__scrim--b"></span>
+
+  <div class="media-bg__inner container sh4-gallery__columns">
+
+    <div class="sh4-gallery__col">
+      <h2 class="sh4-gallery__label">FACE</h2>
+      <img
+        src={faceImg1.src}
+        alt="Face Treatment"
+        class="sh4-gallery__img"
+        loading="lazy"
+        decoding="async"
+        width="385"
+        height="520"
+      />
+      <img
+        src={faceImg2.src}
+        alt="Natural Beauty"
+        class="sh4-gallery__img"
+        loading="lazy"
+        decoding="async"
+        width="402"
+        height="520"
+      />
+    </div>
+
+    <div class="sh4-gallery__col">
+      <h2 class="sh4-gallery__label">BODY</h2>
+    </div>
+
+    <div class="sh4-gallery__col">
+      <h2 class="sh4-gallery__label">HAIR</h2>
+      <img
+        src={hairImg.src}
+        alt="Model with Curly Hair"
+        class="sh4-gallery__img"
+        loading="lazy"
+        decoding="async"
+        width="402"
+        height="520"
+      />
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .sh4-gallery {
+    min-height: 560px;
+  }
+
+  .sh4-gallery__columns {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .sh4-gallery__col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
+  .sh4-gallery__label {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    letter-spacing: 0.08em;
+  }
+
+  .sh4-gallery__img {
+    width: 100%;
+    max-width: 402px;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 1024px) {
+    .sh4-gallery__label {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sh4-gallery__columns {
+      flex-direction: column;
+    }
+
+    .sh4-gallery__col {
+      width: 100%;
+    }
+
+    .sh4-gallery__label {
+      font-size: 32px;
+    }
+  }
+</style>

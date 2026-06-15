@@ -1,0 +1,11 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import botoxImg from '@/assets/images/1f114dd47995.jpeg';
+---
+<ServiceBookingCta
+  heading={`Price List`}
+  cards={[
+    { image: botoxImg, imageAlt: `BOTOX Injectables at Menon Medispa`, title: `BOTOX® Injectables`, tagline: `Smoother, Wrinkle-Free Skin`, price: `$14 per unit` },
+    { title: `Juvederm Fillers`, tagline: `Restore volume, smooth lines, and enhance facial contours`, price: `From $750` },
+  ]}
+/>

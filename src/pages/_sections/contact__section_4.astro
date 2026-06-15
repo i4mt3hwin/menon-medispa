@@ -1,0 +1,35 @@
+---
+// Section 4: Google Maps embed (Wix embed widget → direct iframe per operator spec)
+---
+
+<section class="contact-s4" aria-label="Location map">
+  <!-- widget: embed (Wix wix-iframe Google Maps → replaced with direct Google Maps embed per PARAMS) -->
+  <iframe
+    src="https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+NJ+07041&output=embed"
+    width="100%"
+    height="450"
+    style="border:0"
+    loading="lazy"
+    allowfullscreen
+    title="Menon Medispa location"
+  ></iframe>
+</section>
+
+<style>
+  .contact-s4 {
+    width: 100%;
+    line-height: 0;
+  }
+
+  .contact-s4 iframe {
+    display: block;
+    width: 100%;
+    height: 450px;
+  }
+
+  @media (max-width: 980px) {
+    .contact-s4 iframe {
+      height: 350px;
+    }
+  }
+</style>

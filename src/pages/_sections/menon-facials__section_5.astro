@@ -1,0 +1,100 @@
+---
+// Section 5, Testimonials
+// Background image + single client quote + Google badge
+import bgImg from '@/assets/images/30cfb9e87c60.png';
+import googleBadgeImg from '@/assets/images/5be44787b3a9.png';
+---
+
+<section class="media-bg section s4-testimonial mf-s5" style="--scrim-strength:0.55" aria-label="Client testimonials">
+  <img class="media-bg__img media-bg__img--blur" src={bgImg.src} alt="" aria-hidden="true"
+       loading="lazy" decoding="async" width="1440" height="500" />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="mf-s5__inner">
+
+      <h3 class="mf-s5__heading">What Our Clients Say</h3>
+
+      <blockquote class="mf-s5__quote">
+        <p class="mf-s5__quote-text">
+          "I went for a birthday treat and got the Hydrafacial. OMG the results were amazing! Dr Menon herself checked on me mid-treatment and was so warm and personable. If you are looking for a great med spa with affordable pricing and amazing results, look no further. Will definitely return!"
+        </p>
+        <footer class="mf-s5__footer">
+          <cite class="mf-s5__cite">Rathi Vijay, <span class="mf-s5__cite-label">Millburn Resident</span></cite>
+        </footer>
+      </blockquote>
+
+      <div class="mf-s5__badge">
+        <img
+          src={googleBadgeImg.src}
+          alt="Google Reviews badge, 5-star rated"
+          class="mf-s5__badge-img"
+          loading="lazy"
+          decoding="async"
+          width="143"
+          height="74"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .mf-s5__inner {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .mf-s5__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .mf-s5__quote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .mf-s5__quote-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-style: italic;
+    margin: 0 0 var(--space-sm);
+    line-height: 1.7;
+  }
+
+  .mf-s5__footer {
+    font-style: normal;
+  }
+
+  .mf-s5__cite {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    font-style: normal;
+  }
+
+  .mf-s5__cite-label {
+    font-weight: var(--weight-regular);
+  }
+
+  .mf-s5__badge {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mf-s5__badge-img {
+    display: block;
+    max-width: 143px;
+    height: auto;
+  }
+</style>

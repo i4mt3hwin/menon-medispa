@@ -1,0 +1,53 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import b12Img1 from '@/assets/images/1a6b9cdb8640.avif';
+import glutathioneImg from '@/assets/images/591aa31b4dbe.avif';
+import bComplexImg from '@/assets/images/640e3ac2429d.avif';
+import glowImg from '@/assets/images/48ddd66ba642.avif';
+import energyImg from '@/assets/images/e3b0b76f1424.avif';
+---
+<ServiceBookingCta
+  heading={`VITAMIN SHOTS`}
+  cards={[
+    {
+      image: b12Img1,
+      imageAlt: `B12 Vitamin Shot at Menon Medispa`,
+      title: `B12 VITAMIN SHOT`,
+      titleHref: `/service-page/b12-vitamin-shot`,
+      tagline: `B12`,
+      price: `$35`,
+    },
+    {
+      image: glutathioneImg,
+      imageAlt: `Glutathione Vitamin Shot at Menon Medispa`,
+      title: `GLUTATHIONE VITAMIN SHOT`,
+      titleHref: `/service-page/glutathione-vitamin-shot`,
+      tagline: `GLUTATHIONE`,
+      price: `$35`,
+    },
+    {
+      image: bComplexImg,
+      imageAlt: `B Complex Vitamin Shot at Menon Medispa`,
+      title: `B COMPLEX VITAMIN SHOT`,
+      titleHref: `/service-page/b-complex-vitamin-shot`,
+      tagline: `B COMPLEX`,
+      price: `$35`,
+    },
+    {
+      image: glowImg,
+      imageAlt: `Glow Shot Biotin and Glutathione at Menon Medispa`,
+      title: `GLOW SHOT - Biotin & Glutathione`,
+      titleHref: `/service-page/glow-shot-biotin-glutathione`,
+      tagline: `PREMIUM SHOTS`,
+      price: `$45`,
+    },
+    {
+      image: energyImg,
+      imageAlt: `Energy Shot B12 and Glutathione at Menon Medispa`,
+      title: `ENERGY SHOT - B12 + Glutathione`,
+      titleHref: `/service-page/energy-shot-b12-glutathione`,
+      tagline: `PREMIUM SHOTS`,
+      price: `$45`,
+    },
+  ]}
+/>

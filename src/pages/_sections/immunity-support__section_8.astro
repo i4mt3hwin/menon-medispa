@@ -1,0 +1,51 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<section class="section is8-faq">
+  <div class="container--narrow">
+
+    <h2 class="is8-faq__heading">Frequently asked questions</h2>
+
+    <LeadForm />
+
+    <FaqAccordion
+      items={[
+        {
+          question: "Do IV drips work for immunity?",
+          answer: "Yes. IV therapy delivers vitamins, minerals, and antioxidants directly into the bloodstream, bypassing the digestive system for 100% absorption. Key nutrients like high-dose Vitamin C, Zinc, and B-vitamins are delivered at therapeutic levels that support immune cell function, reduce inflammation, and help your body fight pathogens more effectively than oral supplements.",
+        },
+        {
+          question: "Will insurance pay for IV therapy?",
+          answer: "IV vitamin therapy is generally considered a wellness service and is not typically covered by health insurance. However, we offer competitive pricing and encourage you to contact us to discuss your options. Some flexible spending accounts (FSAs) or health savings accounts (HSAs) may cover these treatments.",
+        },
+        {
+          question: "Does the IV drip hurt?",
+          answer: "Most clients describe the initial needle insertion as a minor pinch, similar to a routine blood draw. Once the IV is placed, the infusion itself is virtually painless. Our experienced registered nurses are skilled at making the process as comfortable as possible.",
+        },
+        {
+          question: "How often should I get an immunity IV drip?",
+          answer: "This depends on your wellness goals. For general immune maintenance, monthly sessions work well for most clients. If you're actively fighting an illness or have an upcoming event or travel, you may benefit from sessions closer together. Our registered nurses will help you create a personalized wellness schedule.",
+        },
+        {
+          question: "How quickly will I feel the effects?",
+          answer: "Many clients report feeling more energized and refreshed during or immediately after their infusion. The full immune-supporting effects typically develop over the following 24-48 hours as your body utilizes the nutrients. Results can last anywhere from several days to a few weeks.",
+        },
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .is8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+</style>

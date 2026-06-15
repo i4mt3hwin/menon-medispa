@@ -1,0 +1,155 @@
+---
+import beforeAfterMen1 from '@/assets/images/b6de27df4c69.png';
+import beforeAfterMen2 from '@/assets/images/bcdc3a29fdee.png';
+---
+
+<section class="section prp-h-s4">
+  <div class="container">
+    <div class="prp-h-s4__layout">
+
+      <div class="prp-h-s4__text-col">
+
+        <h2 class="prp-h-s4__heading">The Platelet-Rich Plasma Hair Restoration Solution</h2>
+
+        <p class="prp-h-s4__body">PRP Hair Restoration is a cutting-edge, non-surgical treatment that uses the regenerative power of your own blood to stimulate natural hair growth and combat thinning.</p>
+
+        <ul class="prp-h-s4__feature-list">
+          <li>Derived from your own blood, no foreign substances</li>
+          <li>Targets the root cause of hair loss at the follicle level</li>
+          <li>Stimulates dormant follicles to re-enter the growth phase</li>
+        </ul>
+
+        <p class="prp-h-s4__body">The process begins with a simple blood draw. Your blood is then placed in a centrifuge, which spins it at high speed to separate and concentrate the platelets. This platelet-rich plasma is packed with growth factors that, when injected into the scalp, trigger natural hair regrowth.</p>
+
+        <p class="prp-h-s4__body">At Menon Medispa, this treatment is performed under the direction of Dr. Aditi Menon, a regenerative medicine specialist who ensures precision and care in every session.</p>
+
+      </div>
+
+      <div class="prp-h-s4__img-col">
+        <div class="prp-h-s4__img-pair">
+          <div class="prp-h-s4__img-wrap">
+            <img
+              src={beforeAfterMen1.src}
+              alt="Before and After Men Hair Restoration at Menon Medispa"
+              loading="lazy"
+              decoding="async"
+              width="336"
+              height="334"
+            />
+          </div>
+          <div class="prp-h-s4__img-wrap">
+            <img
+              src={beforeAfterMen2.src}
+              alt="Before and After Men Hair Restoration at Menon Medispa"
+              loading="lazy"
+              decoding="async"
+              width="330"
+              height="334"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .prp-h-s4__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .prp-h-s4__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .prp-h-s4__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .prp-h-s4__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .prp-h-s4__feature-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .prp-h-s4__feature-list li {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+    padding-left: 1.5em;
+    position: relative;
+  }
+
+  .prp-h-s4__feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-cta);
+    font-weight: var(--weight-bold);
+  }
+
+  .prp-h-s4__img-col {
+    flex-shrink: 0;
+    width: 340px;
+  }
+
+  .prp-h-s4__img-pair {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .prp-h-s4__img-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .prp-h-s4__img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    .prp-h-s4__img-col {
+      width: 280px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .prp-h-s4__layout {
+      flex-direction: column;
+    }
+
+    .prp-h-s4__img-col {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+  }
+</style>

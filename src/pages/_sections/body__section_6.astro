@@ -1,0 +1,63 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+---
+
+<section class="section body-faq">
+  <div class="container--narrow">
+
+    <h2 class="body-faq__heading">Frequently asked questions</h2>
+
+    <FaqAccordion
+      items={[
+        {
+          question: "Which treatment is right for me?",
+          answer_html: "<p>The right treatment depends on your personal goals, health profile, and concerns. During your consultation with Dr. Menon, we will evaluate your needs and recommend the most appropriate options. Whether you want to address hair removal, vascular issues, weight management, or overall vitality, we will build a personalized plan that makes sense for you.</p>"
+        },
+        {
+          question: "How do treatments complement each other?",
+          answer_html: "<p>Many of our body treatments work synergistically. For example, IV therapy can support healing and recovery after laser treatments, while weight management with Semaglutide may enhance your results from other body procedures. Dr. Menon will discuss how to sequence and combine treatments to maximize your outcomes safely.</p>"
+        },
+        {
+          question: "Who performs my treatment?",
+          answer_html: "<p>All treatments at Menon MediSpa are overseen by Dr. Jennifer Menon, a physician with expertise in medical aesthetics and wellness. Depending on the treatment, Dr. Menon may perform it directly or supervise a trained member of our clinical team. Your safety and satisfaction are always our top priority.</p>"
+        },
+        {
+          question: "How many sessions will I need?",
+          answer_html: "<p>The number of sessions varies by treatment and individual response. Laser hair removal typically requires a series of 6 to 8 sessions for optimal results. IV therapy benefits can be felt from a single session, though regular treatments are recommended for ongoing wellness. During your consultation, we will provide a realistic treatment timeline based on your goals.</p>"
+        },
+        {
+          question: "Are the treatments painful?",
+          answer_html: "<p>Comfort levels vary by treatment. Laser treatments may produce a mild snapping sensation, while IV therapy involves a brief pinch from the needle. Our team uses techniques and topical numbing options where appropriate to keep you as comfortable as possible throughout every session.</p>"
+        },
+        {
+          question: "What kind of results can I expect?",
+          answer_html: "<p>Results depend on the treatment and your individual starting point. Laser hair removal delivers permanent reduction in unwanted hair. Semaglutide supports meaningful, medically supervised weight loss. IV therapy delivers immediate energy and wellness benefits. We will set realistic expectations during your consultation and track your progress throughout your treatment journey.</p>"
+        }
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .body-faq .container--narrow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .body-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Override FaqAccordion heading so it doesn't double-render */
+  .body-faq :global(.faq-accordion__heading) {
+    display: none;
+  }
+</style>

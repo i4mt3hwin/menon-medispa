@@ -1,0 +1,128 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/fillers-injectables__section_2.astro';
+import JuvedermBand from '@/pages/_sections/fillers-injectables__section_4.astro';
+import Pricing from '@/pages/_sections/fillers-injectables__section_5.astro';
+import FinalCta from '@/pages/_sections/fillers-injectables__section_6.astro';
+
+import heroImg from '@/assets/images/db8d4e94db1e.jpg';
+
+const slug = 'fillers-injectables';
+const posts = getRelatedPosts(slug);
+
+// No FAQ section existed in the original page; arrays kept empty.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Fillers & Injectables in Millburn, NJ',
+  description:
+    'Advanced filler and injectable treatments in Millburn, NJ. BOTOX at $14 per unit, Juvederm from $750. Personalized treatments by medical professionals at Menon Medispa.',
+  url: '/fillers-injectables',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Injectables',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Fillers & Injectables', url: '/fillers-injectables' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Fillers & Injectables Millburn NJ | BOTOX & Juvederm | Menon Medispa"
+  description="Advanced filler and injectable treatments in Millburn, NJ. BOTOX at $14 per unit, Juvederm from $750. Personalized treatments by medical professionals."
+  canonical="https://www.menonmedispa.com/fillers-injectables"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="FILLERS & INJECTABLES · MILLBURN, NJ"
+    h1="Refresh Your Look with Premium Fillers & Injectables in Millburn, NJ"
+    subhead="A full range of BOTOX and Juvederm treatments with customized plans designed for your unique facial anatomy, by our board-certified team."
+    image={heroImg}
+    imageAlt="Premium fillers and injectables at Menon Medispa Millburn NJ"
+    price="Starting at $14 per unit"
+    note="Customized treatment plans, administered by medical professionals."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>About Our Fillers &amp; Injectables</h2>
+
+      <p class="svc-lead">At Menon Medispa, we offer a comprehensive range of dermal fillers and injectable treatments to help you achieve a naturally rejuvenated appearance.</p>
+
+      <p>Our experienced team of medical professionals creates personalized treatment plans to address your unique concerns and goals.</p>
+
+      <p>Our dermal fillers, including Juv&eacute;derm, are expertly administered to restore volume, smooth lines, and enhance facial contours. Each treatment is performed by our certified medical professionals who understand the art and science of facial aesthetics.</p>
+
+      <p>Our <a href="/botox-millburn-nj">Botox &amp; Injectables</a> treatments are expertly administered by Dr. Menon, who uses precise techniques to smooth lines and restore youthful movement to the face.</p>
+
+      <p>With our expertise and precision, we help you achieve results that look natural and last. Whether you're looking to address fine lines, restore volume, or enhance your lips, our team will create a customized treatment plan that's right for you.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Customized Treatment Plans</h3>
+          <p>Personalized plans designed for your unique facial anatomy and goals</p>
+        </li>
+        <li>
+          <h3>Medical-Grade</h3>
+          <p>Only FDA-approved injectables administered by certified professionals</p>
+        </li>
+        <li>
+          <h3>Expert Technicians</h3>
+          <p>Our team understands the art and science of facial aesthetics</p>
+        </li>
+        <li>
+          <h3>Natural-Looking Results</h3>
+          <p>Outcomes that look refreshed and authentic, never overdone</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'BOTOX Price', value: '$14 per unit' },
+          { label: 'Juvederm Fillers', value: 'From $750' },
+          { label: 'Treatment plans', value: 'Customized' },
+          { label: 'Performed by', value: 'Medical professionals' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <JuvedermBand />
+
+  <Pricing />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/4/5/6 reused verbatim. Section 3 prose inlined into main column. Section 1 (hero) replaced by ServiceHero. No promo band present. -->

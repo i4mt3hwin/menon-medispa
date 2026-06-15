@@ -1,0 +1,98 @@
+---
+import site from '@/lib/site';
+import heroImg from '@/assets/images/8f23c1351be4.jpg';
+---
+
+<section class="media-bg section s1-vt-hero" style="--scrim-strength:0.60">
+  <img
+    class="media-bg__img media-bg__img--blur"
+    src={heroImg.src}
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    decoding="async"
+    width="1440"
+    height="596"
+  />
+  <span class="media-bg__scrim media-bg__scrim--l"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s1-vt-hero__text">
+      <h1 class="s1-vt-hero__heading">
+        Vein &amp; Vascular Treatments
+      </h1>
+
+      <p class="s1-vt-hero__body">
+        One-stop solution for truly effective hair removal with laser treatment
+      </p>
+
+      <div class="s1-vt-hero__ctas">
+        <a
+          href={site.calcomUrl}
+          class="btn btn--primary btn--lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Book Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .s1-vt-hero {
+    min-height: 596px;
+  }
+
+  .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .s1-vt-hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .s1-vt-hero__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .s1-vt-hero__body {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s1-vt-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  @media (max-width: 768px) {
+    .s1-vt-hero {
+      min-height: auto;
+    }
+
+    .s1-vt-hero__text {
+      max-width: 100%;
+    }
+
+    .s1-vt-hero__ctas {
+      flex-direction: column;
+    }
+
+    .s1-vt-hero__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

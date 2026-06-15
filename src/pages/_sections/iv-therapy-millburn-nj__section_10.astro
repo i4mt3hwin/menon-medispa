@@ -1,0 +1,194 @@
+---
+import saleImg1 from "@/assets/images/56a3e3ac1335.jpg";
+import saleImg2 from "@/assets/images/86072f9cbd9c.jpg";
+import saleImg3 from "@/assets/images/dd355e57f3dd.jpg";
+---
+
+<!-- Section 10: Lightbox, June Sales Popup (rendered as page section) -->
+<!-- Source: _is_lightbox: true, _role: "lightbox", _trigger_text: "Flash Sale" -->
+<section class="section section--tint s10-sales" id="june-sales">
+  <div class="container">
+
+    <h2 class="s10-sales__heading">June SALES</h2>
+
+    <div class="s10-sales__grid">
+
+      <div class="s10-sales__card">
+        <div class="s10-sales__card-img-wrap">
+          <img
+            src={saleImg1.src}
+            alt="BRO-tox Fathers Day Special"
+            class="s10-sales__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s10-sales__card-body">
+          <h3 class="s10-sales__card-title">BRO-tox Fathers Day Special</h3>
+          <ul class="s10-sales__card-list">
+            <li>Botox $12 Per Unit</li>
+            <li>Smooths forehead, frown lines &amp; crow's feet</li>
+            <li>Personalized Treatment Plan with Dr. Menon</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="s10-sales__card">
+        <div class="s10-sales__card-img-wrap">
+          <img
+            src={saleImg2.src}
+            alt="Summer Glow HydraFacial"
+            class="s10-sales__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s10-sales__card-body">
+          <h3 class="s10-sales__card-title">Summer Glow HydraFacial</h3>
+          <ul class="s10-sales__card-list">
+            <li>Vitamin C Booster +</li>
+            <li>Discount Dermaplaning $25</li>
+            <li>($285 Value for $225)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="s10-sales__card">
+        <div class="s10-sales__card-img-wrap">
+          <img
+            src={saleImg3.src}
+            alt="Custom Hydrating IV"
+            class="s10-sales__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s10-sales__card-body">
+          <h3 class="s10-sales__card-title">Custom Hydrating IV</h3>
+          <ul class="s10-sales__card-list">
+            <li>$99 Special Price</li>
+            <li>Includes any two vitamins</li>
+            <li>Hydrate, recharge, glow</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="s10-sales__cta">
+      <a href="/sale" class="btn btn--primary btn--lg">Explore all sales</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s10-sales__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s10-sales__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .s10-sales__card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-bg);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s10-sales__card-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .s10-sales__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .s10-sales__card:hover .s10-sales__card-img {
+    transform: scale(1.04);
+  }
+
+  .s10-sales__card-body {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .s10-sales__card-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s10-sales__card-list {
+    list-style: disc;
+    margin: 0;
+    padding: 0 0 0 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .s10-sales__card-list li {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .s10-sales__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 900px) {
+    .s10-sales__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s10-sales__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .s10-sales__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

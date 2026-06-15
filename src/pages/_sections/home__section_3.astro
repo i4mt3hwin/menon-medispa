@@ -1,0 +1,51 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import Gallery from '@/components/Gallery.astro';
+import vogueImg from '@/assets/images/abe70978be24.jpg';
+import cosmoImg from '@/assets/images/a907a2a5b193.jpg';
+import bazaarImg from '@/assets/images/c1cefa7e9c95.jpg';
+import fortuneImg from '@/assets/images/349d72d3c082.webp';
+---
+
+<section class="featured-in">
+  <div class="featured-in__inner">
+    <SectionHeading
+      text="We Offer Skincare Treatments Featured In"
+      tag="h2"
+      align="center"
+      font="display"
+    />
+    <Gallery
+      images={[
+        { src: vogueImg.src, alt: "Vogue Logo - Link to Related Article", width: 200, height: 100 },
+        { src: cosmoImg.src, alt: "Cosmopolitan Logo - Link to Related Article", width: 200, height: 100 },
+        { src: bazaarImg.src, alt: "Bazaar Logo - Link to Related Article", width: 200, height: 100 },
+        { src: fortuneImg.src, alt: "Fortune Logo - Link To Related Article", width: 200, height: 100 }
+      ]}
+      columns={4}
+      aspect="landscape"
+    />
+  </div>
+</section>
+
+<style>
+  .featured-in {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .featured-in__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 980px) {
+    .featured-in {
+      padding: var(--space-md) var(--space-sm);
+    }
+  }
+</style>

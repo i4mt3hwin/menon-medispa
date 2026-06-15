@@ -1,0 +1,25 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import pricingImg1 from '@/assets/images/400272488bed.jpg';
+import pricingImg2 from '@/assets/images/3be5824bfbc0.jpg';
+---
+<ServiceBookingCta
+  heading={`Price List`}
+  body={`Please note: Prices are for display only. After booking a coordinator will reach out to confirm your appointment and discuss payment arrangements and any other questions you may have.`}
+  cards={[
+    {
+      image: pricingImg1,
+      imageAlt: `Hyperpigmentation / Photorejuvenation laser treatment`,
+      title: `Hyperpigmentation / Photorejuvenation`,
+      tagline: `Even Skin Tone, Reduced Dark Spots, and Youthful Glow`,
+      price: `From $200`,
+    },
+    {
+      image: pricingImg2,
+      imageAlt: `Laser Spot Treatment, acne treatment`,
+      title: `Laser Spot Treatment`,
+      tagline: `Even Skin Tone, Reduced Dark Spots - 1-5 spots`,
+      price: `$99`,
+    },
+  ]}
+/>

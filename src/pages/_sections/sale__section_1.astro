@@ -1,0 +1,48 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+---
+
+<section class="section section--tint s-sale-intro">
+  <div class="container--narrow s-sale-intro__inner">
+    <p class="eyebrow s-sale-intro__eyebrow">DO NOT MISS THIS!</p>
+
+    <SectionHeading
+      text="June Summer Specials"
+      tag="h1"
+      align="center"
+      font="display"
+      size="xl"
+    />
+
+    <h5 class="s-sale-intro__subtitle">Valid from June 1 - June 30 2026</h5>
+  </div>
+</section>
+
+<style>
+  .s-sale-intro__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .s-sale-intro__eyebrow {
+    margin: 0;
+  }
+
+  .s-sale-intro__subtitle {
+    font-family: var(--font-ui);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .s-sale-intro__subtitle {
+      font-size: var(--text-base);
+    }
+  }
+</style>

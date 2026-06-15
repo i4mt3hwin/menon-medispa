@@ -1,0 +1,197 @@
+---
+import site from '@/lib/site';
+
+import videoPosterImg from '@/assets/images/7627e3d6ea08.jpg';
+---
+
+<section class="section lhr-s5-solution">
+  <div class="container">
+    <div class="lhr-s5__layout">
+
+      <div class="lhr-s5__text-col">
+
+        <h2 class="lhr-s5__heading">End Your Hair Removal Struggle with Physician-Supervised Laser Treatment!</h2>
+
+        <p class="lhr-s5__body">We understand the frustration of dealing with unwanted hair, the constant shaving, painful waxing, and disappointment with temporary results. Under the medical direction of Dr. Aditi Menon, MD, our team has helped thousands of patients achieve lasting hair reduction tailored to their unique skin and hair type.</p>
+
+        <ul class="lhr-s5__list">
+          <li>Say goodbye to daily maintenance routines</li>
+          <li>Experience freedom from ingrown hairs and skin irritation</li>
+          <li>Enjoy lasting results without ongoing expense</li>
+        </ul>
+
+        <p class="lhr-s5__body">Our advanced laser hair removal technology targets hair at the root, destroying the follicle while leaving surrounding skin undamaged. Most patients experience a 70-95% reduction in unwanted body hair after completing their treatment series.</p>
+
+        <p class="lhr-s5__body">Our procedure works effectively on all major treatment areas including the bikini line, face, underarms, and legs. Unlike electrolysis, our technology treats larger areas quickly with minimal discomfort, making it the preferred choice for permanent hair reduction in Millburn, NJ.</p>
+
+        <div class="lhr-s5__cta">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book Your Laser Hair Removal Consultation
+          </a>
+        </div>
+
+      </div>
+
+      <div class="lhr-s5__media-col">
+
+        <h2 class="lhr-s5__media-heading">
+          A Real Look at Our Advanced Laser Hair Removal
+        </h2>
+
+        <video
+          class="lhr-s5__video"
+          autoplay
+          loop
+          muted
+          playsinline
+          aria-hidden="true"
+          poster={videoPosterImg.src}
+          width="366"
+          height="585"
+        >
+          <source
+            src="https://video.wixstatic.com/video/2baa5c_627beb6d372449c5998c4994c539eeb9/1080p/mp4/file.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        <img
+          src={videoPosterImg.src}
+          alt="Laser hair removal treatment session at Menon Medispa Millburn NJ"
+          class="lhr-s5__poster"
+          loading="lazy"
+          decoding="async"
+          width="366"
+          height="585"
+        />
+
+        <p class="lhr-s5__caption">
+          Curious about what a laser hair removal session actually looks like? Watch a real treatment from our Millburn, NJ medispa to see our advanced, virtually painless technology in action.
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .lhr-s5__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+  }
+
+  .lhr-s5__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .lhr-s5__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lhr-s5__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .lhr-s5__list {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+    padding-left: var(--space-md);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .lhr-s5__cta {
+    margin-top: var(--space-xs);
+  }
+
+  .lhr-s5__media-col {
+    flex-shrink: 0;
+    width: 366px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .lhr-s5__media-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lhr-s5__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .lhr-s5__poster {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .lhr-s5__caption {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    opacity: 0.7;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1024px) {
+    .lhr-s5__media-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .lhr-s5__layout {
+      flex-direction: column;
+    }
+
+    .lhr-s5__media-col {
+      width: 100%;
+      max-width: 366px;
+      margin: 0 auto;
+    }
+
+    .lhr-s5__video {
+      display: none;
+    }
+
+    .lhr-s5__poster {
+      display: block;
+    }
+  }
+</style>

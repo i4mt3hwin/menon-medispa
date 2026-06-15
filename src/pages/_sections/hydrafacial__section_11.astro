@@ -1,0 +1,129 @@
+---
+import sectionBg from '@/assets/images/960c78e88976.jpg';
+import fineLines from '@/assets/images/af9d7f0da406.png';
+import brownSpots from '@/assets/images/351a2135005a.png';
+import elasticity from '@/assets/images/920e15abf170.png';
+import oilySkin from '@/assets/images/0f0a7541e9e9.png';
+import evenTone from '@/assets/images/c6bbe2891c65.png';
+import enlargedPores from '@/assets/images/52a3682cde5c.png';
+import skinTexture from '@/assets/images/997e735a368a.png';
+
+const concerns = [
+  { img: fineLines.src, label: "FINE LINES + WRINKLES" },
+  { img: brownSpots.src, label: "BROWN SPOTS" },
+  { img: elasticity.src, label: "ELASTICITY + FIRMNESS" },
+  { img: oilySkin.src, label: "OILY + CONGESTED SKIN" },
+  { img: evenTone.src, label: "EVEN TONE + VIBRANCY" },
+  { img: enlargedPores.src, label: "ENLARGED PORES" },
+  { img: skinTexture.src, label: "SKIN TEXTURE" },
+];
+---
+
+<section class="media-bg section s11-rightforyou" style="--scrim-strength:0.55">
+  <img class="media-bg__img" src={sectionBg.src} alt="" aria-hidden="true"
+       loading="lazy" decoding="async" width="1440" height="700" />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container">
+    <div class="s11-rightforyou__inner">
+
+      <h2 class="s11-rightforyou__heading">Is HydraFacial&#8482; Right For You?</h2>
+
+      <p class="s11-rightforyou__body">Yep. We don't have a type. HydraFacial addresses all skincare needs:</p>
+
+      <div class="s11-rightforyou__grid">
+        {concerns.map((concern) => (
+          <div class="s11-rightforyou__card">
+            <img
+              src={concern.img}
+              alt={concern.label}
+              class="s11-rightforyou__icon"
+              loading="lazy"
+              decoding="async"
+              width="80"
+              height="80"
+            />
+            <p class="s11-rightforyou__label">{concern.label}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .s11-rightforyou__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .s11-rightforyou__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+    text-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
+  }
+
+  .s11-rightforyou__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s11-rightforyou__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .s11-rightforyou__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: var(--radius-sm);
+  }
+
+  .s11-rightforyou__icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .s11-rightforyou__label {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 1024px) {
+    .s11-rightforyou__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s11-rightforyou__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

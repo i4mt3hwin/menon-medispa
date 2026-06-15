@@ -1,0 +1,105 @@
+---
+{/* BREAKDANCE: hand-authored from structure.json */}
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<section class="section s8-faq">
+  <div class="container--narrow s8-faq__inner">
+
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+
+    {/* Wix search form → LeadForm search stub */}
+    <div class="s8-faq__search">
+      <LeadForm
+        heading=""
+        fields={['message']}
+        submit_label="Search"
+        success_url="/microneedling-millburn-nj"
+      />
+    </div>
+
+    <FaqAccordion
+      items={[
+        {
+          question: 'How many microneedling sessions will I need to see results?',
+          answer_html: '',
+        },
+        {
+          question: 'Is microneedling painful?',
+          answer_html: '',
+        },
+        {
+          question: 'What is the downtime after microneedling?',
+          answer_html: '',
+        },
+        {
+          question: 'Can microneedling help with acne scars?',
+          answer_html: '',
+        },
+        {
+          question: 'How is SkinPen different from derma rollers?',
+          answer_html: '',
+        },
+        {
+          question: 'When will I see the results from microneedling?',
+          answer_html: '',
+        },
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .s8-faq__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  /* Search field overrides, minimal pill-style search bar */
+  .s8-faq__search :global(.lead-form) {
+    padding: 0;
+    margin-bottom: var(--space-sm);
+  }
+
+  .s8-faq__search :global(.lead-form__form) {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 100%;
+  }
+
+  .s8-faq__search :global(.lead-form__field) {
+    flex: 1;
+  }
+
+  .s8-faq__search :global(.lead-form__field textarea) {
+    resize: none;
+    height: 44px;
+    padding: 10px 14px;
+    border-radius: 22px;
+  }
+
+  /* Collapse FaqAccordion's own padding */
+  .s8-faq__inner :global(.faq-accordion) {
+    padding: 0;
+  }
+
+  @media (max-width: 600px) {
+    .s8-faq__search :global(.lead-form__form) {
+      flex-direction: column;
+    }
+  }
+</style>

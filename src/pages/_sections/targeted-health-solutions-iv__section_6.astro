@@ -1,0 +1,41 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import painImg from '@/assets/images/83acb599cd71.avif';
+import prenatalImg from '@/assets/images/3c30a3051b2e.avif';
+import heartImg from '@/assets/images/f9f4677de025.avif';
+import gutImg from '@/assets/images/691dc2232fa0.avif';
+---
+<ServiceBookingCta
+  heading={`Ready to Take a Proactive Step?`}
+  body={`Your health journey is unique, and you deserve targeted support. Select one of our specialized IV therapies below to book your appointment at our Millburn, NJ medispa and give your body the foundational support it needs.`}
+  cards={[
+    {
+      image: painImg,
+      imageAlt: `Pain Management & Autoimmune Disease IV Drip`,
+      title: `PAIN MANAGEMENT & AUTOIMMUNE DISEASE`,
+      duration: `500ml`,
+      price: `$250`,
+    },
+    {
+      image: prenatalImg,
+      imageAlt: `Prenatal Pregnancy Fertility IV Drip`,
+      title: `PRENATAL/PREGNANCY/FERTILITY DRIP`,
+      duration: `500ml`,
+      price: `$250`,
+    },
+    {
+      image: heartImg,
+      imageAlt: `Heart Health & Diabetes IV Drip`,
+      title: `HEART HEALTH & DIABETES DRIP`,
+      duration: `500ml`,
+      price: `$250`,
+    },
+    {
+      image: gutImg,
+      imageAlt: `Gut Health IBS UC Crohns IV Drip`,
+      title: `GUT HEALTH (IBS, UC, CROHN'S)`,
+      duration: `500ml`,
+      price: `$250`,
+    },
+  ]}
+/>

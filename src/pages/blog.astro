@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogList from '@/components/BlogList.astro';
 import blogData from '@/data/blog.json';
 
-// Map blog.json → BlogList Post shape (newest first — already ordered in source)
+// Map blog.json → BlogList Post shape (newest first, already ordered in source)
 const posts = blogData.map((p: Record<string, string>) => ({
   slug: p.slug,
   title: p.title,
@@ -25,3 +25,4 @@ const posts = blogData.map((p: Record<string, string>) => ({
   />
 
 </BaseLayout>
+<!-- fidelity-report: {"sections_expected":1,"widgets_expected":149,"images_referenced":35,"images_resolved":0,"responsive_overrides_expected":1,"responsive_signals_built":6,"findings_high":100,"findings_medium":39,"fidelity_pct":0,"dropped":["missing-text","truncated-text","list-count-mismatch","missing-link"]} -->

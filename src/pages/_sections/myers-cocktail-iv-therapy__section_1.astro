@@ -1,0 +1,177 @@
+---
+import bgImg from '@/assets/images/651c7c197b52.png';
+import heroImg from '@/assets/images/76295e9a95ba.avif';
+---
+
+<section class="media-bg section s1-hero" style="--scrim-strength:0.60">
+  <img class="media-bg__img media-bg__img--blur" src={bgImg.src} alt="" aria-hidden="true"
+       loading="eager" decoding="async" width="1440" height="596" />
+  <span class="media-bg__scrim media-bg__scrim--l"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s1-hero__layout">
+
+      <div class="s1-hero__text">
+        <p class="s1-hero__eyebrow eyebrow">Myers' Cocktail IV Therapy in Millburn NJ</p>
+
+        <h1 class="s1-hero__heading">
+          The Gold Standard for All-in-One Wellness and Vitality.
+        </h1>
+
+        <p class="s1-hero__body">
+          Experience the treatment that started it all. The Myers' Cocktail, the original IV vitamin drip, is a time-tested blend of essential nutrients designed to support your overall wellness. Our powerful formula, available in Millburn, NJ, is perfect for enhancing energy, balancing mood, and providing foundational health support.
+        </p>
+
+        <div class="s1-hero__ctas">
+          <a href="/myers-cocktail-iv-therapy" class="btn btn--primary btn--lg">
+            Book Your IV Therapy
+          </a>
+        </div>
+
+        <div class="s1-hero__social-proof">
+          <div class="s1-hero__stars-block">
+            <p class="s1-hero__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <p class="s1-hero__review-count">100+ 5 Star Reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="s1-hero__img-col">
+        <img
+          src={heroImg.src}
+          alt="Myers Cocktail IV drip bag"
+          class="s1-hero__img"
+          loading="eager"
+          decoding="async"
+          width="395"
+          height="395"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .s1-hero {
+    min-height: 596px;
+  }
+
+  .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .s1-hero__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .s1-hero__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .s1-hero__eyebrow {
+    margin: 0;
+  }
+
+  .s1-hero__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .s1-hero__body {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s1-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .s1-hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .s1-hero__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .s1-hero__stars {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .s1-hero__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s1-hero__img-col {
+    flex-shrink: 0;
+    width: 395px;
+  }
+
+  .s1-hero__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.35);
+  }
+
+  @media (max-width: 1024px) {
+    .s1-hero__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s1-hero {
+      min-height: auto;
+    }
+
+    .s1-hero__layout {
+      flex-direction: column-reverse;
+    }
+
+    .s1-hero__text {
+      max-width: 100%;
+    }
+
+    .s1-hero__img-col {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .s1-hero__ctas {
+      flex-direction: column;
+    }
+
+    .s1-hero__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

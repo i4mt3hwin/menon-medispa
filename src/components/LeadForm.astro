@@ -1,110 +1,62 @@
 ---
-/**
- * LeadForm.astro — contact + appointment-request lead capture.
- * Posts to /api/lead (Cloudflare Pages Function -> D1, non-PHI). Consent boxes
- * unchecked by default, per-channel, name the business (TCPA), exact copy posted
- * for the audit log. Styled with the project's design tokens.
- */
+// Scaffold stub, phase-2-synthesize. Phase 3 completes.
+// Wix Forms → D1/Resend. Endpoint /api/lead deferred to Phase 3.
 interface Props {
-  variant?: 'contact' | 'appointment';
-  businessName?: string;
-  services?: string[];
-  privacyHref?: string;
-  consentVersion?: string;
+  heading?: string;
+  fields?: Array<'name' | 'email' | 'phone' | 'service' | 'message'>;
+  submit_label?: string;
+  success_url?: string;
+  background?: string;
 }
-import site from '../lib/site';
 const {
-  variant = 'contact',
-  businessName = site.displayName,
-  services = [],
-  privacyHref = '/copy-of-store-policy',
-  consentVersion = '1',
+  heading = 'Request a Consultation',
+  fields = ['name', 'email', 'phone', 'message'],
+  submit_label = 'Send Message',
+  success_url = '/thank-you',
+  background
 } = Astro.props;
-const isAppt = variant === 'appointment';
-const emailConsent = `I agree to receive emails from ${businessName} about my inquiry and its services. I can unsubscribe anytime.`;
-const smsConsent = `I agree to receive SMS text messages from ${businessName} about my inquiry/appointment. Msg & data rates may apply; reply STOP to opt out.`;
 ---
-<form method="POST" action="/api/lead" class="lead-form" data-variant={variant}>
-  <input type="hidden" name="type" value={isAppt ? 'appointment_request' : 'contact'} />
-  <input type="hidden" name="consent_version" value={consentVersion} />
-  <input type="hidden" name="source_page" value="" data-fill="path" />
-  <!-- honeypot -->
-  <input type="text" name="company_website" tabindex="-1" autocomplete="off"
-         style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" />
-
-  <label>Name<input type="text" name="name" required /></label>
-  <label>Email<input type="email" name="email" /></label>
-  <label>Phone<input type="tel" name="phone" /></label>
-
-  {isAppt && (
-    <>
-      <label>Service of interest
-        <select name="service_interest">
-          <option value="">Select…</option>
-          {services.map((s) => <option value={s}>{s}</option>)}
-        </select>
-      </label>
-      <label>Preferred date<input type="date" name="preferred_date" /></label>
-      <label>Preferred time
-        <select name="preferred_window">
-          <option value="">Any</option><option value="morning">Morning</option>
-          <option value="afternoon">Afternoon</option><option value="evening">Evening</option>
-        </select>
-      </label>
-    </>
-  )}
-
-  <label>{isAppt ? 'Anything else? (please don’t include medical details)' : 'Message'}
-    <textarea name="message" rows="4"></textarea>
-  </label>
-
-  <label class="consent"><input type="checkbox" name="consent_email" /> {emailConsent}</label>
-  <input type="hidden" name="consent_email_text" value={emailConsent} />
-  <label class="consent"><input type="checkbox" name="consent_sms" /> {smsConsent}</label>
-  <input type="hidden" name="consent_sms_text" value={smsConsent} />
-  <input type="hidden" name="send_confirmation" value="on" />
-
-  <p class="fineprint">By submitting, you agree to our <a href={privacyHref}>Privacy Policy</a>.</p>
-  <button type="submit">{isAppt ? 'Request Appointment' : 'Send Message'}</button>
-</form>
-
-<script is:inline>
-  (() => {
-    const f = document.currentScript.previousElementSibling;
-    if (!f) return;
-    f.querySelector('[data-fill="path"]')?.setAttribute('value', location.pathname);
-    const p = new URLSearchParams(location.search);
-    for (const k of ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']) {
-      if (p.get(k)) { const i = document.createElement('input'); i.type='hidden'; i.name=k; i.value=p.get(k); f.appendChild(i); }
-    }
-    f.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = f.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending…'; }
-      try {
-        const res = await fetch('/api/lead', { method: 'POST', body: new FormData(f) });
-        const j = await res.json().catch(() => ({}));
-        if (j.ok) { f.innerHTML = '<p class="lead-form__thanks">Thank you — we received your message and will be in touch shortly.</p>'; }
-        else { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; } alert('Sorry, something went wrong. Please call us at ' + '(973) 494-8431' + '.'); }
-      } catch { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; } alert('Network error. Please call (973) 494-8431.'); }
-    });
-  })();
-</script>
-
+<section class="lead-form" style={background ? `background-color: ${background};` : ''}>
+  {heading && <h2 style="font-family: var(--font-display); font-size: var(--text-h2);">{heading}</h2>}
+  <!-- POST target /api/lead wired in Phase 3 (Cloudflare Worker + D1 + Resend) -->
+  <form class="lead-form__form" method="POST" action="/api/lead" data-success-url={success_url}>
+    {fields.includes('name') && (
+      <div class="lead-form__field">
+        <label for="lf-name" style="font-family: var(--font-body); font-size: var(--text-sm);">Name</label>
+        <input id="lf-name" name="name" type="text" required autocomplete="name" />
+      </div>
+    )}
+    {fields.includes('email') && (
+      <div class="lead-form__field">
+        <label for="lf-email" style="font-family: var(--font-body); font-size: var(--text-sm);">Email</label>
+        <input id="lf-email" name="email" type="email" required autocomplete="email" />
+      </div>
+    )}
+    {fields.includes('phone') && (
+      <div class="lead-form__field">
+        <label for="lf-phone" style="font-family: var(--font-body); font-size: var(--text-sm);">Phone</label>
+        <input id="lf-phone" name="phone" type="tel" autocomplete="tel" />
+      </div>
+    )}
+    {fields.includes('service') && (
+      <div class="lead-form__field">
+        <label for="lf-service" style="font-family: var(--font-body); font-size: var(--text-sm);">Service of Interest</label>
+        <input id="lf-service" name="service" type="text" />
+      </div>
+    )}
+    {fields.includes('message') && (
+      <div class="lead-form__field">
+        <label for="lf-message" style="font-family: var(--font-body); font-size: var(--text-sm);">Message</label>
+        <textarea id="lf-message" name="message" rows="4"></textarea>
+      </div>
+    )}
+    <button type="submit" style="background-color: var(--color-cta); color: var(--color-text); border: none; border-radius: var(--radius-sm); box-shadow: var(--shadow-btn); padding: 10px 24px; font-family: var(--font-cta); font-size: var(--text-base); cursor: pointer;">{submit_label}</button>
+  </form>
+</section>
 <style>
-  .lead-form { display: grid; gap: var(--spacing-gap-sm); max-width: 32rem; font-family: var(--font-ui); }
-  .lead-form label { display: grid; gap: 0.3rem; font-size: var(--text-sm); font-weight: 700; }
-  .lead-form input, .lead-form select, .lead-form textarea {
-    font: inherit; font-weight: 400; padding: 0.6rem 0.8rem;
-    border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface);
-  }
-  .lead-form .consent { font-weight: 400; font-size: var(--text-xs); grid-template-columns: auto 1fr; align-items: start; }
-  .lead-form .consent input { width: auto; }
-  .lead-form .fineprint { font-size: var(--text-xs); color: var(--color-text-muted); margin: 0; }
-  .lead-form button[type="submit"] {
-    justify-self: start; background: var(--color-primary); color: var(--color-surface);
-    border: none; border-radius: var(--radius-sm); padding: 0.7rem 1.6rem; font-weight: 700; cursor: pointer;
-  }
-  .lead-form button[disabled] { opacity: 0.6; cursor: default; }
-  .lead-form__thanks { font-family: var(--font-ui); font-size: var(--text-md); }
+  .lead-form { padding: var(--space-xl) var(--space-md); }
+  .lead-form__form { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 560px; }
+  .lead-form__field { display: flex; flex-direction: column; gap: 4px; }
+  .lead-form__field input, .lead-form__field textarea { padding: 8px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: var(--text-base); width: 100%; box-sizing: border-box; }
+  .lead-form__field textarea { resize: vertical; }
 </style>

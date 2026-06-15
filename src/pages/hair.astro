@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import Section1 from './_sections/hair__section_1.astro';
+import Section2 from './_sections/hair__section_2.astro';
+import Section3 from './_sections/hair__section_3.astro';
+import Section4 from './_sections/hair__section_4.astro';
+import Section5 from './_sections/hair__section_5.astro';
+import Section6 from './_sections/hair__section_6.astro';
+import Section7 from './_sections/hair__section_7.astro';
+import Section9 from './_sections/hair__section_9.astro';
+
+const pageUrl = `${site.url}/hair`;
+const pageDescription = 'Advanced hair restoration and scalp treatments in Millburn, NJ at Menon Medispa, including HydraFacial Keravive and PRP hair therapy.';
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${pageUrl}#collection`,
+    url: pageUrl,
+    name: 'Hair Restoration',
+    description: pageDescription,
+    isPartOf: { '@id': site.schemaId },
+    about: {
+      '@type': 'Service',
+      name: 'Hair restoration and scalp treatments',
+      provider: { '@id': site.schemaId },
+      areaServed: site.areaServed,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+      { '@type': 'ListItem', position: 2, name: 'Hair', item: pageUrl },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Hair Restoration Millburn NJ | HydraFacial Keravive & PRP | Menon Medispa"
+  description={pageDescription}
+  canonical={pageUrl}
+  jsonld={jsonld}
+>
+  <Section1 />
+  <Section2 />
+  <Section3 />
+  <Section4 />
+  <Section5 />
+  <Section6 />
+  <Section7 />
+  <Section9 />
+</BaseLayout>
+<!-- fidelity-report: {"sections_expected":8,"widgets_expected":67,"images_referenced":23,"images_resolved":0,"responsive_overrides_expected":10,"responsive_signals_built":13,"findings_high":35,"findings_medium":49,"fidelity_pct":0,"dropped":["missing-text","truncated-text","list-count-mismatch","missing-link"]} -->

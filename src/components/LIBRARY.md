@@ -1,44 +1,117 @@
-# Component Library — Menon Medispa
+# Component Library, Menon Medispa
 
-Scaffolded by `path-2-rebuild/02-synthesize`. All components are token-driven (see `../styles/global.css` @theme + `03-design/design-tokens.md`). Phase 3 subagents complete the stubs with VERBATIM captured content and append new rows here when they scaffold a component.
+Generated: phase-2-synthesize (2026-06-13). Phase 3 completes all stubs.
 
-| Component | Status | Role |
-|-----------|--------|------|
-| `SiteHeader.astro` | **built** | global header: logo + nav + Call-Now CTA (verbatim) |
-| `SiteFooter.astro` | **built** | global footer: newsletter + link columns + NAP/hours/social/copyright (verbatim) |
-| `Button.astro` | **built** | atomic CTA/link (primary/secondary/ghost/link/call) |
-| `Picture.astro` | **built** | atomic image (shadow/rounded options) |
-| `RichText.astro` | **built** | renders captured inline-HTML body |
-| `Quote.astro` | **built** | single testimonial/pull quote |
-| `HeroSection.astro` | stub | top hero band |
-| `SectionHeading.astro` | stub | short heading band |
-| `ServicesGrid.astro` | stub | grid of ServiceCard |
-| `ServiceCard.astro` | stub | service/treatment card |
-| `ContentSection.astro` | stub | text + image strip |
-| `FeatureList.astro` | stub | icon-list / benefits |
-| `TestimonialStrip.astro` | stub | testimonials grid |
-| `CtaBanner.astro` | stub | full-width CTA band |
-| `Gallery.astro` | stub | image gallery grid |
-| `PriceTable.astro` | stub | membership/service pricing |
-| `FaqAccordion.astro` | stub | collapsible Q&A |
-| `ContactBlock.astro` | stub | NAP + (deferred) lead form |
-| `ServicePageTemplate.astro` | **built** | Wix service-page/{slug} (81 services, data-driven; 3 with verbatim captured description, rest from Bookings name/cat/price/duration/tagLine) |
-| `BookingCalendarTemplate.astro` | stub (unused) | superseded by `SchedulerEmbed.astro` (Cal.com) on booking-calendar/[slug].astro |
-| `BlogList.astro` | stub (unused) | /blog index is the verbatim captured Wix blog feed (141 widgets) — kept as-is |
-| `BlogPostTemplate.astro` | **built** | post/{slug} (28 posts; 2 with verbatim captured body, 26 with captured excerpt+cover) |
-| `ConfirmationSection.astro` | stub | thank-you pages rendered verbatim by the page generator |
-| `LeadForm.astro` | **built** | contact + appointment lead capture → /api/lead (D1, non-PHI, consent-logged) |
-| `SchedulerEmbed.astro` | **built** | Cal.com external embed (placeholder until operator URLs); on booking-calendar + request-appointment |
-| `ChatAssistant.astro` | **built** | decision-tree chat (replaces Wix Chat); buttons-only, no AI/free-text/PHI; global end-of-body |
-| `ThirdPartyScripts.astro` | **built** | analytics carry-over (GA4/Meta Pixel/Google Ads/Clarity/WhatConverts); global end-of-body |
+All components consume CSS custom properties from `styles/tokens.css`.
+Import path from pages: `../components/<Name>.astro`.
 
-**Build-phase additions (03-build-replicate):**
-- `src/data/services.json`, `src/data/blog.json`, `src/data/blog-bodies.json` — collection data (verbatim captured).
-- `src/lib/chat-tree.ts` — decision-tree content (from SITE/NAV + verbatim home FAQ).
-- `functions/api/lead.js` + `db/schema.sql` — Cloudflare Pages Function + D1 (applied local + remote).
-- `scripts/validate-chat-tree.mjs` — chat-tree structural validator.
-- Generators (in `{client}/scripts/`): `gen-pages.mjs` (per-page verbatim translator), `gen-templates.mjs` (collection data).
+---
 
-**Assets:** logo + social icons staged to `public/images/` with semantic names; ALL 205 captured images staged to `public/images/{hash}.{ext}` (page generator + templates reference by hash/resolved-local-path). Path-2: only captured imagery, none substituted.
+## Layout / Shell
 
-**Scaffold stubs left unused (not deleted — available for future polish):** HeroSection, SectionHeading, ServicesGrid, ServiceCard, ContentSection, FeatureList, TestimonialStrip, CtaBanner, Gallery, PriceTable, FaqAccordion, ContactBlock, BookingCalendarTemplate, BlogList, ConfirmationSection, Picture, RichText, Quote. The page generator emits semantic markup directly (with the design-token `.pg-*` component layer in global.css) rather than routing every widget through a pattern component — this preserved 100% widget-level verbatim fidelity without a summarization layer.
+| Component | File | Role | Status |
+|-----------|------|------|--------|
+| SiteHeader | `SiteHeader.astro` | Master nav (8 top-level, dropdowns) | Stub |
+| SiteFooter | `SiteFooter.astro` | NAP + social + copyright | Stub |
+
+## Section-level
+
+| Component | File | Wix widget source | Status |
+|-----------|------|-------------------|--------|
+| HeroSection | `HeroSection.astro` | Section 1 (video/image bg, H1, CTAs) | Stub |
+| ContentSection | `ContentSection.astro` | text-editor + image pairs | Stub |
+| SectionHeading | `SectionHeading.astro` | Heading band / divider | Stub |
+| ServicesGrid | `ServicesGrid.astro` | Grid of service cards | Stub |
+| FeatureList | `FeatureList.astro` | icon-list widget (201 uses) | Stub |
+| TestimonialStrip | `TestimonialStrip.astro` | blockquote/review rows | Stub |
+| CtaBanner | `CtaBanner.astro` | Full-width CTA band | Stub |
+| Gallery | `Gallery.astro` | Multi-image groups | Stub |
+| PriceTable | `PriceTable.astro` | Membership / pricing tiers | Stub |
+| FaqAccordion | `FaqAccordion.astro` | Q&A blocks (`<details>`) | Stub |
+| ContactBlock | `ContactBlock.astro` | NAP + map embed | Stub |
+
+## Atomic / Utility
+
+| Component | File | Notes | Status |
+|-----------|------|-------|--------|
+| ServiceCard | `ServiceCard.astro` | Used inside ServicesGrid | Stub |
+| Quote | `Quote.astro` | Single blockquote (atomic) | Stub |
+| Button | `Button.astro` | CTA button (primary/secondary/ghost) | Stub |
+| Picture | `Picture.astro` | Responsive `<img>` wrapper | Stub |
+| RichText | `RichText.astro` | Inline HTML body copy | Stub |
+| Divider | `Divider.astro` | `<hr>` separator (Wix divider widget, 144 uses) | Stub |
+
+## Operator-decision Components
+
+| Component | File | Replaces | Notes | Status |
+|-----------|------|----------|-------|--------|
+| SchedulerEmbed | `SchedulerEmbed.astro` | Wix Bookings | Cal.com inline embed; reads `site.calcomUrl` | Stub |
+| LeadForm | `LeadForm.astro` | Wix Forms | POST /api/lead → D1/Resend (Phase 3) | Stub |
+| ChatAssistant | `ChatAssistant.astro` | Wix Chat | HIPAA-safe decision-tree; uses chat-tree.ts | Stub |
+| ThirdPartyScripts | `ThirdPartyScripts.astro` | Wix tracking embed | Meta Pixel, Google Ads, Clarity, WhatConverts, Cal.com loader | Stub |
+
+## Page Templates
+
+| Component | File | Used for | Status |
+|-----------|------|----------|--------|
+| ServicePageTemplate | `ServicePageTemplate.astro` | 81 service pages | Stub |
+| BlogList | `BlogList.astro` | /blog index | Stub |
+| BlogPostTemplate | `BlogPostTemplate.astro` | /blog/[slug] | Stub |
+| BookingCalendarTemplate | `BookingCalendarTemplate.astro` | /booking-calendar/[slug] | Stub |
+| ConfirmationSection | `ConfirmationSection.astro` | /thank-you | Stub |
+
+---
+
+## Flagged: Breakdance pages (Phase 3 manual build)
+
+- `/microneedling-millburn-nj`, builder=breakdance; no structure.json widget walk; hand-author
+- `/myers-cocktail-iv-therapy`, builder=breakdance; no structure.json widget walk; hand-author
+
+---
+
+## Images, promoted (Phase 3, home sections 6–10)
+
+| Semantic path | Source key | Alt | Section |
+|---|---|---|---|
+| `assets/services/botox-injectables-card.webp` | 1f114dd47995 | BOTOX® Injectables at Menon Medispa | 6 |
+| `assets/services/juvederm-fillers-card.webp` | 8ec275b96db1 | Injection cosmetology | 6 |
+| `assets/services/hydrafacial-keravive-card.webp` | 02127013d183 | The Benefits of Hair Restoration Therapy | 6 |
+| `assets/testimonials/what-our-clients-say-bg.webp` | 30cfb9e87c60 | Untitled-4.png | 7 |
+| `assets/testimonials/reviewer-avatar-1.webp` | 90411e0041df | Picture of a Client Who Reviewed Us | 7 |
+| `assets/testimonials/reviewer-avatar-2.webp` | 305afeda5f9a | Picture of a Client Who Reviewed Us | 7 |
+| `assets/testimonials/reviewer-avatar-3.webp` | b95880091b44 | Picture of a Client Who Reviewed Us | 7 |
+| `assets/services/face-treatments.webp` | 0a8150a5612c | Face Treatments Menon Medispa | 8 |
+| `assets/services/natural-beauty-body.webp` | 2fc4656f8ac4 | Natural Beauty | 8 |
+| `assets/services/model-curly-hair.webp` | e6d509254f0c | Model with Curly Hair | 8 |
+| `assets/home/your-skin-comes-first-bg.webp` | 8f23c1351be4 | pexels-angela-roma-7479966_edited.jpg | 9 |
+| `assets/home/exceptional-experience-video-poster.webp` | 2ef11e239ab9 | (video poster, no alt) | 10 |
+| `assets/contact/office-staff.webp` | 35c774fbba6d | Menon Office Staff (1).png | contact/2 |
+| `assets/social/icon-facebook.webp` | 464c5b23f583 | Facebook | contact/2 |
+| `assets/social/icon-instagram.webp` | a29df34857a1 | Instagram | contact/2 |
+| `assets/social/icon-tiktok.webp` | d11778476dcb | TikTok | contact/2 |
+| `assets/images/f2a8f8988125.jpg` | f2a8f8988125 | (video poster fallback, no alt) | home/1 |
+| `assets/images/90411e0041df.png` | 90411e0041df | Picture of a Client Who Reviewed Us | home/1 |
+| `assets/images/305afeda5f9a.png` | 305afeda5f9a | Picture of a Client Who Reviewed Us | home/1 |
+| `assets/images/b95880091b44.png` | b95880091b44 | Picture of a Client Who Reviewed Us | home/1 |
+| `assets/images/abe70978be24.jpg` | abe70978be24 | Vogue Logo - Link to Related Article | home/3 |
+| `assets/images/a907a2a5b193.jpg` | a907a2a5b193 | Cosmopolitan Logo - Link to Related Article | home/3 |
+| `assets/images/c1cefa7e9c95.jpg` | c1cefa7e9c95 | Bazaar Logo - Link to Related Article | home/3 |
+| `assets/images/349d72d3c082.webp` | 349d72d3c082 | Fortune Logo - Link To Related Article | home/3 |
+| `assets/images/86072f9cbd9c.jpg` | 86072f9cbd9c | Hydrafacial.jpg | home/5 |
+| `assets/images/dd355e57f3dd.jpg` | dd355e57f3dd | shutterstock_2578361641.jpg | home/5 |
+| `assets/images/56a3e3ac1335.jpg` | 56a3e3ac1335 | shutterstock_2193199469.jpg | home/5 |
+
+---
+
+## Token quick-ref
+
+All tokens defined in `styles/tokens.css`. Key values:
+
+```
+--color-cta: #C4A484
+--font-display: "playfair display","playfairdisplay-bold",serif
+--font-body: raleway-v2,sans-serif
+--font-ui: "lato-light",lato,sans-serif
+--radius-sm: 5px   --radius-md: 8px
+Breakpoint: 980px
+```

@@ -26,7 +26,7 @@ const src    = isImgObject ? (srcProp as { src: string }).src : (srcProp as stri
 const width  = widthProp  ?? (isImgObject ? (srcProp as { width?: number }).width  : undefined);
 const height = heightProp ?? (isImgObject ? (srcProp as { height?: number }).height : undefined);
 
-// Build inline style string — merge object_fit with caller-supplied style
+// Build inline style string, merge object_fit with caller-supplied style
 const fitStyle  = `object-fit: ${object_fit};`;
 const fullStyle = style ? `${fitStyle} ${style}` : fitStyle;
 ---
@@ -46,5 +46,6 @@ const fullStyle = style ? `${fitStyle} ${style}` : fitStyle;
     display: block;
     max-width: 100%;
     height: auto;
+    border-radius: var(--radius-sm);
   }
 </style>

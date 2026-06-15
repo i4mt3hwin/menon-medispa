@@ -1,0 +1,126 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/cupping-facial__section_2.astro';
+import Process from '@/pages/_sections/cupping-facial__section_5.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import BookingCta from '@/pages/_sections/cupping-facial__section_6.astro';
+import AddOns from '@/pages/_sections/cupping-facial__section_7.astro';
+import FinalCta from '@/pages/_sections/cupping-facial__section_9.astro';
+
+import heroImg from '@/assets/images/2d2699eae2a5.jpeg';
+
+const slug = 'cupping-facial';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers were blank/placeholder in section_8 — skipped to avoid fabrication.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Cupping Facial in Millburn, NJ',
+  description:
+    'Experience a cupping facial in Millburn NJ at Menon Medispa. Natural skin lifting and firming without surgery or injections. 100+ 5-star reviews. Book today.',
+  url: '/cupping-facial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Cupping Facial', url: '/cupping-facial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Cupping Facial in Millburn NJ | Natural Skin Lifting | Menon Medispa"
+  description="Experience a cupping facial in Millburn NJ at Menon Medispa. Natural skin lifting and firming without surgery or injections. 100+ 5-star reviews. Book today."
+  canonical="https://www.menonmedispa.com/cupping-facial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="CUPPING FACIAL · MILLBURN, NJ"
+    h1="Natural Skin Lifting with a Cupping Facial in Millburn, NJ"
+    subhead="Lift and tighten your skin without surgery or injections, using therapeutic cupping that boosts circulation, drains toxins, and firms from within."
+    image={heroImg}
+    imageAlt="Cupping Facial treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $150"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Cupping Therapy Is The Natural Alternative To Cosmetic Procedures</h2>
+
+      <p class="svc-lead">For clients who want real, visible lifting and firming without needles or downtime, cupping facial therapy offers a proven, naturally rooted approach.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Immediate Lifting and Firming Effects</h3>
+          <p>The negative pressure created by cupping immediately stimulates blood flow and tissue oxygenation, creating a visible lifting and tightening effect. Many clients notice firmer, more contoured skin right after their first session, with improvements that continue to build over subsequent treatments.</p>
+        </li>
+        <li>
+          <h3>Increased Blood Flow and Collagen Production</h3>
+          <p>Cupping increases facial circulation by up to 400%, dramatically boosting oxygen and nutrient delivery to your skin cells. This surge in blood flow triggers your body's natural collagen synthesis, helping to rebuild the structural proteins that keep your skin plump, elastic, and youthful-looking.</p>
+        </li>
+        <li>
+          <h3>Natural Detoxification and Lymphatic Drainage</h3>
+          <p>The gentle suction of cupping activates your lymphatic system, helping to flush out toxins, reduce fluid retention, and eliminate the puffiness that makes skin look tired and aged. This natural detoxification process leaves your complexion clearer, brighter, and more defined.</p>
+        </li>
+        <li>
+          <h3>Long-Lasting Anti-Aging Benefits</h3>
+          <p>Unlike surface-level treatments, cupping works at the cellular level to create lasting change. A series of 4–6 treatments spaced 2 weeks apart can produce cumulative anti-aging benefits that rival more invasive procedures, with results that continue to improve as your skin's natural renewal processes are activated.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$150' },
+          { label: 'Appointment', value: '1 hour' },
+          { label: 'Results', value: 'Visible from first session' },
+          { label: 'Downtime', value: 'None' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="cupping-facial" />
+
+  <Process />
+
+  <BookingCta />
+
+  <AddOns />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/5/6/7/9 reused verbatim. Section 3 (benefits) re-flowed into svc-features in main column. Section 8 (FAQ) skipped — all answer_html were blank/placeholder; no fabrication. No promo band present. Section 4 (testimonial) swapped to <ServiceTestimonial slug="cupping-facial" /> (provider-safe curated reviews). -->

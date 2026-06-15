@@ -1,0 +1,120 @@
+---
+---
+
+<section class="section s8-faq">
+  <div class="container container--narrow">
+
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+
+    <div class="s8-faq__list">
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">What is Botox and how does it work?</summary>
+        <div class="s8-faq__answer">
+          <p>Botox is an FDA-approved injectable neuromodulator derived from botulinum toxin type A. When injected into targeted facial muscles, it temporarily blocks the nerve signals that cause those muscles to contract. This relaxes the muscles responsible for expression lines, smoothing the overlying skin and reducing the appearance of wrinkles. Results typically last 3 to 4 months.</p>
+        </div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">What makes Botox at Menon Medispa different?</summary>
+        <div class="s8-faq__answer">
+          <p>All Botox injections at Menon Medispa are administered by Dr. Jennifer Menon herself. This physician-level expertise means your treatment is guided by a medical doctor with specialized training in facial anatomy and aesthetic medicine. Dr. Menon personally evaluates your facial dynamics and creates a customized treatment plan to achieve natural-looking results specific to your goals.</p>
+        </div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">Will I look "frozen" or unnatural?</summary>
+        <div class="s8-faq__answer">
+          <p>No. The goal of Botox at Menon Medispa is to create a refreshed, natural appearance that preserves your expressive range. Dr. Menon uses a conservative, targeted approach that relaxes the specific muscles causing lines while allowing the surrounding muscles to move normally. The result is subtle, natural-looking improvement that enhances rather than alters your appearance.</p>
+        </div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">What should I expect during and after treatment?</summary>
+        <div class="s8-faq__answer">
+          <p>The procedure takes approximately 15 minutes and involves a series of small injections using a fine needle. Most patients describe minimal discomfort. You can return to most normal activities immediately following treatment. Some mild redness or swelling at injection sites may occur and typically resolves within a few hours. Results begin appearing within 3 to 7 days, with full results visible at 2 weeks.</p>
+        </div>
+      </details>
+
+      <details class="s8-faq__item">
+        <summary class="s8-faq__question">How much does Botox cost and how often will I need it?</summary>
+        <div class="s8-faq__answer">
+          <p>Botox at Menon Medispa is priced at $14 per unit. The number of units needed varies by the areas treated and your individual muscle strength, but most patients require between 20 to 50 units per session. Results typically last 3 to 4 months. Many patients find that with regular treatments, the effects last longer over time as muscles gradually weaken from less use.</p>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s8-faq__list {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s8-faq__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s8-faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none;
+    line-height: 1.5;
+    gap: var(--space-sm);
+  }
+
+  .s8-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .s8-faq__question::after {
+    content: '+';
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    flex-shrink: 0;
+    line-height: 1;
+    color: var(--color-text);
+    opacity: 0.55;
+    transition: opacity 0.2s;
+  }
+
+  .s8-faq__item[open] .s8-faq__question {
+    font-weight: var(--weight-bold);
+  }
+
+  .s8-faq__item[open] .s8-faq__question::after {
+    content: '\2212';
+    opacity: 0.75;
+  }
+
+  .s8-faq__answer {
+    padding: 0 0 var(--space-sm);
+  }
+
+  .s8-faq__answer p {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+</style>

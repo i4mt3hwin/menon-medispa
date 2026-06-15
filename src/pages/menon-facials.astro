@@ -1,0 +1,186 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/menon-facials__section_2.astro';
+import SignatureFacials from '@/pages/_sections/menon-facials__section_3.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import AddOns from '@/pages/_sections/menon-facials__section_6.astro';
+import FinalCta from '@/pages/_sections/menon-facials__section_8.astro';
+
+import heroImg from '@/assets/images/04bf461982db.jpg';
+
+const slug = 'menon-facials';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'How often should I get facials for best results?',
+    answer:
+      'For most skin types, a facial every 4 to 6 weeks aligns with the skin\'s natural renewal cycle and delivers cumulative improvements in tone, texture, and clarity. Your skin expert will recommend a frequency tailored to your specific concerns and goals during your initial consultation.',
+  },
+  {
+    question: 'What should I expect during my first facial appointment?',
+    answer:
+      'Your first facial begins with a thorough skin consultation to identify your specific concerns and goals. Your therapist will then walk you through each step of the treatment, which may include cleansing, exfoliation, extractions if needed, a customized mask, and targeted serums chosen for your skin.',
+  },
+  {
+    question: 'Is there any downtime after facial treatments?',
+    answer:
+      'Most of our facial treatments have little to no downtime. You may experience mild redness or sensitivity for a few hours immediately after treatment, particularly with more active treatments like chemical peels or dermaplaning. Your therapist will advise you on any post-treatment care specific to your chosen service.',
+  },
+  {
+    question: 'How do I know which facial is right for my skin type?',
+    answer:
+      'Our skin experts are here to guide you. Every treatment begins with a thorough consultation to identify your specific concerns, whether that\'s acne, aging, hyperpigmentation, or a desire for a radiant glow. If you\'re unsure before booking, schedule a complimentary consultation and we\'ll create a personalized skin health plan for you.',
+  },
+  {
+    question: 'Can I wear makeup after my facial?',
+    answer:
+      'We recommend avoiding makeup for at least a few hours after your facial to allow your skin to breathe and absorb the active ingredients. For more intensive treatments, your therapist may advise waiting until the following day. Your skin will typically be glowing and clear enough that you\'ll want to skip the coverage anyway.',
+  },
+  {
+    question: 'What\'s the difference between your facials and spa facials?',
+    answer:
+      'Menon Medispa facials use medical-grade skincare lines, including Dermalogica, SkinMedica, and PCA Skin, pharmaceutical-grade formulations designed to create real, measurable change in your skin. Our treatments also leverage advanced techniques like HydraFacial, microcurrent therapy, and dermaplaning that go far beyond what a typical day spa can offer.',
+  },
+  {
+    question: 'Do you offer consultations to help choose the right treatment?',
+    answer:
+      'Yes. Our skin experts offer complimentary consultations to help you identify the right facial treatment for your skin goals. We\'ll evaluate your skin, discuss your concerns, and create a personalized skin health plan tailored specifically to you.',
+  },
+  {
+    question: 'How far in advance should I book my facial?',
+    answer:
+      'We recommend booking ahead to secure your preferred appointment time, especially for popular treatments like HydraFacial. For special occasions, a little extra lead time is always ideal.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Expert Facials in Millburn NJ',
+  description:
+    'Award-winning facial treatments in Millburn NJ. Choose from Dermaplaning, HydraFacial, Chemical Peel, Manual Lymph, Cupping, Vitamin C Facial, and more.',
+  url: '/menon-facials',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Menon Facials', url: '/menon-facials' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Expert Facials in Millburn NJ | Menon Medispa"
+  description="Award-winning facial treatments in Millburn NJ. Choose from Dermaplaning, HydraFacial, Chemical Peel, Manual Lymph, Cupping, Vitamin C Facial, and more."
+  canonical="https://www.menonmedispa.com/menon-facials"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="FACIALS · MILLBURN, NJ"
+    h1="Glowing, Healthy Skin with Expert Facials in Millburn, NJ"
+    subhead="Customized, medical-grade facials for real, visible results, with little to no downtime."
+    image={heroImg}
+    imageAlt="Customized facial treatment at Menon Medispa in Millburn, NJ"
+    note="Complimentary consultation to match you to the right facial."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Find The Perfect Facial For Your Skin Goals</h2>
+
+      <p class="svc-lead">At Menon Medispa, we believe that every face has a unique story and deserves a customized approach.</p>
+
+      <p>Whether you're battling persistent acne, signs of aging, hyperpigmentation, or simply seeking a radiant glow, our expertly curated facial treatments are designed to meet you exactly where you are.</p>
+
+      <p>What truly sets our facials apart isn't just the cutting-edge technology or medical-grade products we use, it's the deep understanding our skilled therapists have for your skin. Every treatment begins with a thorough consultation to identify your specific concerns and goals, ensuring we tailor every step to maximize your results.</p>
+
+      <p>Our facials leverage the most advanced techniques available today, from the deep-cleansing power of HydraFacial to the rejuvenating effects of microcurrent therapy. Each session is a carefully choreographed experience, combining science and artistry to address your skin at a cellular level.</p>
+
+      <p class="svc-eyebrow">Visible Results for Millburn Residents</p>
+
+      <p>You don't have to live with skin concerns. We've helped hundreds of Millburn residents achieve skin they love with visible, lasting results. Many clients see a noticeable improvement in skin tone, texture, and clarity after just a single session, with dramatic cumulative results over a series of treatments.</p>
+
+      <p class="svc-eyebrow">Medical-Grade Products</p>
+
+      <p>We only use medical-grade skincare lines, including Dermalogica, SkinMedica, and PCA Skin, proven by clinical studies to deliver superior results. These aren't the products you find in a regular spa, these are pharmaceutical-grade formulations designed to create real, measurable change in your skin.</p>
+
+      <p class="svc-eyebrow">Your Best Skin Starts Here</p>
+
+      <p>Choosing the right facial is the first step to your best skin. Browse our specialized treatments below and discover the perfect match for your skin goals. And if you're still unsure, our skin experts are here to guide you, schedule a complimentary consultation and we'll create a personalized skin health plan just for you.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Customized Treatment Plans</h3>
+          <p>Every facial is tailored to your specific skin concerns and goals</p>
+        </li>
+        <li>
+          <h3>Medical-Grade Products</h3>
+          <p>Pharmaceutical-grade formulations for real, measurable results</p>
+        </li>
+        <li>
+          <h3>Expert Technicians</h3>
+          <p>Skilled therapists with deep expertise in advanced skin care</p>
+        </li>
+        <li>
+          <h3>Visible From Session One</h3>
+          <p>Many clients see improvement in tone, texture, and clarity after one visit</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Treatment plans', value: 'Customized' },
+          { label: 'Products used', value: 'Medical-grade' },
+          { label: 'Techniques', value: 'Advanced' },
+          { label: 'Technicians', value: 'Expert staff' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <SignatureFacials />
+
+  <ServiceTestimonial slug="menon-facials" />
+
+  <div id="add-ons"></div>
+  <AddOns />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/5/6/8/10 reused verbatim. -->

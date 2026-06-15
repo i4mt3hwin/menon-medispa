@@ -1,0 +1,139 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/nad-injection__section_2.astro';
+import Pricing from '@/pages/_sections/nad-injection__section_5.astro';
+import FinalCta from '@/pages/_sections/nad-injection__section_7.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'nad-injection';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers were blank/placeholder in the original section_6 — skipping FaqColumn.
+// Flag: FAQ questions present but no authored answers; do not fabricate.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'NAD+ Injection in Millburn, NJ',
+  description:
+    'Get a quick NAD+ Injection at Menon Medispa in Millburn, NJ. Boost energy, sharpen mental clarity, and support anti-aging in just minutes. Book today!',
+  url: '/nad-injection',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Wellness Injections',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'NAD+ Injection', url: '/nad-injection' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="NAD+ Injection Millburn NJ | Quick Energy & Focus Boost"
+  description="Get a quick NAD+ Injection at Menon Medispa in Millburn, NJ. Boost energy, sharpen mental clarity, and support anti-aging in just minutes. Book today!"
+  canonical="https://www.menonmedispa.com/nad-injection"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="NAD+ INJECTION · MILLBURN, NJ"
+    h1="NAD+ Injection in Millburn, NJ"
+    subhead="Boost your energy and sharpen your mind in just minutes, without the time commitment of IV therapy."
+    image={heroImg}
+    imageAlt="NAD+ Injection treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $75"
+    note="Quick appointment, no downtime. Book your NAD+ Injection today."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why NAD+ Injection Is the Smart Choice for Busy Lifestyles</h2>
+      <p class="svc-lead">Get the cellular benefits of NAD+ therapy in a fraction of the time. Perfect for those who want results without a lengthy appointment.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Quick &amp; Convenient</h3>
+          <p>Your NAD+ Injection takes just a few minutes. Walk in, get your shot, and get back to your day feeling recharged. Ideal for busy professionals and parents in Millburn and Short Hills.</p>
+        </li>
+        <li>
+          <h3>Sharper Mental Clarity &amp; Focus</h3>
+          <p>Brain fog holding you back? NAD+ supports healthy brain function and helps you think clearer, focus longer, and stay sharp throughout your day.</p>
+        </li>
+        <li>
+          <h3>Natural Energy Without the Crash</h3>
+          <p>NAD+ works at the cellular level to support your body's natural energy production. No jitters, no caffeine crash. Just steady, clean energy that lasts.</p>
+        </li>
+        <li>
+          <h3>Anti-Aging From the Inside Out</h3>
+          <p>NAD+ levels drop as we age. Replenishing them helps support cellular repair, healthy metabolism, and overall vitality. You'll feel younger, longer.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="svc-block">
+      <h2>What to Expect During Your NAD+ Injection</h2>
+      <p class="svc-lead">Your appointment is fast, easy, and designed to fit seamlessly into your schedule. Here's how it works at our Millburn spa.</p>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Step 1: Brief Consultation (2–3 minutes)</h3>
+          <p>Your provider will check in with you about your wellness goals and answer any questions. If it's your first NAD+ Injection, we'll explain exactly what to expect.</p>
+        </li>
+        <li>
+          <h3>Step 2: Quick Injection (1–2 minutes)</h3>
+          <p>The injection itself takes just a minute or two. Most clients describe it as a small pinch. No IV lines, no lengthy sessions. Just a simple shot.</p>
+        </li>
+        <li>
+          <h3>Step 3: Get Back to Your Day</h3>
+          <p>There's no downtime and no recovery needed. You can return to work, errands, or your daily routine right away. Many clients start noticing more energy and mental clarity within hours.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$75' },
+          { label: 'Appointment', value: 'About 15 minutes' },
+          { label: 'Results', value: 'Often within hours' },
+          { label: 'Downtime', value: 'None' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Pricing />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_5 (Pricing), section_7 (FinalCta). Inlined: section_3 (benefits as svc-features), section_4 (process as svc-steps). FAQ lifted: section_6 questions present but answers blank/placeholder — FaqColumn omitted, flagged. Hero extracted from section_1. No promo band on this page. -->

@@ -1,0 +1,47 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<section class="section section--tint s12-faq">
+  <div class="container--narrow">
+
+    <h2 class="s12-faq__heading">Frequently Asked Questions</h2>
+
+    <LeadForm />
+
+    <FaqAccordion
+      items={[
+        {
+          question: "What exactly is a HydraFacial™ and how does it work?",
+          answer: "HydraFacial™ is a multi-step facial treatment that uses patented Vortex-Fusion® technology to cleanse, exfoliate, extract, and hydrate the skin simultaneously. The device uses unique spiral suction tips to remove debris from pores while delivering nourishing serums directly into the skin.",
+        },
+        {
+          question: "How is it different from other facial treatments?",
+          answer: "Unlike traditional facials, HydraFacial™ uses a closed-loop system to remove impurities without manual squeezing or discomfort. The Vortex-Fusion® delivery system infuses the skin with medical-grade serums during extraction, making it more effective and comfortable than conventional treatments.",
+        },
+        {
+          question: "How often should I get a HydraFacial™ treatment?",
+          answer: "For optimal results, monthly HydraFacial™ treatments are recommended. However, many clients see significant improvement after just one session. Your skincare specialist will create a personalized treatment plan based on your specific skin goals and concerns.",
+        },
+        {
+          question: "Is there any HydraFacial™ aftercare I should follow?",
+          answer: "HydraFacial™ requires minimal aftercare. You may apply makeup and return to normal activities immediately. We recommend avoiding direct sun exposure and applying SPF protection after your treatment. Your specialist may also recommend specific skincare products to maintain and enhance your results.",
+        },
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .s12-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+</style>

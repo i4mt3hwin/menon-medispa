@@ -1,0 +1,124 @@
+---
+import beforeImg from '@/assets/images/180e95701089.png';
+import afterImg from '@/assets/images/f260f818780a.png';
+import heroBg from '@/assets/images/651c7c197b52.png';
+---
+
+<section class="section section--tint s4-beforeafter">
+  <div class="container--narrow">
+
+    <div class="s4-beforeafter__header">
+      <h2 class="s4-beforeafter__heading">See Our Before &amp; After Results</h2>
+      <p class="s4-beforeafter__body">
+        Amazing transformation from laser facial treatments! This real before &amp; after comparison shows the dramatic wrinkle reduction our clients achieve, especially around the delicate under-eye area. See how our advanced ClearLift laser technology can turn back the clock on aging - the results speak for themselves!
+      </p>
+    </div>
+
+    <div class="s4-beforeafter__images">
+
+      <div class="s4-beforeafter__image-wrap">
+        <p class="s4-beforeafter__image-label">Before</p>
+        <img
+          src={beforeImg.src}
+          alt="Before ClearLift laser skin rejuvenation treatment at Menon Medispa"
+          class="s4-beforeafter__image"
+          loading="lazy"
+          decoding="async"
+          width="600"
+          height="600"
+        />
+      </div>
+
+      <div class="s4-beforeafter__image-wrap">
+        <p class="s4-beforeafter__image-label">After</p>
+        <img
+          src={afterImg.src}
+          alt="After ClearLift laser skin rejuvenation treatment at Menon Medispa"
+          class="s4-beforeafter__image"
+          loading="lazy"
+          decoding="async"
+          width="668"
+          height="376"
+        />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s4-beforeafter__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .s4-beforeafter__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .s4-beforeafter__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .s4-beforeafter__images {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-md);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .s4-beforeafter__image-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .s4-beforeafter__image-label {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .s4-beforeafter__image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .s4-beforeafter__images {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .s4-beforeafter__image {
+      max-width: 100%;
+    }
+  }
+</style>

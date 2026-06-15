@@ -1,0 +1,157 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/acne-facial__section_2.astro';
+import BeforeAfter from '@/pages/_sections/acne-facial__section_4.astro';
+import Process from '@/pages/_sections/acne-facial__section_5.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceCard from '@/pages/_sections/acne-facial__section_7.astro';
+import AddOns from '@/pages/_sections/acne-facial__section_8.astro';
+import FinalCta from '@/pages/_sections/acne-facial__section_10.astro';
+
+import heroImg from '@/assets/images/1616d1e9f4e9.png';
+
+const slug = 'acne-facial';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'Will the acne facial hurt?',
+    answer:
+      'The acne facial is designed to be comfortable throughout. You may feel a mild tingling sensation during the active serum application or slight pressure during manual extractions, but most clients find the experience relaxing. Our estheticians are trained to minimize discomfort while maximizing results.',
+  },
+  {
+    question: 'How soon will I see results?',
+    answer:
+      'Many clients notice clearer, less congested skin immediately after their first session. Active breakouts typically show significant improvement within 24 to 48 hours. For more persistent acne concerns, we recommend a series of treatments spaced 3 to 4 weeks apart for cumulative results.',
+  },
+  {
+    question: 'How often should I get acne facials?',
+    answer:
+      'For active acne concerns, we typically recommend starting with monthly sessions. Once your skin has cleared, you can transition to maintenance treatments every 6 to 8 weeks to keep breakouts at bay and maintain your results long term.',
+  },
+  {
+    question: 'Is there any downtime after the treatment?',
+    answer:
+      'There is minimal to no downtime after an acne facial. Some clients experience slight redness or sensitivity for a few hours immediately post-treatment, particularly if extractions were performed. We recommend avoiding heavy makeup and direct sun exposure for 24 hours following your session.',
+  },
+  {
+    question: 'Who is a good candidate for the acne facial?',
+    answer:
+      'Our acne facial is suitable for teens and adults experiencing mild to moderate acne, blackheads, whiteheads, or congested pores. It works for all skin types and tones. During your consultation, we will assess your skin and customize the treatment protocol to your specific concerns and goals.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Acne Facial in Millburn, NJ',
+  description:
+    'Experience our targeted 70-minute Acne Facial treatment in Millburn NJ. Medical-grade Korean skincare that clears pores, reduces breakouts, and restores your skin\'s natural balance.',
+  url: '/acne-facial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Acne Facial', url: '/acne-facial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Acne Facial In Millburn NJ | Menon Medispa"
+  description="Experience our targeted 70-minute Acne Facial treatment in Millburn NJ. Medical-grade Korean skincare that clears pores, reduces breakouts, and restores your skin's natural balance."
+  canonical="https://www.menonmedispa.com/acne-facial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="ACNE FACIAL · MILLBURN, NJ"
+    h1="Finally Clear Skin with Our Acne Facial in Millburn, NJ"
+    subhead="Medical-grade Korean skincare that deeply cleanses pores, reduces active breakouts, and restores your skin's natural balance for lasting clarity."
+    image={heroImg}
+    imageAlt="Acne facial treatment at Menon Medispa Millburn NJ"
+    price="Starting at $165"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Our Acne Facial Works When Other Treatments Haven't</h2>
+      <p class="svc-lead">Medical-grade ingredients that target acne at the source without damaging your skin barrier.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Targets Root Causes, Not Just Symptoms</h3>
+          <p>Our Acne Facial uses medical-grade actives like Salicylic Acid and Tea Tree to penetrate deep into pores, dissolving the buildup of sebum, dead skin cells, and bacteria that cause breakouts at the source.</p>
+        </li>
+        <li>
+          <h3>Balances Oil Without Stripping Your Skin</h3>
+          <p>Say goodbye to that tight, uncomfortable feeling after treatment. Our formula regulates sebum production while maintaining your skin's essential moisture barrier, preventing the rebound oiliness that makes acne worse.</p>
+        </li>
+        <li>
+          <h3>Reduces Inflammation and Accelerates Healing</h3>
+          <p>Centella Asiatica and Houttuynia Cordata calm redness and swelling while promoting cellular repair, helping existing breakouts heal faster and reducing the risk of post-acne scarring.</p>
+        </li>
+        <li>
+          <h3>Safe &amp; Gentle for All Skin Types</h3>
+          <p>Unlike harsh chemical peels or abrasive treatments, our Korean medical-grade skincare protocol is effective yet gentle enough for sensitive, reactive, and acne-prone skin of all types and tones.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$165' },
+          { label: 'Appointment', value: '70 minutes' },
+          { label: 'Results', value: 'Visible after first session' },
+          { label: 'Skin types', value: 'All types and tones' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <BeforeAfter />
+
+  <Process />
+
+  <ServiceTestimonial slug="acne-facial" />
+
+  <ServiceCard />
+
+  <div id="add-ons"></div>
+  <AddOns />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/4/5/7/8/10 reused verbatim. Section 3 (benefits) inlined as svc-features. Section 9 (FAQ) lifted into FaqColumn. Section 12 (June SALES promo) removed, replaced by SalePopup. Section 6 (testimonial) swapped to <ServiceTestimonial slug="acne-facial" /> — original contained unsafe quotes referencing departed staff. -->

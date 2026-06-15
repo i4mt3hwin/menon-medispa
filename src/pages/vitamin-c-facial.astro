@@ -1,0 +1,118 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/vitamin-c-facial__section_2.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Process from '@/pages/_sections/vitamin-c-facial__section_5.astro';
+import Pricing from '@/pages/_sections/vitamin-c-facial__section_6.astro';
+import AddOns from '@/pages/_sections/vitamin-c-facial__section_7.astro';
+import FinalCta from '@/pages/_sections/vitamin-c-facial__section_9.astro';
+
+import heroImg from '@/assets/images/6608c4cfc0e4.png';
+
+const slug = 'vitamin-c-facial';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers were blank/placeholder in the original build -- skipping FAQ to avoid fabrication.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Vitamin C Facial in Millburn, NJ',
+  description:
+    'Professional Vitamin C Facials at Menon Medispa in Millburn, NJ. Instant glow, anti-aging benefits, and safe for all skin types. $150 per session.',
+  url: '/vitamin-c-facial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Vitamin C Facial', url: '/vitamin-c-facial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Expert Vitamin C Facials in Millburn NJ | Menon Medispa"
+  description="Experience professional Vitamin C Facials at Menon Medispa in Millburn, NJ. Instant glow, anti-aging benefits, and safe for all skin types. Book your appointment today."
+  canonical="https://www.menonmedispa.com/vitamin-c-facial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="VITAMIN C FACIAL · MILLBURN, NJ"
+    h1="Expert Vitamin C Facials in Millburn, NJ"
+    subhead="Get instantly brighter, more radiant skin that glows from within, safe for all skin types with no downtime."
+    image={heroImg}
+    imageAlt="Vitamin C Facial treatment at Menon Medispa Millburn NJ"
+    price="Starting at $150"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Vitamin C Is The Ultimate Skin Brightening and Anti-Aging Treatment</h2>
+
+      <p class="svc-eyebrow">Immediate Brightening and Glow</p>
+      <p>Our Vitamin C Facial begins with a professional microdermabrasion polish that removes dead skin cells and unclogs pores, instantly revealing brighter, smoother skin. We then apply a potent Vitamin C mask that floods your skin with antioxidants, creating an immediate luminosity and radiant glow you can see and feel right away.</p>
+
+      <p class="svc-eyebrow">Powerful Collagen Boost and Anti-Aging</p>
+      <p>Vitamin C is one of the most scientifically-proven ingredients for stimulating collagen production. Our professional-grade formulations penetrate deeper than at-home products, activating your skin's natural collagen synthesis to firm and plump the skin, reduce the appearance of fine lines and wrinkles, and improve overall skin texture and elasticity.</p>
+
+      <p class="svc-eyebrow">Safe and Gentle for All Skin Types</p>
+      <p>Unlike harsh chemical peels or aggressive laser treatments, our Vitamin C Facial is carefully formulated to be safe and effective for all skin types, including sensitive skin. There is no downtime required, you can return to your normal activities immediately after your treatment with a fresh, glowing complexion.</p>
+
+      <p class="svc-eyebrow">Environmental Protection and Skin Health</p>
+      <p>Vitamin C is a powerful antioxidant that helps protect your skin from environmental damage caused by UV exposure, pollution, and free radicals. Our professional treatment creates a protective barrier that supports long-term skin health, helps fade dark spots and hyperpigmentation, and keeps your skin looking youthful and vibrant between sessions.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$150' },
+          { label: 'Appointment', value: '1 hour' },
+          { label: 'Downtime', value: 'None' },
+          { label: 'Skin types', value: 'All skin types' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="vitamin-c-facial" />
+
+  <Process />
+
+  <Pricing />
+
+  <AddOns />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/5/6/7/9 reused verbatim. Section 3 prose inlined into main column. Section 4 testimonial swapped to <ServiceTestimonial slug="vitamin-c-facial" /> (provider-safe curated reviews). Section 8 FAQ skipped (all answers blank/placeholder). Section 11 June SALES promo removed (replaced by SalePopup). -->

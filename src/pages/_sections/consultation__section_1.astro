@@ -1,0 +1,170 @@
+---
+import site from '@/lib/site';
+import heroBg from '@/assets/images/fc22050ddcb3.webp';
+---
+
+<!-- Section 1: Hero, Personalized Consultation (CRO: one primary CTA + trust strip) -->
+<section class="media-bg section s1-con-hero" style="--scrim-strength:0.64">
+  <img
+    class="media-bg__img media-bg__img--blur"
+    src={heroBg.src}
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    decoding="async"
+    width="1440"
+    height="287"
+  />
+  <span class="media-bg__scrim media-bg__scrim--b"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s1-con-hero__content">
+      <p class="eyebrow s1-con-hero__eyebrow">Your Skin Journey Starts Here</p>
+      <h1 class="s1-con-hero__heading">
+        Book a Personalized Skin Consultation in Millburn
+      </h1>
+      <p class="s1-con-hero__subtitle">
+        Sit down with our team to pinpoint exactly what your skin needs, and leave with a clear,
+        customized treatment plan built around your goals.
+      </p>
+
+      <div class="s1-con-hero__ctas">
+        <a href="#request" class="btn btn--primary btn--lg">Request Your Consultation</a>
+        <a href={site.phone.tel} class="btn btn--secondary btn--on-dark btn--lg">Call {site.phone.display}</a>
+      </div>
+
+      <ul class="s1-con-hero__trust">
+        <li class="s1-con-hero__trust-item">
+          <span class="s1-con-hero__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          100+ 5 Star Reviews
+        </li>
+        <li class="s1-con-hero__trust-item">Led by Dr. Aditi Menon, MD</li>
+        <li class="s1-con-hero__trust-item">Same-Week Appointments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .s1-con-hero {
+    min-height: 64vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .s1-con-hero .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .s1-con-hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .s1-con-hero__eyebrow {
+    margin: 0;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .s1-con-hero__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.16;
+  }
+
+  .s1-con-hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.92;
+    max-width: 660px;
+  }
+
+  .s1-con-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .s1-con-hero__trust {
+    list-style: none;
+    margin: var(--space-sm) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs) var(--space-md);
+  }
+
+  .s1-con-hero__trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    opacity: 0.95;
+  }
+
+  .s1-con-hero__trust-item + .s1-con-hero__trust-item::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-cta);
+    margin-right: var(--space-xs);
+    flex-shrink: 0;
+  }
+
+  .s1-con-hero__stars {
+    color: var(--color-star);
+    letter-spacing: 2px;
+    font-size: 1em;
+  }
+
+  @media (max-width: 1024px) {
+    .s1-con-hero {
+      min-height: 56vh;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s1-con-hero__heading {
+      font-size: var(--text-h2);
+    }
+
+    .s1-con-hero__ctas {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .s1-con-hero__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .s1-con-hero__trust {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .s1-con-hero__trust-item + .s1-con-hero__trust-item::before {
+      display: none;
+    }
+  }
+</style>

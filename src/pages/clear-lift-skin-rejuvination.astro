@@ -1,0 +1,130 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/clear-lift-skin-rejuvination__section_2.astro';
+import BeforeAfter from '@/pages/_sections/clear-lift-skin-rejuvination__section_4.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Benefits from '@/pages/_sections/clear-lift-skin-rejuvination__section_6.astro';
+import Pricing from '@/pages/_sections/clear-lift-skin-rejuvination__section_7.astro';
+import FinalCta from '@/pages/_sections/clear-lift-skin-rejuvination__section_8.astro';
+
+import heroImg from '@/assets/images/5533cf5a75a8.png';
+
+const slug = 'clear-lift-skin-rejuvination';
+const posts = getRelatedPosts(slug);
+
+// No FAQ section in original page -- arrays are empty
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'ClearLift Skin Rejuvenation in Millburn, NJ',
+  description:
+    'ClearLift laser skin rejuvenation in Millburn NJ at Menon Medispa. Zero downtime, safe for all skin types. Reduce fine lines, sun damage, and uneven texture. Book today.',
+  url: '/clear-lift-skin-rejuvination',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Laser Treatments',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'ClearLift Skin Rejuvenation', url: '/clear-lift-skin-rejuvination' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="ClearLift Skin Rejuvenation in Millburn NJ | Menon Medispa"
+  description="ClearLift laser skin rejuvenation in Millburn NJ at Menon Medispa. Zero downtime, all skin types. Reduce fine lines, sun damage, and uneven texture. Book today."
+  canonical="https://www.menonmedispa.com/clear-lift-skin-rejuvination"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="CLEARLIFT LASER · MILLBURN, NJ"
+    h1="ClearLift Skin Rejuvenation in Millburn, NJ"
+    subhead="Advanced laser skin rejuvenation that reveals smoother, more radiant skin, with zero downtime and no discomfort."
+    image={heroImg}
+    imageAlt="ClearLift laser skin rejuvenation at Menon Medispa Millburn NJ"
+    price="Starting at $99"
+    note="Safe for all skin types. No downtime required."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>The Science Behind Your Skin Transformation</h2>
+      <p class="svc-lead">Discover how ClearLift's advanced laser technology works beneath the surface to reveal your most radiant skin.</p>
+
+      <h3>What is ClearLift?</h3>
+      <p>ClearLift is a revolutionary non-invasive laser treatment that works beneath your skin's surface to stimulate natural collagen production. Unlike traditional lasers, ClearLift requires zero downtime while delivering visible results.</p>
+      <p>Using advanced Q-switched laser technology, ClearLift sends precise bursts of energy deep into your skin layers, triggering your body's natural healing response. This process rebuilds collagen and elastin from within, giving you firmer, smoother, more youthful-looking skin.</p>
+      <p>Safe for all skin types and tones, ClearLift addresses fine lines, sun damage, uneven texture, and enlarged pores in just 30-60 minutes per session.</p>
+
+      <p class="svc-eyebrow">How It Works</p>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Laser Energy Delivery</h3>
+          <p>Precise laser pulses penetrate deep beneath the skin surface</p>
+        </li>
+        <li>
+          <h3>Collagen Stimulation</h3>
+          <p>Natural healing response triggers new collagen production</p>
+        </li>
+        <li>
+          <h3>Skin Renewal</h3>
+          <p>Improved texture, tone, and firmness with no downtime</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'From $99' },
+          { label: 'Session length', value: '30-60 minutes' },
+          { label: 'Downtime', value: 'None required' },
+          { label: 'Skin types', value: 'All skin types' },
+          { label: 'Results', value: 'Lasting up to 2 years' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <BeforeAfter />
+
+  <ServiceTestimonial slug="clear-lift-skin-rejuvination" />
+
+  <Benefits />
+
+  <Pricing />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Section 3 (science/prose) inlined as svc-block. Bands 2/4/6/7/8 kept verbatim. Section 5 (testimonial) swapped to <ServiceTestimonial slug="clear-lift-skin-rejuvination" /> (provider-safe curated reviews). Section 10 (June SALES promo) removed, replaced by SalePopup. No FAQ section in original. -->

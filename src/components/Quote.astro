@@ -1,32 +1,67 @@
 ---
-/**
- * Quote.astro — single testimonial / pull quote (blockquote widget, 23x).
- * Finished here. 03-build passes verbatim quote text + optional attribution.
- */
-interface Props { quote: string; author?: string; class?: string; }
-const { quote, author, class: cls = '' } = Astro.props;
+interface Props {
+  text_html: string;
+  author?: string;
+}
+const { text_html, author } = Astro.props;
 ---
-<blockquote class={`quote ${cls}`}>
-  <p>{quote}</p>
-  {author && <cite>{author}</cite>}
+<blockquote class="site-quote">
+  <div class="site-quote__text" set:html={text_html} />
+  {author && (
+    <footer class="site-quote__footer">
+      <cite class="site-quote__author">{author}</cite>
+    </footer>
+  )}
 </blockquote>
 
 <style>
-  .quote {
-    font-family: var(--font-display-alt);
-    font-style: italic;
-    font-size: var(--text-xl);
-    color: var(--color-text);
-    margin: 0;
-    border-left: 3px solid var(--color-primary);
-    padding-left: var(--spacing-gap-md);
+  .site-quote {
+    margin: var(--space-md) 0;
+    padding: var(--space-md) var(--space-md) var(--space-md) var(--space-lg);
+    border-left: 4px solid var(--color-cta);
+    background-color: transparent;
+    max-width: 65ch;
   }
-  .quote cite {
-    display: block;
+
+  .site-quote__text {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-style: italic;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .site-quote__text p {
+    margin: 0 0 0.5em;
+  }
+
+  .site-quote__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .site-quote__footer {
+    margin-top: var(--space-sm);
+  }
+
+  .site-quote__author {
     font-family: var(--font-ui);
+    font-size: var(--text-xs);
     font-style: normal;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-top: var(--spacing-gap-sm);
+    color: rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.04em;
+  }
+
+  .site-quote__author::before {
+    content: '\2014\00A0';
+  }
+
+  @media (max-width: 600px) {
+    .site-quote {
+      padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-md);
+    }
+
+    .site-quote__text {
+      font-size: var(--text-base);
+    }
   }
 </style>

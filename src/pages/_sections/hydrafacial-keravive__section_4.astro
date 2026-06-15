@@ -1,0 +1,95 @@
+---
+import sectionBg from '@/assets/images/960c78e88976.jpg';
+import posterImg from '@/assets/images/4e11a1312c89.jpg';
+---
+
+<section class="media-bg section hfk-s4-results" style="--scrim-strength:0.55">
+  <img class="media-bg__img media-bg__img--blur" src={sectionBg.src} alt="" aria-hidden="true" loading="lazy" decoding="async" width="1440" height="800" />
+  <span class="media-bg__scrim media-bg__scrim--b"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="hfk-s4__inner">
+
+      <h2 class="hfk-s4__heading">Real Results</h2>
+
+      <p class="hfk-s4__body">
+        HydraFacial™ Keravive™ is an excellent complement to hair restoration treatments such as PRP, microneedling, or medication. By creating a healthy scalp environment, it maximizes the effectiveness of all other treatments you may be undergoing.
+      </p>
+
+      <p class="hfk-s4__body">
+        Clinical studies show that 97% of patients reported an improvement in scalp health after three treatments, with 93% reporting improvement in hair fullness and 79% reporting reduction in hair shedding.
+      </p>
+
+      <p class="hfk-s4__body">
+        Watch one of our actual clients experience their comfortable and rejuvenating Keravive treatment.
+      </p>
+
+      <div class="hfk-s4__video-wrap">
+        <video
+          class="hfk-s4__video"
+          autoplay
+          loop
+          muted
+          playsinline
+          poster={posterImg.src}
+          width="1280"
+          height="720"
+        >
+          <source src="https://video.wixstatic.com/video/2baa5c_1059a76a02f24c61bdde516852248949/1080p/mp4/file.mp4" type="video/mp4" />
+          <track kind="descriptions" />
+        </video>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .hfk-s4-results {
+    min-height: 600px;
+  }
+
+  .hfk-s4__inner {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .hfk-s4__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .hfk-s4__body {
+    font-size: var(--text-sm);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .hfk-s4__video-wrap {
+    width: 100%;
+    max-width: 800px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .hfk-s4__video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .hfk-s4-results {
+      min-height: auto;
+    }
+  }
+</style>

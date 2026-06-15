@@ -1,0 +1,158 @@
+---
+import site from '@/lib/site';
+import fbIcon from '@/assets/images/464c5b23f583.png';
+import igIcon from '@/assets/images/a29df34857a1.png';
+import ttIcon from '@/assets/images/d11778476dcb.png';
+---
+
+<!-- Section 6: Visit us, NAP + hours + social + map -->
+<section class="section con-visit">
+  <div class="container">
+    <div class="con-visit__layout">
+
+      <div class="con-visit__info">
+        <p class="eyebrow con-visit__eyebrow">Visit Us</p>
+        <h2 class="con-visit__heading">Find Us in Millburn, NJ</h2>
+
+        <div class="con-visit__nap">
+          <p class="con-visit__name">{site.legalName}</p>
+          <address class="con-visit__address">
+            <p class="con-visit__line">{site.address.formatted}, USA</p>
+            <p class="con-visit__line"><a href={`mailto:${site.email}`} class="con-visit__link">{site.email}</a></p>
+            <p class="con-visit__line"><a href={site.phone.tel} class="con-visit__link">{site.phone.display}</a></p>
+          </address>
+        </div>
+
+        <div class="con-visit__hours">
+          <div class="con-visit__hours-row">
+            <span class="con-visit__day">Mon &ndash; Fri</span>
+            <span class="con-visit__time">10:00 am &ndash; 6:00 pm</span>
+          </div>
+          <div class="con-visit__hours-row">
+            <span class="con-visit__day">Saturday</span>
+            <span class="con-visit__time">10:00 am &ndash; 4:00 pm</span>
+          </div>
+          <div class="con-visit__hours-row">
+            <span class="con-visit__day">Sunday</span>
+            <span class="con-visit__time con-visit__time--closed">CLOSED</span>
+          </div>
+        </div>
+
+        <div class="con-visit__social">
+          <a href={site.social.facebook} class="con-visit__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <img src={fbIcon.src} alt="Facebook" class="con-visit__social-icon" loading="lazy" decoding="async" width="32" height="32" />
+          </a>
+          <a href={site.social.instagram} class="con-visit__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <img src={igIcon.src} alt="Instagram" class="con-visit__social-icon" loading="lazy" decoding="async" width="32" height="32" />
+          </a>
+          <a href={site.social.tiktok} class="con-visit__social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <img src={ttIcon.src} alt="TikTok" class="con-visit__social-icon" loading="lazy" decoding="async" width="32" height="32" />
+          </a>
+        </div>
+
+        <a href="#request" class="btn btn--primary con-visit__cta">Request Your Consultation</a>
+      </div>
+
+      <div class="con-visit__map-col">
+        <iframe
+          class="con-visit__map"
+          title="Menon Medispa location"
+          src="https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+NJ+07041&output=embed"
+          width="100%"
+          height="480"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .con-visit__layout {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--space-xl);
+    align-items: stretch;
+  }
+
+  .con-visit__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .con-visit__eyebrow { margin: 0; color: var(--color-cta); }
+
+  .con-visit__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-xs);
+    line-height: 1.25;
+  }
+
+  .con-visit__name {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .con-visit__address { font-style: normal; display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+  .con-visit__line {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+  .con-visit__link { color: var(--color-text); text-decoration: none; }
+  .con-visit__link:hover { text-decoration: underline; color: var(--color-cta); }
+
+  .con-visit__hours {
+    display: flex;
+    flex-direction: column;
+    max-width: 340px;
+    margin-top: var(--space-xs);
+  }
+  .con-visit__hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .con-visit__hours-row:last-child { border-bottom: none; }
+  .con-visit__day { font-family: var(--font-body); font-size: var(--text-sm); font-weight: var(--weight-bold); color: var(--color-text); }
+  .con-visit__time { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-text); opacity: 0.85; }
+  .con-visit__time--closed { font-weight: var(--weight-bold); opacity: 0.6; }
+
+  .con-visit__social { display: flex; gap: var(--space-sm); margin-top: var(--space-xs); }
+  .con-visit__social-link { display: block; transition: opacity 0.2s; }
+  .con-visit__social-link:hover { opacity: 0.7; }
+  .con-visit__social-icon { display: block; width: 32px; height: 32px; object-fit: contain; }
+
+  .con-visit__cta { margin-top: var(--space-sm); align-self: flex-start; }
+
+  .con-visit__map-col {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    min-height: 420px;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.10);
+  }
+  .con-visit__map { width: 100%; height: 100%; min-height: 420px; border: 0; display: block; }
+
+  @media (max-width: 900px) {
+    .con-visit__layout { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .con-visit__map-col { min-height: 320px; }
+    .con-visit__map { min-height: 320px; height: 320px; }
+  }
+</style>

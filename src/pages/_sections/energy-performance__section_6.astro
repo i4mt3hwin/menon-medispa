@@ -1,0 +1,12 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import serviceImg from '@/assets/images/537a32cc1127.avif';
+---
+<ServiceBookingCta
+  heading={`Ready to Unlock Your Peak Performance?`}
+  body={`It's time to stop feeling tired and start performing at your best. Book your Energy & Performance IV drip in Millburn, NJ today.`}
+  cards={[
+    { image: serviceImg, imageAlt: `ENERGY Signature IV Drip`, title: `ENERGY (Signature)`, titleHref: `https://www.menonmedispa.com/service-page/energy-signature`, price: `$200`, duration: `500ml`, bookHref: `https://www.menonmedispa.com/booking-calendar/energy-signature` },
+    { image: serviceImg, imageAlt: `ENERGY Deluxe IV Drip`, title: `ENERGY (Deluxe)`, price: `$250`, bookHref: `https://www.menonmedispa.com/booking-calendar/energy-deluxe` },
+  ]}
+/>

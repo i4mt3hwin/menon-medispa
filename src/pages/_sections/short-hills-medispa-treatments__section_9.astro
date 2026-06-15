@@ -1,0 +1,133 @@
+---
+import site from '@/lib/site';
+
+import staffImg from '@/assets/images/b1a819f35921.webp';
+---
+
+<section class="section section--dark sh9-cta">
+  <div class="container">
+    <div class="sh9-cta__layout">
+
+      <div class="sh9-cta__text">
+
+        <h2 class="sh9-cta__heading">
+          Begin Your Transformation Today
+        </h2>
+
+        <p class="sh9-cta__subtitle">
+          Menon Medispa Millburn NJ
+        </p>
+
+        <p class="sh9-cta__body">
+          Ready to experience the premium treatments that Short Hills residents trust? Take the quick 5-minute drive to Menon Medispa in Millburn and discover why we&apos;re the preferred choice for science-backed beauty and wellness solutions.
+        </p>
+
+        <div class="sh9-cta__actions">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Your Consultation!
+          </a>
+        </div>
+
+      </div>
+
+      <div class="sh9-cta__img-col">
+        <img
+          src={staffImg.src}
+          alt="Menon Office Staff"
+          class="sh9-cta__img"
+          loading="lazy"
+          decoding="async"
+          width="431"
+          height="514"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .sh9-cta__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .sh9-cta__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sh9-cta__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .sh9-cta__subtitle {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: var(--weight-regular);
+    color: rgba(255, 255, 255, 0.80);
+    margin: 0;
+  }
+
+  .sh9-cta__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .sh9-cta__actions {
+    margin-top: var(--space-xs);
+  }
+
+  .sh9-cta__img-col {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  .sh9-cta__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.4);
+  }
+
+  @media (max-width: 1024px) {
+    .sh9-cta__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sh9-cta__layout {
+      flex-direction: column;
+    }
+
+    .sh9-cta__img-col {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .sh9-cta__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

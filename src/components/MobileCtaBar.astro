@@ -1,0 +1,140 @@
+---
+/**
+ * MobileCtaBar.astro, persistent fixed bottom action bar (phones only).
+ *
+ * Placed as a DIRECT child of <body> in the page (after ServiceLayout), NOT
+ * inside the reveal-transformed .service-article section, otherwise an ancestor
+ * will-change/transform would make this the wrong containing block and break
+ * position:fixed. Shown only <=900px; hidden on desktop (the sticky BookingCard
+ * covers desktop). ServiceLayout reserves body bottom-padding so it never
+ * overlaps the footer.
+ *
+ * Unifies the three mobile actions into ONE bar so they don't stack as separate
+ * floating buttons: Chat (folds in the ChatAssistant launcher) + Call + Book.
+ * The standalone floating chat circle is hidden on these pages (ServiceLayout);
+ * the chat panel still opens, triggered by this bar's chat button.
+ */
+import site from '@/lib/site';
+
+interface Props {
+  ctaLabel?: string;
+  ctaHref?: string;     // default site.calcomUrl
+  showPhone?: boolean;  // default true
+  showChat?: boolean;   // default true, folds the chat launcher into this bar
+}
+const {
+  ctaLabel = 'Book Online',
+  ctaHref = site.calcomUrl,
+  showPhone = true,
+  showChat = true,
+} = Astro.props;
+
+const isExternal = ctaHref.startsWith('http');
+---
+
+<div class="mobile-cta" role="region" aria-label="Chat, call or book">
+  {showChat && (
+    <button type="button" class="mobile-cta__icon mobile-cta__chat" aria-label="Open chat assistant">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+      </svg>
+    </button>
+  )}
+  {showPhone && (
+    <a href={site.phone.tel} class="mobile-cta__icon mobile-cta__call" aria-label={`Call ${site.phone.display}`}>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.6.1.4 0 .7-.2 1l-2.3 2.2Z" fill="currentColor"/>
+      </svg>
+    </a>
+  )}
+  <a
+    href={ctaHref}
+    class="btn btn--primary btn--sm mobile-cta__book"
+    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  >{ctaLabel}</a>
+</div>
+
+<style>
+  .mobile-cta { display: none; }
+
+  @media (max-width: 900px) {
+    /* one floating pill that holds all three actions; slim + elegant.
+       Starts hidden (no extra CTA on the hero); fades in once past the hero. */
+    .mobile-cta {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px;
+      background: rgb(255 255 255 / 0.9);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgb(0 0 0 / 0.07);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgb(27 21 34 / 0.22);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .mobile-cta.is-shown { opacity: 1; transform: none; pointer-events: auto; }
+
+    /* compact secondary actions (chat + call) as round icon buttons */
+    .mobile-cta__icon {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: rgb(27 21 34 / 0.05);
+      border: 1px solid rgb(0 0 0 / 0.08);
+      color: var(--color-text);
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      padding: 0;
+      transition: background 0.15s ease;
+    }
+    .mobile-cta__icon:hover { background: rgb(27 21 34 / 0.1); }
+
+    /* primary action takes the remaining width */
+    .mobile-cta__book { flex: 1; border-radius: 999px; }
+  }
+</style>
+
+<script>
+  (function () {
+    const bar = document.querySelector('.mobile-cta');
+    if (!bar) return;
+
+    // Fold the chat launcher into the bar: proxy to the existing ChatAssistant
+    // toggle (which is hidden as a standalone circle on these pages).
+    const chatBtn = bar.querySelector('.mobile-cta__chat');
+    if (chatBtn) {
+      chatBtn.addEventListener('click', function () {
+        const toggle = document.getElementById('chat-toggle');
+        if (toggle) (toggle as HTMLButtonElement).click();
+      });
+    }
+
+    // Fade the bar in only after the visitor scrolls past the hero
+    // (the hero already has its own Book + Call, so don't stack a CTA there).
+    const hero = document.querySelector('.service-hero, .hero');
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { bar.classList.toggle('is-shown', !en.isIntersecting); });
+      }, { threshold: 0 }).observe(hero);
+    } else {
+      const onScroll = function () { bar.classList.toggle('is-shown', window.scrollY > window.innerHeight * 0.7); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  })();
+</script>

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import Pricing from '@/pages/_sections/vascular-treatments__section_3.astro';
+
+import heroImg from '@/assets/images/8f23c1351be4.jpg';
+import facialVeinsImg from '@/assets/images/cb85f70bd3a7.jpeg';
+import legVeinsImg from '@/assets/images/40c58ae9b34c.jpg';
+
+const slug = 'vascular-treatments';
+const posts = getRelatedPosts(slug);
+
+// No FAQ section existed in the original page. Arrays left empty.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Vein & Vascular Treatments in Millburn, NJ',
+  description:
+    'Effective laser vein and vascular treatments in Millburn, NJ. Facial spider veins, rosacea, hemangioma, port wine stains, varicose veins and more. Book at Menon Medispa.',
+  url: '/vascular-treatments',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Vascular Treatments',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Vascular Treatments', url: '/vascular-treatments' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Vein &amp; Vascular Treatments | Menon Medispa &amp; Wellness | Millburn, NJ"
+  description="Effective laser vein and vascular treatments in Millburn, NJ. Facial spider veins, rosacea, hemangioma, varicose veins and more. Book at Menon Medispa, call (973) 494-8431."
+  canonical="https://www.menonmedispa.com/vascular-treatments"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="VASCULAR TREATMENTS · MILLBURN, NJ"
+    h1="Laser Vein &amp; Vascular Treatments in Millburn, NJ"
+    subhead="Non-invasive laser solutions that close unwanted facial and leg veins safely and effectively, with minimal downtime."
+    image={heroImg}
+    imageAlt="Laser vein and vascular treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $89"
+    note="Complimentary consultation to find the right treatment for you."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>About Vein &amp; Vascular Treatment</h2>
+
+      <p class="svc-lead">Our laser treatments offer effective, non-invasive solutions that close these veins for: Facial Spider Veins, Hemangioma, Port wine stains, Telangiectasia for face, and Varicose Veins.</p>
+
+      <p class="svc-eyebrow">Face</p>
+
+      <figure>
+        <img
+          src={facialVeinsImg.src}
+          alt="How to Get Rid of Spider Veins with Laser Treatment"
+          width="454"
+          height="341"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <p>Spider veins on the face are small, dilated blood vessels that appear close to the skin surface. Laser treatment targets and destroys these vessels safely and effectively.</p>
+
+      <ul class="svc-checks">
+        <li>Facial Spider Veins</li>
+        <li>Hemangioma</li>
+        <li>Port wine stains</li>
+        <li>Telangiectasia for face</li>
+      </ul>
+
+      <p>Our precision laser treatments deliver targeted energy to close unwanted facial vessels while leaving surrounding skin undamaged.</p>
+
+      <p class="svc-eyebrow">Legs</p>
+
+      <figure>
+        <img
+          src={legVeinsImg.src}
+          alt="Leg vein treatment"
+          width="307"
+          height="379"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <p><strong>Spider Veins</strong> are small, twisted blood vessels visible just beneath the skin surface. Laser treatment provides safe, effective clearance with minimal downtime.</p>
+
+      <p><strong>Varicose Veins</strong> are larger, bulging veins that can cause discomfort and cosmetic concerns. Our vascular treatments target these vessels to improve both appearance and comfort.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'Starting at $89' },
+          { label: 'Conditions treated', value: 'Face & Legs' },
+          { label: 'Treatment type', value: 'Non-invasive laser' },
+          { label: 'Downtime', value: 'Minimal' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Pricing />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Section 2 inlined as prose in main column. Section 3 (Pricing) kept as full-width band. No trust strip or sales/promo band present in original. No FAQ section existed. -->

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/hydrafacial__section_2.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Gallery from '@/pages/_sections/hydrafacial__section_7.astro';
+import VideoShowcase from '@/pages/_sections/hydrafacial__section_8.astro';
+import Pricing from '@/pages/_sections/hydrafacial__section_9.astro';
+import AddOns from '@/pages/_sections/hydrafacial__section_10.astro';
+import RightForYou from '@/pages/_sections/hydrafacial__section_11.astro';
+import FinalCta from '@/pages/_sections/hydrafacial__section_13.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'hydrafacial';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What exactly is a HydraFacial and how does it work?',
+    answer:
+      'HydraFacial is a multi-step facial treatment that uses patented Vortex-Fusion technology to cleanse, exfoliate, extract, and hydrate the skin simultaneously. The device uses unique spiral suction tips to remove debris from pores while delivering nourishing serums directly into the skin.',
+  },
+  {
+    question: 'How is it different from other facial treatments?',
+    answer:
+      'Unlike traditional facials, HydraFacial uses a closed-loop system to remove impurities without manual squeezing or discomfort. The Vortex-Fusion delivery system infuses the skin with medical-grade serums during extraction, making it more effective and comfortable than conventional treatments.',
+  },
+  {
+    question: 'How often should I get a HydraFacial treatment?',
+    answer:
+      'For optimal results, monthly HydraFacial treatments are recommended. However, many clients see significant improvement after just one session. Your skincare specialist will create a personalized treatment plan based on your specific skin goals and concerns.',
+  },
+  {
+    question: 'Is there any HydraFacial aftercare I should follow?',
+    answer:
+      'HydraFacial requires minimal aftercare. You may apply makeup and return to normal activities immediately. We recommend avoiding direct sun exposure and applying SPF protection after your treatment. Your specialist may also recommend specific skincare products to maintain and enhance your results.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'HydraFacial in Millburn, NJ',
+  description:
+    'Customized HydraFacial treatments at Menon Medispa in Millburn, NJ. Address specific skin concerns and enjoy radiant skin with immediate, visible results and no downtime.',
+  url: '/hydrafacial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'HydraFacial', url: '/hydrafacial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="HydraFacial in Millburn NJ | Menon Medispa"
+  description="Discover our customized HydraFacial in Millburn NJ. Address specific skin concerns and enjoy radiant skin with our medical spa services. Book your appointment online today!"
+  canonical="https://www.menonmedispa.com/hydrafacial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="HYDRAFACIAL · MILLBURN, NJ"
+    h1="Radiant Skin with HydraFacial in Millburn, NJ"
+    subhead="Turn back time with smooth, youthful skin, without recovery or downtime. Customized for your skin type with immediate, visible results."
+    image={heroImg}
+    imageAlt="HydraFacial treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $199"
+    note="Complimentary consultation to match you to the right HydraFacial."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>The Challenge of Maintaining Healthy, Radiant Skin</h2>
+
+      <p class="svc-lead">Dealing with skin problems can be frustrating and confidence-draining.</p>
+
+      <p>Environmental factors and aging leave skin looking dull, uneven, and congested despite your best efforts.</p>
+
+      <p>When searching for a hydrafacial near me, you deserve a treatment that delivers real, lasting results.</p>
+
+      <ul class="svc-checks">
+        <li>Conventional products rarely penetrate deep enough to address the root causes of skin concerns</li>
+        <li>Seasonal changes and stress constantly challenge skin's balance</li>
+        <li>Different facial areas have completely different needs</li>
+      </ul>
+
+      <p>Traditional facial treatments offer only temporary relief without addressing underlying skin health.</p>
+
+      <p>With diverse skin types, standard facials frequently disappoint and leave clients searching for something more effective.</p>
+
+      <p>Thankfully we found the answer.</p>
+    </div>
+
+    <div class="svc-block">
+      <h2>The HydraFacial&#8482; Solution: Advanced Skincare Technology</h2>
+
+      <p>The HydraFacial&#8482; treatment rejuvenates and protects your skin's health while also helping to address the visible signs of aging. This non-invasive facial treatment addresses skin concerns from the inside out, deeply cleansing, exfoliating, extracting, and hydrating your skin using a patented Vortex-Fusion&#174; delivery system.</p>
+
+      <p>For those searching for a hydra facial near me in New Jersey, Menon Medispa in Millburn brings the gold standard in skincare directly to you. Our licensed skincare specialists create personalized treatment plans that adapt to your unique skin needs.</p>
+
+      <ul class="svc-checks">
+        <li>Advanced HydraFacial&#8482; technology with patented Vortex-Fusion&#174; delivery system</li>
+        <li>Painless extraction process that targets fine lines, texture issues, and congestion</li>
+        <li>Superior results compared to traditional facial treatments</li>
+      </ul>
+
+      <p>The treatment uses unique, single-use HydroPeel Tips, vortex-cut spirals that create a vacuum effect, removing impurities from deep within pores while simultaneously infusing the skin with nourishing serums. This exclusive three-step process delivers real results without discomfort or downtime.</p>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Cleanse + Peel</h3>
+          <p>Uncover a new layer of skin with gentle exfoliation and relaxing resurfacing.</p>
+        </li>
+        <li>
+          <h3>Extract + Hydrate</h3>
+          <p>Remove debris from pores with painless suction. Nourish with intense moisturizers that quench skin.</p>
+        </li>
+        <li>
+          <h3>Fuse + Protect</h3>
+          <p>Saturate the skin's surface with antioxidants and peptides to maximize your glow.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Starting price', value: '$199' },
+          { label: 'Appointment', value: '30 min – 1 hr 20 min' },
+          { label: 'Results', value: 'Immediate, visible' },
+          { label: 'Downtime', value: 'None' },
+          { label: 'Skin types', value: 'All skin types' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="hydrafacial" />
+
+  <Gallery />
+
+  <VideoShowcase />
+
+  <Pricing />
+
+  <AddOns />
+
+  <RightForYou />
+
+  <LeadForm />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/7/8/9/10/11/13 reused verbatim. Sections 3+5 re-flowed into svc-blocks. Section 12 FAQ lifted into faqItems/FaqColumn. Section 6 (empty) and Section 15 (June SALES promo) removed; SalePopup replaces the promo. LeadForm (dropped from section 12 during conversion) restored at band level immediately before FinalCta. Section 4 (hardcoded testimonial) swapped to <ServiceTestimonial slug="hydrafacial" /> for provider-safe reviews. -->

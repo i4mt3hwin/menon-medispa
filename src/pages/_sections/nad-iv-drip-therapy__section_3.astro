@@ -1,0 +1,129 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section s3-dosage">
+  <div class="container">
+    <h2 class="s3-dosage__heading">Choose Your NAD+ Dosage</h2>
+
+    <div class="s3-dosage__grid">
+
+      <div class="s3-dosage__card">
+        <p class="s3-dosage__dose"><strong>250mg</strong></p>
+        <p class="s3-dosage__tagline">Best for first-time users, regular wellness maintenance, and a significant cognitive boost.</p>
+        <p class="s3-dosage__body">Provides a significant boost to your NAD+ levels, improving energy, focus, and cellular health. Ideal for those new to NAD+ therapy or those maintaining their wellness regimen.</p>
+      </div>
+
+      <div class="s3-dosage__card">
+        <p class="s3-dosage__dose"><strong>500mg</strong></p>
+        <p class="s3-dosage__tagline">Best for those seeking robust anti-aging benefits, enhanced energy levels, and athletic recovery.</p>
+        <p class="s3-dosage__body">Our most popular therapeutic dose, the 500mg infusion delivers a powerful surge of NAD+ to combat the effects of aging, supercharge your metabolism, and promote deep cellular repair.</p>
+      </div>
+
+      <div class="s3-dosage__card">
+        <p class="s3-dosage__dose"><strong>750mg</strong></p>
+        <p class="s3-dosage__tagline">Best for those seeking maximum cognitive enhancement, intensive cellular repair, and longevity support.</p>
+        <p class="s3-dosage__body">Our highest dosage for the most profound impact on your health and longevity. Recommended for those with specific health goals or experienced NAD+ users looking for maximum therapeutic benefit.</p>
+      </div>
+
+    </div>
+
+    <div class="s3-dosage__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .s3-dosage__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s3-dosage__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .s3-dosage__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+    padding: var(--space-md);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s3-dosage__dose {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-dosage__tagline {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .s3-dosage__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s3-dosage__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .s3-dosage__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s3-dosage__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s3-dosage__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .s3-dosage__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

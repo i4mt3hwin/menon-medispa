@@ -1,0 +1,212 @@
+---
+/**
+ * job-opportunities__section_1.astro
+ * Source: sections/02.json, section_index 2 (comp-lrwa6nwf)
+ * Nearest heading: null
+ * Widgets: image (fda00cc1d16a.jpg), H5 heading, text-editor, button "MEET THE TEAM",
+ *          video (autoplay/loop/muted, desktop only), image poster (2ef11e239ab9.jpg, video fallback)
+ */
+import Picture from '@/components/Picture.astro';
+import RichText from '@/components/RichText.astro';
+
+import imgLeft from '@/assets/images/fda00cc1d16a.jpg';
+import imgVideoFallback from '@/assets/images/2ef11e239ab9.jpg';
+---
+
+<section class="section section--tint jobs-s1" aria-label="Bringing out the best in you">
+  <div class="container jobs-s1__inner">
+
+    {/* Left column: photo of spa environment */}
+    <div class="jobs-s1__photo-col">
+      {/* widget: image key fda00cc1d16a, spa/team environment photo */}
+      <Picture
+        src={imgLeft}
+        alt=""
+        width={532}
+        height={465}
+        object_fit="cover"
+        class_name="jobs-s1__photo"
+      />
+    </div>
+
+    {/* Center column: heading, body text, CTA button */}
+    <div class="jobs-s1__content-col">
+      {/* widget: heading H5 "BRINGING OUT THE BEST IN YOU" */}
+      <h2 class="jobs-s1__heading">BRINGING OUT THE BEST IN YOU</h2>
+
+      {/* widget: text-editor, mission statement */}
+      <RichText
+        html="Our mission is to ensure that when you visit Menon Medispa &amp; Wellness you will feel at home and leave looking and feeling better than when you came in."
+        size="18px"
+        max_width="255px"
+        class="jobs-s1__body"
+      />
+
+      {/* widget: button "MEET THE TEAM" → /meet-the-team */}
+      <a href="/meet-the-team" class="btn btn--secondary">MEET THE TEAM</a>
+    </div>
+
+    {/* Right column: autoplay looping video (desktop), poster image fallback (mobile) */}
+    <div class="jobs-s1__video-col">
+      {/*
+        widget: video, source hosted, autoplay, loop, muted, no controls.
+        Original Wix video URL: https://video.wixstatic.com/video/f61cce_b930b3f48aa04baa8c7f669d63cdaebd/480p/mp4/file.mp4
+        Hidden on mobile (opacity:0 in original responsive overrides), replaced by poster image.
+      */}
+      <video
+        class="jobs-s1__video"
+        src="https://video.wixstatic.com/video/f61cce_b930b3f48aa04baa8c7f669d63cdaebd/480p/mp4/file.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        aria-hidden="true"
+      ></video>
+      {/*
+        widget: image key 2ef11e239ab9, video poster/fallback image, shown on mobile
+        (original responsive override: video opacity:0 on mobile)
+      */}
+      <Picture
+        src={imgVideoFallback}
+        alt=""
+        width={533}
+        height={465}
+        object_fit="cover"
+        class_name="jobs-s1__video-poster"
+      />
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .jobs-s1__inner {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding-inline: 0;
+  }
+
+  /* Left photo column */
+  .jobs-s1__photo-col {
+    flex: 0 0 532px;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .jobs-s1__photo {
+    width: 100%;
+    height: 465px;
+    object-fit: cover;
+    object-position: 50% 0%;
+    display: block;
+  }
+
+  /* Center content column */
+  .jobs-s1__content-col {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    text-align: center;
+  }
+
+  .jobs-s1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .jobs-s1__body {
+    text-align: center;
+    max-width: 255px;
+  }
+
+  /* Right video column */
+  .jobs-s1__video-col {
+    flex: 0 0 533px;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    height: 465px;
+  }
+
+  .jobs-s1__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Video poster shown on mobile (video hidden) */
+  .jobs-s1__video-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .jobs-s1__photo-col {
+      flex: 0 0 300px;
+    }
+
+    .jobs-s1__video-col {
+      flex: 0 0 300px;
+      height: 400px;
+    }
+
+    .jobs-s1__photo {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .jobs-s1__inner {
+      flex-direction: column;
+    }
+
+    .jobs-s1__photo-col {
+      flex: none;
+      width: 100%;
+    }
+
+    .jobs-s1__photo {
+      width: 100%;
+      height: 300px;
+    }
+
+    .jobs-s1__content-col {
+      padding: var(--space-md);
+    }
+
+    .jobs-s1__video-col {
+      flex: none;
+      width: 100%;
+      height: 300px;
+    }
+
+    /* Hide video on mobile, show poster image */
+    .jobs-s1__video {
+      display: none;
+    }
+
+    .jobs-s1__video-poster {
+      display: block;
+      position: static;
+      width: 100%;
+      height: 300px;
+    }
+  }
+</style>

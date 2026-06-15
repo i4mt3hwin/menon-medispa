@@ -1,0 +1,155 @@
+---
+---
+
+<!-- Section 5: Benefits, Transform Your Health with IV Therapy -->
+<section class="section s5-benefits">
+  <div class="container">
+
+    <h2 class="s5-benefits__heading">Transform Your Health with IV Therapy</h2>
+    <p class="s5-benefits__intro">
+      Experience rapid nutrient absorption and immediate energy restoration through our advanced IV
+      vitamin therapy treatments
+    </p>
+
+    <div class="s5-benefits__grid">
+
+      <div class="s5-benefits__card">
+        <h3 class="s5-benefits__card-title">Instant Energy and Mental Clarity</h3>
+        <p class="s5-benefits__card-desc">
+          Our IV energy therapy delivers B vitamins and nutrients directly to your bloodstream,
+          bypassing digestive absorption issues for immediate focus and productivity enhancement.
+        </p>
+      </div>
+
+      <div class="s5-benefits__card">
+        <h3 class="s5-benefits__card-title">100% Bioavailable Nutrients</h3>
+        <p class="s5-benefits__card-desc">
+          Unlike oral supplements, IV nutrient therapy ensures complete absorption of essential
+          vitamins, minerals, and antioxidants your body desperately needs.
+        </p>
+      </div>
+
+      <div class="s5-benefits__card">
+        <h3 class="s5-benefits__card-title">Optimal Hydration &amp; Recovery</h3>
+        <p class="s5-benefits__card-desc">
+          Our IV hydration therapy rapidly replenishes fluids and electrolytes while supporting faster
+          recovery from stress, workouts, illness, and travel fatigue.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--mauve s5-cta-banner">
+  <div class="container--narrow">
+    <div class="s5-cta-banner__inner">
+      <h5 class="s5-cta-banner__heading">Ready to Feel Your Best?</h5>
+      <p class="s5-cta-banner__body">
+        Stop struggling with low energy and nutrient deficiency. Experience the power of IV vitamin
+        therapy today! Pick an option below or call for a FREE consultation!
+      </p>
+      <a href="tel:(973) 494-8431" class="btn btn--primary btn--lg">Call For Free Consultation</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .s5-benefits__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s5-benefits__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.6;
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+    margin-bottom: var(--space-lg);
+  }
+
+  .s5-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .s5-benefits__card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s5-benefits__card-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s5-benefits__card-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .s5-cta-banner__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+
+  .s5-cta-banner__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s5-cta-banner__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .s5-benefits__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s5-benefits__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .s5-cta-banner__inner .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

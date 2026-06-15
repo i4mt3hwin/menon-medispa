@@ -1,20 +1,20 @@
 ---
 /**
- * SiteHeader.astro — Phase 3 Pass 1 COMPLETE
+ * SiteHeader.astro, Phase 3 Pass 1 COMPLETE
  *
  * Sources:
- *   nav.json           — 8 top-level items, verbatim labels + hrefs
- *   structure.json §0  — is_master="header", sticky, z-index:55, h=135px, transition:0.2s
- *   image-map.slice    — logo=02a84c58deec, ig=d85622e84ef0, fb=482f7439ea47, tt=de7ef3d7c470
- *   site.ts            — phone (973) 494-8431 / tel:+19734948431
- *   tokens.css         — CSS custom properties
+ *   nav.json, 8 top-level items, verbatim labels + hrefs
+ *   structure.json §0, is_master="header", sticky, z-index:55, h=135px, transition:0.2s
+ *   image-map.slice, logo=02a84c58deec, ig=d85622e84ef0, fb=482f7439ea47, tt=de7ef3d7c470
+ *   site.ts, phone (973) 494-8431 / tel:+19734948431
+ *   tokens.css, CSS custom properties
  *
  * Desktop (1440px): [Logo left] [Nav center-right] [Social icons] [Call Now CTA]
  * Sticky: position:sticky, z-index:55, transition:0.2s (from capture)
  * .scrolled added via scroll listener when scrollY > 0
  * Mobile (<=980px): hamburger toggle, full drawer with accordion sub-menus
  *
- * Phone: (973) 494-8431 / tel:+19734948431 — operator-confirmed canonical
+ * Phone: (973) 494-8431 / tel:+19734948431, operator-confirmed canonical
  */
 
 import { Image } from 'astro:assets';
@@ -58,42 +58,62 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
           </ul>
         </li>
 
-        <!-- FACE (14 children) -->
+        <!-- FACE (nested: Facials / Laser Facials / Fillers & Injectables have children) -->
         <li class="nav-item has-dropdown">
           <a href="/face" class="nav-link">FACE</a>
           <ul class="dropdown" role="list">
-            <li><a href="/menon-facials">FACIALS</a></li>
-            <li><a href="/acne-facial">ACNE FACIAL</a></li>
-            <li><a href="/chemical-peel-facial">CHEMICAL PEEL FACIAL</a></li>
-            <li><a href="/cupping-facial">CUPPING FACIAL</a></li>
-            <li><a href="/dermaplaning-facial">DERMAPLANING FACIAL</a></li>
-            <li><a href="/hydrafacial">HYDRAFACIAL</a></li>
-            <li><a href="/manual-lymph-facials">MANUAL LYMPH FACIALS</a></li>
-            <li><a href="/vitamin-c-facial">VITAMIN C FACIAL</a></li>
+            <li class="has-sub">
+              <a href="/menon-facials">FACIALS<span class="sub-caret" aria-hidden="true">&rsaquo;</span></a>
+              <ul class="subdropdown" role="list">
+                <li><a href="/acne-facial">ACNE FACIAL</a></li>
+                <li><a href="/chemical-peel-facial">CHEMICAL PEEL FACIAL</a></li>
+                <li><a href="/cupping-facial">CUPPING FACIAL</a></li>
+                <li><a href="/dermaplaning-facial">DERMAPLANING FACIAL</a></li>
+                <li><a href="/hydrafacial">HYDRAFACIAL</a></li>
+                <li><a href="/manual-lymph-facials">MANUAL LYMPH FACIALS</a></li>
+                <li><a href="/vitamin-c-facial">VITAMIN C FACIAL</a></li>
+              </ul>
+            </li>
             <li><a href="/microneedling-millburn-nj">MICRONEEDLING</a></li>
-            <li><a href="/laser-facials">LASER FACIALS</a></li>
-            <li><a href="/clear-lift-skin-rejuvination">CLEARLIFT SKIN REJUVENATION</a></li>
-            <li><a href="/fillers-injectables">FILLERS &amp; INJECTABLES</a></li>
-            <li><a href="/botox-millburn-nj">BOTOX</a></li>
-            <li><a href="/juvedermfillers">JUVEDERM FILLERS</a></li>
+            <li class="has-sub">
+              <a href="/laser-facials">LASER FACIALS<span class="sub-caret" aria-hidden="true">&rsaquo;</span></a>
+              <ul class="subdropdown" role="list">
+                <li><a href="/clear-lift-skin-rejuvination">CLEARLIFT SKIN REJUVENATION</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="/fillers-injectables">FILLERS &amp; INJECTABLES<span class="sub-caret" aria-hidden="true">&rsaquo;</span></a>
+              <ul class="subdropdown" role="list">
+                <li><a href="/botox-millburn-nj">BOTOX</a></li>
+                <li><a href="/juvedermfillers">JUVEDERM FILLERS</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
 
-        <!-- BODY (14 children) -->
+        <!-- BODY (nested: IV Therapy / Vitamin Shots have children) -->
         <li class="nav-item has-dropdown">
           <a href="/body" class="nav-link">BODY</a>
           <ul class="dropdown" role="list">
-            <li><a href="/iv-therapy-millburn-nj">IV THERAPY</a></li>
-            <li><a href="/anti-aging-beauty">ANTI-AGING &amp; BEAUTY</a></li>
-            <li><a href="/custom-iv-drip-therapy-millburn-nj">CUSTOMIZED IV DRIP</a></li>
-            <li><a href="/energy-performance">ENERGY &amp; PERFORMANCE</a></li>
-            <li><a href="/immunity-support">IMMUNITY SUPPORT</a></li>
-            <li><a href="/myers-cocktail-iv-therapy">MYERS COCKTAIL</a></li>
-            <li><a href="/nad-iv-drip-therapy">NAD+ IV DRIP THERAPY</a></li>
-            <li><a href="/recovery-detox">RECOVERY &amp; DETOX</a></li>
-            <li><a href="/vitamin-shots-millburn-nj">VITAMIN SHOTS</a></li>
-            <li><a href="/nad-injection">NAD+ INJECTION</a></li>
-            <li><a href="/targeted-health-solutions-iv">TARGETED HEALTH SOLUTIONS</a></li>
+            <li class="has-sub">
+              <a href="/iv-therapy-millburn-nj">IV THERAPY<span class="sub-caret" aria-hidden="true">&rsaquo;</span></a>
+              <ul class="subdropdown" role="list">
+                <li><a href="/custom-iv-drip-therapy-millburn-nj">CUSTOMIZED IV DRIP</a></li>
+                <li><a href="/energy-performance">ENERGY &amp; PERFORMANCE</a></li>
+                <li><a href="/immunity-support">IMMUNITY SUPPORT</a></li>
+                <li><a href="/myers-cocktail-iv-therapy">MYERS COCKTAIL</a></li>
+                <li><a href="/nad-iv-drip-therapy">NAD+ IV DRIP THERAPY</a></li>
+                <li><a href="/recovery-detox">RECOVERY &amp; DETOX</a></li>
+                <li><a href="/targeted-health-solutions-iv">TARGETED HEALTH SOLUTIONS</a></li>
+                <li><a href="/anti-aging-beauty">ANTI-AGING &amp; BEAUTY</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="/vitamin-shots-millburn-nj">VITAMIN SHOTS<span class="sub-caret" aria-hidden="true">&rsaquo;</span></a>
+              <ul class="subdropdown" role="list">
+                <li><a href="/nad-injection">NAD+ INJECTION</a></li>
+              </ul>
+            </li>
             <li><a href="/semaglutide">SEMAGLUTIDE</a></li>
             <li><a href="/vascular-treatments">VASCULAR TREATMENTS</a></li>
             <li><a href="/laser-hair-removal">LASER HAIR REMOVAL</a></li>
@@ -117,16 +137,6 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
           </ul>
         </li>
 
-        <!-- MENON REGENERATIVE INSTITUTE (external) -->
-        <li class="nav-item">
-          <a
-            href="http://www.menonregen.com"
-            class="nav-link nav-link--external"
-            target="_blank"
-            rel="noopener noreferrer"
-          >MENON REGENERATIVE INSTITUTE</a>
-        </li>
-
         <!-- SALES -->
         <li class="nav-item">
           <a href="/sale" class="nav-link">SALES</a>
@@ -140,23 +150,26 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
       <ul class="social-icons" role="list" aria-label="Social media links">
         <li>
           <a href="https://www.instagram.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <Image src={igImg} alt="Instagram" width={28} height={28} loading="eager" />
+            <Image src={igImg} alt="Instagram" width={36} height={36} loading="eager" />
           </a>
         </li>
         <li>
           <a href="https://www.facebook.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <Image src={fbImg} alt="Facebook" width={28} height={28} loading="eager" />
+            <Image src={fbImg} alt="Facebook" width={36} height={36} loading="eager" />
           </a>
         </li>
         <li>
           <a href="https://www.tiktok.com/@menonregen" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <Image src={ttImg} alt="TikTok" width={28} height={28} loading="eager" />
+            <Image src={ttImg} alt="TikTok" width={36} height={36} loading="eager" />
           </a>
         </li>
       </ul>
 
-      <a href="tel:+19734948431" class="header-cta">
-        Call Now: (973) 494-8431
+      <a href="tel:+19734948431" class="header-cta" aria-label="Call (973) 494-8431">
+        <svg class="header-cta__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="currentColor"/>
+        </svg>
+        <span>(973) 494-8431</span>
       </a>
     </div>
 
@@ -203,48 +216,68 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
         </ul>
       </li>
 
-      <!-- FACE accordion -->
+      <!-- FACE accordion (grouped sub-categories) -->
       <li class="mobile-has-sub">
         <button class="mobile-sub-toggle" aria-expanded="false">
           FACE <span class="mobile-sub-arrow" aria-hidden="true">+</span>
         </button>
         <ul class="mobile-sub" role="list" aria-hidden="true">
           <li><a href="/face">Face Overview</a></li>
-          <li><a href="/menon-facials">Facials</a></li>
-          <li><a href="/acne-facial">Acne Facial</a></li>
-          <li><a href="/chemical-peel-facial">Chemical Peel Facial</a></li>
-          <li><a href="/cupping-facial">Cupping Facial</a></li>
-          <li><a href="/dermaplaning-facial">Dermaplaning Facial</a></li>
-          <li><a href="/hydrafacial">HydraFacial</a></li>
-          <li><a href="/manual-lymph-facials">Manual Lymph Facials</a></li>
-          <li><a href="/vitamin-c-facial">Vitamin C Facial</a></li>
+          <li class="mobile-sub__cat">
+            <a href="/menon-facials" class="mobile-sub__cat-link">Facials</a>
+            <ul class="mobile-sub__kids" role="list">
+              <li><a href="/acne-facial">Acne Facial</a></li>
+              <li><a href="/chemical-peel-facial">Chemical Peel Facial</a></li>
+              <li><a href="/cupping-facial">Cupping Facial</a></li>
+              <li><a href="/dermaplaning-facial">Dermaplaning Facial</a></li>
+              <li><a href="/hydrafacial">HydraFacial</a></li>
+              <li><a href="/manual-lymph-facials">Manual Lymph Facials</a></li>
+              <li><a href="/vitamin-c-facial">Vitamin C Facial</a></li>
+            </ul>
+          </li>
           <li><a href="/microneedling-millburn-nj">Microneedling</a></li>
-          <li><a href="/laser-facials">Laser Facials</a></li>
-          <li><a href="/clear-lift-skin-rejuvination">ClearLift Skin Rejuvenation</a></li>
-          <li><a href="/fillers-injectables">Fillers &amp; Injectables</a></li>
-          <li><a href="/botox-millburn-nj">Botox</a></li>
-          <li><a href="/juvedermfillers">Juvederm Fillers</a></li>
+          <li class="mobile-sub__cat">
+            <a href="/laser-facials" class="mobile-sub__cat-link">Laser Facials</a>
+            <ul class="mobile-sub__kids" role="list">
+              <li><a href="/clear-lift-skin-rejuvination">ClearLift Skin Rejuvenation</a></li>
+            </ul>
+          </li>
+          <li class="mobile-sub__cat">
+            <a href="/fillers-injectables" class="mobile-sub__cat-link">Fillers &amp; Injectables</a>
+            <ul class="mobile-sub__kids" role="list">
+              <li><a href="/botox-millburn-nj">Botox</a></li>
+              <li><a href="/juvedermfillers">Juvederm Fillers</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
 
-      <!-- BODY accordion -->
+      <!-- BODY accordion (grouped sub-categories) -->
       <li class="mobile-has-sub">
         <button class="mobile-sub-toggle" aria-expanded="false">
           BODY <span class="mobile-sub-arrow" aria-hidden="true">+</span>
         </button>
         <ul class="mobile-sub" role="list" aria-hidden="true">
           <li><a href="/body">Body Overview</a></li>
-          <li><a href="/iv-therapy-millburn-nj">IV Therapy</a></li>
-          <li><a href="/anti-aging-beauty">Anti-Aging &amp; Beauty</a></li>
-          <li><a href="/custom-iv-drip-therapy-millburn-nj">Customized IV Drip</a></li>
-          <li><a href="/energy-performance">Energy &amp; Performance</a></li>
-          <li><a href="/immunity-support">Immunity Support</a></li>
-          <li><a href="/myers-cocktail-iv-therapy">Myers Cocktail</a></li>
-          <li><a href="/nad-iv-drip-therapy">NAD+ IV Drip Therapy</a></li>
-          <li><a href="/recovery-detox">Recovery &amp; Detox</a></li>
-          <li><a href="/vitamin-shots-millburn-nj">Vitamin Shots</a></li>
-          <li><a href="/nad-injection">NAD+ Injection</a></li>
-          <li><a href="/targeted-health-solutions-iv">Targeted Health Solutions</a></li>
+          <li class="mobile-sub__cat">
+            <a href="/iv-therapy-millburn-nj" class="mobile-sub__cat-link">IV Therapy</a>
+            <ul class="mobile-sub__kids" role="list">
+              <li><a href="/custom-iv-drip-therapy-millburn-nj">Customized IV Drip</a></li>
+              <li><a href="/energy-performance">Energy &amp; Performance</a></li>
+              <li><a href="/immunity-support">Immunity Support</a></li>
+              <li><a href="/myers-cocktail-iv-therapy">Myers Cocktail</a></li>
+              <li><a href="/nad-iv-drip-therapy">NAD+ IV Drip Therapy</a></li>
+              <li><a href="/recovery-detox">Recovery &amp; Detox</a></li>
+              <li><a href="/targeted-health-solutions-iv">Targeted Health Solutions</a></li>
+              <li><a href="/anti-aging-beauty">Anti-Aging &amp; Beauty</a></li>
+            </ul>
+          </li>
+          <li class="mobile-sub__cat">
+            <a href="/vitamin-shots-millburn-nj" class="mobile-sub__cat-link">Vitamin Shots</a>
+            <ul class="mobile-sub__kids" role="list">
+              <li><a href="/nad-injection">NAD+ Injection</a></li>
+            </ul>
+          </li>
           <li><a href="/semaglutide">Semaglutide</a></li>
           <li><a href="/vascular-treatments">Vascular Treatments</a></li>
           <li><a href="/laser-hair-removal">Laser Hair Removal</a></li>
@@ -274,12 +307,6 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
         </ul>
       </li>
 
-      <li>
-        <a href="http://www.menonregen.com" target="_blank" rel="noopener noreferrer">
-          MENON REGENERATIVE INSTITUTE
-        </a>
-      </li>
-
       <li><a href="/sale">SALES</a></li>
 
       <li class="mobile-cta-item">
@@ -301,21 +328,28 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   z-index: 55;
   width: 100%;
   background-color: var(--color-header-bg);
-  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: top 0.32s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .site-header.scrolled {
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.09);
 }
 
+/* hide-on-scroll-down (revealed again on scroll up).
+   Animate `top` (not transform) so the header doesn't become a containing block
+   for the fixed .mobile-nav drawer it contains (which would cause overflow). */
+.site-header--hidden {
+  top: -110px;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
-  height: 135px;
+  height: 92px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 24px;
-  gap: 12px;
+  gap: 16px;
   box-sizing: border-box;
 }
 
@@ -343,11 +377,12 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 .nav-list {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: center;
+  flex-wrap: nowrap;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 0;
+  gap: 6px;
 }
 
 .nav-item {
@@ -356,20 +391,19 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 
 .nav-link {
   display: block;
-  padding: 10px 8px;
+  padding: 8px 14px;
   font-family: var(--font-ui);
-  font-size: 10px;
-  font-weight: 400;
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 600;
   color: var(--color-header-text);
   text-decoration: none;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  margin: 4px 0;
-  transition: color 0.08s cubic-bezier(0, 0, 1, 1);
+  margin: 0;
+  transition: color 0.15s ease;
 }
 
-.nav-link:hover,
-.nav-link:focus-visible {
+.nav-link:hover, .nav-link:focus-visible {
   color: var(--color-brand-plum);
   outline: none;
 }
@@ -377,10 +411,6 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 /* Active / current page nav item */
 .nav-link[aria-current="page"] {
   color: var(--color-header-active);
-}
-
-.nav-link--external {
-  font-size: 9px;
 }
 
 /* ── Dropdown Menus (CSS hover) ── */
@@ -406,21 +436,60 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 
 .dropdown li a {
   display: block;
-  padding: 8px 16px;
-  font-family: var(--font-ui);
-  font-size: 10px;
-  font-weight: 400;
-  color: var(--color-brand-plum-2);
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #1a1320;
+  /* page sets -webkit-font-smoothing:antialiased globally which thins text on
+     the light dropdown panel; force normal smoothing so menu items render solid */
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   text-decoration: none;
   white-space: nowrap;
   transition: background-color 0.1s, color 0.1s;
 }
 
-.dropdown li a:hover,
-.dropdown li a:focus-visible {
+.dropdown li a:hover, .dropdown li a:focus-visible {
   background-color: rgba(130, 121, 138, 0.12);
   color: var(--color-brand-plum);
   outline: none;
+}
+
+/* ── Second-level flyout (category → treatments) ── */
+.dropdown li.has-sub { position: relative; }
+
+.dropdown li.has-sub > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.sub-caret {
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+.subdropdown {
+  display: none;
+  position: absolute;
+  top: -6px; /* align first child with parent row (.dropdown padding is 6px) */
+  left: 100%;
+  min-width: 230px;
+  background-color: var(--color-dropdown-surface);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  z-index: 110;
+}
+
+.dropdown li.has-sub:hover > .subdropdown,
+.dropdown li.has-sub:focus-within > .subdropdown {
+  display: block;
 }
 
 /* ── Right Cluster ── */
@@ -437,7 +506,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 6px;
+  gap: 10px;
 }
 
 .social-icons li a {
@@ -453,31 +522,40 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 
 .social-icons img {
   display: block;
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
 }
 
-/* Call Now CTA — white pill, black text (faithful to original) */
+/* Call Now CTA, solid gold pill, dark text + phone icon (brand-matched) */
 .header-cta {
   display: inline-flex;
   align-items: center;
-  padding: 10px 14px;
-  background-color: #FFFFFF;
-  color: #000000;
+  gap: 9px;
+  padding: 13px 24px;
+  background-color: var(--color-cta-alt);
+  color: var(--color-text);
   font-family: var(--font-cta);
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-btn-alt);
   letter-spacing: 0.02em;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.header-cta:hover {
-  background-color: rgba(255,255,255,0.88);
+.header-cta:hover, .header-cta:focus-visible {
+  background-color: #BD9A64;
+  outline: none;
+}
+
+.header-cta__icon {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
 }
 
 /* ── Hamburger (hidden on desktop) ── */
@@ -561,7 +639,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   display: block;
   padding: 14px 0;
   font-family: var(--font-ui);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--color-text);
   text-decoration: none;
@@ -577,7 +655,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   background: none;
   border: none;
   font-family: var(--font-ui);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--color-text);
   cursor: pointer;
@@ -610,12 +688,15 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 
 .mobile-sub li a {
   display: block;
-  padding: 8px 0;
-  font-family: var(--font-ui);
-  font-size: 13px;
+  padding: 9px 0;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  font-weight: 700;
   color: var(--color-text);
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   text-decoration: none;
-  opacity: 0.78;
+  opacity: 1;
   transition: opacity 0.12s, color 0.12s;
 }
 
@@ -624,29 +705,48 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   color: var(--color-cta-alt);
 }
 
+/* Grouped sub-categories inside a mobile accordion (category → its treatments) */
+.mobile-sub__cat-link { font-weight: 700; }
+
+.mobile-sub__kids {
+  list-style: none;
+  margin: 2px 0 4px;
+  padding: 0 0 0 16px;
+  border-left: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.mobile-sub__kids li a {
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
 .mobile-cta-item {
   border-bottom: none !important;
   padding: 20px 0 0;
 }
 
-.mobile-cta-phone {
-  display: inline-flex;
+/* Full-width CTA pill. Selector is more specific than `.mobile-nav-list > li > a`
+   (0,2,0 vs 0,1,2) so it wins display/padding and the label can center. */
+.mobile-cta-item .mobile-cta-phone {
+  display: flex;
   align-items: center;
-  padding: 12px 20px;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 20px;
   background-color: var(--color-cta-alt);
   color: var(--color-text);
   font-family: var(--font-cta);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius-sm);
   letter-spacing: 0.02em;
 }
 
-/* ── Mobile breakpoint (<=980px) ── */
-@media (max-width: 980px) {
+/* ── Mobile breakpoint ── */
+@media (max-width: 1240px) {
   .header-inner {
-    height: 72px;
+    height: 64px;
     padding: 0 16px;
   }
 
@@ -655,8 +755,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
     height: auto;
   }
 
-  .header-nav,
-  .header-right {
+  .header-nav, .header-right {
     display: none;
   }
 
@@ -672,15 +771,25 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 </style>
 
 <script>
-// ── Sticky scroll state ──
+// ── Sticky scroll state + hide-on-scroll-down ──
 (function () {
   const header = document.getElementById('site-header');
   if (!header) return;
-  const onScroll = () => {
-    header.classList.toggle('scrolled', window.scrollY > 0);
+  let lastY = window.scrollY;
+  let ticking = false;
+  const update = () => {
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 4);
+    // hide when scrolling down past the header; reveal when scrolling up
+    if (y > lastY && y > 160) header.classList.add('site-header--hidden');
+    else if (y < lastY) header.classList.remove('site-header--hidden');
+    lastY = y;
+    ticking = false;
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
 })();
 
 // ── Mobile nav toggle ──

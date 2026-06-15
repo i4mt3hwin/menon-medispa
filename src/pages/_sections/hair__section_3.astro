@@ -1,0 +1,142 @@
+---
+import TreatmentCard from '@/components/TreatmentCard.astro';
+
+import svcImg1 from '@/assets/images/02127013d183.jpg';
+import svcImg2 from '@/assets/images/e6d509254f0c.jpg';
+
+const treatments = [
+  {
+    name: 'HydraFacial Keravive',
+    href: '/hydrafacial-keravive',
+    img: svcImg1,
+    alt: 'HydraFacial Keravive scalp treatment at Menon Medispa',
+    descriptor: 'Rejuvenate Your Scalp to Reveal Fuller, Healthier-Looking Hair',
+  },
+  {
+    name: 'PRP Hair Restoration',
+    href: '/platelet-rich-plasma-hair-millburn',
+    img: svcImg2,
+    alt: 'PRP hair restoration treatment at Menon Medispa',
+    descriptor: 'Stimulate natural hair growth using your body\'s own healing factors',
+  },
+];
+---
+
+<section class="section hair-grid">
+  <div class="container">
+
+    <div class="hair-grid__intro">
+      <h4 class="hair-grid__intro-heading">Expert Hair Revitalization Services</h4>
+      <p class="hair-grid__intro-body">
+        At Menon MediSpa, we blend clinical expertise with luxury to deliver transformative hair restoration and scalp treatments. Our advanced HydraFacial Keravive and PRP therapies address hair thinning and scalp health concerns using proven technologies.
+      </p>
+      <p class="hair-grid__intro-body">
+        Our medical-grade hair services address specific scalp concerns using innovative technologies and pharmaceutical-grade products. Led by expert medical professionals, each treatment is tailored to your unique hair and scalp profile.
+      </p>
+      <p class="hair-grid__intro-body">
+        From revitalizing scalp health to stimulating new hair growth, our cutting-edge treatments provide visible, long-lasting results. Experience the difference of clinically-effective hair restoration in our serene Millburn, NJ medical spa.
+      </p>
+    </div>
+
+    <div class="hair-grid__cards-section">
+      <h3 class="hair-grid__cards-heading">Comprehensive Hair Treatments &amp; Solutions</h3>
+      <p class="hair-grid__cards-sub">
+        Experience our specialized range of advanced hair restoration treatments, expertly designed to revitalize your scalp and enhance hair growth. Click To See More!
+      </p>
+
+      <div class="hair-grid__cards">
+        {treatments.map((t) => (
+          <TreatmentCard
+            name={t.name}
+            href={t.href}
+            img={t.img}
+            alt={t.alt}
+            descriptor={t.descriptor}
+            ratio="3 / 4"
+          />
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hair-grid .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  /* Intro block */
+  .hair-grid__intro {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .hair-grid__intro-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .hair-grid__intro-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Cards section */
+  .hair-grid__cards-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .hair-grid__cards-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .hair-grid__cards-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* 2-column grid; wider max-width so cards are large side-by-side */
+  .hair-grid__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+    max-width: 860px;
+  }
+
+  @media (max-width: 600px) {
+    .hair-grid__cards {
+      grid-template-columns: 1fr;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+  }
+</style>

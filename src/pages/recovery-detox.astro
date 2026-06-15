@@ -1,0 +1,167 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/recovery-detox__section_2.astro';
+import FormulaChooser from '@/pages/_sections/recovery-detox__section_3.astro';
+import Gallery from '@/pages/_sections/recovery-detox__section_4.astro';
+import Process from '@/pages/_sections/recovery-detox__section_5.astro';
+import Pricing from '@/pages/_sections/recovery-detox__section_6.astro';
+import InfoBar from '@/pages/_sections/recovery-detox__section_7.astro';
+import FinalCta from '@/pages/_sections/recovery-detox__section_9.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'recovery-detox';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'How does an IV drip help with a hangover?',
+    answer:
+      'A hangover is primarily caused by dehydration, electrolyte imbalances, and the toxic byproducts of alcohol metabolism. Our Detox/Hangover IV drip rapidly addresses all three: it rehydrates you far more efficiently than drinking water, restores essential electrolytes and vitamins, and contains Zofran to eliminate nausea, getting you back to feeling normal in a fraction of the time.',
+  },
+  {
+    question: 'When is the best time to get an IV after a workout or event?',
+    answer:
+      'For post-workout recovery, getting an IV drip within a few hours after intense exercise can significantly speed up muscle repair and reduce soreness. For general recovery, you can come in whenever you\'re feeling run-down. There\'s no strict window, our drips are effective whenever your body needs a boost.',
+  },
+  {
+    question: 'What "toxins" does the IV drip help flush out?',
+    answer:
+      'In the context of our Detox IV, we\'re primarily targeting the byproducts of alcohol metabolism (like acetaldehyde), free radicals, and other metabolic waste products that build up during intense physical activity or illness. The Glutathione and Vitamin C in our formulas are powerful antioxidants that help neutralize and clear these compounds.',
+  },
+  {
+    question: 'What is Zofran and is it safe?',
+    answer:
+      'Zofran (ondansetron) is a widely-used FDA-approved anti-nausea medication that works by blocking serotonin receptors in the gut and brain. It is safe and commonly used in clinical settings, including hospitals. When administered by our trained professionals, it is an effective and well-tolerated addition to our hangover recovery drip.',
+  },
+  {
+    question: 'How often can I get a Recovery & Detox IV drip?',
+    answer:
+      'Our IV drips are generally safe to receive as needed. Many clients come in after intense athletic events, travel, or when they\'re feeling run-down. For regular wellness support, a session every few weeks is common. Our team can help you determine a cadence that aligns with your lifestyle and health goals.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Recovery & Detox IV Drip in Millburn, NJ',
+  description:
+    'Bounce back faster with our Recovery & Detox IV Drip in Millburn, NJ. Rehydrate, replenish nutrients, and flush toxins after workouts, illness, or a night out at Menon Medispa.',
+  url: '/recovery-detox',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Recovery & Detox', url: '/recovery-detox' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Recovery & Detox IV Drip in Millburn, NJ | Menon Medispa"
+  description="Bounce back faster with our Recovery & Detox IV Drip in Millburn, NJ. Rehydrate, replenish nutrients, and flush toxins after workouts, illness, or a night out at Menon Medispa."
+  canonical="https://www.menonmedispa.com/recovery-detox"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="IV THERAPY · MILLBURN, NJ"
+    h1="Recovery &amp; Detox IV Therapy in Millburn, NJ"
+    subhead="Your fastest way to reset, replenish, and recover after a workout, illness, or a night out."
+    image={heroImg}
+    imageAlt="Recovery and Detox IV therapy at Menon Medispa in Millburn, NJ"
+    price="Starting at $200"
+    note="Complimentary consultation to find your perfect recovery formula."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Bounce Back Faster with Targeted IV Therapy</h2>
+      <p class="svc-lead">Whether you're bouncing back from an intense workout, a night out, or an illness, our targeted IV drips deliver rapid rehydration and essential nutrients directly to your cells for immediate relief.</p>
+
+      <p class="svc-eyebrow">Rapid Rehydration</p>
+      <p>When your body is depleted, drinking fluids alone can take hours to restore balance. IV therapy bypasses the digestive system entirely, delivering fluids, electrolytes, and vitamins directly into your bloodstream for results that are felt almost immediately.</p>
+
+      <p class="svc-eyebrow">Flush Out Toxins</p>
+      <p>Our formulas include powerful antioxidants like Glutathione and Vitamin C that help neutralize and clear metabolic waste products, free radicals, and the byproducts of alcohol metabolism that accumulate during intense activity or illness.</p>
+
+      <p class="svc-eyebrow">Replenish Vital Nutrients</p>
+      <p>Strenuous exercise, travel, and illness all deplete your body's reserves of B-vitamins, amino acids, and minerals. Our Recovery and Detox IV drips restore exactly what your body needs to repair, recharge, and perform at its best.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>RECOVERY Signature</h3>
+          <p>Comprehensive blend of B-Complex, Amino Acids, Glutathione, Vitamin C, and Taurine for general replenishment</p>
+        </li>
+        <li>
+          <h3>RECOVERY Deluxe</h3>
+          <p>Everything in Signature plus Magnesium and Niacin for accelerated muscle repair and inflammation reduction</p>
+        </li>
+        <li>
+          <h3>DETOX / HANGOVER DRIP</h3>
+          <p>Targets dehydration, toxin buildup, and nutrient depletion with added Zofran for nausea and Zinc for immune support</p>
+        </li>
+        <li>
+          <h3>500ml Standard, 1000ml Available</h3>
+          <p>All drips are 500ml. Upgrade to 1000ml for only $25 more for added hydration and nutrient delivery</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'From $200' },
+          { label: 'Session length', value: '45–60 minutes' },
+          { label: 'Results', value: 'Felt almost immediately' },
+          { label: 'Drip size', value: '500ml (1000ml +$25)' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <FormulaChooser />
+
+  <Gallery />
+
+  <Process />
+
+  <Pricing />
+
+  <InfoBar />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/4/5/6/7/9 reused verbatim. Section 8 FAQ lifted into FaqColumn. No promo band found. -->

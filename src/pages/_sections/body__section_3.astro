@@ -1,0 +1,161 @@
+---
+import TreatmentCard from '@/components/TreatmentCard.astro';
+
+import ivImg from '@/assets/images/914772453481.jpg';
+import laserImg from '@/assets/images/67c41f4e43f3.jpeg';
+import vascularImg from '@/assets/images/40c58ae9b34c.jpg';
+import semaglutideImg from '@/assets/images/cd90aa0cbbcb.jpg';
+
+const treatments = [
+  {
+    name: 'IV Vitamin Therapy',
+    href: 'http://www.ivmenonwelldrip.com',
+    img: ivImg,
+    alt: 'IV Vitamin Therapy at Menon Medispa Millburn NJ',
+    descriptor: 'Boost your energy and wellness from the inside out',
+  },
+  {
+    name: 'Laser Hair Removal',
+    href: '/laser-hair-removal',
+    img: laserImg,
+    alt: 'Laser Hair Removal at Menon Medispa Millburn NJ',
+    descriptor: 'Permanently smooth skin in just 6–8 treatments',
+  },
+  {
+    name: 'Vascular Treatments',
+    href: '/vascular-treatments',
+    img: vascularImg,
+    alt: 'Vascular Treatments at Menon Medispa Millburn NJ',
+    descriptor: 'Vein & Vascular Treatments',
+  },
+  {
+    name: 'Semaglutide',
+    href: '/semaglutide',
+    img: semaglutideImg,
+    alt: 'Semaglutide weight loss treatment at Menon Medispa Millburn NJ',
+    descriptor: 'Transform your health through medical weight loss',
+  },
+];
+---
+
+<section class="section body-grid">
+  <div class="container">
+
+    <div class="body-grid__intro">
+      <h2 class="body-grid__heading">Comprehensive Body Treatments &amp; Enhancements</h2>
+      <p class="body-grid__body">
+        Experience our comprehensive range of advanced skincare treatments, expertly tailored to reveal your skin's best potential. Click To See More!
+      </p>
+    </div>
+
+    <div class="body-grid__cards">
+      {treatments.map((t) => (
+        <TreatmentCard
+          name={t.name}
+          href={t.href}
+          img={t.img}
+          alt={t.alt}
+          descriptor={t.descriptor}
+          ratio="4 / 5"
+        />
+      ))}
+    </div>
+
+    <div class="body-grid__sub-cta">
+      <h3 class="body-grid__sub-heading">Transformative Body Treatments &amp; Wellness</h3>
+      <p class="body-grid__sub-body">
+        At Menon MediSpa, we offer a carefully curated selection of advanced body treatments designed to address your unique wellness and aesthetic goals. Our physician-led team combines medical expertise with the latest technology to deliver safe, effective, and lasting results.
+      </p>
+      <p class="body-grid__sub-body">
+        Whether you are looking to eliminate unwanted hair, address vascular concerns, accelerate weight loss, or boost your overall vitality with IV therapy, our comprehensive approach ensures each treatment is tailored to your individual needs and health profile.
+      </p>
+      <p class="body-grid__sub-body">
+        Every body treatment at Menon MediSpa is overseen by Dr. Menon, ensuring the highest standard of care and safety at every step of your wellness journey.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .body-grid .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .body-grid__intro {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .body-grid__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .body-grid__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: var(--space-xs) 0 0;
+    line-height: 1.6;
+  }
+
+  /* 2-column portrait grid at desktop, 1 column at mobile */
+  .body-grid__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  /* Sub-CTA / content block */
+  .body-grid__sub-cta {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background-color: rgba(196, 164, 132, 0.08);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .body-grid__sub-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .body-grid__sub-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .body-grid__cards {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .body-grid__sub-cta {
+      padding: var(--space-md) var(--space-sm);
+    }
+  }
+</style>

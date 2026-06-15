@@ -1,0 +1,274 @@
+---
+/**
+ * ServiceBookingCta.astro, the "Pricing & Booking" band for service pages.
+ *
+ * Centered intro (eyebrow + heading + body + phone) ABOVE a full-width horizontal
+ * pricing card (image left, details right; stacks on mobile). One shared source of
+ * truth so the design is consistent across every service page and tweakable in one place.
+ *
+ * Usage:
+ *   <ServiceBookingCta heading="…" body="…" image={img} imageAlt="…"
+ *     title="Cupping Facial" titleHref="…" tagline="…" price="$150" duration="60 min" />
+ */
+import type { ImageMetadata } from 'astro';
+import site from '@/lib/site';
+
+interface Card {
+  image?: ImageMetadata;
+  imageAlt?: string;
+  title: string;
+  titleHref?: string;
+  tagline?: string;
+  price?: string;       // e.g. "$150" (omit if no price)
+  duration?: string;    // e.g. "60 min"
+  bookHref?: string;    // default site.calcomUrl
+  bookLabel?: string;   // default "Request to Book"
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body?: string;
+  // Single-card convenience props (used when `cards` is not provided):
+  image?: ImageMetadata;
+  imageAlt?: string;
+  title?: string;
+  titleHref?: string;
+  tagline?: string;
+  price?: string;
+  duration?: string;
+  bookHref?: string;
+  bookLabel?: string;
+  // Multi-card: pages with more than one pricing tier pass an array.
+  cards?: Card[];
+}
+
+const {
+  eyebrow = 'Pricing & Booking',
+  heading,
+  body,
+  image, imageAlt, title, titleHref, tagline, price, duration, bookHref, bookLabel,
+  cards,
+} = Astro.props;
+
+// Normalise to a card list: explicit `cards` wins, else build one from the flat props.
+const cardList: Card[] = (cards && cards.length)
+  ? cards
+  : [{ image, imageAlt, title: title ?? '', titleHref, tagline, price, duration, bookHref, bookLabel }];
+---
+
+<section class="section section--tint svc-booking">
+  <div class="container">
+
+    <div class="svc-booking__intro">
+      {eyebrow && <p class="svc-booking__eyebrow">{eyebrow}</p>}
+      <h2 class="svc-booking__heading">{heading}</h2>
+      {body && <p class="svc-booking__body">{body}</p>}
+      <p class="svc-booking__phone">
+        Call <a href={site.phone.tel} class="svc-booking__phone-link">{site.phone.display}</a> for appointments or questions, or book online today.
+      </p>
+    </div>
+
+    <div class="svc-booking__cards">
+      {cardList.map((c) => {
+        const href = c.bookHref ?? site.calcomUrl;
+        const ext = href.startsWith('http');
+        return (
+          <div class="svc-booking__card">
+            {c.image && (
+              <img
+                src={c.image.src}
+                alt={c.imageAlt || c.title}
+                class="svc-booking__card-img"
+                loading="lazy"
+                decoding="async"
+                width="465"
+                height="440"
+              />
+            )}
+            <div class="svc-booking__card-body">
+              {c.titleHref
+                ? <a href={c.titleHref} class="svc-booking__card-title">{c.title}</a>
+                : <span class="svc-booking__card-title">{c.title}</span>}
+              {c.tagline && <p class="svc-booking__card-tagline">{c.tagline}</p>}
+
+              {(c.price || c.duration) && (
+                <div class="svc-booking__pricerow">
+                  {c.price && <span class="svc-booking__price">{c.price}</span>}
+                  {c.duration && <span class="svc-booking__duration">{c.duration}</span>}
+                </div>
+              )}
+
+              <div class="svc-booking__actions">
+                <a
+                  href={href}
+                  class="btn btn--primary svc-booking__cta"
+                  {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >{c.bookLabel ?? 'Request to Book'}</a>
+                <a href={site.phone.tel} class="svc-booking__card-call">or call {site.phone.display}</a>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .svc-booking__intro {
+    max-width: 720px;
+    margin: 0 auto var(--space-lg);
+    text-align: center;
+  }
+
+  .svc-booking__eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: var(--weight-bold);
+    color: var(--color-cta);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .svc-booking__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.2;
+  }
+
+  .svc-booking__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.65;
+    opacity: 0.9;
+  }
+
+  .svc-booking__phone {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .svc-booking__phone-link { color: var(--color-text); font-weight: var(--weight-bold); text-decoration: none; }
+  .svc-booking__phone-link:hover { text-decoration: underline; }
+
+  /* ── One or more full-width horizontal pricing cards, stacked ── */
+  .svc-booking__cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .svc-booking__card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-color: var(--color-surface);
+    border: 1px solid rgb(0 0 0 / 0.07);
+    border-radius: var(--radius-md);
+    box-shadow: 0 18px 44px rgb(27 21 34 / 0.14);
+    overflow: hidden;
+  }
+
+  .svc-booking__card-img {
+    width: 42%;
+    max-width: 520px;
+    min-height: 300px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .svc-booking__card-body {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .svc-booking__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-decoration: none;
+    line-height: 1.2;
+  }
+  a.svc-booking__card-title:hover { text-decoration: underline; }
+
+  .svc-booking__card-tagline {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+
+  .svc-booking__pricerow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 6px 0 4px;
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+  }
+
+  .svc-booking__price {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .svc-booking__duration {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.7;
+    background: rgb(27 21 34 / 0.05);
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  .svc-booking__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: 6px;
+  }
+
+  .svc-booking__card-call {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    opacity: 0.75;
+  }
+  .svc-booking__card-call:hover { opacity: 1; color: var(--color-cta); }
+
+  @media (max-width: 768px) {
+    .svc-booking__card { flex-direction: column; }
+    .svc-booking__card-img { width: 100%; max-width: none; min-height: 0; height: 240px; }
+    .svc-booking__card-body { padding: var(--space-lg); }
+    .svc-booking__heading { font-size: var(--text-h3); }
+    .svc-booking__actions { flex-direction: column; align-items: stretch; }
+    .svc-booking__cta { width: 100%; text-align: center; }
+    .svc-booking__card-call { text-align: center; }
+  }
+</style>

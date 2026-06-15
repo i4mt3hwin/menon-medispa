@@ -1,0 +1,49 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+---
+
+<section class="section section--tint s7-faq">
+  <div class="container--narrow">
+
+    <h2 class="s7-faq__heading">Frequently asked questions</h2>
+
+    <FaqAccordion
+      items={[
+        {
+          question: 'Does the Glass Facial with Salmon DNA hurt?',
+          answer_html: '<p>No. The Glass Facial is a gentle, pain-free treatment. The nano-infusion technology used to deliver the PDRN serum is virtually painless, and most clients find the experience deeply relaxing. You may notice a mild tingling sensation during the treatment, which is entirely normal.</p>',
+        },
+        {
+          question: 'Is there any downtime after the treatment?',
+          answer_html: '<p>There is no significant downtime associated with the Glass Facial. You may experience minor redness or sensitivity immediately after your session, but this typically resolves within a few hours. Most clients return to their normal activities the same day and leave with a visible, dewy glow.</p>',
+        },
+        {
+          question: 'Who is a good candidate for the Glass Facial?',
+          answer_html: '<p>The Glass Facial with Salmon DNA is suitable for most skin types and is especially beneficial for clients dealing with dullness, dehydration, fine lines, uneven skin texture, or loss of firmness. During your consultation, our aesthetician will assess your skin to confirm that this treatment is the right fit for your goals.</p>',
+        },
+        {
+          question: 'How soon will I see results, and how long do they last?',
+          answer_html: '<p>Many clients notice an immediate improvement in skin radiance, hydration, and texture right after their first session. The regenerative effects of PDRN continue working beneath the surface for several weeks, progressively improving firmness and clarity. Results typically last four to six weeks, and a series of treatments is recommended for optimal, long-lasting outcomes.</p>',
+        },
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .s7-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  /* Collapse FaqAccordion's own padding */
+  :global(.faq-accordion) {
+    padding: 0;
+  }
+</style>

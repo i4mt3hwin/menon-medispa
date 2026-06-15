@@ -1,0 +1,41 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import RichText from '@/components/RichText.astro';
+---
+
+<section class="contact-s1" aria-label="Get In Touch header">
+  <SectionHeading
+    text="Get In Touch"
+    tag="h1"
+    align="center"
+  />
+
+  <RichText
+    html="Whether you have a question about a treatment, need assistance with scheduling, or are ready to begin your journey, our team is here to help."
+    size="var(--text-sm)"
+    max_width="769px"
+    class="contact-s1__body"
+  />
+</section>
+
+<style>
+  .contact-s1 {
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .contact-s1__body {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 980px) {
+    .contact-s1 {
+      padding: var(--space-lg) var(--space-sm);
+    }
+  }
+</style>

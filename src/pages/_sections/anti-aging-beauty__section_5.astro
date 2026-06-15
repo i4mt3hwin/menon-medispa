@@ -1,0 +1,115 @@
+---
+---
+
+<section class="section s5-process">
+  <div class="container--narrow">
+
+    <h2 class="s5-process__heading">Simple, Relaxing, and Effective</h2>
+
+    <div class="s5-process__steps">
+
+      <div class="s5-process__step">
+        <div class="s5-process__step-num" aria-hidden="true">1</div>
+        <div class="s5-process__step-body">
+          <h3 class="s5-process__step-title">Personalized Consultation</h3>
+          <p class="s5-process__step-desc">
+            We start by understanding your beauty goals, health history, and lifestyle. Your treatment provider will recommend the ideal formula and nutrient combination to address your specific skin, hair, and nail concerns.
+          </p>
+        </div>
+      </div>
+
+      <div class="s5-process__step">
+        <div class="s5-process__step-num" aria-hidden="true">2</div>
+        <div class="s5-process__step-body">
+          <h3 class="s5-process__step-title">Relax and Recharge</h3>
+          <p class="s5-process__step-desc">
+            Settle into our comfortable treatment suite while your personalized IV drip is administered over approximately 45 to 60 minutes. Many clients read, listen to music, or simply unwind as nutrients flow directly into their bloodstream for maximum absorption.
+          </p>
+        </div>
+      </div>
+
+      <div class="s5-process__step">
+        <div class="s5-process__step-num" aria-hidden="true">3</div>
+        <div class="s5-process__step-body">
+          <h3 class="s5-process__step-title">Feel the Benefits</h3>
+          <p class="s5-process__step-desc">
+            Many clients notice improved energy and a subtle skin glow within 24 hours. Over the following days and weeks, you will see continued improvements in skin brightness, hydration, hair shine, and nail strength as your body fully responds to the treatment.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s5-process__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s5-process__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .s5-process__step {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .s5-process__step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-cta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .s5-process__step-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .s5-process__step-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s5-process__step-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .s5-process__step {
+      gap: var(--space-sm);
+    }
+  }
+</style>

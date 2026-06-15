@@ -1,0 +1,88 @@
+---
+import ContactBlock from '@/components/ContactBlock.astro';
+---
+
+<section class="section section--tint sh5-directions">
+  <div class="container--narrow">
+
+    <h2 class="sh5-directions__heading">Just 5 Minutes From Short Hills Mall</h2>
+
+    <p class="sh5-directions__intro">Easy Directions For You To Find Your Glow:</p>
+
+    <div class="sh5-directions__routes">
+
+      <div class="sh5-directions__route">
+        <h3 class="sh5-directions__route-title">From Old Short Hills:</h3>
+        <p class="sh5-directions__route-body">Head east on Old Short Hills Road, continue onto Millburn Avenue.</p>
+        <p class="sh5-directions__route-body">Our office will be on your right after just 1.2 miles.</p>
+      </div>
+
+      <div class="sh5-directions__route">
+        <h3 class="sh5-directions__route-title">From The Mall at Short Hills:</h3>
+        <p class="sh5-directions__route-body">Head south on JFK Parkway, turn left onto Millburn Avenue. Our office will be on your left after 0.8 miles.</p>
+      </div>
+
+      <div class="sh5-directions__route">
+        <h3 class="sh5-directions__route-title">From Glenwood Section:</h3>
+        <p class="sh5-directions__route-body">Head southeast on Woodland Avenue, turn right onto Millburn Avenue. Our office will be approximately 0.9 miles ahead on your right.</p>
+      </div>
+
+    </div>
+
+    <!-- Google Map embed replaced with ContactBlock per project rules -->
+    <ContactBlock
+      address="19 Main Street, Millburn, NJ 07041"
+      phone="(973) 494-8431"
+    />
+
+  </div>
+</section>
+
+<style>
+  .sh5-directions__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+  }
+
+  .sh5-directions__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .sh5-directions__routes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .sh5-directions__route {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sh5-directions__route-title {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .sh5-directions__route-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

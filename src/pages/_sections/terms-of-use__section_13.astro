@@ -1,0 +1,82 @@
+---
+import ServiceCard from '@/components/ServiceCard.astro';
+import Button from '@/components/Button.astro';
+---
+
+<section class="section section--tint tou-promos">
+  <div class="container">
+    <h2 class="tou-promos__heading">June Sales</h2>
+    <div class="tou-promos__grid">
+      <ServiceCard
+        image="/images/56a3e3ac1335.jpg"
+        imageAlt="BRO-tox Fathers Day Special"
+        title="BRO-tox Fathers Day Special"
+        features={[
+          "Botox $12 Per Unit",
+          "Smooths forehead, frown lines & crow's feet",
+          "Personalized Treatment Plan with Dr. Menon",
+        ]}
+      />
+      <ServiceCard
+        image="/images/86072f9cbd9c.jpg"
+        imageAlt="Summer Glow HydraFacial"
+        title="Summer Glow HydraFacial"
+        features={[
+          "Vitamin C Booster +",
+          "Discount Dermaplaning $25",
+          "($285 Value for $225)",
+        ]}
+      />
+      <ServiceCard
+        image="/images/dd355e57f3dd.jpg"
+        imageAlt="Custom Hydrating IV"
+        title="Custom Hydrating IV"
+        features={[
+          "$99 Special Price",
+          "Includes any two vitamins",
+          "Hydrate, recharge, glow",
+        ]}
+      />
+    </div>
+    <div class="tou-promos__cta">
+      <Button href="/sale" variant="primary">Explore all sales</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tou-promos__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    text-align: center;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .tou-promos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .tou-promos__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .tou-promos__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .tou-promos__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

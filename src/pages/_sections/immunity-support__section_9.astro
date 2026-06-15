@@ -1,0 +1,132 @@
+---
+import site from '@/lib/site';
+
+import staffPhoto from '@/assets/images/b1a819f35921.webp';
+---
+
+<section class="section section--dark is9-cta">
+  <div class="container">
+    <div class="is9-cta__layout">
+
+      <div class="is9-cta__text">
+
+        <h2 class="is9-cta__heading">
+          Ready to Live Life Uninterrupted?
+        </h2>
+
+        <p class="is9-cta__subtitle">
+          Menon Medispa Millburn NJ
+        </p>
+
+        <p class="is9-cta__body">
+          Stop letting seasonal bugs and downtime dictate your schedule. Take proactive control of your health with our targeted Immune Support IV drip. Schedule your complimentary consultation today to discover your perfect formulation.
+        </p>
+
+        <div class="is9-cta__actions">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Free Consultation
+          </a>
+        </div>
+
+      </div>
+
+      <div class="is9-cta__img-col">
+        <img
+          src={staffPhoto.src}
+          alt="Menon Medispa Office Staff"
+          class="is9-cta__img"
+          loading="lazy"
+          decoding="async"
+          width="500"
+          height="400"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .is9-cta__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .is9-cta__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .is9-cta__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .is9-cta__subtitle {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+  }
+
+  .is9-cta__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .is9-cta__actions {
+    margin-top: var(--space-xs);
+  }
+
+  .is9-cta__img-col {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  .is9-cta__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.4);
+  }
+
+  @media (max-width: 1024px) {
+    .is9-cta__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .is9-cta__layout {
+      flex-direction: column;
+    }
+
+    .is9-cta__img-col {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .is9-cta__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/energy-performance__section_2.astro';
+import Formulas from '@/pages/_sections/energy-performance__section_3.astro';
+import Gallery from '@/pages/_sections/energy-performance__section_4.astro';
+import Process from '@/pages/_sections/energy-performance__section_5.astro';
+import Pricing from '@/pages/_sections/energy-performance__section_6.astro';
+import FinalCta from '@/pages/_sections/energy-performance__section_9.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'energy-performance';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'Who is a good candidate for an Energy & Performance drip?',
+    answer:
+      'Anyone experiencing fatigue, brain fog, slow workout recovery, or reduced mental performance may benefit. Our registered nurses will assess your health during a brief consultation to confirm the drip is appropriate for you.',
+  },
+  {
+    question: 'How is this different from drinking coffee or an energy drink?',
+    answer:
+      'Coffee and energy drinks work through stimulants that can cause jitteriness and crashes. Our IV drip delivers vitamins, amino acids, and minerals directly into your bloodstream at the cellular level, providing sustained clean energy without the crash.',
+  },
+  {
+    question: 'Is it better to get this IV drip before or after a workout?',
+    answer:
+      'It depends on your goal. Getting the drip before a workout can enhance endurance and performance. Getting it after supports faster muscle recovery. Many clients do both. Our nurses can help you decide based on your training schedule.',
+  },
+  {
+    question: 'How often should I get an IV drip for sustained energy?',
+    answer:
+      'Most clients see great results with one session every 2-4 weeks. Those with higher performance demands or significant fatigue may benefit from more frequent sessions initially. We\'ll help you build a schedule that works for your goals.',
+  },
+  {
+    question: 'What does the energy boost feel like?',
+    answer:
+      'Most clients describe a clean, steady sense of alertness and clarity that comes on gradually during or shortly after the drip. It feels different from caffeine, more grounded, without the jittery edge. Many notice sharper focus and improved mood as well.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Energy & Performance IV Therapy in Millburn, NJ',
+  description:
+    'Boost energy, sharpen mental clarity, and accelerate muscle recovery with our Energy & Performance IV drip in Millburn, NJ at Menon Medispa. Starting at $200.',
+  url: '/energy-performance',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Energy & Performance', url: '/energy-performance' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Energy &amp; Performance IV Therapy Millburn NJ | Menon Medispa"
+  description="Boost energy, sharpen mental clarity, and accelerate muscle recovery with our Energy &amp; Performance IV drip in Millburn, NJ at Menon Medispa. Book today!"
+  canonical="https://www.menonmedispa.com/energy-performance"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="IV THERAPY · MILLBURN, NJ"
+    h1="Energy &amp; Performance IV Therapy in Millburn, NJ"
+    subhead="Fight fatigue, brain fog, and slow workout recovery with a direct infusion of vitamins and amino acids your body absorbs immediately."
+    image={heroImg}
+    imageAlt="IV Therapy bag with energy illustration at Menon Medispa Millburn NJ"
+    price="Starting at $200"
+    note="Session includes a personalized consultation with a registered nurse."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Unlock Your Peak Potential with Sustained Energy and Mental Clarity</h2>
+      <p class="svc-lead">Fight fatigue, brain fog, and slow workout recovery. Our Energy &amp; Performance IV drip in Millburn, NJ delivers a direct infusion of vitamins and amino acids that your body absorbs immediately.</p>
+
+      <p class="svc-eyebrow">Why IV Therapy Works When Nothing Else Does</p>
+
+      <p>When you take oral supplements, your digestive system absorbs only a fraction of what you swallow. An IV drip bypasses the gut entirely, delivering nutrients straight into your bloodstream at 100% bioavailability. The result is a faster, more effective response than any pill or drink can provide.</p>
+
+      <p>Our Energy &amp; Performance drip is formulated to target the specific deficiencies that drive fatigue, mental fog, and poor recovery. Whether you're a high-performer looking to stay sharp, an athlete pushing your limits, or simply someone who wants to stop feeling tired, this drip is designed to meet you where you are.</p>
+
+      <p class="svc-eyebrow">Two Formulas, One Goal: More Energy</p>
+
+      <div class="svc-accent">
+        <h3>ENERGY (Signature)</h3>
+        <p>Best for a fast-acting, targeted boost to fight fatigue and sharpen mental focus. Contains B12 &amp; Taurine, Vitamin C &amp; Glutathione, and Minerals.</p>
+      </div>
+
+      <div class="svc-accent">
+        <h3>ENERGY (Deluxe)</h3>
+        <p>Best for comprehensive metabolic support, sustained athletic performance, and faster recovery. Contains everything in Signature plus Complete B-Complex (B5, Niacin &amp; more), Magnesium &amp; Zinc, and Amino Acids.</p>
+      </div>
+
+      <p class="svc-eyebrow">What to Expect From Your Session</p>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Personalized Consultation</h3>
+          <p>Your session begins with a brief consultation with one of our registered nurses to review your wellness goals and confirm the right formula for your needs.</p>
+        </li>
+        <li>
+          <h3>Relax and Recharge</h3>
+          <p>The IV drip is administered comfortably while you relax. The process is virtually painless and takes about 45-60 minutes from start to finish.</p>
+        </li>
+        <li>
+          <h3>Feel the Benefits</h3>
+          <p>Many clients report an immediate sense of mental clarity and a clean boost in energy after their session. Results continue to build over the following 24-48 hours.</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">Boost Your Metabolism. Enhance Mental Clarity. Accelerate Muscle Recovery.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Boost Your Metabolism</h3>
+          <p>B-vitamins and amino acids fuel your cellular energy production for a sustained metabolic lift</p>
+        </li>
+        <li>
+          <h3>Enhance Mental Clarity</h3>
+          <p>Nutrients delivered directly to the bloodstream sharpen focus and dissolve brain fog</p>
+        </li>
+        <li>
+          <h3>Accelerate Muscle Recovery</h3>
+          <p>Amino acids and minerals replenish what your muscles need to repair and rebuild faster</p>
+        </li>
+        <li>
+          <h3>Clean Energy, No Crash</h3>
+          <p>Unlike caffeine, IV nutrients provide steady, grounded energy without jitteriness or a crash</p>
+        </li>
+      </ul>
+
+      <p>All IV Drips are 500ml. Upgrade to 1000ml for only $25.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'Starting at $200' },
+          { label: 'Appointment', value: 'About 45-60 minutes' },
+          { label: 'Results', value: 'During and 24-48 hrs after' },
+          { label: 'Administered by', value: 'Registered Nurse' },
+          { label: 'Volume', value: '500ml (upgrade to 1000ml +$25)' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Formulas />
+
+  <Gallery />
+
+  <Process />
+
+  <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_3 (Formulas), section_4 (Gallery), section_5 (Process), section_6 (Pricing), section_9 (FinalCta). Inlined: section_1 hero text + formula descriptions + process steps + upgrade note (section_7). FAQ lifted: section_8 Q&A into faqItems. No promo band removed. -->

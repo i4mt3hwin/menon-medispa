@@ -1,0 +1,94 @@
+---
+/**
+ * FaqColumn.astro, in-column FAQ accordion (no <section>/<container> wrapper).
+ *
+ * The shared FaqAccordion.astro renders its own full-width section + narrow
+ * container, so it can't drop into the two-column main column. This is the slim
+ * presentational variant for inside ServiceLayout's main slot. Same visual
+ * language as FaqAccordion. The same items array also feeds the FAQPage JSON-LD
+ * via lib/serviceSchema.ts.
+ */
+interface FaqItem {
+  question: string;
+  answer_html: string;
+}
+interface Props {
+  heading?: string;
+  items?: FaqItem[];
+}
+const { heading = 'Frequently asked questions', items = [] } = Astro.props;
+---
+{items.length > 0 && (
+  <div class="faq-col svc-block">
+    {heading && <h2 class="faq-col__heading">{heading}</h2>}
+    <div class="faq-col__list">
+      {items.map((item) => (
+        <details class="faq-col__item">
+          <summary class="faq-col__q">
+            <span class="faq-col__q-text">{item.question}</span>
+            <span class="faq-col__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-col__a" set:html={item.answer_html} />
+        </details>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .faq-col__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.25;
+  }
+  .faq-col__item { border-bottom: 1px solid rgb(0 0 0 / 0.12); }
+  .faq-col__item:first-of-type { border-top: 1px solid rgb(0 0 0 / 0.12); }
+  .faq-col__q {
+    cursor: pointer;
+    padding: var(--space-sm) 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .faq-col__q::-webkit-details-marker { display: none; }
+  .faq-col__q-text { flex: 1; }
+  .faq-col__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+  .faq-col__icon::before, .faq-col__icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-cta);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .faq-col__icon::before { width: 14px; height: 2px; top: 50%; left: 3px; transform: translateY(-50%); }
+  .faq-col__icon::after { width: 2px; height: 14px; top: 3px; left: 50%; transform: translateX(-50%); }
+  details[open] .faq-col__icon::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+  .faq-col__a {
+    padding: 0 0 var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+  .faq-col__a p { margin: 0 0 0.75em; }
+  .faq-col__a p:last-child { margin-bottom: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-col__icon, .faq-col__icon::before, .faq-col__icon::after { transition: none; }
+  }
+</style>

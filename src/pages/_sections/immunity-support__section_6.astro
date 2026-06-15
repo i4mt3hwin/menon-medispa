@@ -1,0 +1,23 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import ivImg from '@/assets/images/3d59d03b4558.webp';
+---
+<ServiceBookingCta
+  heading={`Ready to Feel Your Best?`}
+  body={`It's time to invest in your health. Select your preferred IV drip from the options below to schedule your appointment at our Millburn, NJ medispa and experience the benefits of true nutrient absorption`}
+  cards={[
+    {
+      image: ivImg,
+      imageAlt: `IMMUNITY Signature IV drip`,
+      title: `IMMUNITY Signature`,
+      duration: `500ml.`,
+      price: `$200`,
+    },
+    {
+      image: ivImg,
+      imageAlt: `IMMUNITY Deluxe IV drip`,
+      title: `IMMUNITY Deluxe`,
+      price: `$250`,
+    },
+  ]}
+/>

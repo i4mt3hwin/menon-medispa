@@ -1,0 +1,122 @@
+---
+import site from '@/lib/site';
+---
+
+<!-- Section 3: Why section, 4 feature cards -->
+<section class="section section--tint s3-why">
+  <div class="container">
+
+    <h2 class="s3-why__heading">
+      Why Manual Lymph Drainage Transforms Your Skin From The Inside Out
+    </h2>
+
+    <div class="s3-why__grid">
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Immediate Visible Results</h3>
+        <p class="s3-why__card-body">
+          You'll notice reduced puffiness and a more sculpted jawline right after your treatment. Most clients see their under-eye bags diminish by 40-50% and experience an instant glow that lasts for days. The gentle pressure helps move stagnant fluid, revealing the defined facial structure hiding underneath.
+        </p>
+      </div>
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Long-Term Skin Health Benefits</h3>
+        <p class="s3-why__card-body">
+          Regular lymph drainage sessions train your lymphatic system to work more efficiently on its own. After 3-4 treatments spaced 2 weeks apart, many clients notice their morning puffiness is dramatically reduced even on days between treatments. Your skin tone becomes more even and firm.
+        </p>
+      </div>
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Natural Detoxification Process</h3>
+        <p class="s3-why__card-body">
+          This treatment works with your body's lymphatic system to naturally eliminate waste and toxins that make your skin look dull and puffy. By improving lymphatic circulation, your skin gets better nutrients and oxygen delivery, which means healthier, more radiant skin that glows from within.
+        </p>
+      </div>
+
+      <div class="s3-why__card">
+        <h3 class="s3-why__card-title">Perfect Recovery Treatment</h3>
+        <p class="s3-why__card-body">
+          Whether you're dealing with sinus congestion, recovering from dental work, or had cosmetic procedures, lymph drainage speeds healing and reduces swelling. It's gentle enough to use during recovery periods when other treatments would be too harsh for your sensitive skin.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="s3-why__cta-wrap">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s3-why__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-lg);
+    line-height: 1.25;
+    max-width: 760px;
+    margin-inline: auto;
+    margin-block-end: var(--space-lg);
+  }
+
+  .s3-why__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .s3-why__card {
+    background-color: var(--color-bg);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .s3-why__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-why__card-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .s3-why__cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .s3-why__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .s3-why__heading {
+      font-size: var(--text-h3);
+    }
+  }
+</style>

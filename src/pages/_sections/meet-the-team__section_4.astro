@@ -1,0 +1,137 @@
+---
+import site from '@/lib/site';
+
+import imgStaff from '@/assets/images/b1a819f35921.webp';
+---
+
+<section class="section section--dark mtt-s4">
+  <div class="container">
+    <div class="mtt-s4__layout">
+
+      <div class="mtt-s4__text-col">
+
+        <h2 class="mtt-s4__heading">Begin Your Transformation Today</h2>
+
+        <p class="mtt-s4__subtitle">Menon Medispa Millburn NJ</p>
+
+        <p class="mtt-s4__body">
+          Ready to experience the benefits of Menon Medispa? Take the first step toward your transformation by scheduling your personal consultation at Menon Medispa in Millburn, NJ.
+        </p>
+
+        <div class="mtt-s4__actions">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Consultation
+          </a>
+        </div>
+
+      </div>
+
+      <div class="mtt-s4__img-col">
+        <img
+          src={imgStaff.src}
+          alt="Menon Office Staff"
+          class="mtt-s4__img"
+          loading="lazy"
+          decoding="async"
+          width="431"
+          height="560"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .mtt-s4__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .mtt-s4__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .mtt-s4__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .mtt-s4__subtitle {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mtt-s4__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .mtt-s4__actions {
+    margin-top: var(--space-xs);
+  }
+
+  .mtt-s4__img-col {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  .mtt-s4__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.4);
+    aspect-ratio: 431 / 560;
+  }
+
+  @media (max-width: 1024px) {
+    .mtt-s4__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mtt-s4__layout {
+      flex-direction: column;
+    }
+
+    .mtt-s4__img-col {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .mtt-s4__body {
+      max-width: 100%;
+    }
+
+    .mtt-s4__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+import img1 from '@/assets/images/9ebaca3843d3.jpg';
+import img2 from '@/assets/images/6c461885a28e.jpg';
+import img3 from '@/assets/images/823792ea5ead.jpg';
+import img4 from '@/assets/images/cd675890fe0d.jpg';
+import img5 from '@/assets/images/2e5d1e68225a.jpg';
+
+const images = [
+  { src: img1.src, alt: "Customer review photo" },
+  { src: img2.src, alt: "Customer review photo" },
+  { src: img3.src, alt: "Customer review photo" },
+  { src: img4.src, alt: "Customer review photo" },
+  { src: img5.src, alt: "Customer review photo" },
+];
+---
+
+<section class="section is4-gallery">
+  <div class="container">
+
+    <h5 class="is4-gallery__heading">Hear From Our Customers!</h5>
+
+    <div class="is4-gallery__grid">
+      {images.map((image) => (
+        <div class="is4-gallery__item">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="is4-gallery__img"
+            loading="lazy"
+            decoding="async"
+            width="280"
+            height="280"
+          />
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .is4-gallery__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    text-align: center;
+  }
+
+  .is4-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  .is4-gallery__item {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    aspect-ratio: 1 / 1;
+  }
+
+  .is4-gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .is4-gallery__item:hover .is4-gallery__img {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 768px) {
+    .is4-gallery__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .is4-gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

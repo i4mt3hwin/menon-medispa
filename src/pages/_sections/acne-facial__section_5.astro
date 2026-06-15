@@ -1,0 +1,171 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section section--tint af-s5">
+  <div class="container--narrow">
+
+    <h2 class="af-s5__heading">
+      What To Expect During Your 70-Minute Acne Facial Experience
+    </h2>
+
+    <p class="af-s5__intro">
+      Each session is customized to your skin's unique needs, combining the most advanced Korean skincare techniques with medical-grade ingredients for maximum results.
+    </p>
+
+    <ol class="af-s5__steps">
+
+      <li class="af-s5__step">
+        <div class="af-s5__step-num" aria-hidden="true">1</div>
+        <div class="af-s5__step-body">
+          <h3 class="af-s5__step-title">Deep Pore Cleansing</h3>
+          <p class="af-s5__step-desc">
+            We begin with a thorough double cleanse using medical-grade formulas to remove makeup, sunscreen, and surface impurities, preparing your skin to fully absorb the active treatment ingredients.
+          </p>
+        </div>
+      </li>
+
+      <li class="af-s5__step">
+        <div class="af-s5__step-num" aria-hidden="true">2</div>
+        <div class="af-s5__step-body">
+          <h3 class="af-s5__step-title">Exfoliation &amp; Pore Extraction</h3>
+          <p class="af-s5__step-desc">
+            Gentle enzymatic exfoliation removes dead skin cells while manual extractions clear blackheads and congested pores safely, reducing the risk of scarring and post-inflammatory hyperpigmentation.
+          </p>
+        </div>
+      </li>
+
+      <li class="af-s5__step">
+        <div class="af-s5__step-num" aria-hidden="true">3</div>
+        <div class="af-s5__step-body">
+          <h3 class="af-s5__step-title">Medical-Grade Active Treatment</h3>
+          <p class="af-s5__step-desc">
+            A targeted serum blend of Salicylic Acid, Tea Tree, and anti-inflammatory botanicals is applied to penetrate deeply, killing acne-causing bacteria and calming active breakouts at the source.
+          </p>
+        </div>
+      </li>
+
+      <li class="af-s5__step">
+        <div class="af-s5__step-num" aria-hidden="true">4</div>
+        <div class="af-s5__step-body">
+          <h3 class="af-s5__step-title">Soothing &amp; Healing Mask</h3>
+          <p class="af-s5__step-desc">
+            A customized hydrogel or clay mask draws out remaining impurities while delivering Centella Asiatica and calming actives to reduce redness, soothe irritation, and begin the healing process.
+          </p>
+        </div>
+      </li>
+
+      <li class="af-s5__step">
+        <div class="af-s5__step-num" aria-hidden="true">5</div>
+        <div class="af-s5__step-body">
+          <h3 class="af-s5__step-title">Barrier Repair &amp; Sun Protection</h3>
+          <p class="af-s5__step-desc">
+            We finish with a lightweight moisturizer and broad-spectrum SPF to lock in results, protect freshly treated skin, and keep your skin barrier strong between sessions.
+          </p>
+        </div>
+      </li>
+
+    </ol>
+
+    <div class="af-s5__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .af-s5__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .af-s5__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .af-s5__steps {
+    list-style: none;
+    margin: 0 0 var(--space-lg);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .af-s5__step {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .af-s5__step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-cta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .af-s5__step-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .af-s5__step-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .af-s5__step-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .af-s5__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .af-s5__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

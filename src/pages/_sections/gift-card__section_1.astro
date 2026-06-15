@@ -1,0 +1,128 @@
+---
+import giftCardImg from '@/assets/images/8eb7e7e7ad1f.png';
+---
+
+<section class="section gc1">
+  <div class="container">
+    <div class="gc1__layout">
+
+      <div class="gc1__img-col">
+        <img
+          src={giftCardImg.src}
+          alt="Menon Medispa eGift Card"
+          class="gc1__img"
+          loading="lazy"
+          decoding="async"
+          width="484"
+          height="322"
+        />
+      </div>
+
+      <div class="gc1__text-col">
+
+        <h1 class="gc1__heading">Menon eGift Card</h1>
+
+        <p class="gc1__desc">
+          You can't go wrong with a gift card. Choose an amount and write a personalized message to make this gift your own.
+        </p>
+
+        <p class="gc1__info">
+          To purchase a gift card, please contact us directly and we'll be happy to assist you.
+        </p>
+
+        <div class="gc1__actions">
+          <a href="tel:+19734948431" class="btn btn--primary btn--lg">
+            Call (973) 494-8431
+          </a>
+          <a href="mailto:admin@menonregen.com" class="btn btn--secondary btn--lg">
+            Email Us
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .gc1__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .gc1__img-col {
+    flex-shrink: 0;
+    width: 484px;
+    max-width: 100%;
+  }
+
+  .gc1__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+  }
+
+  .gc1__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .gc1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .gc1__desc, .gc1__info {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .gc1__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  @media (max-width: 1024px) {
+    .gc1__img-col {
+      width: 380px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .gc1__layout {
+      flex-direction: column;
+    }
+
+    .gc1__img-col {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .gc1__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gc1__actions {
+      flex-direction: column;
+    }
+  }
+</style>

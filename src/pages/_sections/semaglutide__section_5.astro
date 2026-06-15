@@ -1,0 +1,113 @@
+---
+import FeatureList from '@/components/FeatureList.astro';
+import img from '@/assets/images/cd90aa0cbbcb.jpg';
+---
+
+<section class="section section--tint sema-s5-difference">
+  <div class="container container--narrow">
+
+    <h2 class="sema-s5__heading">Reimagine Weight Loss With The Semaglutide Difference</h2>
+
+    <div class="sema-s5__img-wrap">
+      <img
+        src={img.src}
+        alt="Woman Getting Medical Weight Loss Injection"
+        class="sema-s5__img"
+        loading="lazy"
+        decoding="async"
+        width="262"
+        height="174"
+      />
+    </div>
+
+    <p class="sema-s5__body">We understand the frustration of failed weight loss attempts.</p>
+
+    <p class="sema-s5__body">Our medically supervised Semaglutide program offers a scientifically proven approach that addresses the biological factors that make sustainable weight loss so challenging!</p>
+
+    <h4 class="sema-s5__subheading">How Semaglutide Controls Appetite</h4>
+
+    <FeatureList
+      items={[
+        "Targets the brain's appetite regulation centers to naturally reduce hunger",
+        "Creates a feeling of fullness that lasts longer after meals",
+        "Allows for steady, sustainable weight loss of 1-2 pounds weekly",
+      ]}
+      icon="check"
+    />
+
+    <p class="sema-s5__body">Semaglutide works by mimicking a natural hormone called GLP-1 (glucagon-like peptide-1) that your digestive tract releases after eating. This powerful hormone lowers blood sugar by triggering insulin release while blocking excess sugar production. The result is reduced appetite, better portion control, and consistent weight loss without constant hunger.</p>
+
+    <h4 class="sema-s5__subheading">Our Comprehensive Support System</h4>
+
+    <FeatureList
+      items={[
+        "Consultation with Dr. Menon and weekly check-ins",
+        "Custom nutrition plans tailored to your specific needs",
+        "Complete blood work and medical monitoring",
+        "Optional enhancement therapies with amino acids, vitamins, and minerals",
+      ]}
+      icon="check"
+    />
+
+    <h4 class="sema-s5__subheading">Beyond Weight Loss: Total Health Benefits</h4>
+
+    <p class="sema-s5__body">Unlike traditional diets that leave you constantly hungry and fighting cravings, Semaglutide helps you feel satisfied with smaller portions. This allows for sustainable lifestyle changes that lead to not just weight loss, but also improvements in blood pressure, cholesterol levels, and overall cardiovascular health.</p>
+
+  </div>
+</section>
+
+<style>
+  .sema-s5-difference .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sema-s5__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .sema-s5__subheading {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    margin-top: var(--space-xs);
+    line-height: 1.4;
+  }
+
+  .sema-s5__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .sema-s5__img-wrap {
+    display: flex;
+    justify-content: center;
+    margin: var(--space-xs) 0;
+  }
+
+  .sema-s5__img {
+    width: 262px;
+    height: 174px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 768px) {
+    .sema-s5__heading {
+      font-size: var(--text-h3);
+    }
+  }
+</style>

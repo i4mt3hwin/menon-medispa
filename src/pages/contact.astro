@@ -1,0 +1,450 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import Picture from '@/components/Picture.astro';
+import site from '@/lib/site';
+
+import officeStaffImg from '@/assets/contact/office-staff.webp';
+import facebookImg from '@/assets/social/icon-facebook.webp';
+import instagramImg from '@/assets/social/icon-instagram.webp';
+import tiktokImg from '@/assets/social/icon-tiktok.webp';
+
+const mapsUrl = 'https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+NJ+07041';
+---
+
+<BaseLayout
+  title="Contact | Menon Medispa & Wellness | Millburn, NJ"
+  description="Contact Menon Medispa & Wellness at 45 Essex St, Suite 202, Millburn, NJ. Call (973) 494-8431, email us, or send a message. We reply within 24 hours."
+>
+
+  <!-- Section 1: Header -->
+  <section class="section section--tight contact-head">
+    <div class="container--narrow contact-head__inner">
+      <p class="eyebrow">Contact Us</p>
+      <h1 class="contact-head__title">Get In Touch</h1>
+      <p class="contact-head__body">
+        Have a question about a treatment, need help scheduling, or ready to begin? Our team is here
+        to help, reach out whichever way is easiest for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 2: Contact method cards -->
+  <section class="section section--tint contact-methods">
+    <div class="container">
+      <div class="contact-methods__grid">
+
+        <a href={site.phone.tel} class="contact-methods__card">
+          <span class="contact-methods__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.36 1.86.7 2.74a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.34-1.27a2 2 0 0 1 2.11-.45c.88.34 1.8.57 2.74.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <span class="contact-methods__label">Call Us</span>
+          <span class="contact-methods__value">{site.phone.display}</span>
+          <span class="contact-methods__sub">Mon&ndash;Fri 10am&ndash;6pm &middot; Sat 10am&ndash;4pm</span>
+        </a>
+
+        <a href={`mailto:${site.email}`} class="contact-methods__card">
+          <span class="contact-methods__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </span>
+          <span class="contact-methods__label">Email Us</span>
+          <span class="contact-methods__value">{site.email}</span>
+          <span class="contact-methods__sub">We reply within 24 hours</span>
+        </a>
+
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-methods__card">
+          <span class="contact-methods__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <span class="contact-methods__label">Visit Us</span>
+          <span class="contact-methods__value">45 Essex St, Suite 202</span>
+          <span class="contact-methods__sub">Millburn, NJ 07041</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Message form + office image / social -->
+  <section class="section contact-form-sec">
+    <div class="container">
+      <div class="contact-form-sec__layout">
+
+        <div class="contact-form-sec__form-col">
+          <p class="eyebrow contact-form-sec__eyebrow">Send a Message</p>
+          <h2 class="contact-form-sec__heading">Drop Us a Line</h2>
+          <p class="contact-form-sec__sub">
+            Fill out the form and we&rsquo;ll get back to you within 24 hours. No question is too small.
+          </p>
+
+          <LeadForm
+            heading=""
+            fields={['name', 'email', 'phone', 'service', 'message']}
+            submit_label="Send My Message"
+            success_url="/thank-you"
+          />
+          <label class="contact-form-sec__sms-consent">
+            <input type="checkbox" name="sms_consent" />
+            <span>By checking this box, I agree to receive SMS messages from Menon Medi-Spa through an automatic telephone dialing system</span>
+          </label>
+        </div>
+
+        <aside class="contact-form-sec__aside">
+          <Picture
+            src={officeStaffImg}
+            alt="The Menon Medispa team"
+            width={425}
+            height={323}
+            object_fit="cover"
+            class_name="contact-form-sec__img"
+          />
+
+          <div class="contact-form-sec__book">
+            <p class="contact-form-sec__book-text">Ready to start a treatment plan?</p>
+            <a href="/consultation" class="btn btn--primary contact-form-sec__book-cta">Book a Consultation</a>
+          </div>
+
+          <div class="contact-form-sec__social">
+            <span class="contact-form-sec__social-label">Follow along</span>
+            <ul class="contact-form-sec__social-list" aria-label="Social media">
+              <li>
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <Picture src={facebookImg} alt="Facebook" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
+                </a>
+              </li>
+              <li>
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Picture src={instagramImg} alt="Instagram" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
+                </a>
+              </li>
+              <li>
+                <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <Picture src={tiktokImg} alt="TikTok" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Hours + Map -->
+  <section class="section section--tint contact-visit">
+    <div class="container">
+      <div class="contact-visit__layout">
+
+        <div class="contact-visit__info">
+          <p class="eyebrow contact-visit__eyebrow">Hours &amp; Location</p>
+          <h2 class="contact-visit__heading">Find Us in Millburn</h2>
+
+          <address class="contact-visit__address">
+            <p class="contact-visit__name">{site.legalName}</p>
+            <p class="contact-visit__line">{site.address.formatted}</p>
+          </address>
+
+          <div class="contact-visit__hours">
+            <div class="contact-visit__row">
+              <span class="contact-visit__day">Mon &ndash; Fri</span>
+              <span class="contact-visit__time">10:00 am &ndash; 6:00 pm</span>
+            </div>
+            <div class="contact-visit__row">
+              <span class="contact-visit__day">Saturday</span>
+              <span class="contact-visit__time">10:00 am &ndash; 4:00 pm</span>
+            </div>
+            <div class="contact-visit__row">
+              <span class="contact-visit__day">Sunday</span>
+              <span class="contact-visit__time contact-visit__time--closed">Closed</span>
+            </div>
+          </div>
+
+          <p class="contact-visit__areas">
+            Proudly serving Short Hills, Summit, Maplewood, Livingston, Springfield, Vauxhall &amp; West Orange.
+          </p>
+        </div>
+
+        <div class="contact-visit__map-col">
+          <iframe
+            class="contact-visit__map"
+            title="Menon Medispa location"
+            src="https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+NJ+07041&output=embed"
+            width="100%"
+            height="420"
+            style="border:0;"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ---- Header ---- */
+  .contact-head__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    text-align: center;
+  }
+  .contact-head__inner .eyebrow { margin: 0; color: var(--color-cta); }
+  .contact-head__title {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.15;
+  }
+  .contact-head__body {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    margin: var(--space-xs) 0 0;
+    line-height: 1.6;
+    opacity: 0.85;
+    max-width: 620px;
+  }
+
+  /* ---- Contact method cards ---- */
+  .contact-methods__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .contact-methods__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    padding: var(--space-lg);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 18px rgb(0 0 0 / 0.05);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .contact-methods__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+  }
+  .contact-methods__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--color-cta);
+    color: #fff;
+    margin-bottom: var(--space-xs);
+  }
+  .contact-methods__label {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .contact-methods__value {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-regular);
+    line-height: 1.25;
+  }
+  .contact-methods__sub {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+
+  /* ---- Form section ---- */
+  .contact-form-sec__layout {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  .contact-form-sec__eyebrow { margin: 0; color: var(--color-cta); }
+  .contact-form-sec__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .contact-form-sec__sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  .contact-form-sec__sms-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    line-height: 1.5;
+    cursor: pointer;
+    opacity: 0.85;
+  }
+  .contact-form-sec__sms-consent input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; }
+
+  /* Neutralize the LeadForm component's own section padding so it aligns flush */
+  .contact-form-sec__form-col :global(.lead-form) { padding: 0; }
+  .contact-form-sec__form-col :global(.lead-form__form) { max-width: 100%; margin-top: var(--space-xs); }
+
+  .contact-form-sec__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    position: sticky;
+    top: var(--space-lg);
+  }
+  .contact-form-sec__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+  .contact-form-sec__book {
+    background: rgba(196, 164, 132, 0.10);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    align-items: flex-start;
+  }
+  .contact-form-sec__book-text {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+  .contact-form-sec__book-cta { align-self: stretch; text-align: center; }
+
+  .contact-form-sec__social { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .contact-form-sec__social-label {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+  .contact-form-sec__social-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .contact-form-sec__social-icon { width: 24px; height: 24px; display: block; transition: opacity 0.2s; }
+  .contact-form-sec__social-list a:hover .contact-form-sec__social-icon { opacity: 0.65; }
+
+  /* ---- Visit / hours + map ---- */
+  .contact-visit__layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--space-xl);
+    align-items: stretch;
+  }
+  .contact-visit__info { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .contact-visit__eyebrow { margin: 0; color: var(--color-cta); }
+  .contact-visit__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-xs);
+    line-height: 1.25;
+  }
+  .contact-visit__address { font-style: normal; }
+  .contact-visit__name {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .contact-visit__line {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    margin: 2px 0 0;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+  .contact-visit__hours {
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+    margin-top: var(--space-xs);
+  }
+  .contact-visit__row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .contact-visit__row:last-child { border-bottom: none; }
+  .contact-visit__day { font-family: var(--font-body); font-size: var(--text-sm); font-weight: var(--weight-bold); }
+  .contact-visit__time { font-family: var(--font-body); font-size: var(--text-sm); opacity: 0.85; }
+  .contact-visit__time--closed { font-weight: var(--weight-bold); opacity: 0.6; }
+  .contact-visit__areas {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    opacity: 0.8;
+    line-height: 1.6;
+    margin: var(--space-xs) 0 0;
+    max-width: 420px;
+  }
+
+  .contact-visit__map-col {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    min-height: 380px;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.10);
+  }
+  .contact-visit__map { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1024px) {
+    .contact-form-sec__layout { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .contact-form-sec__aside { position: static; flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+    .contact-form-sec__img { flex: 1 1 280px; max-width: 360px; }
+    .contact-form-sec__book { flex: 1 1 240px; }
+    .contact-form-sec__social { flex-basis: 100%; }
+  }
+
+  @media (max-width: 768px) {
+    .contact-methods__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    .contact-visit__layout { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .contact-visit__map-col { min-height: 300px; }
+    .contact-visit__map { min-height: 300px; height: 300px; }
+    .contact-form-sec__aside { flex-direction: column; }
+    .contact-form-sec__img { max-width: 100%; }
+  }
+</style>

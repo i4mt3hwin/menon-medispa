@@ -1,0 +1,99 @@
+---
+import skinImg from '@/assets/images/8f23c1351be4.jpg';
+---
+
+<section class="media-bg section sh6-your-skin">
+  <img class="media-bg__img" src={skinImg.src} alt="" aria-hidden="true" loading="lazy" decoding="async" width="1440" height="900" />
+  <span class="sh6-your-skin__overlay" aria-hidden="true"></span>
+
+  <div class="media-bg__inner container sh6-your-skin__content">
+
+    <div class="sh6-your-skin__left">
+      <p class="eyebrow sh6-your-skin__eyebrow">WE BELIEVE</p>
+      <h2 class="sh6-your-skin__heading">Your Skin<br>Comes First</h2>
+    </div>
+
+    <div class="sh6-your-skin__right">
+      <p class="sh6-your-skin__body">Menon Medispa &amp; Wellness Brings Together Beauty &amp; Wellness.</p>
+      <p class="sh6-your-skin__body">Our physicians and staff specialize in a wide range of facial and body treatments. Using the latest technology in lasers, fillers, and top-rated facials, we provide premium care that&apos;s worth the 5-minute drive from Short Hills to our Millburn location.</p>
+      <p class="sh6-your-skin__body">Whatever your skin type or concern, Menon Medispa ensures that every patient receives personalized attention and exceptional results. We understand the unique skincare needs and high standards of our discerning community.</p>
+      <p class="sh6-your-skin__body">Many of our clients tell us they appreciate our holistic approach that considers not just aesthetic outcomes, but overall wellness. Our convenient location makes it easy to prioritize self-care without disrupting your busy schedule.</p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .sh6-your-skin {
+    min-height: 565px;
+  }
+
+  /* semi-transparent white wash so dark text stays legible over the photo */
+  .sh6-your-skin__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.62);
+    z-index: 1;
+  }
+
+  .sh6-your-skin__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .sh6-your-skin__left {
+    flex: 0 0 380px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sh6-your-skin__eyebrow {
+    color: var(--color-text);
+  }
+
+  .sh6-your-skin__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .sh6-your-skin__right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sh6-your-skin__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .sh6-your-skin__left {
+      flex: 0 0 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sh6-your-skin__content {
+      flex-direction: column;
+    }
+
+    .sh6-your-skin__left {
+      flex: none;
+      width: 100%;
+    }
+  }
+</style>

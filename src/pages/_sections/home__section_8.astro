@@ -1,0 +1,107 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import Gallery from '@/components/Gallery.astro';
+
+import faceTreatmentsImg from '@/assets/services/face-treatments.webp';
+import naturalBeautyImg from '@/assets/services/natural-beauty-body.webp';
+import modelCurlyHairImg from '@/assets/services/model-curly-hair.webp';
+---
+
+<section class="home-section-8">
+  <SectionHeading
+    text="Our Services"
+    tag="h2"
+    align="center"
+    font="display"
+    size="lg"
+  />
+
+  <div class="home-section-8__gallery-wrap">
+    <Gallery
+      columns={3}
+      aspect="portrait"
+      images={[
+        {
+          src: faceTreatmentsImg.src,
+          alt: "Face Treatments Menon Medispa",
+          width: 385,
+          height: 675,
+        },
+        {
+          src: naturalBeautyImg.src,
+          alt: "Natural Beauty",
+          width: 402,
+          height: 675,
+        },
+        {
+          src: modelCurlyHairImg.src,
+          alt: "Model with Curly Hair",
+          width: 402,
+          height: 675,
+        },
+      ]}
+    />
+  </div>
+
+  <div class="home-section-8__labels">
+    <div class="home-section-8__label">
+      <h2 class="home-section-8__label-text">FACE</h2>
+    </div>
+    <div class="home-section-8__label">
+      <h2 class="home-section-8__label-text">BODY</h2>
+    </div>
+    <div class="home-section-8__label">
+      <h2 class="home-section-8__label-text">HAIR</h2>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-section-8 {
+    padding: var(--space-lg) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .home-section-8__gallery-wrap {
+    width: 100%;
+  }
+
+  .home-section-8__labels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .home-section-8__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home-section-8__label-text {
+    font-family: var(--font-display);
+    font-size: var(--text-display-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  @media (max-width: 980px) {
+    .home-section-8 {
+      padding: var(--space-md) var(--space-sm);
+    }
+
+    .home-section-8__labels {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .home-section-8__label-text {
+      font-size: var(--text-display);
+    }
+  }
+</style>

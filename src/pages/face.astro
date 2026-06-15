@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import Section1 from './_sections/face__section_1.astro';
+import Section2 from './_sections/face__section_2.astro';
+import Section3 from './_sections/face__section_3.astro';
+import Section4 from './_sections/face__section_4.astro';
+import Section5 from './_sections/face__section_5.astro';
+import Section6 from './_sections/face__section_6.astro';
+import Section7 from './_sections/face__section_7.astro';
+
+const pageUrl = `${site.url}/face`;
+const pageDescription = 'Explore facial treatments and medical aesthetics in Millburn, NJ at Menon Medispa, including HydraFacial, laser treatments, fillers, injectables, and facials.';
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${pageUrl}#collection`,
+    url: pageUrl,
+    name: 'Facial Treatments & Medical Aesthetics',
+    description: pageDescription,
+    isPartOf: { '@id': site.schemaId },
+    about: {
+      '@type': 'Service',
+      name: 'Facial treatments and medical aesthetics',
+      provider: { '@id': site.schemaId },
+      areaServed: site.areaServed,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+      { '@type': 'ListItem', position: 2, name: 'Face', item: pageUrl },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Facial Treatments & Medical Aesthetics in Millburn NJ | Menon Medispa"
+  description={pageDescription}
+  canonical={pageUrl}
+  jsonld={jsonld}
+>
+  <Section1 />
+  <Section2 />
+  <Section3 />
+  <Section4 />
+  <Section5 />
+  <Section6 />
+  <Section7 />
+</BaseLayout>
+<!-- fidelity-report: {"sections_expected":8,"widgets_expected":77,"images_referenced":26,"images_resolved":0,"responsive_overrides_expected":10,"responsive_signals_built":14,"findings_high":61,"findings_medium":39,"fidelity_pct":0,"dropped":["missing-text","list-count-mismatch","missing-link","invented-image"]} -->

@@ -1,0 +1,122 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/microneedling-millburn-nj__section_2.astro';
+import VideoGallery from '@/pages/_sections/microneedling-millburn-nj__section_4.astro';
+import Process from '@/pages/_sections/microneedling-millburn-nj__section_5.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Pricing from '@/pages/_sections/microneedling-millburn-nj__section_7.astro';
+import FinalCta from '@/pages/_sections/microneedling-millburn-nj__section_9.astro';
+
+import heroImg from '@/assets/images/cebad624861f.jpg';
+
+const slug = 'microneedling-millburn-nj';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers are blank/placeholder in the source section -- omitting to avoid fabrication.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Microneedling in Millburn, NJ',
+  description:
+    'Medical-grade SkinPen microneedling in Millburn NJ. Reduce acne scars, fine lines, and uneven texture. Safe for all skin types.',
+  url: '/microneedling-millburn-nj',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Skin Treatments',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Microneedling', url: '/microneedling-millburn-nj' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Microneedling in Millburn NJ | Menon Medispa"
+  description="Medical-grade SkinPen microneedling in Millburn NJ. Reduce acne scars, fine lines, and uneven texture. Safe for all skin types."
+  canonical="https://www.menonmedispa.com/microneedling-millburn-nj"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="MICRONEEDLING · MILLBURN, NJ"
+    h1="SkinPen Microneedling in Millburn, NJ"
+    subhead="Medical-grade microneedling that stimulates your skin's natural healing power to reduce acne scars, fine lines, and uneven texture, with minimal downtime."
+    image={heroImg}
+    imageAlt="SkinPen microneedling patient at Menon Medispa Millburn NJ"
+    price="Starting at $299"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Microneedling Works When Other Treatments Haven't</h2>
+
+      <p class="svc-lead">Our medical-grade microneedling treatments use the SkinPen device to create controlled micro-injuries that trigger collagen and elastin production. Experience real, lasting results with minimal downtime.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Precision Technology</h3>
+          <p>The SkinPen creates micro-channels at precise depths to target your specific skin concerns, from acne scars to fine lines.</p>
+        </li>
+        <li>
+          <h3>Natural Healing Response</h3>
+          <p>By triggering the skin's natural healing response, microneedling stimulates collagen and elastin production for results that improve over time.</p>
+        </li>
+        <li>
+          <h3>Universal Compatibility</h3>
+          <p>Unlike laser treatments, microneedling is safe for all skin types and tones with no risk of hyperpigmentation.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$299 per session' },
+          { label: 'Appointment', value: '1 hour' },
+          { label: 'Device', value: 'SkinPen' },
+          { label: 'Skin types', value: 'All skin types' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <VideoGallery />
+
+  <Process />
+
+  <ServiceTestimonial slug="microneedling-millburn-nj" />
+
+  <Pricing />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Section 3 prose inlined into main column. Bands 2/4/5/7/9 reused verbatim. Section 6 testimonial swapped to ServiceTestimonial (provider-safe curated reviews). Section 8 FAQ skipped (all answers blank/placeholder -- not fabricated). Section 11 SALES promo removed (replaced by SalePopup). -->

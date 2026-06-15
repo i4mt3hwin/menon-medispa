@@ -1,0 +1,241 @@
+---
+{/* BREAKDANCE: hand-authored from structure.json */}
+import site from '@/lib/site';
+
+import heroBg from '@/assets/images/651c7c197b52.png';
+import clientPhoto from '@/assets/images/cebad624861f.jpg';
+import reviewIcon1 from '@/assets/images/90411e0041df.png';
+import reviewIcon2 from '@/assets/images/305afeda5f9a.png';
+import reviewIcon3 from '@/assets/images/b95880091b44.png';
+---
+
+<section class="media-bg section s1-hero" style="--scrim-strength:0.60">
+  <img class="media-bg__img media-bg__img--blur" src={heroBg.src} alt="" aria-hidden="true"
+       loading="eager" decoding="async" width="1440" height="546" />
+  <span class="media-bg__scrim media-bg__scrim--l"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s1-hero__layout">
+
+      <div class="s1-hero__text">
+        <h1 class="s1-hero__heading">
+          Microneedling in Millburn NJ
+        </h1>
+
+        <h2 class="s1-hero__subheading">
+          Stimulate Your Skin's Natural Healing Power
+        </h2>
+
+        <p class="s1-hero__body">
+          Our medical-grade microneedling treatments use the SkinPen device to create controlled micro-injuries that trigger collagen and elastin production. Experience real, lasting results with minimal downtime.
+        </p>
+
+        <div class="s1-hero__ctas">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Your Microneedling Today
+          </a>
+        </div>
+
+        <div class="s1-hero__social-proof">
+          <div class="s1-hero__social-icons">
+            <img
+              src={reviewIcon1.src}
+              alt="Review platform"
+              class="s1-hero__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="46"
+              height="50"
+            />
+            <img
+              src={reviewIcon2.src}
+              alt="Review platform"
+              class="s1-hero__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+            <img
+              src={reviewIcon3.src}
+              alt="Review platform"
+              class="s1-hero__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+          </div>
+          <div class="s1-hero__stars-block">
+            <p class="s1-hero__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <p class="s1-hero__review-count">100+ 5 Star Reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="s1-hero__img-col">
+        <img
+          src={clientPhoto.src}
+          alt="SkinPen microneedling patient at Menon Medispa Millburn NJ"
+          class="s1-hero__img"
+          loading="eager"
+          decoding="async"
+          width="376"
+          height="440"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .s1-hero {
+    min-height: 546px;
+  }
+
+  .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .s1-hero__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .s1-hero__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .s1-hero__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .s1-hero__subheading {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s1-hero__body {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s1-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .s1-hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .s1-hero__social-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .s1-hero__social-icon {
+    display: block;
+    object-fit: contain;
+    filter: brightness(1.15);
+  }
+
+  .s1-hero__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .s1-hero__stars {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .s1-hero__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s1-hero__img-col {
+    flex-shrink: 0;
+    width: 376px;
+  }
+
+  .s1-hero__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.35);
+  }
+
+  @media (max-width: 1024px) {
+    .s1-hero__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s1-hero {
+      min-height: auto;
+    }
+
+    .s1-hero__layout {
+      flex-direction: column-reverse;
+    }
+
+    .s1-hero__text {
+      max-width: 100%;
+    }
+
+    .s1-hero__img-col {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .s1-hero__ctas {
+      flex-direction: column;
+    }
+
+    .s1-hero__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .s1-hero__social-proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

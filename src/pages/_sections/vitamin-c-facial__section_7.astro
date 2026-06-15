@@ -1,0 +1,226 @@
+---
+import addon1Img from '@/assets/images/71fd4437d1c9.png';
+import addon2Img from '@/assets/images/a822a2b001cc.png';
+import addon3Img from '@/assets/images/4bc097ff8839.png';
+import addon4Img from '@/assets/images/129e4e075fac.png';
+import addon5Img from '@/assets/images/145f8747aa55.png';
+import addon6Img from '@/assets/images/016978cac38f.png';
+---
+
+<section class="section section--tint s7-addons">
+  <div class="container">
+
+    <h2 class="s7-addons__heading">Addons</h2>
+
+    <p class="s7-addons__intro">Enhance your Vitamin C Facial results with these powerful add-ons designed to maximize your skin transformation and speed healing.</p>
+
+    <div class="s7-addons__grid">
+
+      <div class="s7-addons__card">
+        <div class="s7-addons__card-img-wrap">
+          <img
+            src={addon1Img.src}
+            alt="Customized Hydrogel Mask"
+            class="s7-addons__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s7-addons__card-body">
+          <h3 class="s7-addons__card-title">Customized Hydrogel Mask</h3>
+          <p class="s7-addons__card-price">$25</p>
+        </div>
+      </div>
+
+      <div class="s7-addons__card">
+        <div class="s7-addons__card-img-wrap">
+          <img
+            src={addon2Img.src}
+            alt="Eye Treatment"
+            class="s7-addons__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s7-addons__card-body">
+          <h3 class="s7-addons__card-title">Eye Treatment</h3>
+          <p class="s7-addons__card-price">$10</p>
+        </div>
+      </div>
+
+      <div class="s7-addons__card">
+        <div class="s7-addons__card-img-wrap">
+          <img
+            src={addon3Img.src}
+            alt="Manual Lymph Drainage"
+            class="s7-addons__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s7-addons__card-body">
+          <h3 class="s7-addons__card-title">Manual Lymph Drainage</h3>
+          <p class="s7-addons__card-price">$50</p>
+        </div>
+      </div>
+
+      <div class="s7-addons__card">
+        <div class="s7-addons__card-img-wrap">
+          <img
+            src={addon4Img.src}
+            alt="LED Light Therapy"
+            class="s7-addons__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s7-addons__card-body">
+          <h3 class="s7-addons__card-title">LED Light Therapy</h3>
+          <p class="s7-addons__card-price">$35</p>
+        </div>
+      </div>
+
+      <div class="s7-addons__card">
+        <div class="s7-addons__card-img-wrap">
+          <img
+            src={addon5Img.src}
+            alt="Hydrafacial Lip Perk"
+            class="s7-addons__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s7-addons__card-body">
+          <h3 class="s7-addons__card-title">Hydrafacial Lip Perk</h3>
+          <p class="s7-addons__card-price">$30</p>
+        </div>
+      </div>
+
+      <div class="s7-addons__card">
+        <div class="s7-addons__card-img-wrap">
+          <img
+            src={addon6Img.src}
+            alt="Hydrafacial Eye Perk"
+            class="s7-addons__card-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+        </div>
+        <div class="s7-addons__card-body">
+          <h3 class="s7-addons__card-title">Hydrafacial Eye Perk</h3>
+          <p class="s7-addons__card-price">$40</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s7-addons__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s7-addons__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0 auto var(--space-lg);
+    line-height: 1.6;
+    text-align: center;
+    max-width: var(--container-narrow);
+  }
+
+  .s7-addons__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .s7-addons__card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-bg);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s7-addons__card-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .s7-addons__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .s7-addons__card:hover .s7-addons__card-img {
+    transform: scale(1.04);
+  }
+
+  .s7-addons__card-body {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .s7-addons__card-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s7-addons__card-price {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 900px) {
+    .s7-addons__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s7-addons__grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin-inline: auto;
+    }
+  }
+</style>

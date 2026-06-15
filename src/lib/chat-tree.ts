@@ -1,5 +1,5 @@
 /**
- * chat-tree.ts — decision-tree content for the built-in ChatAssistant.
+ * chat-tree.ts, decision-tree content for the built-in ChatAssistant.
  * Replaces Wix Chat (platform-bound). NO AI, NO free-text, NO PHI egress.
  * Answers are drawn ONLY from the site's own captured content + SITE/NAV
  * (Path-2: nothing invented). Auto-drafted by 03-build-replicate; operator
@@ -87,7 +87,7 @@ export const CHAT_TREE: ChatTree = {
     },
     faq_schedule: {
       message:
-        'You can request an appointment online or call us — we’ll confirm your time. Tap below to book or call.',
+        'You can request an appointment online or call us, we’ll confirm your time. Tap below to book or call.',
       options: [
         { label: 'Book an appointment', action: 'book' },
         { label: 'Call us', action: 'call' },

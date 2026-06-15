@@ -1,0 +1,128 @@
+---
+import gallery1 from '@/assets/images/2e5d1e68225a.jpg';
+import gallery2 from '@/assets/images/1fb1073fea37.png';
+import gallery3 from '@/assets/images/b1a819f35921.webp';
+import gallery4 from '@/assets/images/2e5d1e68225a.jpg';
+import gallery5 from '@/assets/images/1fb1073fea37.png';
+---
+
+<section class="section section--tint s4-gallery">
+  <div class="container">
+
+    <h2 class="s4-gallery__heading">Hear From Our Customers!</h2>
+
+    <div class="s4-gallery__grid">
+
+      <div class="s4-gallery__item">
+        <img
+          src={gallery1.src}
+          alt="Happy Menon Medispa IV therapy client"
+          class="s4-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="300"
+          height="300"
+        />
+      </div>
+
+      <div class="s4-gallery__item">
+        <img
+          src={gallery2.src}
+          alt="Happy Menon Medispa IV therapy client"
+          class="s4-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="300"
+          height="300"
+        />
+      </div>
+
+      <div class="s4-gallery__item">
+        <img
+          src={gallery3.src}
+          alt="Happy Menon Medispa IV therapy client"
+          class="s4-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="300"
+          height="300"
+        />
+      </div>
+
+      <div class="s4-gallery__item">
+        <img
+          src={gallery4.src}
+          alt="Happy Menon Medispa IV therapy client"
+          class="s4-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="300"
+          height="300"
+        />
+      </div>
+
+      <div class="s4-gallery__item">
+        <img
+          src={gallery5.src}
+          alt="Happy Menon Medispa IV therapy client"
+          class="s4-gallery__img"
+          loading="lazy"
+          decoding="async"
+          width="300"
+          height="300"
+        />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s4-gallery__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s4-gallery__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+  }
+
+  .s4-gallery__item {
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .s4-gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .s4-gallery__item {
+      width: 140px;
+      height: 140px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .s4-gallery__item {
+      width: calc(50% - var(--space-xs));
+      height: auto;
+      aspect-ratio: 1;
+    }
+  }
+</style>

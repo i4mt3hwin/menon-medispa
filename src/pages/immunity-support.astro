@@ -1,0 +1,156 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/immunity-support__section_2.astro';
+import IVOptions from '@/pages/_sections/immunity-support__section_3.astro';
+import Process from '@/pages/_sections/immunity-support__section_5.astro';
+import Pricing from '@/pages/_sections/immunity-support__section_6.astro';
+import UpgradeCallout from '@/pages/_sections/immunity-support__section_7.astro';
+import FinalCta from '@/pages/_sections/immunity-support__section_9.astro';
+
+import heroImg from '@/assets/images/fc3ca8a7bdf0.jpg';
+
+const slug = 'immunity-support';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'Do IV drips work for immunity?',
+    answer:
+      'Yes. IV therapy delivers vitamins, minerals, and antioxidants directly into the bloodstream, bypassing the digestive system for 100% absorption. Key nutrients like high-dose Vitamin C, Zinc, and B-vitamins are delivered at therapeutic levels that support immune cell function, reduce inflammation, and help your body fight pathogens more effectively than oral supplements.',
+  },
+  {
+    question: 'Will insurance pay for IV therapy?',
+    answer:
+      'IV vitamin therapy is generally considered a wellness service and is not typically covered by health insurance. However, we offer competitive pricing and encourage you to contact us to discuss your options. Some flexible spending accounts (FSAs) or health savings accounts (HSAs) may cover these treatments.',
+  },
+  {
+    question: 'Does the IV drip hurt?',
+    answer:
+      'Most clients describe the initial needle insertion as a minor pinch, similar to a routine blood draw. Once the IV is placed, the infusion itself is virtually painless. Our experienced registered nurses are skilled at making the process as comfortable as possible.',
+  },
+  {
+    question: 'How often should I get an immunity IV drip?',
+    answer:
+      'This depends on your wellness goals. For general immune maintenance, monthly sessions work well for most clients. If you\'re actively fighting an illness or have an upcoming event or travel, you may benefit from sessions closer together. Our registered nurses will help you create a personalized wellness schedule.',
+  },
+  {
+    question: 'How quickly will I feel the effects?',
+    answer:
+      'Many clients report feeling more energized and refreshed during or immediately after their infusion. The full immune-supporting effects typically develop over the following 24–48 hours as your body utilizes the nutrients. Results can last anywhere from several days to a few weeks.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Immune Support IV Therapy in Millburn, NJ',
+  description:
+    'Our Immune Support IV drips deliver a powerful blend of vitamins, antioxidants, and minerals directly to your bloodstream for 100% absorption. Recover faster, feel stronger, and maintain peak wellness. Book at Menon Medispa Millburn NJ.',
+  url: '/immunity-support',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Immunity Support', url: '/immunity-support' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Immune Support IV Therapy in Millburn NJ | Menon Medispa"
+  description="Our Immune Support IV drips deliver a powerful blend of vitamins, antioxidants, and minerals directly to your bloodstream for 100% absorption. Recover faster, feel stronger, and maintain peak wellness. Book at Menon Medispa Millburn NJ."
+  canonical="https://www.menonmedispa.com/immunity-support"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="IV THERAPY · MILLBURN, NJ"
+    h1="Immune Support IV Therapy in Millburn, NJ"
+    subhead="Live life uninterrupted by seasonal bugs and illness. 100% nutrient absorption delivered directly to your bloodstream."
+    image={heroImg}
+    imageAlt="IV therapy immune support at Menon Medispa Millburn NJ"
+    price="Starting at $200"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Immune Support IV Therapy at Menon Medispa</h2>
+
+      <p class="svc-lead">Feeling run down, constantly catching colds, or preparing for travel? Our Immune Support IV drips deliver a powerful blend of vitamins, antioxidants, and minerals directly to your bloodstream.</p>
+
+      <p>This bypasses the gut, ensuring 100% absorption to help you recover faster, feel stronger, and maintain peak wellness year-round.</p>
+
+      <p class="svc-eyebrow">Why IV Therapy Outperforms Oral Supplements</p>
+
+      <p>When you take oral vitamins, your digestive system can absorb only a fraction of each dose. IV therapy bypasses this limitation entirely, delivering nutrients at therapeutic concentrations directly where your body needs them. The result is faster, more measurable support for your immune system compared to even the most comprehensive supplement regimen.</p>
+
+      <p class="svc-eyebrow">Your Session Experience</p>
+
+      <ul class="svc-checks">
+        <li>Personalized consultation with a registered nurse before every session</li>
+        <li>Comfortable therapy lounge designed for relaxation during your infusion</li>
+        <li>45–60 minute sessions, virtually painless from start to finish</li>
+        <li>Many patients report feeling more energized and refreshed immediately after</li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'Starting at $200' },
+          { label: 'Session length', value: '45–60 minutes' },
+          { label: 'Results', value: 'Felt during or within 24–48 hours' },
+          { label: 'Administered by', value: 'Registered nurses' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <IVOptions />
+
+  <ServiceTestimonial slug="immunity-support" />
+
+  <Process />
+
+  <Pricing />
+
+  <UpgradeCallout />
+
+  <LeadForm />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept verbatim: section_2 (TrustBar), section_3 (IVOptions), section_5 (Process), section_6 (Pricing), section_7 (UpgradeCallout), section_9 (FinalCta). Hero prose (section_1) inlined into main column as svc-block. FAQ (section_8) lifted into faqItems + FaqColumn. No promo band present. LeadForm (dropped from section_8 during conversion) restored as full-width band immediately before FinalCta. section_4 (ReviewGallery) swapped to <ServiceTestimonial slug="immunity-support" /> — provider-safe curated review, unsafe scraped quotes removed. -->

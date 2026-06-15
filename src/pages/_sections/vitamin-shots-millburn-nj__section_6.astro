@@ -1,0 +1,47 @@
+---
+import bgImg from '@/assets/images/30cfb9e87c60.png';
+import starsImg from '@/assets/images/5be44787b3a9.png';
+---
+
+<!-- Section 6: Testimonials, What Our Clients Say -->
+<section class="media-bg section s4-testimonial vs-s6" style="--scrim-strength:0.58">
+  <img class="media-bg__img media-bg__img--blur" src={bgImg.src} alt="" aria-hidden="true" loading="lazy" decoding="async" width="1440" height="585" />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s4-testimonial__inner">
+
+      <h3 class="s4-testimonial__label">What Our Clients Say</h3>
+
+      <blockquote class="s4-testimonial__quote">
+        <p class="s4-testimonial__quote-text">
+          I came in for a B12 shot before a busy workweek, and wow, what a difference. Within hours, I felt more alert, focused, and just better. It's become my secret weapon before big deadlines or travel. So quick, so worth it!
+        </p>
+        <footer class="s4-testimonial__footer">
+          <cite class="s4-testimonial__cite">Rachel T.</cite>
+        </footer>
+      </blockquote>
+
+      <div class="s4-testimonial__stars">
+        <img
+          src={starsImg.src}
+          alt="Google 5 Star Rating"
+          class="s4-testimonial__stars-img"
+          width="143"
+          height="74"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .vs-s6 .s4-testimonial__stars-img {
+    display: block;
+    height: auto;
+    width: 143px;
+  }
+</style>

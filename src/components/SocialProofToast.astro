@@ -1,0 +1,274 @@
+---
+/**
+ * SocialProofToast.astro, small rotating "recent activity" toast (bottom-left).
+ *
+ * Native replacement for the old Wix ProveSrc widget: shows a compact
+ * "FirstName L. from <Town> booked <generalized service>" card that rotates
+ * through a seeded feed. No third-party script, no tracking, fully ours.
+ *
+ * Data + the two guardrails (seeded-not-live, generalized-not-specific) live in
+ * src/lib/social-proof.ts, read that file before editing the entries.
+ *
+ * Placement: mounted once globally in BaseLayout (after the page, before chat).
+ * Position: bottom-LEFT so it never fights the ChatAssistant launcher
+ * (bottom-right). Hidden <=900px so it never collides with the MobileCtaBar
+ * pill that occupies the bottom edge on phones (flip the media query if you
+ * want it on mobile too).
+ *
+ * Behavior: first toast after `initialDelayMs`, each visible `showMs`, then a
+ * randomized gap before the next; loops through a shuffled order. Dismiss (X)
+ * silences it for the rest of the session. Reduced-motion safe (fade only).
+ */
+import type { ImageMetadata } from 'astro';
+import { socialProof } from '@/lib/social-proof';
+import type { ProofCategory } from '@/lib/social-proof';
+
+// Category -> representative CATEGORY photo (a facial / an IV drip / a laser),
+// reusing brand images already on the site. Never procedure-specific or
+// identifying — keep these generic to honor the privacy guardrail.
+import imgFacial   from '@/assets/images/04bf461982db.jpg'; // facial treatment
+import imgSkin     from '@/assets/images/34ef44b50a1c.jpg'; // hydrafacial / glow skin
+import imgIv       from '@/assets/images/914772453481.jpg'; // IV drip
+import imgLaser    from '@/assets/images/67c41f4e43f3.jpeg'; // laser
+import imgHair     from '@/assets/images/02127013d183.jpg'; // hair restoration
+import imgBody     from '@/assets/images/cd90aa0cbbcb.jpg'; // body wellness
+
+const categoryImg: Record<ProofCategory, ImageMetadata> = {
+  facial:   imgFacial,
+  skin:     imgSkin,
+  iv:       imgIv,
+  wellness: imgIv, // wellness/drip shares the IV visual
+  laser:    imgLaser,
+  hair:     imgHair,
+  body:     imgBody,
+};
+
+interface Props {
+  /** Wait this long after load before the first toast. */
+  initialDelayMs?: number;
+  /** How long each toast stays on screen. */
+  showMs?: number;
+  /** Min/max idle gap between toasts (randomized for a natural cadence). */
+  minGapMs?: number;
+  maxGapMs?: number;
+}
+const {
+  initialDelayMs = 8000,
+  showMs = 6000,
+  minGapMs = 14000,
+  maxGapMs = 26000,
+} = Astro.props;
+
+// Resolve each entry's category photo to an optimized URL the client can render.
+const feed = socialProof.map((e) => ({
+  ...e,
+  img: (categoryImg[e.category] ?? categoryImg.facial).src,
+}));
+---
+
+{feed.length > 0 && (
+  <div
+    class="proof-toast"
+    data-proof-toast
+    data-initial-delay={initialDelayMs}
+    data-show={showMs}
+    data-min-gap={minGapMs}
+    data-max-gap={maxGapMs}
+    aria-hidden="true"
+  >
+    <button class="proof-toast__close" data-proof-close type="button" aria-label="Dismiss">&times;</button>
+    <span class="proof-toast__media" aria-hidden="true">
+      <img class="proof-toast__thumb" data-proof-img alt="" width="48" height="48" loading="lazy" decoding="async" />
+      <span class="proof-toast__badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+          <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </span>
+    <div class="proof-toast__body">
+      <span class="proof-toast__line" data-proof-line></span>
+      <span class="proof-toast__meta" data-proof-meta></span>
+      <span class="proof-toast__verified">Verified by Menon Medispa</span>
+    </div>
+  </div>
+
+  <script type="application/json" data-proof-data set:html={JSON.stringify(feed)} />
+)}
+
+<style>
+  .proof-toast {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    z-index: 120; /* below the sale lightbox (200), above page chrome */
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: min(330px, calc(100vw - 40px));
+    padding: 14px 34px 14px 14px;
+    background: var(--color-surface);
+    border: 1px solid rgb(0 0 0 / 0.07);
+    border-left: 3px solid var(--color-cta);
+    border-radius: var(--radius-md);
+    box-shadow: 0 16px 44px rgb(18 13 24 / 0.20);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+  }
+  .proof-toast.is-shown { opacity: 1; visibility: visible; transform: none; }
+
+  .proof-toast__close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--color-text);
+    opacity: 0.4;
+    cursor: pointer;
+    padding: 4px 6px;
+  }
+  .proof-toast__close:hover { opacity: 0.9; }
+
+  .proof-toast__media {
+    position: relative;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+  }
+  .proof-toast__thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
+  .proof-toast__badge {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--color-cta);
+    color: #fff;
+    border: 2px solid var(--color-surface);
+  }
+
+  .proof-toast__body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .proof-toast__line {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.35;
+  }
+  .proof-toast__line strong { font-weight: var(--weight-bold); }
+  .proof-toast__meta {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: color-mix(in srgb, var(--color-text) 85%, transparent);
+    line-height: 1.35;
+  }
+  .proof-toast__verified {
+    margin-top: 5px;
+    font-family: var(--font-body); /* raleway renders solid; --font-ui (lato-light) looks thin */
+    font-weight: var(--weight-bold);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-text) 80%, transparent);
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  /* Hidden on phones so it never collides with the MobileCtaBar pill. */
+  @media (max-width: 900px) { .proof-toast { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proof-toast { transition: opacity 0.3s ease, visibility 0.3s ease; transform: none; }
+    .proof-toast.is-shown { transform: none; }
+  }
+</style>
+
+<script>
+  (function () {
+    var el = document.querySelector('[data-proof-toast]');
+    var dataEl = document.querySelector('[data-proof-data]');
+    if (!el || !dataEl) return;
+
+    // Respect a session dismissal.
+    try { if (sessionStorage.getItem('menonProofClosed')) return; } catch (e) {}
+
+    var feed;
+    try { feed = JSON.parse(dataEl.textContent || '[]'); } catch (e) { return; }
+    if (!Array.isArray(feed) || !feed.length) return;
+
+    var initialDelay = parseInt(el.getAttribute('data-initial-delay') || '8000', 10);
+    var showMs = parseInt(el.getAttribute('data-show') || '6000', 10);
+    var minGap = parseInt(el.getAttribute('data-min-gap') || '14000', 10);
+    var maxGap = parseInt(el.getAttribute('data-max-gap') || '26000', 10);
+
+    var lineEl = el.querySelector('[data-proof-line]');
+    var metaEl = el.querySelector('[data-proof-meta]');
+    var imgEl = el.querySelector('[data-proof-img]');
+    var closeBtn = el.querySelector('[data-proof-close]');
+
+    // Shuffle once so the order isn't identical every page load.
+    var order = feed.slice();
+    for (var i = order.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = order[i]; order[i] = order[j]; order[j] = t;
+    }
+
+    var idx = 0;
+    var stopped = false;
+    var timer = null;
+
+    function rand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+
+    function render(entry) {
+      lineEl.innerHTML = '<strong>' + entry.name + '</strong> from ' + entry.town;
+      metaEl.textContent = 'Booked ' + entry.service + ' · ' + entry.when;
+      if (imgEl && entry.img) imgEl.setAttribute('src', entry.img);
+    }
+
+    function hide() {
+      el.classList.remove('is-shown');
+    }
+
+    function showNext() {
+      if (stopped) return;
+      render(order[idx % order.length]);
+      idx++;
+      el.classList.add('is-shown');
+      timer = setTimeout(function () {
+        hide();
+        timer = setTimeout(showNext, rand(minGap, maxGap));
+      }, showMs);
+    }
+
+    function stop() {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+      hide();
+      try { sessionStorage.setItem('menonProofClosed', '1'); } catch (e) {}
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', stop);
+
+    // Pause the cycle while the tab is hidden so toasts don't pile up unseen.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && timer) { clearTimeout(timer); timer = null; }
+      else if (!document.hidden && !stopped && !timer && idx > 0) { timer = setTimeout(showNext, rand(minGap, maxGap)); }
+    });
+
+    timer = setTimeout(showNext, initialDelay);
+  })();
+</script>

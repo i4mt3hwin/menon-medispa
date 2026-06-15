@@ -1,0 +1,94 @@
+---
+import sectionBg from '@/assets/images/30cfb9e87c60.png';
+import googleRatingImg from '@/assets/images/5be44787b3a9.png';
+---
+
+<section class="media-bg section sema-s4-testimonial" style="--scrim-strength:0.58">
+  <img class="media-bg__img media-bg__img--blur" src={sectionBg.src} alt="" aria-hidden="true"
+       loading="lazy" decoding="async" width="1440" height="585" />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="sema-s4__inner">
+
+      <h3 class="sema-s4__label">What Our Clients Say</h3>
+
+      <blockquote class="sema-s4__quote">
+        <p class="sema-s4__quote-text">
+          "Jennifer is amazing. Her aura and energy makes you feel welcomed and comfortable. Love our sessions! And my girl Rose Marie, the receptionist, is just lovely! I always leave with great joy after seeing them."
+        </p>
+        <footer class="sema-s4__footer">
+          <cite class="sema-s4__cite">Alexa C.</cite>
+        </footer>
+      </blockquote>
+
+      <div class="sema-s4__google-rating">
+        <img
+          src={googleRatingImg.src}
+          alt="Google 5 Star Rating (Social Proof)"
+          width="143"
+          height="74"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .sema-s4__inner {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .sema-s4__label {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .sema-s4__quote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .sema-s4__quote-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .sema-s4__footer {
+    font-style: normal;
+  }
+
+  .sema-s4__cite {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    font-style: normal;
+  }
+
+  .sema-s4__google-rating {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sema-s4__google-rating img {
+    display: block;
+    width: 143px;
+    height: 74px;
+    object-fit: contain;
+  }
+</style>

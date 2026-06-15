@@ -1,0 +1,40 @@
+---
+import ServicesGrid from '@/components/ServicesGrid.astro';
+import site from '@/lib/site';
+
+import imgHydrafacial from '@/assets/images/86072f9cbd9c.jpg';
+import imgCustomIv from '@/assets/images/dd355e57f3dd.jpg';
+import imgBrotox from '@/assets/images/56a3e3ac1335.jpg';
+---
+
+<ServicesGrid
+  heading="Explore Our Current Specials"
+  heading_tag="h2"
+  columns={3}
+  items={[
+    {
+      title: "Summer Glow Hydrafacial",
+      href: site.calcomUrl,
+      image_src: imgHydrafacial.src,
+      image_alt: "Summer Glow Hydrafacial",
+      description_html: "<p>Glow now, thank yourself later.</p><p><strong>$225</strong></p>",
+      cta_text: "Book Now",
+    },
+    {
+      title: "Custom Hydrating IV",
+      href: site.calcomUrl,
+      image_src: imgCustomIv.src,
+      image_alt: "Custom Hydrating IV",
+      description_html: "<p>Rehydrate, recharge, and build your own blend. Pick any 2 vitamins and make it yours.</p><p><strong>$99</strong></p>",
+      cta_text: "Book Now",
+    },
+    {
+      title: "BRO-Tox Father's Day Special",
+      href: site.calcomUrl,
+      image_src: imgBrotox.src,
+      image_alt: "BRO-Tox Father's Day Special",
+      description_html: "<p>This Father&#39;s Day, give Dad something better than another tie he&#39;ll never wear.</p><p><strong>$12 Per Unit</strong></p>",
+      cta_text: "Book Now",
+    },
+  ]}
+/>

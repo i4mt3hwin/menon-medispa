@@ -1,0 +1,133 @@
+---
+---
+
+<section class="section s8-addons">
+  <div class="container">
+
+    <div class="s8-addons__intro">
+      <h2 class="s8-addons__heading">Addons</h2>
+      <p class="s8-addons__sub">Enhance your dermaplaning facial results with these powerful add-ons.</p>
+    </div>
+
+    <div class="s8-addons__grid">
+
+      <div class="s8-addons__item">
+        <img src="/images/71fd4437d1c9.png" alt="Customized Hydrogel Mask" width="220" height="215" loading="lazy" class="s8-addons__img" />
+        <p class="s8-addons__name"><strong>Customized Hydrogel Mask</strong></p>
+        <p class="s8-addons__price">$25</p>
+      </div>
+
+      <div class="s8-addons__item">
+        <img src="/images/a822a2b001cc.png" alt="Eye Treatment" width="220" height="215" loading="lazy" class="s8-addons__img" />
+        <p class="s8-addons__name"><strong>Eye Treatment</strong></p>
+        <p class="s8-addons__price">$10</p>
+      </div>
+
+      <div class="s8-addons__item">
+        <img src="/images/4bc097ff8839.png" alt="Manual Lymph Drainage" width="220" height="215" loading="lazy" class="s8-addons__img" />
+        <p class="s8-addons__name"><strong>Manual Lymph Drainage</strong></p>
+        <p class="s8-addons__price">$50</p>
+      </div>
+
+      <div class="s8-addons__item">
+        <img src="/images/129e4e075fac.png" alt="LED Light Therapy" width="220" height="215" loading="lazy" class="s8-addons__img" />
+        <p class="s8-addons__name"><strong>LED Light Therapy</strong></p>
+        <p class="s8-addons__price">$35</p>
+      </div>
+
+      <div class="s8-addons__item">
+        <img src="/images/145f8747aa55.png" alt="Hydrafacial Lip Perk" width="220" height="215" loading="lazy" class="s8-addons__img" />
+        <p class="s8-addons__name"><strong>Hydrafacial Lip Perk</strong></p>
+        <p class="s8-addons__price">$30</p>
+      </div>
+
+      <div class="s8-addons__item">
+        <img src="/images/016978cac38f.png" alt="Hydrafacial Eye Perk" width="220" height="215" loading="lazy" class="s8-addons__img" />
+        <p class="s8-addons__name"><strong>Hydrafacial Eye Perk</strong></p>
+        <p class="s8-addons__price">$40</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s8-addons__intro {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .s8-addons__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.3;
+  }
+
+  .s8-addons__sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s8-addons__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .s8-addons__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+
+  .s8-addons__img {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    margin-inline: auto;
+  }
+
+  .s8-addons__name {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .s8-addons__price {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .s8-addons__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s8-addons__grid {
+      grid-template-columns: 1fr;
+      max-width: 300px;
+      margin-inline: auto;
+    }
+  }
+</style>

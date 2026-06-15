@@ -1,0 +1,121 @@
+---
+---
+
+<section class="section af-s9">
+  <div class="container--narrow">
+
+    <h2 class="af-s9__heading">Frequently asked questions</h2>
+
+    <div class="af-s9__faq">
+
+      <details class="af-s9__item">
+        <summary class="af-s9__question">Will the acne facial hurt?</summary>
+        <div class="af-s9__answer">
+          <p>The acne facial is designed to be comfortable throughout. You may feel a mild tingling sensation during the active serum application or slight pressure during manual extractions, but most clients find the experience relaxing. Our estheticians are trained to minimize discomfort while maximizing results.</p>
+        </div>
+      </details>
+
+      <details class="af-s9__item">
+        <summary class="af-s9__question">How soon will I see results?</summary>
+        <div class="af-s9__answer">
+          <p>Many clients notice clearer, less congested skin immediately after their first session. Active breakouts typically show significant improvement within 24 to 48 hours. For more persistent acne concerns, we recommend a series of treatments spaced 3 to 4 weeks apart for cumulative results.</p>
+        </div>
+      </details>
+
+      <details class="af-s9__item">
+        <summary class="af-s9__question">How often should I get acne facials?</summary>
+        <div class="af-s9__answer">
+          <p>For active acne concerns, we typically recommend starting with monthly sessions. Once your skin has cleared, you can transition to maintenance treatments every 6 to 8 weeks to keep breakouts at bay and maintain your results long term.</p>
+        </div>
+      </details>
+
+      <details class="af-s9__item">
+        <summary class="af-s9__question">Is there any downtime after the treatment?</summary>
+        <div class="af-s9__answer">
+          <p>There is minimal to no downtime after an acne facial. Some clients experience slight redness or sensitivity for a few hours immediately post-treatment, particularly if extractions were performed. We recommend avoiding heavy makeup and direct sun exposure for 24 hours following your session.</p>
+        </div>
+      </details>
+
+      <details class="af-s9__item">
+        <summary class="af-s9__question">Who is a good candidate for the acne facial?</summary>
+        <div class="af-s9__answer">
+          <p>Our acne facial is suitable for teens and adults experiencing mild to moderate acne, blackheads, whiteheads, or congested pores. It works for all skin types and tones. During your consultation, we will assess your skin and customize the treatment protocol to your specific concerns and goals.</p>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .af-s9__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .af-s9__faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .af-s9__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .af-s9__item[open] .af-s9__question {
+    font-weight: var(--weight-bold);
+  }
+
+  .af-s9__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none;
+    line-height: 1.5;
+    gap: var(--space-sm);
+  }
+
+  .af-s9__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .af-s9__question::after {
+    content: '+';
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    flex-shrink: 0;
+    line-height: 1;
+    color: var(--color-text);
+    opacity: 0.6;
+  }
+
+  .af-s9__item[open] .af-s9__question::after {
+    content: '\2212';
+  }
+
+  .af-s9__answer {
+    padding: 0 0 var(--space-sm);
+  }
+
+  .af-s9__answer p {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

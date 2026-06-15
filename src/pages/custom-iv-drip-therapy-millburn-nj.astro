@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Full-width experiential bands (reused verbatim from the original build)
+import PricingBand from '@/pages/_sections/custom-iv-drip-therapy-millburn-nj__section_2.astro';
+import Divider from '@/pages/_sections/custom-iv-drip-therapy-millburn-nj__section_4.astro';
+import MenuCard from '@/pages/_sections/custom-iv-drip-therapy-millburn-nj__section_5.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import FinalCta from '@/pages/_sections/custom-iv-drip-therapy-millburn-nj__section_7.astro';
+
+import heroImg from '@/assets/images/fc3ca8a7bdf0.jpg';
+
+const slug = 'custom-iv-drip-therapy-millburn-nj';
+const posts = getRelatedPosts(slug);
+
+// No FAQ section on this page, omit FaqColumn and FAQPage schema.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Custom IV Drip Therapy in Millburn, NJ',
+  description:
+    'Replenish energy, immunity, and hydration with personalized IV drips at Menon Medispa in Millburn, NJ. Book your custom IV therapy today for real results.',
+  url: '/custom-iv-drip-therapy-millburn-nj',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Custom IV Drip Therapy', url: '/custom-iv-drip-therapy-millburn-nj' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Custom IV Drip Therapy in Millburn NJ | Menon Medispa"
+  description="Replenish energy, immunity, and hydration with personalized IV drips at Menon Medispa in Millburn, NJ. Book your custom IV therapy today for real results."
+  canonical="https://www.menonmedispa.com/custom-iv-drip-therapy-millburn-nj"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="IV DRIP THERAPY · MILLBURN, NJ"
+    h1="Restore Your Energy with a Custom Mineral IV Drip in Millburn, NJ"
+    subhead="Personalized vitamin infusions to restore energy, immunity, and hydration, tailored to your body."
+    image={heroImg}
+    imageAlt="Customized mineral IV drip therapy at Menon Medispa in Millburn, NJ"
+    price="Starting at $100"
+    note="Each drip is tailored to you; vitamin add-ons $25 each."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <PricingBand />
+
+  <ServiceLayout asideSticky={false}>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>The Struggle with Low Energy and Nutrient Deficiency</h2>
+      <p class="svc-lead">Feeling constantly tired, foggy, or depleted makes it hard to function at your best. While energy drinks, supplements, and quick fixes provide momentary relief, they rarely solve the deeper problem:</p>
+
+      <ul class="svc-checks">
+        <li>Daily fatigue and sluggishness reduce your focus, drive, and mood</li>
+        <li>Store-bought supplements often absorb poorly and miss the mark</li>
+        <li>Stress, poor nutrition, and dehydration strip your body of essential minerals</li>
+        <li>Recovery from illness, workouts, or travel takes longer and feels harder</li>
+      </ul>
+
+      <p>Many people postpone real treatment because they don't know what their body is truly lacking, or whether IV therapy is worth it. That leads to ongoing burnout, weak immunity, and a loop of temporary fixes that never restore how you want to feel.</p>
+
+      <p class="svc-eyebrow">The Better Way Forward</p>
+      <p>At Menon Medispa, our Custom IV Drips are precisely formulated for your unique needs, with optional vitamin add-ons to give your body exactly what it's missing. Fast, targeted, and deeply effective.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Base Price', value: '$100' },
+          { label: 'Vitamin Add-ons', value: '$25 each' },
+          { label: 'Customization', value: 'Tailored to you' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Divider />
+
+  <MenuCard />
+
+  <ServiceTestimonial slug="custom-iv-drip-therapy-millburn-nj" />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + aside). Bands 2/4/5/6/7/9 reused verbatim. No FAQ section. -->

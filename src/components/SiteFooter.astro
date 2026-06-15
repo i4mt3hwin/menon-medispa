@@ -1,15 +1,15 @@
 ---
 /**
- * SiteFooter.astro — Phase 3 Pass 1 COMPLETE
+ * SiteFooter.astro, Phase 3 Pass 1 COMPLETE
  *
  * Sources:
- *   structure.json §14  — is_master="footer", FOOTER tag, bbox h=1069px
+ *   structure.json §14, is_master="footer", FOOTER tag, bbox h=1069px
  *   Columns captured:
- *     "Services & Shop" — Book Treatment(/), Face(/face), Body(/body), Hair(/hair),
+ *     "Services & Shop", Book Treatment(/), Face(/face), Body(/body), Hair(/hair),
  *                         Sale(/sale), Shop Products(/)
- *     "Our MediSpa"     — NAP: Menon Medispa, 45 Essex Street Suite 202, Millburn NJ 07041
+ *     "Our MediSpa", NAP: Menon Medispa, 45 Essex Street Suite 202, Millburn NJ 07041
  *                         Hours (Mon-Fri 10am-6pm, Sat 10am-2pm per site.ts authoritative)
- *     "Information"     — Shipping & Returns, Store Policy (+ Terms of Use)
+ *     "Information", Shipping & Returns, Store Policy (+ Terms of Use)
  *   Footer also includes: newsletter sign-up "Are you on the list?" section
  *   image-map.slice:    ig=d85622e84ef0, fb=482f7439ea47, tt=de7ef3d7c470
  *   site.ts:            legalName, address, phone (973) 494-8431, email, social, hours
@@ -31,46 +31,50 @@ const year = new Date().getFullYear();
   <!-- Newsletter band: "Are you on the list?" -->
   <div class="footer-newsletter">
     <div class="footer-newsletter__inner">
-      <h2 class="footer-newsletter__heading">Are you on the list?</h2>
-      <p class="footer-newsletter__sub">Join to get exclusive monthly offers and expert skincare tips.</p>
-      <form
-        class="footer-newsletter__form"
-        action="#"
-        method="post"
-        aria-label="Newsletter signup"
-        novalidate
-      >
-        <label for="footer-email" class="sr-only">Enter your email address</label>
-        <input
-          type="email"
-          id="footer-email"
-          name="email"
-          placeholder="Email"
-          required
-          autocomplete="email"
-          class="footer-newsletter__input"
-          aria-required="true"
-        />
-        <button type="submit" class="footer-newsletter__btn">Submit</button>
-      </form>
-      <!-- Social icons in newsletter band -->
-      <ul class="footer-newsletter__social" role="list" aria-label="Follow us">
-        <li>
-          <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <Image src={igImg} alt="Instagram" width={28} height={28} loading="lazy" />
-          </a>
-        </li>
-        <li>
-          <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <Image src={fbImg} alt="Facebook" width={28} height={28} loading="lazy" />
-          </a>
-        </li>
-        <li>
-          <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <Image src={ttImg} alt="TikTok" width={28} height={28} loading="lazy" />
-          </a>
-        </li>
-      </ul>
+      <div class="footer-newsletter__text">
+        <h2 class="footer-newsletter__heading">Are you on the list?</h2>
+        <p class="footer-newsletter__sub">Join to get exclusive monthly offers and expert skincare tips.</p>
+      </div>
+      <div class="footer-newsletter__actions">
+        <form
+          class="footer-newsletter__form"
+          action="#"
+          method="post"
+          aria-label="Newsletter signup"
+          novalidate
+        >
+          <label for="footer-email" class="sr-only">Enter your email address</label>
+          <input
+            type="email"
+            id="footer-email"
+            name="email"
+            placeholder="Email"
+            required
+            autocomplete="email"
+            class="footer-newsletter__input"
+            aria-required="true"
+          />
+          <button type="submit" class="footer-newsletter__btn">Submit</button>
+        </form>
+        <!-- Social icons in newsletter band -->
+        <ul class="footer-newsletter__social" role="list" aria-label="Follow us">
+          <li>
+            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Image src={igImg} alt="Instagram" width={28} height={28} loading="lazy" />
+            </a>
+          </li>
+          <li>
+            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <Image src={fbImg} alt="Facebook" width={28} height={28} loading="lazy" />
+            </a>
+          </li>
+          <li>
+            <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <Image src={ttImg} alt="TikTok" width={28} height={28} loading="lazy" />
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -112,7 +116,7 @@ const year = new Date().getFullYear();
           <p class="footer-hours__line">Wednesday &ndash; 10am&ndash;6pm</p>
           <p class="footer-hours__line">Thursday &ndash; 10am&ndash;6pm</p>
           <p class="footer-hours__line">Friday &ndash; 10am&ndash;6pm</p>
-          <p class="footer-hours__line">Saturday &ndash; 10am&ndash;2pm</p>
+          <p class="footer-hours__line">Saturday &ndash; 10am&ndash;4pm</p>
         </div>
       </div>
 
@@ -195,22 +199,28 @@ const year = new Date().getFullYear();
 .footer-newsletter {
   background-color: var(--color-footer-newsletter-bg);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 60px 24px;
+  padding: 28px 24px;
 }
 
 .footer-newsletter__inner {
-  max-width: 640px;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.footer-newsletter__text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  gap: 2px;
 }
 
 .footer-newsletter__heading {
   font-family: var(--font-display);
-  font-size: var(--text-display);
+  font-size: var(--text-h3);
   font-weight: 400;
   color: var(--color-footer-text);
   margin: 0;
@@ -219,29 +229,33 @@ const year = new Date().getFullYear();
 
 .footer-newsletter__sub {
   font-family: var(--font-body);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--color-footer-text-muted);
   margin: 0;
 }
 
+.footer-newsletter__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
 .footer-newsletter__form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 452px;
+  flex-direction: row;
+  align-items: stretch;
 }
 
 .footer-newsletter__input {
-  width: 100%;
+  width: 240px;
   padding: 10px 14px;
   font-family: var(--font-body);
   font-size: var(--text-xs);
   color: var(--color-text);
   background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   box-sizing: border-box;
   outline: none;
 }
@@ -251,18 +265,18 @@ const year = new Date().getFullYear();
 }
 
 .footer-newsletter__btn {
-  width: 100%;
-  padding: 12px 20px;
+  padding: 10px 22px;
   background-color: var(--color-cta);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-cta);
   font-size: var(--text-xs);
-  font-weight: 400;
+  font-weight: 600;
   border: 1px solid transparent;
-  border-radius: 18px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   cursor: pointer;
   transition: background-color 0.2s;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .footer-newsletter__btn:hover {
@@ -273,9 +287,9 @@ const year = new Date().getFullYear();
   display: flex;
   align-items: center;
   list-style: none;
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0;
-  gap: 12px;
+  gap: 14px;
 }
 
 .footer-newsletter__social li a {
@@ -447,14 +461,49 @@ const year = new Date().getFullYear();
   border: 0;
 }
 
-/* ── Mobile (<=980px) ── */
-@media (max-width: 980px) {
-  .footer-newsletter {
-    padding: 48px 16px;
+/* ── Tablet (≤1024px): 3-col intermediate layout ── */
+@media (max-width: 1024px) {
+  .footer-main {
+    padding: 52px 20px;
   }
 
-  .footer-newsletter__heading {
-    font-size: 36px;
+  .footer-main__inner {
+    /* 3 columns: services | nap | info+customer stacked */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+  }
+
+  /* Customer service slots beneath the Information column (col 3, row 2) */
+  .footer-col--customer-service {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}
+
+/* ── Mobile (≤768px): 2-col layout ── */
+@media (max-width: 768px) {
+  .footer-newsletter {
+    padding: 24px 16px;
+  }
+
+  .footer-newsletter__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .footer-newsletter__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .footer-newsletter__form {
+    flex: 1;
+  }
+
+  .footer-newsletter__input {
+    width: auto;
+    flex: 1;
   }
 
   .footer-main {
@@ -468,10 +517,12 @@ const year = new Date().getFullYear();
 
   .footer-col--nap {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 
   .footer-col--customer-service {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 
   .footer-bar__inner {
@@ -486,9 +537,26 @@ const year = new Date().getFullYear();
   }
 }
 
-@media (max-width: 560px) {
+/* ── Phone (≤480px): single column ── */
+@media (max-width: 480px) {
   .footer-main__inner {
     grid-template-columns: 1fr;
   }
+
+  .footer-col--nap, .footer-col--customer-service {
+    grid-column: auto;
+  }
 }
+
+/* ── Centered footer (operator request) ── */
+.footer-newsletter__inner { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.footer-newsletter__text { align-items: center; }
+.footer-newsletter__actions { justify-content: center; width: auto; }
+.footer-main__inner { justify-items: center; }
+.footer-col { text-align: center; }
+.footer-col__list { align-items: center; }
+.footer-contact-list li a { justify-content: center; }
+.footer-nap, .footer-hours { align-items: center; }
+.footer-bar__inner { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.footer-bar__links { justify-content: center; }
 </style>

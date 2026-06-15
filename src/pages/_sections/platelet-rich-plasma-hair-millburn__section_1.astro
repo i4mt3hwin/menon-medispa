@@ -1,0 +1,214 @@
+---
+import site from '@/lib/site';
+
+import heroImg from '@/assets/images/61235f21d512.jpeg';
+import reviewIcon1 from '@/assets/images/90411e0041df.png';
+import reviewIcon2 from '@/assets/images/305afeda5f9a.png';
+import reviewIcon3 from '@/assets/images/b95880091b44.png';
+---
+
+<section class="section s1-hero prp-h-s1">
+  <div class="container">
+    <div class="prp-h-s1__layout">
+
+      <div class="prp-h-s1__text">
+        <h1 class="prp-h-s1__heading">
+          Regain Your Confidence with Platelet-Rich Plasma (PRP) Hair Regrowth Therapy
+        </h1>
+
+        <p class="prp-h-s1__body">
+          Our Platelet-Rich Plasma for Hair restoration treatments in Millburn NJ stimulate natural hair growth using your body's own healing factors. Combat thinning hair without surgery.
+        </p>
+
+        <div class="prp-h-s1__ctas">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Your Hair Restoration Consultation Today!
+          </a>
+        </div>
+
+        <div class="prp-h-s1__social-proof">
+          <div class="prp-h-s1__social-icons">
+            <img
+              src={reviewIcon1.src}
+              alt="Review platform"
+              class="prp-h-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="46"
+              height="50"
+            />
+            <img
+              src={reviewIcon2.src}
+              alt="Review platform"
+              class="prp-h-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+            <img
+              src={reviewIcon3.src}
+              alt="Review platform"
+              class="prp-h-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+          </div>
+          <div class="prp-h-s1__stars-block">
+            <p class="prp-h-s1__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <p class="prp-h-s1__review-count">100+ 5 Star Reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prp-h-s1__img-col">
+        <img
+          src={heroImg.src}
+          alt="Hair restoration treatment at Menon Medispa Millburn NJ"
+          class="prp-h-s1__hero-img"
+          loading="eager"
+          decoding="async"
+          width="993"
+          height="900"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .prp-h-s1 {
+    background-color: var(--color-bg);
+  }
+
+  .prp-h-s1__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .prp-h-s1__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .prp-h-s1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .prp-h-s1__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .prp-h-s1__ctas {
+    margin-top: var(--space-xs);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .prp-h-s1__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .prp-h-s1__social-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .prp-h-s1__social-icon {
+    display: block;
+    object-fit: contain;
+  }
+
+  .prp-h-s1__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .prp-h-s1__stars {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .prp-h-s1__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .prp-h-s1__img-col {
+    flex-shrink: 0;
+    width: 480px;
+  }
+
+  .prp-h-s1__hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    .prp-h-s1__img-col {
+      width: 360px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .prp-h-s1__layout {
+      flex-direction: column-reverse;
+    }
+
+    .prp-h-s1__text {
+      max-width: 100%;
+    }
+
+    .prp-h-s1__img-col {
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .prp-h-s1__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .prp-h-s1__social-proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

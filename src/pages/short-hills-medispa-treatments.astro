@@ -1,0 +1,111 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/short-hills-medispa-treatments__section_2.astro';
+import FeaturedTreatments from '@/pages/_sections/short-hills-medispa-treatments__section_3.astro';
+import Gallery from '@/pages/_sections/short-hills-medispa-treatments__section_4.astro';
+import Directions from '@/pages/_sections/short-hills-medispa-treatments__section_5.astro';
+import RecentPosts from '@/pages/_sections/short-hills-medispa-treatments__section_7.astro';
+import FaqLeadForm from '@/pages/_sections/short-hills-medispa-treatments__section_8.astro';
+import FinalCta from '@/pages/_sections/short-hills-medispa-treatments__section_9.astro';
+
+import heroImg from '@/assets/images/6c26a605399c.webp';
+
+const slug = 'short-hills-medispa-treatments';
+const posts = getRelatedPosts(slug);
+
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Medispa Short Hills NJ | Menon Medispa & Wellness | Millburn, NJ',
+  description:
+    'Premier medispa near Short Hills, NJ. Botox, fillers, facials, laser treatments and more at Menon Medispa in Millburn, just 5 minutes from Short Hills Mall. Call (973) 494-8431.',
+  url: '/short-hills-medispa-treatments',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Location',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Short Hills Treatments', url: '/short-hills-medispa-treatments' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Medispa Short Hills NJ | Menon Medispa & Wellness | Millburn, NJ"
+  description="Premier medispa near Short Hills, NJ. Botox, fillers, facials, laser treatments and more at Menon Medispa in Millburn, just 5 minutes from Short Hills Mall. Call (973) 494-8431."
+  canonical="https://www.menonmedispa.com/short-hills-medispa-treatments"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="MEDISPA · SHORT HILLS, NJ"
+    h1="Premier Medispa Treatments Near Short Hills, NJ"
+    subhead="Science-backed beauty and wellness, just 5 minutes from Short Hills Mall in Millburn, NJ."
+    image={heroImg}
+    imageAlt="Menon Medispa treatment room, serving Short Hills and Millburn, NJ"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Your Skin Comes First</h2>
+
+      <p class="svc-lead">Menon Medispa &amp; Wellness brings together beauty &amp; wellness for discerning clients throughout the Short Hills and Millburn area.</p>
+
+      <p>Our physicians and staff specialize in a wide range of facial and body treatments. Using the latest technology in lasers, fillers, and top-rated facials, we provide premium care that's worth the 5-minute drive from Short Hills to our Millburn location.</p>
+
+      <p>Whatever your skin type or concern, Menon Medispa ensures that every patient receives personalized attention and exceptional results. We understand the unique skincare needs and high standards of our discerning community.</p>
+
+      <p>Many of our clients tell us they appreciate our holistic approach that considers not just aesthetic outcomes, but overall wellness. Our convenient location makes it easy to prioritize self-care without disrupting your busy schedule.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Location', value: 'Millburn, NJ' },
+          { label: 'Serving', value: 'Short Hills, Millburn, and surrounding areas' },
+          { label: 'Distance', value: '5 minutes from Short Hills Mall' },
+          { label: 'Appointments', value: 'Same-week available' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <FeaturedTreatments />
+
+  <Gallery />
+
+  <Directions />
+
+  <RecentPosts />
+
+  <FaqLeadForm />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/4/5/7/8/9 reused verbatim; section_6 prose inlined into main column; section_11 June SALES promo removed (replaced by SalePopup). -->

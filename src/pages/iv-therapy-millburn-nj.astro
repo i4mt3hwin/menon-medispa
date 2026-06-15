@@ -1,0 +1,146 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import PromoBanner from '@/pages/_sections/iv-therapy-millburn-nj__section_1.astro';
+import Gallery from '@/pages/_sections/iv-therapy-millburn-nj__section_2.astro';
+import IvCategories from '@/pages/_sections/iv-therapy-millburn-nj__section_3.astro';
+import DripsMenuHeading from '@/pages/_sections/iv-therapy-millburn-nj__section_6.astro';
+import DripsMenu from '@/pages/_sections/iv-therapy-millburn-nj__section_7.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import FinalCta from '@/pages/_sections/iv-therapy-millburn-nj__section_9.astro';
+
+import heroImg from '@/assets/images/fc3ca8a7bdf0.jpg';
+
+const slug = 'iv-therapy-millburn-nj';
+const posts = getRelatedPosts(slug);
+
+// FAQ: no real Q&A section exists on this page; arrays left empty.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'IV Therapy in Millburn, NJ',
+  description:
+    'Boost your energy and wellness with IV Therapy at Menon Medispa in Millburn, NJ. Customized infusions for immunity, energy, recovery, anti-aging, and more. Call (973) 494-8431.',
+  url: '/iv-therapy-millburn-nj',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'IV Therapy', url: '/iv-therapy-millburn-nj' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="IV Therapy in Millburn NJ | Menon Medispa"
+  description="Boost your energy and wellness with IV Therapy at Menon Medispa in Millburn, NJ. Customized infusions for immunity, energy, recovery, anti-aging, and more. Call (973) 494-8431."
+  canonical="https://www.menonmedispa.com/iv-therapy-millburn-nj"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="IV THERAPY · MILLBURN, NJ"
+    h1="Boost Your Energy and Wellness with IV Therapy in Millburn, NJ"
+    subhead="Customized infusions that deliver essential nutrients directly to your bloodstream, whether you're recovering from fatigue, stress, or simply want to feel your best every day."
+    image={heroImg}
+    imageAlt="IV Therapy at Menon Medispa Millburn NJ"
+    price="Starting at $200"
+    note="Free consultation available. Call (973) 494-8431."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <PromoBanner />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Stop Struggling with Low Energy and Nutrient Deficiency</h2>
+      <p class="svc-lead">Feeling constantly tired, foggy, or run down can make it hard to enjoy daily life.</p>
+
+      <p>While energy drinks, supplements, and quick fixes offer temporary relief, they often fall short of addressing the real issue:</p>
+
+      <ul class="svc-checks">
+        <li>Daily fatigue and sluggishness impact focus, productivity, and mood</li>
+        <li>Over-the-counter supplements may not absorb well or meet your body's needs</li>
+        <li>Stress, poor diet, and dehydration drain essential vitamins and minerals</li>
+        <li>Recovery from workouts, illness, or travel becomes slower and more difficult</li>
+      </ul>
+
+      <p>Many people delay treatment because they're unsure what their body really needs. The result? Ongoing burnout, poor immunity, and a cycle of short-term fixes that never fully restore how you want to feel.</p>
+
+      <p class="svc-eyebrow">IV Therapy Changes This</p>
+
+      <p>IV Therapy at Menon Medispa bypasses the digestive system entirely, delivering vitamins, minerals, and nutrients directly into your bloodstream for immediate, complete absorption. Join countless clients in Millburn and Short Hills who trust Menon Medispa's IV Therapy to revitalize their body from the inside out.</p>
+    </div>
+
+    <div class="svc-block">
+      <h2>Transform Your Health with IV Therapy</h2>
+      <p class="svc-lead">Experience rapid nutrient absorption and immediate energy restoration through our advanced IV vitamin therapy treatments.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Instant Energy and Mental Clarity</h3>
+          <p>Our IV energy therapy delivers B vitamins and nutrients directly to your bloodstream, bypassing digestive absorption issues for immediate focus and productivity enhancement.</p>
+        </li>
+        <li>
+          <h3>100% Bioavailable Nutrients</h3>
+          <p>Unlike oral supplements, IV nutrient therapy ensures complete absorption of essential vitamins, minerals, and antioxidants your body desperately needs.</p>
+        </li>
+        <li>
+          <h3>Optimal Hydration &amp; Recovery</h3>
+          <p>Our IV hydration therapy rapidly replenishes fluids and electrolytes while supporting faster recovery from stress, workouts, illness, and travel fatigue.</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">Ready to Feel Your Best?</p>
+      <p>Stop struggling with low energy and nutrient deficiency. Experience the power of IV vitamin therapy today. Pick an option below or call for a free consultation.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Starting price', value: '$200 per drip' },
+          { label: 'Volume', value: '500ml (upgrade to 1000ml +$25)' },
+          { label: 'Infusion types', value: 'Immunity, Energy, Recovery, Anti-Aging, NAD+, and more' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Gallery />
+
+  <IvCategories />
+
+  <DripsMenuHeading />
+  <DripsMenu />
+
+  <ServiceTestimonial slug="iv-therapy-millburn-nj" />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 1/2/3/6/7/9 kept verbatim. Sections 4+5 re-flowed into main column prose. Section 10 (June SALES promo) removed; replaced by SalePopup. Section 8 (testimonial) swapped to <ServiceTestimonial slug="iv-therapy-millburn-nj" /> (provider-safe curated reviews). -->

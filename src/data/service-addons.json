@@ -1,0 +1,42 @@
+{
+  "menon-facials": {
+    "heading": "Popular add-ons",
+    "seeAllHref": "#add-ons",
+    "items": [
+      { "name": "Customized Hydrogel Mask", "price": "$25", "image": "71fd4437d1c9.png" },
+      { "name": "Dermaplaning Add-On", "price": "$50", "image": "faeaba32325b.png" },
+      { "name": "LED Light Therapy", "price": "$35", "image": "129e4e075fac.png" },
+      { "name": "Eye Treatment", "price": "$10", "image": "a822a2b001cc.png" }
+    ]
+  },
+  "hydrafacial": {
+    "heading": "Popular add-ons",
+    "seeAllHref": "#add-ons",
+    "items": [
+      { "name": "Dermaplaning", "image": "2b1536dee536.png" },
+      { "name": "Lymphatic Drainage", "image": "4bc097ff8839.png" },
+      { "name": "LED Light Therapy", "image": "129e4e075fac.png" },
+      { "name": "Lip Perk", "image": "145f8747aa55.png" }
+    ]
+  },
+  "acne-facial": {
+    "heading": "Popular add-ons",
+    "seeAllHref": "#add-ons",
+    "items": [
+      { "name": "Customized Hydrogel Mask", "price": "$25", "image": "71fd4437d1c9.png" },
+      { "name": "Manual Lymph Drainage", "price": "$50", "image": "4bc097ff8839.png" },
+      { "name": "LED Light Therapy", "price": "$35", "image": "129e4e075fac.png" },
+      { "name": "Eye Treatment", "price": "$10", "image": "a822a2b001cc.png" }
+    ]
+  },
+  "chemical-peel-facial": {
+    "heading": "Popular add-ons",
+    "seeAllHref": "#add-ons",
+    "items": [
+      { "name": "Customized Hydrogel Mask", "price": "$25", "image": "71fd4437d1c9.png" },
+      { "name": "Manual Lymph Drainage", "price": "$50", "image": "4bc097ff8839.png" },
+      { "name": "LED Light Therapy", "price": "$35", "image": "129e4e075fac.png" },
+      { "name": "Eye Treatment", "price": "$10", "image": "a822a2b001cc.png" }
+    ]
+  }
+}

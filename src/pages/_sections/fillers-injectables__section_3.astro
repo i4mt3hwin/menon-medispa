@@ -1,0 +1,87 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section fi-s3-about">
+  <div class="container--narrow fi-s3__inner">
+
+    <h2 class="fi-s3__heading">About Our Fillers &amp; Injectables</h2>
+
+    <p class="fi-s3__body">
+      At Menon Medispa, we offer a comprehensive range of dermal fillers and injectable treatments to help you achieve a naturally rejuvenated appearance. Our experienced team of medical professionals creates personalized treatment plans to address your unique concerns and goals.
+    </p>
+
+    <p class="fi-s3__body">
+      Our dermal fillers, including Juv&eacute;derm, are expertly administered to restore volume, smooth lines, and enhance facial contours. Each treatment is performed by our certified medical professionals who understand the art and science of facial aesthetics.
+    </p>
+
+    <p class="fi-s3__body">
+      Our <a href="/botox-millburn-nj" class="fi-s3__link">Botox &amp; Injectables</a> treatments are expertly administered by Dr. Menon, who uses precise techniques to smooth lines and restore youthful movement to the face.
+    </p>
+
+    <p class="fi-s3__body">
+      With our expertise and precision, we help you achieve results that look natural and last. Whether you're looking to address fine lines, restore volume, or enhance your lips, our team will create a customized treatment plan that's right for you.
+    </p>
+
+    <div class="fi-s3__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Consultation
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .fi-s3__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .fi-s3__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .fi-s3__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .fi-s3__link {
+    color: var(--color-cta);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .fi-s3__link:hover {
+    opacity: 0.8;
+  }
+
+  .fi-s3__cta {
+    margin-top: var(--space-sm);
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 600px) {
+    .fi-s3__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

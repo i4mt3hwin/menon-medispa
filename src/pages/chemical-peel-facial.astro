@@ -1,0 +1,133 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+
+import TrustBar from '@/pages/_sections/chemical-peel-facial__section_2.astro';
+import Process from '@/pages/_sections/chemical-peel-facial__section_5.astro';
+import ServiceCard from '@/pages/_sections/chemical-peel-facial__section_6.astro';
+import AddOns from '@/pages/_sections/chemical-peel-facial__section_7.astro';
+import FaqForm from '@/pages/_sections/chemical-peel-facial__section_8.astro';
+import FinalCta from '@/pages/_sections/chemical-peel-facial__section_9.astro';
+
+import heroImg from '@/assets/images/444eec26c889.jpg';
+
+const slug = 'chemical-peel-facial';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers in section_8 are blank/placeholder -- skipping FaqColumn; flagged below.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Chemical Peel Facial in Millburn, NJ',
+  description:
+    'Professional chemical peels in Millburn NJ at Menon Medispa. Reduce acne scars, fine lines, and dark spots with minimal downtime. Book your treatment today.',
+  url: '/chemical-peel-facial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Chemical Peel Facial', url: '/chemical-peel-facial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Expert Chemical Peel Facials in Millburn NJ | Menon Medispa"
+  description="Professional chemical peels in Millburn NJ at Menon Medispa. Reduce acne scars, fine lines, and dark spots with minimal downtime. Book your treatment today."
+  canonical="https://www.menonmedispa.com/chemical-peel-facial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="CHEMICAL PEEL · MILLBURN, NJ"
+    h1="Expert Chemical Peel Facials in Millburn, NJ"
+    subhead="Reveal fresh, radiant skin and erase years of sun damage in one treatment, with minimal downtime."
+    image={heroImg}
+    imageAlt="Chemical peel facial treatment at Menon Medispa Millburn NJ"
+    price="Starting at $150"
+    note="Complimentary consultation to match you to the right peel."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Why Chemical Peels Deliver The Most Dramatic Skin Transformation</h2>
+
+      <p class="svc-lead">Our professional chemical peels safely remove damaged skin layers to reveal smoother, brighter skin underneath. Perfect for reducing acne scars, fine lines, dark spots, and uneven skin tone with minimal downtime.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Immediate and Long-Term Results</h3>
+          <p>You'll see smoother, brighter skin within days of your treatment, with continued improvement for weeks. Chemical peels reduce fine lines by up to 60%, fade dark spots significantly, and improve overall skin texture better than any other single treatment. Most clients see results that last 3–6 months.</p>
+        </li>
+        <li>
+          <h3>Scientifically Proven Anti-Aging Benefits</h3>
+          <p>Chemical peels stimulate natural collagen production and accelerate cell turnover, giving you the skin renewal that typically takes months in just one treatment. This process not only improves current skin issues but helps prevent future aging by resetting your skin's natural regeneration cycle.</p>
+        </li>
+        <li>
+          <h3>Customizable for Every Skin Concern</h3>
+          <p>We offer light, medium, and deep peels tailored to your specific skin issues and tolerance level. Whether you're dealing with acne scars, sun damage, melasma, or just want an overall refresh, we'll select the perfect peel strength and formula to give you optimal results safely.</p>
+        </li>
+        <li>
+          <h3>Safe and Professional Application</h3>
+          <p>Our licensed estheticians are expertly trained in chemical peel application and will monitor your skin throughout the entire process. We use only medical-grade peels and follow strict safety protocols to ensure you get maximum results with minimal risk of complications or uneven healing.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$150' },
+          { label: 'Appointment', value: '45 minutes' },
+          { label: 'Results', value: 'Visible within days' },
+          { label: 'Results last', value: '3–6 months' },
+          { label: 'Skin concerns', value: 'Customized' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="chemical-peel-facial" />
+
+  <Process />
+
+  <ServiceCard />
+
+  <AddOns />
+
+  <FaqForm />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/5/6/7/8/9 reused verbatim. Section 3 (benefits) inlined as svc-features. Section 4 (testimonial) swapped to ServiceTestimonial (provider-safe curated reviews). Section 11 (June SALES promo) removed -- replaced by SalePopup. FAQ skipped: section_8 answers are blank/placeholder. -->

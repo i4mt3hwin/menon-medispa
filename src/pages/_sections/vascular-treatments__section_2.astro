@@ -1,0 +1,149 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import RichText from '@/components/RichText.astro';
+import FeatureList from '@/components/FeatureList.astro';
+import Picture from '@/components/Picture.astro';
+
+import facialVeinsImg from '@/assets/images/cb85f70bd3a7.jpeg';
+import legVeinsImg from '@/assets/images/40c58ae9b34c.jpg';
+---
+
+<section class="section vt2-about">
+  <div class="container">
+
+    <SectionHeading
+      text="About Vein &amp; Vascular Treatment"
+      tag="h2"
+      align="center"
+      font="display"
+    />
+
+    <RichText
+      html="<p>Our laser treatment offer effective, non-invasive solutions that close these veins for: Facial Spider Veins, Hemangioma, Port wine stains, Telangiectasia for face &amp; Varicose Veins.</p>"
+      font="var(--font-body)"
+      size="var(--text-sm)"
+      color="var(--color-text)"
+    />
+
+    <div class="vt2-about__columns">
+
+      <!-- Left: Facial Veins image -->
+      <div class="vt2-about__col vt2-about__col--img">
+        <Picture
+          src={facialVeinsImg.src}
+          alt="How to Get Rid of Spider Veins with Laser Treatment"
+          width={454}
+          height={341}
+          loading="lazy"
+          object_fit="cover"
+        />
+      </div>
+
+      <!-- Center: Face conditions -->
+      <div class="vt2-about__col vt2-about__col--content">
+        <h2 class="vt2-about__condition-heading">Face</h2>
+        <RichText
+          html="<p>Spider veins on the face are small, dilated blood vessels that appear close to the skin surface. Laser treatment targets and destroys these vessels safely and effectively.</p>"
+          font="var(--font-body)"
+          size="var(--text-sm)"
+          color="var(--color-text)"
+        />
+        <FeatureList
+          layout="vertical"
+          items={[
+            { text: "Facial Spider Veins" },
+            { text: "Hemangioma" },
+            { text: "Port wine stains" },
+            { text: "Telangiectasia for face" }
+          ]}
+        />
+        <RichText
+          html="<p>Our precision laser treatments deliver targeted energy to close unwanted facial vessels while leaving surrounding skin undamaged.</p>"
+          font="var(--font-body)"
+          size="var(--text-sm)"
+          color="var(--color-text)"
+        />
+      </div>
+
+      <!-- Right: Leg Veins image -->
+      <div class="vt2-about__col vt2-about__col--img">
+        <Picture
+          src={legVeinsImg.src}
+          alt="Leg vein treatment"
+          width={307}
+          height={379}
+          loading="lazy"
+          object_fit="cover"
+        />
+      </div>
+
+      <!-- Far right: Legs conditions -->
+      <div class="vt2-about__col vt2-about__col--content">
+        <h2 class="vt2-about__condition-heading">Legs</h2>
+        <RichText
+          html="<p><strong>Spider Veins</strong>, Small, twisted blood vessels visible just beneath the skin surface. Laser treatment provides safe, effective clearance with minimal downtime.</p>"
+          font="var(--font-body)"
+          size="var(--text-sm)"
+          color="var(--color-text)"
+        />
+        <RichText
+          html="<p><strong>Varicose Veins</strong>, Larger, bulging veins that can cause discomfort and cosmetic concerns. Our vascular treatments target these vessels to improve both appearance and comfort.</p>"
+          font="var(--font-body)"
+          size="var(--text-sm)"
+          color="var(--color-text)"
+        />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .vt2-about .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .vt2-about__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .vt2-about__col--img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .vt2-about__col--content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .vt2-about__condition-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .vt2-about__columns {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .vt2-about__columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

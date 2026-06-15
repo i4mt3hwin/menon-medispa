@@ -1,22 +1,18 @@
 ---
 /**
  * /post/[slug].astro
- * Dynamic route — 28 blog posts.
+ * Dynamic route, 28 blog posts.
  * Full body available for 2 posts (captured); 26 posts render excerpt + CTA only.
  * Zero fabrication: body is verbatim captured HTML or excerpt-only fallback.
  */
 import BlogPostTemplate from '@/components/BlogPostTemplate.astro';
 import blogData from '@/data/blog.json';
+import blogBodies from '@/data/blog-bodies.json';
 
-// Full bodies captured for exactly 2 posts (wix-source.json had content).
-// The wix-source content came back empty for both captured posts too — excerpt+CTA
-// is the honest fallback for all 28. Content is NOT fabricated.
-// Structure files exist for both but also yielded no body text.
-// NOTE: If a rich-text body is recovered later, inject it here via blog-bodies.json.
-const FULL_BODY_SLUGS: Record<string, string> = {
-  // No full bodies were recovered from the Wix API or page snapshots.
-  // Slots kept as a named map so bodies can be dropped in without structural changes.
-};
+// Full article bodies recovered verbatim from the live site (scripts/recover-blog-bodies.mjs)
+// into blog-bodies.json, keyed by slug. Any slug missing here falls back to excerpt + CTA.
+// Content is NOT fabricated: it is the client's own published article HTML.
+const FULL_BODY_SLUGS = blogBodies as Record<string, string>;
 
 export async function getStaticPaths() {
   return blogData.map((post: Record<string, string>) => ({

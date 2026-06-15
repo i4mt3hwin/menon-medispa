@@ -1,0 +1,194 @@
+{
+  "_note": "Curated, medispa-only, provider-safe testimonials sourced from real Google reviews. RULES: (1) No pain-management reviews. (2) Only Cindy (esthetician) and Dr. Menon (owner/injector, cosmetic context only) may be named; all other named staff have left and were removed. (3) Quotes are verbatim excerpts (obvious OCR typos corrected, surrounding sentences trimmed) and are never reworded or fabricated. (4) Only 5-star reviews. Reviews tagged 'general' form the fallback pool. Surrounding quotation marks are added by the component, not stored here.",
+  "reviews": [
+    {
+      "id": "rathi-v-hydrafacial",
+      "author": "Rathi V.",
+      "rating": 5,
+      "quote": "They have the best hydrafacials. I've had facials before, but this was on another level. My skin felt like it had been reborn! The process was gentle yet thorough, and I could literally see the gunk being extracted (which, yes, was oddly satisfying!).",
+      "tags": ["hydrafacial", "facial"]
+    },
+    {
+      "id": "anna-marie-g-hydrafacial",
+      "author": "Anna Marie G.",
+      "rating": 5,
+      "quote": "If you're looking for a facial that delivers instant gratification without the scary redness of a traditional chemical peel, the HydraFacial is basically the gold standard. I recently visited Menon Medispa, and it was well worth it.",
+      "tags": ["hydrafacial", "facial"]
+    },
+    {
+      "id": "kathi-a-hydrafacial",
+      "author": "Kathi A.",
+      "rating": 5,
+      "quote": "I had a wonderful skincare experience at Menon! Cindy was incredibly knowledgeable, gentle, and professional throughout the entire process. I received a HydraFacial paired with dermaplaning.",
+      "tags": ["hydrafacial", "facial"]
+    },
+    {
+      "id": "kosh-p-hydrafacial",
+      "author": "Kosh P.",
+      "rating": 5,
+      "quote": "Cindy was brilliant and very knowledgeable. The spa was clean and impeccable. Booked my next appointment.",
+      "tags": ["hydrafacial", "facial"]
+    },
+    {
+      "id": "lfga-facial",
+      "author": "Verified Client",
+      "rating": 5,
+      "quote": "Went in for a facial treatment that really helped. Cindy was kind, knowledgeable, and recommended some great products that have gotten me the results I was looking for. Highly recommend!",
+      "tags": ["facial"]
+    },
+    {
+      "id": "vinita-k-facial",
+      "author": "Vinita K.",
+      "rating": 5,
+      "quote": "Her aesthetician, Cindy, was top notch. Her office is extremely clean and beautiful! Complete 5 star treatment all the way.",
+      "tags": ["facial", "general"]
+    },
+    {
+      "id": "yahaira-j-microneedling",
+      "author": "Yahaira J.",
+      "rating": 5,
+      "quote": "My first treatment for exosome growth microneedling with Cindy, and I could not be more happy. She's amazing. She answered all my questions and made me feel comfortable and welcome. I know the results are going to be excellent.",
+      "tags": ["microneedling", "facial"]
+    },
+    {
+      "id": "natalia-k-laser",
+      "author": "Natalia K.",
+      "rating": 5,
+      "quote": "Amazing staff! So nice and professional. Their machine for laser hair removal does wonders, with results in just one treatment.",
+      "tags": ["laser-hair-removal"]
+    },
+    {
+      "id": "christina-c-laser",
+      "author": "Christina C.",
+      "rating": 5,
+      "quote": "Cindy was amazing during my laser hair removal session, the whole staff is friendly and the office is nice and clean! I'm looking forward to my sessions, as well as some more treatments in the future.",
+      "tags": ["laser-hair-removal"]
+    },
+    {
+      "id": "love-b-laser",
+      "author": "Love B.",
+      "rating": 5,
+      "quote": "I came in for another one of my laser hair removal sessions and I loved it! I used to be nervous about lasering, but now it feels more comfortable and relaxing.",
+      "tags": ["laser-hair-removal"]
+    },
+    {
+      "id": "quinn-e-laser",
+      "author": "Quinn E.",
+      "rating": 5,
+      "quote": "Lovely staff and great experience, thanks!",
+      "tags": ["laser-hair-removal", "general"]
+    },
+    {
+      "id": "tile-laser",
+      "author": "Verified Client",
+      "rating": 5,
+      "quote": "Menon spa is very professional and well priced. I had a great experience there with my laser removal treatment. I will definitely be coming back.",
+      "tags": ["laser-hair-removal", "general"]
+    },
+    {
+      "id": "mawunyo-f-botox",
+      "author": "Mawunyo F.",
+      "rating": 5,
+      "quote": "I had an amazing experience with my treatment today! The whole process was quick, comfortable and professional. Dr. Menon took the time to explain everything thoroughly and made me feel completely at ease. My results look so natural. I couldn't be happier and will definitely be coming back.",
+      "tags": ["botox", "fillers"]
+    },
+    {
+      "id": "mary-w-botox",
+      "author": "Mary W.",
+      "rating": 5,
+      "quote": "Dr. Menon is wonderful. Best results I've had with Botox injections.",
+      "tags": ["botox"]
+    },
+    {
+      "id": "catherine-d-cosmetic",
+      "author": "Catherine D.",
+      "rating": 5,
+      "quote": "Dr. Menon is kind, professional, and very caring. She makes me feel comfortable, and she's the best cosmetic injector ever!",
+      "tags": ["botox", "fillers", "general"]
+    },
+    {
+      "id": "kathleen-s-iv",
+      "author": "Kathleen S.",
+      "rating": 5,
+      "quote": "Dr. Menon and staff were very caring and attentive. The post-mono IV drip really boosted my daughter's energy! Thanks again.",
+      "tags": ["iv-therapy"]
+    },
+    {
+      "id": "jesenia-d-iv",
+      "author": "Jesenia D.",
+      "rating": 5,
+      "quote": "I have gotten 2 IV drips and I felt energized, less fatigue and more focused.",
+      "tags": ["iv-therapy"]
+    },
+    {
+      "id": "patricia-j-iv",
+      "author": "Patricia J.",
+      "rating": 5,
+      "quote": "Great customer service. The technician was patient, calm and very informative on what vitamins I should administer. Every time I'm there it's five star service!",
+      "tags": ["iv-therapy", "general"]
+    },
+    {
+      "id": "nf-general",
+      "author": "N.F.",
+      "rating": 5,
+      "quote": "The best medspa in New Jersey! I started with customized IVs and now I'm hooked on the facials.",
+      "tags": ["general", "iv-therapy", "facial"]
+    },
+    {
+      "id": "monika-a-general",
+      "author": "Monika A.",
+      "rating": 5,
+      "quote": "Whether it's for laser hair removal or a luxurious relaxing facial, I have enjoyed every treatment session. I'd say it's the best med spa in the Millburn/Short Hills area and I highly recommend a visit or two!",
+      "tags": ["general", "laser-hair-removal", "facial"]
+    },
+    {
+      "id": "juhi-m-general",
+      "author": "Juhi M.",
+      "rating": 5,
+      "quote": "Every facial and laser treatment leaves my skin glowing and refreshed. Highly recommend for expert care, top-notch technology, and lasting results!",
+      "tags": ["general", "facial", "laser-hair-removal"]
+    },
+    {
+      "id": "svetlana-r-general",
+      "author": "Svetlana R.",
+      "rating": 5,
+      "quote": "I had an excellent experience at Menon Medispa & Wellness Center. The staff are professional, knowledgeable, and made me feel completely comfortable throughout the process. I would definitely recommend this place to anyone considering laser treatments!",
+      "tags": ["general", "laser-hair-removal"]
+    },
+    {
+      "id": "erin-g-general",
+      "author": "Erin G.",
+      "rating": 5,
+      "quote": "I have enjoyed many different services at Menon Medispa. Dr. Menon and the staff are thorough, kind and willing to answer all of my questions. Best of all, I trust their feedback and recommendations.",
+      "tags": ["general"]
+    },
+    {
+      "id": "stephanie-d-general",
+      "author": "Stephanie D.",
+      "rating": 5,
+      "quote": "The staff was friendly, professional, and efficient from the moment I walked in. Dr. Menon was attentive, knowledgeable, and explained everything perfectly! I highly recommend this office to anyone looking for quality care and will definitely be returning.",
+      "tags": ["general"]
+    },
+    {
+      "id": "yunna-h-general",
+      "author": "Yunna H.",
+      "rating": 5,
+      "quote": "Dr. Menon has Midas hands. Her knowledge, care and bedside manners are impeccable. The office is a gem! Highly recommended.",
+      "tags": ["general", "botox"]
+    },
+    {
+      "id": "cesar-a-general",
+      "author": "Cesar A.",
+      "rating": 5,
+      "quote": "The staff is always willing to help and provide assistance. I always have a great experience when I go in for a treatment. Great staff and experience!",
+      "tags": ["general"]
+    },
+    {
+      "id": "sara-m-general",
+      "author": "Sara M.",
+      "rating": 5,
+      "quote": "Great experience and lovely, accommodating staff!",
+      "tags": ["general"]
+    }
+  ]
+}

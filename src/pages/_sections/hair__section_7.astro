@@ -1,0 +1,125 @@
+---
+import site from '@/lib/site';
+import staffImg from '@/assets/images/b1a819f35921.webp';
+---
+
+<section class="section section--dark hair-cta">
+  <div class="container">
+    <div class="hair-cta__layout">
+
+      <div class="hair-cta__text-col">
+        <h2 class="hair-cta__heading">Begin Your Transformation Today</h2>
+        <p class="hair-cta__location">Menon Medispa Millburn NJ</p>
+        <p class="hair-cta__body">
+          Ready to experience the benefits of Hair Restoration with Dr. Aditi Menon? Take the first step toward Luxurious Hair by scheduling your personal consultation at Menon Medispa in Millburn, NJ.
+        </p>
+        <div class="hair-cta__actions">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Consultation
+          </a>
+        </div>
+      </div>
+
+      <div class="hair-cta__img-col">
+        <img
+          src={staffImg.src}
+          alt="Menon MediSpa staff in Millburn NJ"
+          class="hair-cta__img"
+          loading="lazy"
+          decoding="async"
+          width="431"
+          height="449"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .hair-cta__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .hair-cta__text-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .hair-cta__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: #fff;
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .hair-cta__location {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hair-cta__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .hair-cta__actions {
+    margin-top: var(--space-xs);
+  }
+
+  .hair-cta__img-col {
+    flex-shrink: 0;
+    width: 380px;
+  }
+
+  .hair-cta__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.4);
+  }
+
+  @media (max-width: 1024px) {
+    .hair-cta__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hair-cta__layout {
+      flex-direction: column;
+    }
+
+    .hair-cta__img-col {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .hair-cta__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

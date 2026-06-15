@@ -1,0 +1,194 @@
+---
+import site from '@/lib/site';
+---
+
+<!-- Section 3: Formula Chooser, Choose Your Energy & Performance Formula -->
+<section class="section section--tint s3-formulas">
+  <div class="container">
+
+    <h2 class="s3-formulas__heading">Choose Your Energy &amp; Performance Formula</h2>
+
+    <div class="s3-formulas__grid">
+
+      <div class="s3-formulas__card">
+        <h3 class="s3-formulas__card-title">RECOVERY Signature</h3>
+        <p class="s3-formulas__tagline">
+          Best for general post-workout rejuvenation and anyone seeking a comprehensive replenishment
+          boost.
+        </p>
+        <p class="s3-formulas__body">
+          A comprehensive blend of vitamins and antioxidants designed to replenish what your body
+          loses during strenuous activity or illness, restoring your energy and vitality.
+        </p>
+        <div class="s3-formulas__ingredients">
+          <p class="s3-formulas__ingredients-label"><strong>Key ingredients:</strong></p>
+          <ul class="s3-formulas__list">
+            <li>B-Complex &amp; Amino Acids</li>
+            <li>Glutathione &amp; Vitamin C</li>
+            <li>Taurine</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="s3-formulas__card">
+        <h3 class="s3-formulas__card-title">RECOVERY Deluxe</h3>
+        <p class="s3-formulas__tagline">
+          Best for accelerated athletic recovery and those experiencing significant muscle soreness or
+          fatigue.
+        </p>
+        <p class="s3-formulas__body">
+          Includes everything in our Signature formula, plus a targeted boost for muscle repair and
+          inflammation reduction to get you back to peak performance faster.
+        </p>
+        <div class="s3-formulas__ingredients">
+          <p class="s3-formulas__ingredients-label"><strong>Enhanced with:</strong></p>
+          <ul class="s3-formulas__list">
+            <li>Magnesium</li>
+            <li>Niacin</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="s3-formulas__card">
+        <h3 class="s3-formulas__card-title">DETOX/ HANGOVER DRIP</h3>
+        <p class="s3-formulas__tagline">
+          Best for rapidly eliminating hangover symptoms, post-celebration recovery, and a full system
+          flush.
+        </p>
+        <p class="s3-formulas__body">
+          A powerful detoxifying blend that targets the root causes of a hangover, dehydration, toxin
+          buildup, and nutrient depletion, to have you feeling human again fast.
+        </p>
+        <div class="s3-formulas__ingredients">
+          <p class="s3-formulas__ingredients-label"><strong>Key Additions:</strong></p>
+          <ul class="s3-formulas__list">
+            <li>Zofran (Anti-Nausea Medication)</li>
+            <li>Zinc</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="s3-formulas__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s3-formulas__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s3-formulas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .s3-formulas__card {
+    background: var(--color-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s3-formulas__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-formulas__tagline {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .s3-formulas__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s3-formulas__ingredients {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .s3-formulas__ingredients-label {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .s3-formulas__list {
+    list-style: disc;
+    margin: 0;
+    padding: 0 0 0 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .s3-formulas__list li {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .s3-formulas__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 900px) {
+    .s3-formulas__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s3-formulas__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .s3-formulas__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

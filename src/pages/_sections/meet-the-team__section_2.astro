@@ -1,0 +1,143 @@
+---
+import imgDrMenon from '@/assets/images/88353b502c45.png';
+import imgShrutiSen from '@/assets/images/807fae7ef1f5.png';
+import imgNancyC from '@/assets/images/48d39eee8013.png';
+import imgJenniferRamirez from '@/assets/images/df9285b183d3.png';
+import imgRosemarie from '@/assets/images/10df2823350b.png';
+
+const team = [
+  { src: imgDrMenon,        alt: 'Dr. Aditi Menon, MD',  name: 'Dr. Aditi Menon, MD', title: 'Founder & CEO'     },
+  { src: imgShrutiSen,      alt: 'Shruti Sen',            name: 'Shruti Sen',           title: 'Practice Manager'  },
+  { src: imgNancyC,         alt: 'Nancy C.',              name: 'Nancy C.',             title: 'Medical Assistant' },
+  { src: imgJenniferRamirez,alt: 'Jennifer Ramirez',      name: 'Jennifer Ramirez',     title: 'Esthetician'       },
+  { src: imgRosemarie,      alt: 'Rosemarie Boisselle',   name: 'Rosemarie Boisselle',  title: 'Receptionist'      },
+];
+---
+
+<section class="section section--tint mtt-s2">
+  <div class="container">
+
+    <p class="mtt-s2__intro">
+      Dedicated professionals committed to enhancing your natural beauty and well-being. Our diverse team combines specialized training in skincare, health, and relaxation techniques to create personalized experiences for rejuvenation and confidence.
+    </p>
+
+    <ul class="mtt-s2__grid" role="list">
+      {team.map((member) => (
+        <li class="mtt-s2__card">
+          <div class="mtt-s2__card-img-wrap">
+            <img
+              src={member.src.src}
+              alt={member.alt}
+              class="mtt-s2__card-img"
+              loading="lazy"
+              decoding="async"
+              width="295"
+              height="356"
+            />
+          </div>
+          <div class="mtt-s2__card-body">
+            <p class="mtt-s2__card-name">{member.name}</p>
+            <p class="mtt-s2__card-title">{member.title}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .mtt-s2 {
+    /* section + section--tint handle background and vertical rhythm */
+  }
+
+  .mtt-s2__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.7;
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  /* Team grid, 5 cards, wraps on smaller screens */
+  .mtt-s2__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .mtt-s2__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  .mtt-s2__card-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .mtt-s2__card-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 295 / 356;
+    transition: transform 0.3s ease;
+  }
+
+  .mtt-s2__card:hover .mtt-s2__card-img {
+    transform: scale(1.03);
+  }
+
+  .mtt-s2__card-body {
+    padding: var(--space-xs) 0;
+    text-align: center;
+  }
+
+  .mtt-s2__card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+
+  .mtt-s2__card-title {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    opacity: 0.75;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1024px) {
+    .mtt-s2__card {
+      width: 180px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mtt-s2__card {
+      width: 160px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .mtt-s2__card {
+      width: calc(50% - var(--space-sm));
+    }
+  }
+</style>

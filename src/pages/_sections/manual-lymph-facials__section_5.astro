@@ -1,0 +1,181 @@
+---
+import site from '@/lib/site';
+---
+
+<!-- Section 5: Process steps, 60-minute lymph drainage experience -->
+<section class="section section--tint s5-steps">
+  <div class="container container--narrow">
+
+    <div class="s5-steps__header">
+      <h2 class="s5-steps__heading">
+        What To Expect During Your 60-Minute Lymph Drainage Experience
+      </h2>
+      <p class="s5-steps__intro">
+        Every step is designed for your comfort and results. Here's exactly what happens during your 60-minute treatment at our Millburn spa.
+      </p>
+    </div>
+
+    <ol class="s5-steps__list">
+
+      <li class="s5-steps__step">
+        <div class="s5-steps__step-number" aria-hidden="true">1</div>
+        <div class="s5-steps__step-content">
+          <h3 class="s5-steps__step-title">Consultation &amp; Assessment (5-10 minutes)</h3>
+          <p class="s5-steps__step-body">
+            Your treatment begins with a thorough consultation to understand your specific concerns and goals. Our expert esthetician analyzes your lymphatic circulation patterns and creates a customized treatment plan just for you.
+          </p>
+        </div>
+      </li>
+
+      <li class="s5-steps__step">
+        <div class="s5-steps__step-number" aria-hidden="true">2</div>
+        <div class="s5-steps__step-content">
+          <h3 class="s5-steps__step-title">Skin Preparation &amp; Cleansing (10-15 minutes)</h3>
+          <p class="s5-steps__step-body">
+            Your skin is gently cleansed to remove makeup, oils, and impurities. We prepare your skin by applying a light massage oil that allows our hands to glide smoothly during the drainage process without any pulling or discomfort.
+          </p>
+        </div>
+      </li>
+
+      <li class="s5-steps__step">
+        <div class="s5-steps__step-number" aria-hidden="true">3</div>
+        <div class="s5-steps__step-content">
+          <h3 class="s5-steps__step-title">Manual Lymph Drainage Massage (35-40 minutes)</h3>
+          <p class="s5-steps__step-body">
+            Using gentle, rhythmic pressure and specific hand movements, we guide accumulated fluid from your face toward your lymph nodes. This painless process feels like the most relaxing facial massage as we work around your eyes, jawline, and neck area.
+          </p>
+        </div>
+      </li>
+
+      <li class="s5-steps__step">
+        <div class="s5-steps__step-number" aria-hidden="true">4</div>
+        <div class="s5-steps__step-content">
+          <h3 class="s5-steps__step-title">Finishing Treatment &amp; Aftercare (5-10 minutes)</h3>
+          <p class="s5-steps__step-body">
+            We complete your treatment with gentle finishing touches and apply a light moisturizer to protect your freshly treated skin. You'll receive personalized aftercare instructions to maximize your results and maintain that refreshed, sculpted look.
+          </p>
+        </div>
+      </li>
+
+    </ol>
+
+    <div class="s5-steps__cta-wrap">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s5-steps__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .s5-steps__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .s5-steps__intro {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .s5-steps__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .s5-steps__step {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-md);
+    align-items: flex-start;
+    background-color: var(--color-bg);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  }
+
+  .s5-steps__step-number {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-cta);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .s5-steps__step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .s5-steps__step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .s5-steps__step-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  .s5-steps__cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .s5-steps__step {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .s5-steps__heading {
+      font-size: var(--text-h3);
+    }
+  }
+</style>

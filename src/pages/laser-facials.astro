@@ -1,0 +1,111 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/laser-facials__section_1.astro';
+import Gallery from '@/pages/_sections/laser-facials__section_3.astro';
+import WhyChoose from '@/pages/_sections/laser-facials__section_4.astro';
+import Pricing from '@/pages/_sections/laser-facials__section_5.astro';
+import FinalCta from '@/pages/_sections/laser-facials__section_6.astro';
+
+import heroImg from '@/assets/images/3be5824bfbc0.jpg';
+
+const slug = 'laser-facials';
+const posts = getRelatedPosts(slug);
+
+// No FAQ content found in the original page; arrays left empty.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Laser Facials in Millburn, NJ',
+  description:
+    'ClearLift and DYE-VL laser facials at Menon Medispa in Millburn, NJ. FDA-approved, non-invasive treatments that tighten skin, reduce pigmentation, and restore a youthful appearance with zero downtime.',
+  url: '/laser-facials',
+  image: heroImg.src,
+  type: 'MedicalProcedure',
+  category: 'Laser Treatments',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Laser Facials', url: '/laser-facials' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Laser Facials | Menon Medispa & Wellness | Millburn, NJ"
+  description="Our Laser Treatment Tightens Skin, Smoothens Lines And Wrinkles Around The Eyes, Mouth, Neck And Chest To Restore A Youthful, Healthy Looking Appearance."
+  canonical="https://www.menonmedispa.com/laser-facials"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="LASER FACIALS · MILLBURN, NJ"
+    h1="ClearLift and DYE-VL Laser Facials in Millburn, NJ"
+    subhead="Advanced, non-invasive laser treatments that tighten skin, reduce pigmentation, and restore a youthful appearance, with zero downtime."
+    image={heroImg}
+    imageAlt="Laser facial treatment at Menon Medispa Millburn NJ"
+    price="Starting at $99"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>About Laser Facials</h2>
+
+      <p class="svc-lead">It is an FDA approved non-surgical procedure that tightens skin, smoothens lines and wrinkles around the eyes, mouth, neck and chest to restore a youthful, healthy looking appearance.</p>
+
+      <p>Laser facial can also be used to treat problematic areas, such as acne scars, sun damage, age spots, and much more.</p>
+
+      <p>Our laser treatments are safe and effective even for thin and delicate areas of the skin such as face, neck and d&eacute;collet&eacute;. It is based on a unique method of energy dispersion, emitting narrow pulse widths with multiple peaks of energy, resulting in more effective treatment.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'From $99' },
+          { label: 'Session length', value: 'About 30 minutes' },
+          { label: 'Downtime', value: 'Zero downtime' },
+          { label: 'Technology', value: 'FDA-approved' },
+          { label: 'Skin types', value: 'All skin types' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <div id="before-after"></div>
+  <Gallery />
+
+  <WhyChoose />
+
+  <Pricing />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Section_2 prose inlined into main column. Bands 1/3/4/5/6 reused verbatim. No FAQ section in original. No promo band found. -->

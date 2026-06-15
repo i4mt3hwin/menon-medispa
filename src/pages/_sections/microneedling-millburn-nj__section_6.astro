@@ -1,0 +1,109 @@
+---
+{/* BREAKDANCE: hand-authored from structure.json */}
+{/*
+  Section 6, Testimonials
+  BG: https://static.wixstatic.com/media/2baa5c_ee0cb73711b042f7bfcd2fee22b9176f~mv2.png
+  (external URL, not resolved to a local key; used directly as inline style background)
+  Google badge: https://static.wixstatic.com/media/2baa5c_b88c996524414b909d11259a375ed9d6~mv2.png
+  (external URL, used as img src)
+*/}
+---
+
+<section class="media-bg section s6-testimonial" style="--scrim-strength:0.58">
+  <img
+    class="media-bg__img"
+    src="https://static.wixstatic.com/media/2baa5c_ee0cb73711b042f7bfcd2fee22b9176f~mv2.png"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+    width="1440"
+    height="585"
+  />
+  <span class="media-bg__scrim media-bg__scrim--brand"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="s6-testimonial__inner">
+
+      <h3 class="s6-testimonial__label">What Our Clients Say</h3>
+
+      <blockquote class="s6-testimonial__quote">
+        <p class="s6-testimonial__quote-text">
+          "I went for a birthday treat and got the Hydrafacial. OMG the results were amazing! Dr Menon herself checked on me mid-treatment and was so warm and personable. If you are looking for a great med spa with affordable pricing and amazing results, look no further. Will definitely return!"
+        </p>
+        <footer class="s6-testimonial__footer">
+          <cite class="s6-testimonial__cite">Rathi Vijay, Millburn Resident</cite>
+        </footer>
+      </blockquote>
+
+      <div class="s6-testimonial__google-rating">
+        <img
+          src="https://static.wixstatic.com/media/2baa5c_b88c996524414b909d11259a375ed9d6~mv2.png"
+          alt="Google 5 star rating"
+          class="s6-testimonial__google-badge"
+          loading="lazy"
+          decoding="async"
+          width="143"
+          height="74"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .s6-testimonial__inner {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .s6-testimonial__label {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s6-testimonial__quote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .s6-testimonial__quote-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    margin: 0 0 var(--space-sm);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .s6-testimonial__footer {
+    font-style: normal;
+  }
+
+  .s6-testimonial__cite {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    font-style: normal;
+  }
+
+  .s6-testimonial__google-rating {
+    display: flex;
+    justify-content: center;
+  }
+
+  .s6-testimonial__google-badge {
+    width: 143px;
+    height: 74px;
+    object-fit: contain;
+    display: block;
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+/**
+ * BookingCard.astro, the sticky sidebar conversion card (CRO centerpiece).
+ *
+ * Lives in the ServiceLayout `aside` slot. Single repeated objective: book.
+ * Hidden on mobile (<=900px), the persistent mobile CTA is MobileCtaBar.astro,
+ * which must sit OUTSIDE the reveal-transformed .service-article section so its
+ * position:fixed resolves against the viewport.
+ */
+import site from '@/lib/site';
+
+interface Props {
+  heading?: string;
+  blurb?: string;            // short risk-reduction line (reuse existing copy; don't invent)
+  ctaLabel?: string;
+  ctaHref?: string;          // default site.calcomUrl
+  showPhone?: boolean;       // default true
+  stars?: boolean;           // mini social proof
+  reviewText?: string;
+}
+
+const {
+  heading = 'Book your visit',
+  blurb,
+  ctaLabel = 'Book Online',
+  ctaHref = site.calcomUrl,
+  showPhone = true,
+  stars = true,
+  reviewText = '100+ 5 Star Reviews',
+} = Astro.props;
+
+const isExternal = ctaHref.startsWith('http');
+---
+
+<div class="booking-card">
+  <p class="booking-card__heading">{heading}</p>
+  {blurb && <p class="booking-card__blurb">{blurb}</p>}
+
+  <a
+    href={ctaHref}
+    class="btn btn--primary btn--block booking-card__cta"
+    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  >{ctaLabel}</a>
+
+  {showPhone && (
+    <a href={site.phone.tel} class="booking-card__phone">
+      or call <strong>{site.phone.display}</strong>
+    </a>
+  )}
+
+  {stars && (
+    <div class="booking-card__trust">
+      <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      {reviewText && <span class="booking-card__trust-text">{reviewText}</span>}
+    </div>
+  )}
+</div>
+
+<style>
+  .booking-card {
+    background: var(--color-surface);
+    border: 1px solid rgb(0 0 0 / 0.08);
+    border-top: 3px solid var(--color-cta);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 0.10);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .booking-card__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .booking-card__blurb {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .booking-card__cta { margin-top: 2px; }
+
+  .booking-card__phone {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    text-align: center;
+  }
+  .booking-card__phone strong { white-space: nowrap; }
+  .booking-card__phone:hover { color: var(--color-cta); }
+
+  .booking-card__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    padding-top: var(--space-xs);
+    border-top: 1px solid rgb(0 0 0 / 0.07);
+  }
+  .booking-card__trust-text {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    opacity: 0.75;
+  }
+
+  /* Desktop-only, the mobile persistent CTA is MobileCtaBar, .astro */
+  @media (max-width: 900px) {
+    .booking-card { display: none; }
+  }
+</style>

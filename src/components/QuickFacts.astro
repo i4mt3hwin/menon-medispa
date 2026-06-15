@@ -1,0 +1,138 @@
+---
+/**
+ * QuickFacts.astro, the sidebar "At a glance" panel (facts + an optional Book CTA).
+ *
+ * Render ONLY facts that genuinely exist. Price/duration must come from the page's
+ * own copy/pricing (never invented); location/hours from site.ts. With `cta`, a
+ * compact Book button + tap-to-call render at the bottom so this single panel is
+ * both the facts and the conversion CTA (no separate Booking card needed).
+ * Renders nothing when there are no items.
+ */
+import site from '@/lib/site';
+
+interface Fact { label: string; value: string; }
+interface Props {
+  heading?: string;
+  items?: Fact[];
+  cta?: boolean;          // show a Book button + tap-to-call at the bottom
+  ctaLabel?: string;
+  ctaHref?: string;       // default site.calcomUrl
+  reviewText?: string;    // optional mini trust line under the button
+}
+const {
+  heading = 'At a glance',
+  items = [],
+  cta = false,
+  ctaLabel = 'Book Online',
+  ctaHref = site.calcomUrl,
+  reviewText,
+} = Astro.props;
+const facts = items.filter((f) => f && f.value);
+const isExternal = ctaHref.startsWith('http');
+---
+{facts.length > 0 && (
+  <div class="quick-facts">
+    {heading && <p class="quick-facts__heading">{heading}</p>}
+    <dl class="quick-facts__list">
+      {facts.map((f) => (
+        <div class="quick-facts__row">
+          <dt class="quick-facts__label">{f.label}</dt>
+          <dd class="quick-facts__value">{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    {cta && (
+      <div class="quick-facts__cta">
+        <a
+          href={ctaHref}
+          class="btn btn--primary btn--block"
+          {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >{ctaLabel}</a>
+        <a href={site.phone.tel} class="quick-facts__phone">or call <strong>{site.phone.display}</strong></a>
+        {reviewText && (
+          <div class="quick-facts__trust">
+            <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="quick-facts__trust-text">{reviewText}</span>
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  .quick-facts {
+    background: rgb(196 164 132 / 0.07);
+    border: 1px solid rgb(0 0 0 / 0.06);
+    border-radius: var(--radius-md);
+    padding: 20px;
+  }
+  .quick-facts__heading {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    opacity: 0.7;
+    margin: 0 0 12px;
+  }
+  .quick-facts__list { margin: 0; }
+  .quick-facts__row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 6px 0;
+    border-bottom: 1px solid rgb(0 0 0 / 0.07);
+  }
+  .quick-facts__row:last-child { border-bottom: none; padding-bottom: 0; }
+  .quick-facts__row:first-child { padding-top: 0; }
+  .quick-facts__label {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.8;
+    margin: 0;
+  }
+  .quick-facts__value {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    text-align: right;
+  }
+
+  .quick-facts__cta {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .quick-facts__phone {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    text-align: center;
+  }
+  .quick-facts__phone strong { white-space: nowrap; }
+  .quick-facts__phone:hover { color: var(--color-cta); }
+  .quick-facts__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .quick-facts__trust .stars { color: var(--color-star); font-size: 1em; letter-spacing: 1px; }
+  .quick-facts__trust-text { font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text); opacity: 0.75; }
+
+  /* On mobile the "At a glance" panel sits at the TOP and booking is handled by
+     the fixed bottom bar, so keep it facts-only there; the Book CTA + trust line
+     show only in the desktop sticky sidebar (where there is no bottom bar). */
+  @media (max-width: 900px) {
+    .quick-facts__cta { display: none; }
+  }
+</style>

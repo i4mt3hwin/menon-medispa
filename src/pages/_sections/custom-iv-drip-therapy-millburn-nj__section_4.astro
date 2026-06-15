@@ -1,0 +1,46 @@
+---
+---
+
+<section class="section section--tight iv-s4">
+  <div class="container">
+    <div class="iv-s4__inner">
+      <div class="iv-s4__divider-line" aria-hidden="true"></div>
+      <h2 class="iv-s4__heading">CUSTOM IV DRIP</h2>
+      <div class="iv-s4__divider-line" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .iv-s4__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .iv-s4__divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-cta);
+  }
+
+  .iv-s4__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .iv-s4__heading {
+      font-size: var(--text-h3);
+    }
+  }
+</style>

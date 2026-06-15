@@ -1,0 +1,289 @@
+---
+/**
+ * ServiceLayout.astro, the two-column "article" region of a redesigned service page.
+ *
+ * One top-level <section data-reveal> → .container grid:
+ *   • default slot  → <main> editorial prose (left, flexes)
+ *   • "aside" slot  → sticky conversion sidebar (right, fixed width on desktop)
+ *
+ * Reuses the proven sticky-grid idiom from _sections/face__section_5.astro.
+ * Owns a NAMESPACED global "main-column vocabulary" (.service-article__main …)
+ * so slotted prose is styled consistently across every service page WITHOUT
+ * editing base.css. These globals only match elements inside .service-article__main,
+ * which exists only on redesigned service pages.
+ *
+ * Mobile (<=900px): single column, aside drops below main and goes static.
+ * A fixed mobile CTA bar (MobileCtaBar.astro) lives OUTSIDE this transformed
+ * section; this layout just reserves body bottom-padding so it never overlaps.
+ */
+interface Props {
+  /** sticky offset for the aside on desktop */
+  asideTop?: string;
+  /** disable sticky (e.g. very short pages where the sidebar has nothing to scroll past) */
+  asideSticky?: boolean;
+  /** reserve mobile bottom padding for the fixed CTA bar (set false if the page has no MobileCtaBar) */
+  mobileCtaBar?: boolean;
+}
+const { asideTop = 'calc(92px + var(--space-sm))', asideSticky = true, mobileCtaBar = true } = Astro.props;
+---
+
+<section class="section service-article" data-reveal data-mobile-cta={mobileCtaBar ? 'true' : undefined}>
+  <div class="container service-article__grid">
+    <main class="service-article__main">
+      <slot />
+    </main>
+    <aside
+      class:list={['service-article__aside', { 'service-article__aside--sticky': asideSticky }]}
+      style={`--svc-aside-top:${asideTop};`}
+    >
+      <slot name="aside" />
+    </aside>
+  </div>
+</section>
+
+<style>
+  .service-article__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .service-article__main {
+    min-width: 0;
+  }
+
+  .service-article__aside {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .service-article__aside--sticky {
+    position: sticky;
+    top: var(--svc-aside-top, var(--space-lg));
+    align-self: start;
+  }
+
+  @media (max-width: 1100px) {
+    .service-article__grid {
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: var(--space-md);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .service-article__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    /* on mobile the sticky Booking card is hidden (the fixed bottom bar covers booking),
+       so the aside is just "At a glance", pull it ABOVE the main content */
+    .service-article__aside {
+      position: static;
+      max-width: none;
+      order: -1;
+    }
+  }
+</style>
+
+<!-- Namespaced global vocabulary for slotted main-column prose. Only matches
+     content inside .service-article__main (redesigned service pages only). -->
+<style is:global>
+  .service-article__main > * + * { margin-top: var(--space-md); }
+  .service-article__main > .svc-block + .svc-block { margin-top: var(--space-xl); }
+
+  .service-article__main .svc-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: var(--space-lg) 0 var(--space-sm);
+  }
+  /* breathing room above sub-headings that follow body content */
+  .service-article__main :is(p, ul, ol, figure, .svc-accent) + h3 { margin-top: var(--space-lg); }
+  .service-article__main :is(p, ul, ol, figure) + .svc-eyebrow { margin-top: var(--space-xl); }
+  .service-article__main .svc-eyebrow::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 26px;
+    height: 2px;
+    background: var(--color-cta);
+  }
+
+  .service-article__main h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1.25;
+    margin: 0 0 var(--space-sm);
+    text-wrap: balance;
+  }
+  .service-article__main h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1.3;
+    margin: 0 0 var(--space-xs);
+  }
+  .service-article__main p {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0 0 var(--space-sm);
+  }
+  .service-article__main p:last-child { margin-bottom: 0; }
+  .service-article__main .svc-lead {
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+  .service-article__main a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: var(--color-cta);
+    text-underline-offset: 3px;
+  }
+  .service-article__main a:hover { color: var(--color-cta); }
+
+  .service-article__main ul, .service-article__main ol {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.3em;
+  }
+  .service-article__main li {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0 0 var(--space-xs);
+  }
+
+  .service-article__main img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+
+  /* Accent-ruled "why choose" / highlight block (face__section_5 idiom) */
+  .service-article__main .svc-accent {
+    position: relative;
+    padding-left: var(--space-md);
+    border-left: 3px solid var(--color-cta);
+  }
+  .service-article__main .svc-accent + .svc-accent { margin-top: var(--space-lg); }
+
+  /* Checkmark benefit list */
+  .service-article__main .svc-checks { list-style: none; padding-left: 0; }
+  .service-article__main .svc-checks li {
+    position: relative;
+    padding-left: 1.9em;
+  }
+  .service-article__main .svc-checks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid var(--color-cta);
+    border-bottom: 2px solid var(--color-cta);
+    transform: rotate(-45deg);
+  }
+
+  /* 2-up feature cards (e, .g. "the difference" boxes) */
+  .service-article__main .svc-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .service-article__main .svc-features > * {
+    border: 1px solid rgb(0 0 0 / 0.08);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: var(--space-sm);
+    margin: 0;
+  }
+  .service-article__main .svc-features h3, .service-article__main .svc-features h4 {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+  .service-article__main .svc-features p { font-size: var(--text-sm); line-height: 1.5; margin: 0; }
+  @media (max-width: 520px) {
+    .service-article__main .svc-features { grid-template-columns: 1fr; }
+  }
+
+  /* Numbered "what to expect" steps */
+  .service-article__main .svc-steps { list-style: none; padding-left: 0; counter-reset: svc-step; }
+  .service-article__main .svc-steps > li {
+    position: relative;
+    padding-left: 3em;
+    min-height: 2em;
+    margin-bottom: var(--space-md);
+  }
+  .service-article__main .svc-steps > li::before {
+    counter-increment: svc-step;
+    content: counter(svc-step);
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    width: 2em;
+    height: 2em;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgb(196 164 132 / 0.16);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+  }
+
+  /* In-column figure */
+  .service-article__main figure { margin: 0; }
+  .service-article__main figcaption {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    opacity: 0.7;
+    margin-top: var(--space-xs);
+  }
+
+  /* Reserve room at the very bottom for the fixed MobileCtaBar (phones only).
+     Footer-colored spacer AFTER the footer → no white strip; the bar floats over it. */
+  @media (max-width: 900px) {
+    body:has(.service-article[data-mobile-cta])::after {
+      content: '';
+      display: block;
+      height: 76px;
+      background: var(--color-footer-bg, #1a1a2e);
+    }
+    /* The chat launcher is folded INTO the mobile CTA bar on these pages, so hide
+       the standalone floating circle (the bar's chat button opens the panel). */
+    body:has(.service-article[data-mobile-cta]) #chat-toggle {
+      display: none !important;
+    }
+    /* Anchor the chat panel just above the unified bar instead of the (gone) circle. */
+    body:has(.service-article[data-mobile-cta]) #chat-assistant-root {
+      bottom: 0 !important;
+      right: 14px !important;
+    }
+    body:has(.service-article[data-mobile-cta]) #chat-panel {
+      bottom: 72px !important;
+      right: 0 !important;
+    }
+  }
+</style>

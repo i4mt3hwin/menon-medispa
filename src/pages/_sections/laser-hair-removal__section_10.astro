@@ -1,0 +1,59 @@
+---
+import FaqAccordion from '@/components/FaqAccordion.astro';
+---
+
+<section class="section section--tint lhr-s10-faq">
+  <div class="container--narrow">
+
+    <h3 class="lhr-s10__heading">Frequently Asked Questions About Laser Hair Removal</h3>
+
+    <FaqAccordion
+      items={[
+        {
+          question: 'Is laser hair removal effective for all treatment areas?',
+          answer_html: '<p>Yes, laser hair removal is highly effective for virtually all treatment areas. Our advanced technology works on the face (including upper lip, chin, and sideburns), the bikini area and bikini line, underarms, legs, back, chest, and other areas with unwanted body hair. During your consultation, we will assess your specific treatment areas and create a personalized plan to address your unique hair and skin type.</p>',
+        },
+        {
+          question: 'How many treatments will I need?',
+          answer_html: '<p>Most clients require 6-8 treatments to achieve optimal permanent hair reduction results. Hair grows in cycles, and laser hair removal is most effective during the active growth phase. Because not all hairs are in the same growth stage simultaneously, multiple sessions are necessary to treat each follicle effectively. Sessions are typically spaced 4-8 weeks apart depending on the treatment area.</p>',
+        },
+        {
+          question: 'Is laser hair removal safe for light skin or darker skin tones?',
+          answer_html: '<p>Our advanced laser technology is safe and effective for a wide range of skin tones. We use technology specifically calibrated to work on various skin types, including both lighter and darker skin tones. During your initial consultation, our medical team will evaluate your skin tone and hair color to determine the ideal laser settings for safe and effective treatment. We take extra care with all skin types to ensure both safety and optimal results.</p>',
+        },
+        {
+          question: 'What\'s the difference between laser hair removal and other methods?',
+          answer_html: '<p>Unlike temporary methods such as shaving, waxing, and threading that only remove hair at the surface or root, laser hair removal offers permanent hair reduction by targeting and destroying the hair follicle itself. This means treated hairs do not grow back, while traditional methods require constant maintenance. Compared to electrolysis, laser hair removal treats larger areas much more quickly. Compared to at-home laser devices, our medical-grade equipment provides stronger, more consistent energy levels for superior results under physician supervision.</p>',
+        },
+        {
+          question: 'What aftercare is recommended following treatment?',
+          answer_html: '<p>After each laser hair removal session, we recommend applying sunscreen with SPF 30 or higher to treated areas whenever going outdoors. Avoid tanning beds and direct sun exposure for at least two weeks following treatment. Do not wax, pluck, or use depilatory creams between sessions, shaving is acceptable. Some redness or mild sensitivity in the treated area is normal and typically resolves within 24-48 hours. Our team will provide you with a complete aftercare guide tailored to your treatment areas.</p>',
+        },
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .lhr-s10-faq .container--narrow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .lhr-s10__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  /* Collapse FaqAccordion's own padding */
+  .lhr-s10-faq :global(.faq-accordion) {
+    padding: 0;
+  }
+</style>

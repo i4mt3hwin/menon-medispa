@@ -1,0 +1,53 @@
+---
+import FaqAccordion from "@/components/FaqAccordion.astro";
+---
+
+<!-- Section 8: FAQ, Frequently asked questions -->
+<section class="section s8-faq">
+  <div class="container--narrow">
+
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+
+    <FaqAccordion
+      items={[
+        {
+          question: "How does an IV drip help with a hangover?",
+          answer:
+            "A hangover is primarily caused by dehydration, electrolyte imbalances, and the toxic byproducts of alcohol metabolism. Our Detox/Hangover IV drip rapidly addresses all three: it rehydrates you far more efficiently than drinking water, restores essential electrolytes and vitamins, and contains Zofran to eliminate nausea, getting you back to feeling normal in a fraction of the time.",
+        },
+        {
+          question: "When is the best time to get an IV after a workout or event?",
+          answer:
+            "For post-workout recovery, getting an IV drip within a few hours after intense exercise can significantly speed up muscle repair and reduce soreness. For general recovery, you can come in whenever you're feeling run-down. There's no strict window, our drips are effective whenever your body needs a boost.",
+        },
+        {
+          question: "What 'toxins' does the IV drip help flush out?",
+          answer:
+            "In the context of our Detox IV, we're primarily targeting the byproducts of alcohol metabolism (like acetaldehyde), free radicals, and other metabolic waste products that build up during intense physical activity or illness. The Glutathione and Vitamin C in our formulas are powerful antioxidants that help neutralize and clear these compounds.",
+        },
+        {
+          question: "What is Zofran and is it safe?",
+          answer:
+            "Zofran (ondansetron) is a widely-used FDA-approved anti-nausea medication that works by blocking serotonin receptors in the gut and brain. It is safe and commonly used in clinical settings, including hospitals. When administered by our trained professionals, it is an effective and well-tolerated addition to our hangover recovery drip.",
+        },
+        {
+          question: "How often can I get a Recovery & Detox IV drip?",
+          answer:
+            "Our IV drips are generally safe to receive as needed. Many clients come in after intense athletic events, travel, or when they're feeling run-down. For regular wellness support, a session every few weeks is common. Our team can help you determine a cadence that aligns with your lifestyle and health goals.",
+        },
+      ]}
+    />
+
+  </div>
+</section>
+
+<style>
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+  }
+</style>

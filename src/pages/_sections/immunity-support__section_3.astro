@@ -1,0 +1,135 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section section--tint is3-cards">
+  <div class="container">
+
+    <h2 class="is3-cards__heading">Choose Your Level of Immune Support</h2>
+
+    <div class="is3-cards__grid">
+
+      <!-- IMMUNITY Signature -->
+      <div class="is3-cards__card">
+        <h3 class="is3-cards__card-title">IMMUNITY Signature</h3>
+        <p class="is3-cards__card-kicker">Best for proactive wellness and maintaining your baseline and as a pre-travel immune boost</p>
+        <p class="is3-cards__card-body">This drip is packed with a powerful blend of essential vitamins and minerals to form the foundation of your immune health.</p>
+        <ul class="is3-cards__list">
+          <li>Vitamin C, B-Vitamins, &amp; Zinc: Work together to fuel immune cell function and fight off pathogens.</li>
+          <li>Magnesium &amp; Minerals: Help reduce inflammation and support overall cellular health.</li>
+          <li>Amino Acids &amp; Folic Acid: Provide the essential building blocks for a healthy system.</li>
+        </ul>
+      </div>
+
+      <!-- IMMUNITY Deluxe -->
+      <div class="is3-cards__card">
+        <h3 class="is3-cards__card-title">IMMUNITY Deluxe</h3>
+        <p class="is3-cards__card-kicker">Best for maximum defense when you need to recover from flu faster or are feeling run down. This is our most potent high-dose vitamin C IV formula.</p>
+        <p class="is3-cards__card-body">Our Deluxe drip starts with the same powerful foundation as the Signature drip but adds a trio of high-potency ingredients to supercharge your recovery.</p>
+        <p class="is3-cards__card-body">The key difference. This trio of high-potency ingredients is added to supercharge your recovery:</p>
+        <ul class="is3-cards__list">
+          <li>Glutathione: The body&#39;s &#39;master antioxidant.&#39; It neutralizes free radicals, supports liver detoxification, and helps your immune cells function at their peak.</li>
+          <li>Taurine: An amino acid that protects your cells from stress and supports the healthy function of your immune and cardiovascular systems.</li>
+          <li>Niacin (Vitamin B3): A powerful B-vitamin that improves circulation, supports cellular energy production, and has anti-inflammatory properties.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="is3-cards__cta">
+      <a href={site.calcomUrl} class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .is3-cards__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .is3-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    width: 100%;
+  }
+
+  .is3-cards__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .is3-cards__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .is3-cards__card-kicker {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .is3-cards__card-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .is3-cards__list {
+    list-style: disc;
+    margin: 0;
+    padding: 0 0 0 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .is3-cards__list li {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .is3-cards__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .is3-cards__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .is3-cards__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

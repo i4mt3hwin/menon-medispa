@@ -38,52 +38,5 @@ const variantClass = `btn--${variant}`;
   >{resolvedText ?? <slot />}</button>
 )}
 
-<style>
-  .btn {
-    display: inline-block;
-    font-family: var(--font-cta);
-    font-size: var(--text-sm);
-    border-radius: var(--radius-sm);
-    padding: 10px 24px;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    line-height: 1.4;
-    transition: opacity 0.15s ease;
-  }
-  .btn:hover {
-    opacity: 0.88;
-  }
-  .btn:active {
-    opacity: 0.75;
-  }
-
-  /* Primary */
-  .btn--primary {
-    background-color: var(--color-cta);
-    color: var(--color-text);
-    box-shadow: var(--shadow-btn);
-  }
-
-  /* Secondary */
-  .btn--secondary {
-    background-color: transparent;
-    color: var(--color-text);
-    border: 1px solid var(--color-cta);
-  }
-
-  /* Ghost */
-  .btn--ghost {
-    background-color: transparent;
-    color: var(--color-text);
-    border: none;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .btn--ghost:hover {
-    opacity: 1;
-    text-decoration: none;
-  }
-</style>
+<!-- Button styling is the global .btn system in base.css (single source of truth,
+     shared with inline `<a class="btn">` usages). No scoped styles needed here. -->

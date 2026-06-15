@@ -1,31 +1,105 @@
 ---
 /**
- * SchedulerEmbed.astro — external Cal.com scheduler embed (replaces Wix Bookings).
- * ⚠️ The src defaults to site.calcomUrl, currently a PLACEHOLDER
- * (https://cal.com/REPLACE-ME). Operator swaps the single site.ts constant
- * pre-go-live; nothing here invents a real-looking URL.
+ * SchedulerEmbed.astro, replaces Wix Bookings with Cal.com.
+ *
+ * ⚠️  PLACEHOLDER: site.calcomUrl is 'https://cal.com/REPLACE-ME'.
+ *     Swap that one constant in lib/site.ts before go-live; all scheduling
+ *     CTAs read from it. The inline embed will not render until the real URL
+ *     is in place, which is why variant='link' is the safe default.
+ *
+ * Props:
+ *   heading, optional section heading (e.g. "Book an Appointment")
+ *   service_slug, optional Cal.com event-type slug appended to the base URL
+ *   variant, 'inline' | 'link' (default: 'link')
+ *                   'inline' renders the Cal.com inline embed widget.
+ *                   'link'   renders a styled CTA button linking out to Cal.com.
  */
 import site from '../lib/site';
-interface Props { src?: string; title?: string; height?: string; }
-const { src = site.calcomUrl, title = 'Book an appointment', height = '720px' } = Astro.props;
-const isPlaceholder = src.includes('REPLACE-ME');
+
+interface Props {
+  heading?: string;
+  service_slug?: string;
+  variant?: 'inline' | 'link';
+}
+
+const { heading, service_slug, variant = 'link' } = Astro.props;
+
+const calUrl = service_slug ? `${site.calcomUrl}/${service_slug}` : site.calcomUrl;
+const displayHeading = heading ?? 'Book an Appointment';
 ---
-{isPlaceholder && (
-  <div class="scheduler-placeholder" role="note">
-    <p><strong>Online booking is being set up.</strong> Please call
-      <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a> to schedule your appointment.</p>
-    <!-- POST-LAUNCH: replace site.calcomUrl in src/lib/site.ts with the real Cal.com event-type URL. -->
+
+<section class="scheduler-embed">
+  <div class="scheduler-embed__inner">
+    <h2 class="scheduler-embed__heading">{displayHeading}</h2>
+
+    {variant === 'inline' ? (
+      /**
+       * Cal.com inline embed, requires the Cal.com embed snippet in ThirdPartyScripts.
+       * Uses the data-cal-* attribute API; Cal.com's loader script picks these up
+       * automatically and replaces this div with the booking calendar.
+       */
+      <>
+        <div
+          data-cal-link={calUrl}
+          data-cal-namespace="menon-medispa"
+          data-cal-config='{"layout":"month_view"}'
+          style="width: 100%; min-height: 680px; overflow: scroll;"
+        />
+        <noscript>
+          <p style="font-family: var(--font-body); font-size: var(--text-base); text-align: center;">
+            <a href={calUrl} target="_blank" rel="noopener noreferrer" style="color: var(--color-cta);">
+              Book your appointment online
+            </a>
+          </p>
+        </noscript>
+      </>
+    ) : (
+      <div class="scheduler-embed__cta-wrap">
+        <a
+          href={calUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="scheduler-embed__btn"
+        >
+          {displayHeading}
+        </a>
+      </div>
+    )}
   </div>
-)}
-{!isPlaceholder && (
-  <iframe src={src} title={title} loading="lazy" style={`width:100%;height:${height};border:0`}
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-)}
+</section>
+
 <style>
-  .scheduler-placeholder {
-    border: 1px dashed var(--color-border); border-radius: var(--radius-md);
-    padding: var(--spacing-band); text-align: center; font-family: var(--font-ui);
-    background: var(--color-surface-alt);
+  .scheduler-embed {
+    padding: var(--space-xl) var(--space-md);
   }
-  .scheduler-placeholder a { color: var(--color-primary); font-weight: 700; }
+  .scheduler-embed__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .scheduler-embed__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    margin-bottom: var(--space-md);
+  }
+  .scheduler-embed__cta-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .scheduler-embed__btn {
+    display: inline-block;
+    background-color: var(--color-cta);
+    color: var(--color-surface);
+    font-family: var(--font-cta);
+    font-size: var(--text-base);
+    font-weight: 600;
+    padding: 16px 40px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+  }
+  .scheduler-embed__btn:hover {
+    opacity: 0.85;
+  }
 </style>

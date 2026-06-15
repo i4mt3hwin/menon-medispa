@@ -1,0 +1,146 @@
+---
+import LeadForm from '@/components/LeadForm.astro';
+
+const faqs = [
+  {
+    question: "Why is it called the \"Myers' Cocktail\"?",
+    answer_html: '',
+  },
+  {
+    question: "Who can benefit most from a Myers' Cocktail?",
+    answer_html: '',
+  },
+  {
+    question: "How often should I get a Myers' Cocktail?",
+    answer_html: '',
+  },
+  {
+    question: 'What should I expect to feel after the treatment?',
+    answer_html: '',
+  },
+  {
+    question: 'How is this different from a specific "Immunity" or "Energy" drip?',
+    answer_html: '',
+  },
+];
+---
+
+<!-- FAQ uses the FaqAccordion component which renders its own section.section--* -->
+<section class="section section--tint s8-faq">
+  <div class="container--narrow">
+
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+
+    <div class="s8-faq__list">
+      {faqs.map((faq) => (
+        <details class="s8-faq__item">
+          <summary class="s8-faq__question">
+            <span class="s8-faq__question-text">{faq.question}</span>
+            <span class="s8-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="s8-faq__answer"></div>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<LeadForm />
+
+<style>
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s8-faq__list {
+    /* full-width within .container--narrow */
+  }
+
+  .s8-faq__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s8-faq__item:first-of-type {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s8-faq__question {
+    cursor: pointer;
+    padding: var(--space-sm) 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .s8-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .s8-faq__question-text {
+    flex: 1;
+  }
+
+  .s8-faq__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+
+  .s8-faq__icon::before, .s8-faq__icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-cta);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .s8-faq__icon::before {
+    width: 14px;
+    height: 2px;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+  }
+
+  .s8-faq__icon::after {
+    width: 2px;
+    height: 14px;
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  details[open] .s8-faq__icon::after {
+    transform: translateX(-50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .s8-faq__answer {
+    padding: 0 0 var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .s8-faq__icon, .s8-faq__icon::before, .s8-faq__icon::after {
+      transition: none;
+    }
+  }
+</style>

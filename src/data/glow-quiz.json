@@ -1,0 +1,128 @@
+{
+  "_note": "Question flow for Find Your Glow. kind: single | multi | safety | lead. ref:'concerns' expands options from glow-concerns.json at build time. key = where the answer is stored on the answers object consumed by glow-engine.recommend(). 'safety' is a multi whose values become contraindication flags. Cosmetic framing throughout, non-diagnostic.",
+  "steps": [
+    {
+      "id": "primary",
+      "kind": "single",
+      "key": "primary",
+      "kicker": "Your glow goal",
+      "question": "What would you most love to change?",
+      "hint": "Pick the one that matters most. We'll tailor everything around it.",
+      "ref": "concerns"
+    },
+    {
+      "id": "secondary",
+      "kind": "multi",
+      "key": "secondary",
+      "max": 3,
+      "optional": true,
+      "kicker": "The full picture",
+      "question": "Anything else on your mind?",
+      "hint": "Choose up to three, or skip if your main goal says it all.",
+      "ref": "concerns"
+    },
+    {
+      "id": "skinType",
+      "kind": "single",
+      "key": "skinType",
+      "kicker": "Your skin",
+      "question": "How does your skin usually feel?",
+      "hint": "By the middle of an ordinary day.",
+      "options": [
+        { "value": "oily",        "label": "Oily",        "sub": "Shiny by midday, prone to congestion", "icon": "oily" },
+        { "value": "combination", "label": "Combination",  "sub": "Oily T-zone, balanced or dry cheeks",  "icon": "combination" },
+        { "value": "dry",         "label": "Dry",          "sub": "Tight, flaky, rarely shiny",           "icon": "dry" },
+        { "value": "normal",      "label": "Normal",       "sub": "Comfortable and balanced",             "icon": "normal" }
+      ]
+    },
+    {
+      "id": "sensitivity",
+      "kind": "single",
+      "key": "sensitivity",
+      "kicker": "Your skin",
+      "question": "How reactive is your skin?",
+      "hint": "This tells us how gentle to keep things.",
+      "options": [
+        { "value": "low",  "label": "Resilient",  "sub": "Tolerates most products well",            "icon": "shield" },
+        { "value": "mid",  "label": "Somewhat",   "sub": "Occasional redness or stinging",          "icon": "leaf" },
+        { "value": "high", "label": "Sensitive",  "sub": "Flushes easily, reacts to new actives",   "icon": "feather" }
+      ]
+    },
+    {
+      "id": "ageBand",
+      "kind": "single",
+      "key": "ageBand",
+      "kicker": "About you",
+      "question": "Which best describes you?",
+      "hint": "So we match the intensity to your stage, purely to tailor, never required.",
+      "options": [
+        { "value": "lt30",   "label": "Teens & 20s",      "sub": "Prevention and glow",        "icon": "spark" },
+        { "value": "30s",    "label": "30s",              "sub": "Early lines, first changes", "icon": "spark" },
+        { "value": "40s",    "label": "40s",              "sub": "Smoothing and firming",      "icon": "spark" },
+        { "value": "50plus", "label": "50s & beyond",     "sub": "Renewal and restoration",    "icon": "spark" }
+      ]
+    },
+    {
+      "id": "downtime",
+      "kind": "single",
+      "key": "downtime",
+      "kicker": "Your lifestyle",
+      "question": "How much recovery time can you spare?",
+      "hint": "Some treatments are zero-downtime; others trade a little healing for deeper results.",
+      "options": [
+        { "value": "none",     "label": "None",     "sub": "I want to look great tomorrow",       "icon": "calendar" },
+        { "value": "little",   "label": "A little", "sub": "A day or two of redness is fine",      "icon": "calendar" },
+        { "value": "flexible", "label": "Flexible", "sub": "I can plan for a week of healing",     "icon": "calendar" }
+      ]
+    },
+    {
+      "id": "routine",
+      "kind": "single",
+      "key": "routine",
+      "kicker": "At home",
+      "question": "Your current skincare routine?",
+      "hint": "We'll build an at-home plan that meets you where you are.",
+      "options": [
+        { "value": "minimal",   "label": "Minimal",   "sub": "Cleanse and go",                       "icon": "drop" },
+        { "value": "basic",     "label": "The basics","sub": "Cleanser, moisturizer, sometimes SPF", "icon": "drop" },
+        { "value": "dedicated", "label": "Dedicated", "sub": "Multi-step with active ingredients",   "icon": "drop" }
+      ]
+    },
+    {
+      "id": "sun",
+      "kind": "single",
+      "key": "sun",
+      "kicker": "At home",
+      "question": "How often do you wear sunscreen?",
+      "hint": "The single biggest factor in lasting results.",
+      "options": [
+        { "value": "rarely",    "label": "Rarely",     "sub": "Only at the beach, if then",   "icon": "sun" },
+        { "value": "sometimes", "label": "Sometimes",  "sub": "On sunny days",                "icon": "sun" },
+        { "value": "daily",     "label": "Every day",  "sub": "Rain or shine",                "icon": "sun" }
+      ]
+    },
+    {
+      "id": "flags",
+      "kind": "safety",
+      "key": "flags",
+      "optional": true,
+      "kicker": "A quick safety check",
+      "question": "Do any of these apply right now?",
+      "hint": "We only use this to keep your suggestions safe and appropriate. Select any that apply, or none.",
+      "options": [
+        { "value": "pregnancy",      "label": "Pregnant or breastfeeding",            "sub": "We'll keep everything pregnancy-conscious", "icon": "heart" },
+        { "value": "isotretinoin",   "label": "On / recently on isotretinoin",        "sub": "Accutane within the last 6 months",         "icon": "pill" },
+        { "value": "activeInfection","label": "Active breakout, cold sore or rash",   "sub": "Anything inflamed or broken right now",     "icon": "alert" },
+        { "value": "keloid",         "label": "Prone to raised or keloid scars",      "sub": "Scars that thicken or spread",              "icon": "alert" }
+      ]
+    },
+    {
+      "id": "gate",
+      "kind": "lead",
+      "key": "lead",
+      "kicker": "Your plan is ready",
+      "question": "Where should we send your Glow Plan?",
+      "hint": "See your personalized treatments and routine, and we'll email you a copy."
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+---
+import FeatureList from '@/components/FeatureList.astro';
+
+import sale1Img from '@/assets/images/56a3e3ac1335.jpg';
+import sale2Img from '@/assets/images/86072f9cbd9c.jpg';
+import sale3Img from '@/assets/images/dd355e57f3dd.jpg';
+---
+
+<!-- Lightbox / popup, rendered as an aside dialog, hidden until triggered -->
+<aside class="hfk-s9-lightbox" id="hfk-flash-sale-modal" role="dialog" aria-modal="true" aria-label="Flash Sale" hidden>
+  <div class="hfk-s9-lightbox__backdrop" aria-hidden="true"></div>
+  <div class="hfk-s9-lightbox__panel">
+
+    <button class="hfk-s9-lightbox__close" aria-label="Close sales popup" onclick="document.getElementById('hfk-flash-sale-modal').hidden=true">&times;</button>
+
+    <h2 class="hfk-s9-lightbox__heading">June SALES</h2>
+
+    <div class="hfk-s9-lightbox__items">
+
+      <!-- BRO-tox Fathers Day Special -->
+      <div class="hfk-s9-lightbox__item">
+        <div class="hfk-s9-lightbox__img">
+          <img src={sale1Img.src} alt="BRO-tox Fathers Day Special" loading="lazy" decoding="async" width="300" height="220" />
+        </div>
+        <div class="hfk-s9-lightbox__body">
+          <h3 class="hfk-s9-lightbox__title">BRO-tox Fathers Day Special</h3>
+          <p class="hfk-s9-lightbox__desc">Includes:</p>
+          <FeatureList
+            items={[
+              "Botox $12 Per Unit",
+              "Smooths forehead, frown lines & crow's feet",
+              "Personalized Treatment Plan with Dr. Menon",
+            ]}
+          />
+        </div>
+      </div>
+
+      <!-- Summer Glow HydraFacial -->
+      <div class="hfk-s9-lightbox__item">
+        <div class="hfk-s9-lightbox__img">
+          <img src={sale2Img.src} alt="Summer Glow HydraFacial" loading="lazy" decoding="async" width="300" height="220" />
+        </div>
+        <div class="hfk-s9-lightbox__body">
+          <h3 class="hfk-s9-lightbox__title">Summer Glow HydraFacial</h3>
+          <FeatureList
+            items={[
+              "Vitamin C Booster +​",
+              "Discount Dermaplaning $25",
+              "($285 Value for $225)",
+            ]}
+          />
+        </div>
+      </div>
+
+      <!-- Custom Hydrating IV -->
+      <div class="hfk-s9-lightbox__item">
+        <div class="hfk-s9-lightbox__img">
+          <img src={sale3Img.src} alt="Custom Hydrating IV" loading="lazy" decoding="async" width="300" height="220" />
+        </div>
+        <div class="hfk-s9-lightbox__body">
+          <h3 class="hfk-s9-lightbox__title">Custom Hydrating IV</h3>
+          <FeatureList
+            items={[
+              "$99 Special Price​",
+              "Includes any two vitamins",
+              "Hydrate, recharge, glow",
+            ]}
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hfk-s9-lightbox__cta">
+      <a href="/sale" class="btn btn--primary btn--lg">Explore all sales</a>
+    </div>
+
+  </div>
+</aside>
+
+<style>
+  .hfk-s9-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hfk-s9-lightbox[hidden] {
+    display: none;
+  }
+
+  .hfk-s9-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+  }
+
+  .hfk-s9-lightbox__panel {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    padding: var(--space-xl);
+    max-width: 960px;
+    width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .hfk-s9-lightbox__close {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--color-text);
+    line-height: 1;
+    padding: 4px 8px;
+  }
+
+  .hfk-s9-lightbox__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .hfk-s9-lightbox__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .hfk-s9-lightbox__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .hfk-s9-lightbox__img {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    aspect-ratio: 4 / 3;
+  }
+
+  .hfk-s9-lightbox__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hfk-s9-lightbox__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .hfk-s9-lightbox__title {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .hfk-s9-lightbox__desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .hfk-s9-lightbox__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .hfk-s9-lightbox__panel {
+      padding: var(--space-lg) var(--space-sm);
+    }
+
+    .hfk-s9-lightbox__items {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

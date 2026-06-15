@@ -1,0 +1,15 @@
+{
+  "_note": "Skin-concern taxonomy for the Find Your Glow recommender. id is the stable key used across glow-quiz.json, glow-treatments.json (concerns[]) and glow-routine.json (concerns[]). label/short are display copy; icon maps to an inline SVG registry in find-your-glow.astro. Cosmetic-interest framing only, never stored as a medical condition.",
+  "concerns": [
+    { "id": "acne",     "label": "Breakouts & acne",        "short": "Clearer, calmer skin",        "icon": "acne" },
+    { "id": "aging",    "label": "Fine lines & wrinkles",   "short": "Smooth and soften",           "icon": "aging" },
+    { "id": "firmness", "label": "Loss of firmness",        "short": "Lift and tighten",            "icon": "firmness" },
+    { "id": "dullness", "label": "Dullness & uneven tone",  "short": "Bright, lit-from-within glow","icon": "dullness" },
+    { "id": "pigment",  "label": "Dark spots & pigment",    "short": "Even, clear tone",            "icon": "pigment" },
+    { "id": "redness",  "label": "Redness & rosacea",       "short": "Calm and soothe",             "icon": "redness" },
+    { "id": "texture",  "label": "Pores & rough texture",   "short": "Refine and smooth",           "icon": "texture" },
+    { "id": "dryness",  "label": "Dryness & dehydration",   "short": "Deep, lasting hydration",     "icon": "dryness" },
+    { "id": "undereye", "label": "Under-eye concerns",      "short": "Refresh tired eyes",          "icon": "undereye" },
+    { "id": "scars",    "label": "Acne scars & marks",      "short": "Resurface and renew",         "icon": "scars" }
+  ]
+}

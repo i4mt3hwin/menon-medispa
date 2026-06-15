@@ -1,0 +1,32 @@
+---
+import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import imgRecovery from '@/assets/images/70cda053abb7.avif';
+import imgDetox from '@/assets/images/f11ad22eea6c.avif';
+---
+<ServiceBookingCta
+  heading={`Ready to Bounce Back Faster?`}
+  body={`Don't let downtime hold you back. It's time to rehydrate, flush out toxins, and give your body the nutrients it needs to recover faster. Select your preferred Recovery & Detox IV drip below to book your appointment at our Millburn, NJ medispa.`}
+  cards={[
+    {
+      image: imgRecovery,
+      imageAlt: `RECOVERY Signature IV Drip`,
+      title: `RECOVERY Signature`,
+      duration: `500ml.`,
+      price: `$200`,
+    },
+    {
+      image: imgRecovery,
+      imageAlt: `RECOVERY Deluxe IV Drip`,
+      title: `RECOVERY Deluxe`,
+      duration: `500ml.`,
+      price: `$250`,
+    },
+    {
+      image: imgDetox,
+      imageAlt: `DETOX/ HANGOVER DRIP IV Drip`,
+      title: `DETOX/ HANGOVER DRIP`,
+      duration: `500ml.`,
+      price: `$250`,
+    },
+  ]}
+/>

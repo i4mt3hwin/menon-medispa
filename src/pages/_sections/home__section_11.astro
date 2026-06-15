@@ -1,0 +1,61 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import BlogList from '@/components/BlogList.astro';
+
+import post1Img from '@/assets/images/2c734ddea5ed.png';
+import post2Img from '@/assets/images/cdeb1a3077ee.jpg';
+import post3Img from '@/assets/images/0b093327272f.png';
+---
+
+<section class="home-section-11">
+  <SectionHeading
+    text="Recent Posts"
+    tag="h2"
+    align="center"
+    font="display"
+  />
+
+  <BlogList
+    heading=""
+    posts={[
+      {
+        slug: 'is-botox-safe',
+        title: 'Is Botox Safe?',
+        featured_image: post1Img.src,
+      },
+      {
+        slug: 'what-to-expect-your-first-botox-appointment',
+        title: 'What To Expect: Your First Botox Appointment',
+        featured_image: post2Img.src,
+      },
+      {
+        slug: 'what-is-hydrafacial',
+        title: 'What is HydraFacial?',
+        featured_image: post3Img.src,
+      },
+    ]}
+  />
+</section>
+
+<style>
+  .home-section-11 {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .home-section-11 .section-heading {
+    margin-bottom: var(--space-md);
+  }
+
+  /* BlogList renders its own section wrapper with padding, override to nest cleanly */
+  .home-section-11 :global(.blog-list) {
+    padding: 0;
+  }
+
+  @media (max-width: 980px) {
+    .home-section-11 {
+      padding: var(--space-lg) var(--space-sm);
+    }
+  }
+</style>

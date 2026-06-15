@@ -1,0 +1,124 @@
+---
+import post1Img from '@/assets/images/2c734ddea5ed.png';
+import post2Img from '@/assets/images/cdeb1a3077ee.jpg';
+import post3Img from '@/assets/images/0b093327272f.png';
+---
+
+<section class="section section--tint sh7-recent-posts">
+  <div class="container">
+
+    <h2 class="sh7-recent-posts__heading">Recent Posts</h2>
+
+    <div class="sh7-recent-posts__grid">
+
+      <article class="sh7-recent-posts__post">
+        <a href="/post/is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj" class="sh7-recent-posts__post-link">
+          <img
+            src={post1Img.src}
+            alt="Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ"
+            class="sh7-recent-posts__post-img"
+            loading="lazy"
+            decoding="async"
+            width="294"
+            height="294"
+          />
+          <p class="sh7-recent-posts__post-title">Is Botox Safe? Risks, Side Effects &amp; What Research Says in Millburn, NJ</p>
+        </a>
+      </article>
+
+      <article class="sh7-recent-posts__post">
+        <a href="/post/first-botox-appointment-a-step-by-step-guide" class="sh7-recent-posts__post-link">
+          <img
+            src={post2Img.src}
+            alt="First Botox Appointment: A Step-by-Step Guide"
+            class="sh7-recent-posts__post-img"
+            loading="lazy"
+            decoding="async"
+            width="294"
+            height="196"
+          />
+          <p class="sh7-recent-posts__post-title">First Botox Appointment: A Step-by-Step Guide</p>
+        </a>
+      </article>
+
+      <article class="sh7-recent-posts__post">
+        <a href="/post/why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation" class="sh7-recent-posts__post-link">
+          <img
+            src={post3Img.src}
+            alt="Why Millburn NJ Residents Are Choosing HydraFacial™ for Skin Rejuvenation"
+            class="sh7-recent-posts__post-img"
+            loading="lazy"
+            decoding="async"
+            width="293"
+            height="165"
+          />
+          <p class="sh7-recent-posts__post-title">Why Millburn NJ Residents Are Choosing HydraFacial™ for Skin Rejuvenation</p>
+        </a>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .sh7-recent-posts__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+  }
+
+  .sh7-recent-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .sh7-recent-posts__post {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sh7-recent-posts__post-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .sh7-recent-posts__post-link:hover .sh7-recent-posts__post-title {
+    text-decoration: underline;
+  }
+
+  .sh7-recent-posts__post-img {
+    width: 100%;
+    height: 196px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  .sh7-recent-posts__post-title {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .sh7-recent-posts__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sh7-recent-posts__post-img {
+      height: 220px;
+    }
+  }
+</style>

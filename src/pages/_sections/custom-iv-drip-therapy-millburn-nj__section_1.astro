@@ -1,0 +1,153 @@
+---
+import site from '@/lib/site';
+import heroImg from '@/assets/images/fc3ca8a7bdf0.jpg';
+import socialProofImg from '@/assets/images/672f9a7e94fe.png';
+---
+
+<section class="section iv-s1">
+  <div class="container">
+    <div class="iv-s1__layout">
+
+      <div class="iv-s1__text">
+        <h1 class="iv-s1__heading">
+          Boost Your Energy and Wellness with a Customized Mineral IV Drip in Millburn, NJ
+        </h1>
+
+        <p class="iv-s1__body">
+          Join countless clients in Millburn and Short Hills, NJ who trust Menon Medispa's Customized Mineral IV Drips to restore balance, hydration, and vitality from the inside out. Each infusion is tailored to your unique needs and can be enhanced with targeted vitamin add-ons to support energy, immunity, recovery, or overall wellness.
+        </p>
+
+        <div class="iv-s1__ctas">
+          <a href={site.calcomUrl} class="btn btn--primary btn--lg">
+            Book Your Custom IV Drip Today
+          </a>
+        </div>
+
+        <div class="iv-s1__social-proof">
+          <img
+            src={socialProofImg.src}
+            alt="Menon Medispa Social Proof"
+            class="iv-s1__social-proof-img"
+            loading="eager"
+            decoding="async"
+            width="207"
+            height="70"
+          />
+        </div>
+      </div>
+
+      <div class="iv-s1__img-col">
+        <img
+          src={heroImg.src}
+          alt="IV Therapy at Menon Medispa Millburn NJ"
+          class="iv-s1__hero-img"
+          loading="eager"
+          decoding="async"
+          width="736"
+          height="667"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .iv-s1 {
+    background-color: var(--color-surface);
+  }
+
+  .iv-s1__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .iv-s1__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 580px;
+  }
+
+  .iv-s1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .iv-s1__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .iv-s1__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .iv-s1__social-proof {
+    margin-top: var(--space-xs);
+  }
+
+  .iv-s1__social-proof-img {
+    width: 207px;
+    height: 70px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .iv-s1__img-col {
+    flex-shrink: 0;
+    width: 460px;
+  }
+
+  .iv-s1__hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 1024px) {
+    .iv-s1__img-col {
+      width: 360px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .iv-s1__layout {
+      flex-direction: column-reverse;
+    }
+
+    .iv-s1__text {
+      max-width: 100%;
+    }
+
+    .iv-s1__img-col {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .iv-s1__ctas {
+      flex-direction: column;
+    }
+
+    .iv-s1__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

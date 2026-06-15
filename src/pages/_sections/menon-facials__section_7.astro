@@ -1,0 +1,122 @@
+---
+// Section 7, FAQ
+// Wix search form → LeadForm with search placeholder
+// 8 FAQ items, no answer text extracted from source (empty strings per spec)
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+---
+
+<section class="section section--tint mf-s7">
+  <div class="container--narrow">
+  <div class="mf-s7__inner">
+
+    <SectionHeading
+      text="Frequently asked questions"
+      tag="h2"
+      align="center"
+      font="display"
+    />
+
+    <div class="mf-s7__search">
+      <LeadForm
+        heading=""
+        fields={['message']}
+        submit_label="Search"
+        success_url="/menon-facials"
+      />
+      <p class="mf-s7__search-note">Looking for something?</p>
+    </div>
+
+    <FaqAccordion
+      items={[
+        {
+          question: "How often should I get facials for best results?",
+          answer_html: "",
+        },
+        {
+          question: "What should I expect during my first facial appointment?",
+          answer_html: "",
+        },
+        {
+          question: "Is there any downtime after facial treatments?",
+          answer_html: "",
+        },
+        {
+          question: "How do I know which facial is right for my skin type?",
+          answer_html: "",
+        },
+        {
+          question: "Can I wear makeup after my facial?",
+          answer_html: "",
+        },
+        {
+          question: "What's the difference between your facials and spa facials?",
+          answer_html: "",
+        },
+        {
+          question: "Do you offer consultations to help choose the right treatment?",
+          answer_html: "",
+        },
+        {
+          question: "How far in advance should I book my facial?",
+          answer_html: "",
+        },
+      ]}
+    />
+
+  </div>
+  </div>
+</section>
+
+<style>
+  .mf-s7__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .mf-s7__search {
+    max-width: 560px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+  }
+
+  .mf-s7__search-note {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-align: center;
+    margin: var(--space-xs) 0 0;
+    opacity: 0.7;
+  }
+
+  /* Trim LeadForm's own padding and heading when nested here */
+  .mf-s7__search :global(.lead-form) {
+    padding: 0;
+  }
+
+  .mf-s7__search :global(.lead-form h2) {
+    display: none;
+  }
+
+  /* Style the message textarea as a single-line search input */
+  .mf-s7__search :global(textarea) {
+    resize: none;
+    height: 44px;
+    min-height: 44px;
+    overflow: hidden;
+  }
+
+  /* Trim FaqAccordion's own padding when nested here */
+  .mf-s7__inner :global(.faq-accordion) {
+    padding: 0;
+  }
+
+  @media (max-width: 768px) {
+    .mf-s7__search {
+      max-width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import img1 from '@/assets/images/0123d7937bc5.jpg';
+import img2 from '@/assets/images/d4b982753ae2.jpg';
+import img3 from '@/assets/images/2e781c76bde6.png';
+import img4 from '@/assets/images/558017ce8956.jpg';
+import img5 from '@/assets/images/098a5bd79bf4.jpg';
+import img6 from '@/assets/images/9110e6d86cfe.jpg';
+import img7 from '@/assets/images/98a9c356acaf.jpg';
+import img8 from '@/assets/images/e6b8d0acb54f.jpg';
+import img9 from '@/assets/images/14cbdac87a73.jpg';
+import img10 from '@/assets/images/d18ca4c55b64.jpg';
+import img11 from '@/assets/images/a599b663b8cc.jpg';
+
+const images = [
+  { src: img1.src, alt: "HydraFacial Before & After" },
+  { src: img2.src, alt: "HydraFacial Treatment" },
+  { src: img3.src, alt: "HydraFacial treatment" },
+  { src: img4.src, alt: "HydraFacial result" },
+  { src: img5.src, alt: "HydraFacial product" },
+  { src: img6.src, alt: "HydraFacial treatment session" },
+  { src: img7.src, alt: "Female HydraFacial treatment" },
+  { src: img8.src, alt: "HydraFacial device" },
+  { src: img9.src, alt: "HydraFacial treatment in progress" },
+  { src: img10.src, alt: "Blue LED light therapy" },
+  { src: img11.src, alt: "Female treatment result" },
+];
+---
+
+<section class="section s7-gallery">
+  <div class="container--wide">
+    <div class="s7-gallery__grid">
+      {images.map((image) => (
+        <div class="s7-gallery__item">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="s7-gallery__img"
+            loading="lazy"
+            decoding="async"
+            width="360"
+            height="270"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .s7-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .s7-gallery__item {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    aspect-ratio: 4 / 3;
+  }
+
+  .s7-gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .s7-gallery__item:hover .s7-gallery__img {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 768px) {
+    .s7-gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s7-gallery__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

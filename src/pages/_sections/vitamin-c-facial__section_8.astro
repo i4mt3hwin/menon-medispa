@@ -1,0 +1,55 @@
+---
+import LeadForm from '@/components/LeadForm.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+---
+
+<section class="section s8-faq">
+  <div class="container container--narrow">
+    <h2 class="s8-faq__heading">Frequently asked questions</h2>
+  </div>
+
+  <LeadForm placeholder="Looking for something?" />
+
+  <FaqAccordion
+    items={[
+      {
+        question: "Will vitamin C irritate my sensitive skin?",
+        answer_html: "",
+      },
+      {
+        question: "How often should I get vitamin C facials for best results?",
+        answer_html: "",
+      },
+      {
+        question: "When will I see results and how long do they last?",
+        answer_html: "",
+      },
+      {
+        question: "Can I wear makeup after my vitamin C facial?",
+        answer_html: "",
+      },
+      {
+        question: "How is this different from using vitamin C products at home?",
+        answer_html: "",
+      },
+    ]}
+  />
+</section>
+
+<style>
+  .s8-faq__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  /* LeadForm and FaqAccordion each render their own .section wrapper;
+     collapse their top padding since the outer .section provides rhythm */
+  .s8-faq :global(.lead-form), .s8-faq :global(.faq-accordion.section) {
+    padding-top: 0;
+  }
+</style>

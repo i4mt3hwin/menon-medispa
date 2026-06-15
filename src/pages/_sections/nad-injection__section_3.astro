@@ -1,0 +1,136 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section s3-benefits">
+  <div class="container">
+
+    <div class="s3-benefits__intro">
+      <h2 class="s3-benefits__heading">Why NAD+ Injection Is the Smart Choice for Busy Lifestyles</h2>
+      <p class="s3-benefits__body">Get the cellular benefits of NAD+ therapy in a fraction of the time. Perfect for those who want results without a lengthy appointment.</p>
+    </div>
+
+    <div class="s3-benefits__grid">
+
+      <div class="s3-benefits__card">
+        <h3 class="s3-benefits__card-title">Quick &amp; Convenient</h3>
+        <p class="s3-benefits__card-body">Your NAD+ Injection takes just a few minutes. Walk in, get your shot, and get back to your day feeling recharged. Ideal for busy professionals and parents in Millburn and Short Hills.</p>
+      </div>
+
+      <div class="s3-benefits__card">
+        <h3 class="s3-benefits__card-title">Sharper Mental Clarity &amp; Focus</h3>
+        <p class="s3-benefits__card-body">Brain fog holding you back? NAD+ supports healthy brain function and helps you think clearer, focus longer, and stay sharp throughout your day.</p>
+      </div>
+
+      <div class="s3-benefits__card">
+        <h3 class="s3-benefits__card-title">Natural Energy Without the Crash</h3>
+        <p class="s3-benefits__card-body">NAD+ works at the cellular level to support your body's natural energy production. No jitters, no caffeine crash. Just steady, clean energy that lasts.</p>
+      </div>
+
+      <div class="s3-benefits__card">
+        <h3 class="s3-benefits__card-title">Anti-Aging From the Inside Out</h3>
+        <p class="s3-benefits__card-body">NAD+ levels drop as we age. Replenishing them helps support cellular repair, healthy metabolism, and overall vitality. You'll feel younger, longer.</p>
+      </div>
+
+    </div>
+
+    <div class="s3-benefits__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Your NAD+ Injection Today
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s3-benefits__intro {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .s3-benefits__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-benefits__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s3-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .s3-benefits__card {
+    background: var(--color-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s3-benefits__card-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-benefits__card-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s3-benefits__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .s3-benefits__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .s3-benefits__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .s3-benefits__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

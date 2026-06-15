@@ -1,0 +1,153 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/dermaplaning-facial__section_2.astro';
+import Video from '@/pages/_sections/dermaplaning-facial__section_4.astro';
+import Process from '@/pages/_sections/dermaplaning-facial__section_5.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import Pricing from '@/pages/_sections/dermaplaning-facial__section_7.astro';
+import AddOns from '@/pages/_sections/dermaplaning-facial__section_8.astro';
+import FinalCta from '@/pages/_sections/dermaplaning-facial__section_10.astro';
+
+import heroImg from '@/assets/images/a2e5efb60e6b.jpeg';
+
+const slug = 'dermaplaning-facial';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'Does dermaplaning hurt?',
+    answer:
+      'No. Dermaplaning is a gentle, painless procedure. You may feel a light scratching sensation as the blade glides across the skin, but most clients find it very comfortable. There is no pain, redness, or discomfort during the treatment.',
+  },
+  {
+    question: 'Will my hair grow back thicker or darker?',
+    answer:
+      'No, this is one of the most common misconceptions about dermaplaning. The fine vellus hair (peach fuzz) that is removed grows back at the same rate, texture, and color as before. Dermaplaning does not affect the hair follicle at all.',
+  },
+  {
+    question: 'Is there any downtime after dermaplaning?',
+    answer:
+      'None. You can return to your normal activities immediately after your dermaplaning facial. Your skin may look slightly flushed for an hour or two, but there is no peeling, swelling, or recovery period required.',
+  },
+  {
+    question: 'Who is a good candidate for dermaplaning?',
+    answer:
+      'Dermaplaning is safe for most skin types, including sensitive skin. It is particularly beneficial for those with dry skin, dull complexion, fine lines, or uneven texture. We do not recommend it for active acne breakouts or certain skin conditions, your esthetician will assess your skin during the consultation.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Dermaplaning Facial in Millburn, NJ',
+  description:
+    'Professional dermaplaning facial at Menon Medispa in Millburn, NJ. Remove dead skin cells and peach fuzz for instantly smoother, brighter skin. Full facial treatment included, no downtime required.',
+  url: '/dermaplaning-facial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Dermaplaning Facial', url: '/dermaplaning-facial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Dermaplaning Facial Millburn NJ | Silky-Smooth Skin at Menon Medispa"
+  description="Experience a professional dermaplaning facial in Millburn, NJ at Menon Medispa. Remove dead skin cells and peach fuzz for instantly smoother, brighter skin. Book today!"
+  canonical="https://www.menonmedispa.com/dermaplaning-facial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="DERMAPLANING FACIAL · MILLBURN, NJ"
+    h1="Dermaplaning Facial in Millburn, NJ for Silky-Smooth Skin"
+    subhead="Reveal radiant, velvety-smooth skin with our professional dermaplaning facial, combining deep cleansing, exfoliation, and peach fuzz removal with no downtime required."
+    image={heroImg}
+    imageAlt="Dermaplaning facial treatment at Menon Medispa in Millburn, NJ"
+    price="Starting at $160"
+    note="Full facial treatment included. Complimentary skin consultation."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Transform Your Skin with Every Session</h2>
+      <p class="svc-lead">Discover why our dermaplaning facial is the perfect solution for anyone seeking brighter, smoother, more radiant skin.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Instant Smoothness &amp; Glow</h3>
+          <p>Remove weeks of dead skin buildup and peach fuzz in a single session. Your complexion looks brighter and feels incredibly smooth from the very first treatment.</p>
+        </li>
+        <li>
+          <h3>Enhanced Product Absorption</h3>
+          <p>After dermaplaning, your skincare products penetrate up to 5x deeper into the skin. Your serums, moisturizers, and treatments work harder and deliver better results.</p>
+        </li>
+        <li>
+          <h3>Flawless Makeup Application</h3>
+          <p>Say goodbye to patchy foundation and cakey concealer. Dermaplaning creates a perfectly smooth canvas so makeup glides on evenly and lasts longer.</p>
+        </li>
+        <li>
+          <h3>Safe &amp; Gentle Process</h3>
+          <p>Unlike harsh chemical peels or abrasive scrubs, our dermaplaning facial is gentle enough for all skin types including sensitive skin, with zero downtime required.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$160' },
+          { label: 'Appointment', value: '1 hour' },
+          { label: 'Downtime', value: 'None required' },
+          { label: 'Skin types', value: 'All, including sensitive' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Video />
+
+  <Process />
+
+  <ServiceTestimonial slug="dermaplaning-facial" />
+
+  <Pricing />
+
+  <AddOns />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_4 (Video), section_5 (Process), section_7 (Pricing), section_8 (AddOns), section_10 (FinalCta). Inlined: section_3 (benefits prose) as svc-block. FAQ-lifted: section_9 (4 Q&As into faqItems + FaqColumn). Hero extracted: section_1 (image a2e5efb60e6b.jpeg). No promo band found. Testimonial: section_6 swapped to <ServiceTestimonial slug="dermaplaning-facial" /> (provider-safe curated review). -->

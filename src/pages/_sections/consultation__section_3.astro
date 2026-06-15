@@ -1,0 +1,132 @@
+---
+---
+
+<!-- Section 3: How it works, 3 steps (CRO: removes uncertainty) -->
+<section class="section section--tint con-steps">
+  <div class="container">
+
+    <div class="con-steps__head">
+      <p class="eyebrow">Simple &amp; Stress-Free</p>
+      <h2 class="con-steps__heading">How Your Consultation Works</h2>
+    </div>
+
+    <ol class="con-steps__list">
+
+      <li class="con-steps__step">
+        <span class="con-steps__num" aria-hidden="true">1</span>
+        <h3 class="con-steps__step-title">Request Your Visit</h3>
+        <p class="con-steps__step-body">
+          Fill out the quick form below or give us a call. We&rsquo;ll reach out within 24 hours to
+          find a time that works for you.
+        </p>
+      </li>
+
+      <li class="con-steps__step">
+        <span class="con-steps__num" aria-hidden="true">2</span>
+        <h3 class="con-steps__step-title">Personalized Skin Assessment</h3>
+        <p class="con-steps__step-body">
+          Our team takes a close look at your skin type, concerns, and goals, and answers every
+          question you have along the way.
+        </p>
+      </li>
+
+      <li class="con-steps__step">
+        <span class="con-steps__num" aria-hidden="true">3</span>
+        <h3 class="con-steps__step-title">Your Custom Treatment Plan</h3>
+        <p class="con-steps__step-body">
+          You leave with a clear, tailored roadmap of the treatments that will get you the results
+          you&rsquo;re after, at a pace that fits your life and budget.
+        </p>
+      </li>
+
+    </ol>
+
+  </div>
+</section>
+
+<style>
+  .con-steps .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .con-steps__head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .con-steps__head .eyebrow { margin: 0; color: var(--color-cta); }
+
+  .con-steps__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .con-steps__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    counter-reset: step;
+  }
+
+  .con-steps__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+    align-items: center;
+  }
+
+  .con-steps__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-cta);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .con-steps__step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .con-steps__step-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 320px;
+  }
+
+  @media (max-width: 768px) {
+    .con-steps__list {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin: 0 auto;
+      gap: var(--space-md);
+    }
+  }
+</style>

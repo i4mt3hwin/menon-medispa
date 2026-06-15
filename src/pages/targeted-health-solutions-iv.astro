@@ -1,0 +1,151 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/targeted-health-solutions-iv__section_2.astro';
+import IVTypes from '@/pages/_sections/targeted-health-solutions-iv__section_3.astro';
+import Gallery from '@/pages/_sections/targeted-health-solutions-iv__section_4.astro';
+import Process from '@/pages/_sections/targeted-health-solutions-iv__section_5.astro';
+import Pricing from '@/pages/_sections/targeted-health-solutions-iv__section_6.astro';
+import IVNote from '@/pages/_sections/targeted-health-solutions-iv__section_7.astro';
+import FinalCta from '@/pages/_sections/targeted-health-solutions-iv__section_9.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+import heroImg from '@/assets/images/f3af55f56cac.png';
+
+const slug = 'targeted-health-solutions-iv';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers in section_8 are all blank/placeholder -- skipping FAQ to avoid fabricating answers.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: 'Targeted Health Solutions IV Therapy in Millburn, NJ',
+  description:
+    'Proactive nutritional support for your specific health journey. Specialized IV drips for pain management, heart health, prenatal care, and gut health. Book at Menon Medispa in Millburn, NJ.',
+  url: '/targeted-health-solutions-iv',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: 'Targeted Health Solutions IV', url: '/targeted-health-solutions-iv' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Targeted Health Solutions IV Therapy in Millburn NJ | Menon Medispa"
+  description="Proactive nutritional support for your specific health journey. Specialized IV drips for pain management, heart health, prenatal care, and gut health. Book at Menon Medispa in Millburn, NJ."
+  canonical="https://www.menonmedispa.com/targeted-health-solutions-iv"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="IV THERAPY · MILLBURN, NJ"
+    h1="Targeted Health Solutions IV Therapy in Millburn, NJ"
+    subhead="Proactive nutritional support for your specific health journey, delivered directly into the bloodstream for maximum absorption."
+    image={heroImg}
+    imageAlt="IV therapy specialist at Menon Medispa Millburn NJ"
+    price="Starting at $250"
+    note="Complimentary consultation to match you to the right drip."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Condition-Focused IV Drips for Your Unique Health Journey</h2>
+      <p class="svc-lead">For those navigating specific health challenges, our Targeted Health Solutions IV Drips deliver powerful, condition-focused nutrient formulas directly into your bloodstream for maximum absorption and effect.</p>
+
+      <p>Your health journey is unique, and you deserve targeted support. Our specialized IV therapies are formulated around your specific needs, whether you are managing chronic pain, supporting cardiovascular health, navigating fertility and pregnancy, or addressing digestive inflammation.</p>
+
+      <p class="svc-eyebrow">Why IV Delivery Makes a Difference</p>
+      <p>When nutrients are delivered intravenously, they bypass the digestive system entirely and enter the bloodstream at 100% bioavailability. This means your body receives the full benefit of each formula, not a fraction of what would survive the digestive process. For those with conditions that impair absorption, this distinction is especially meaningful.</p>
+
+      <p class="svc-eyebrow">Our Four Specialized Drips</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Pain Management &amp; Autoimmune Disease Drip</h3>
+          <p>Packed with antioxidants and anti-inflammatory agents to support your body's response to chronic pain, autoimmune flare-ups, and systemic inflammation.</p>
+        </li>
+        <li>
+          <h3>Heart Health &amp; Diabetes Drip</h3>
+          <p>A blend of amino acids, antioxidants, and essential nutrients formulated to support healthy circulation, cardiovascular wellness, and blood sugar regulation.</p>
+        </li>
+        <li>
+          <h3>Prenatal / Pregnancy / Fertility Drip</h3>
+          <p>Contains essential folate, vitamins, and minerals to support both mother and baby, tailored for those on a fertility journey, navigating pregnancy, or recovering postpartum.</p>
+        </li>
+        <li>
+          <h3>Gut Health (IBS, UC, Crohn's) Drip</h3>
+          <p>Delivers anti-inflammatory nutrients directly into the bloodstream, bypassing the digestive system to support those with leaky gut, malabsorption issues, and digestive inflammation.</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">What to Expect</p>
+      <p>Your session begins with a brief consultation with one of our registered nurses, who will review your wellness goals and ensure your treatment is perfectly suited to your needs. Once settled in our comfortable therapy lounge, the IV drip is administered over approximately 45 to 60 minutes. The process is virtually painless, giving you time to relax, read, or catch up on emails while your body absorbs the nutrients.</p>
+      <p>Many clients experience a sense of revitalization and well-being after their session. The goal of these therapies is to provide foundational support for your body's systems over time. Consistent treatments are designed to complement your overall health plan and help you feel your best.</p>
+
+      <p class="svc-eyebrow">All IV Drips Are 500ml</p>
+      <p>Every Targeted Health Solutions drip is 500ml. You can upgrade to 1000ml for only $25 if you would like a larger volume for enhanced support.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: 'Starting at $250' },
+          { label: 'Volume', value: '500ml (upgrade to 1000ml for $25)' },
+          { label: 'Session length', value: '45–60 minutes' },
+          { label: 'Performed by', value: 'Registered nurse' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <IVTypes />
+
+  <Gallery />
+
+  <Process />
+
+  <Pricing />
+
+  <IVNote />
+
+  <LeadForm
+    heading="Request a Consultation"
+    fields={['name', 'email', 'phone', 'message']}
+    submit_label="Send Message"
+    success_url="/thank-you"
+  />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_3 (IVTypes), section_4 (Gallery), section_5 (Process), section_6 (Pricing), section_7 (IVNote), section_9 (FinalCta). Prose inlined from section_1 body copy + section_3/5/7 descriptive text. section_8 FAQ skipped (all answers blank/placeholder); LeadForm from section_8 restored as band immediately before FinalCta. section_11 (June SALES promo) removed; replaced by SalePopup. -->

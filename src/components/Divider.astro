@@ -1,0 +1,16 @@
+---
+interface Props {
+  color?: string;
+  thickness?: string;
+  margin?: string;
+}
+const {
+  color     = 'rgba(0, 0, 0, 0.15)',
+  thickness = '1px',
+  margin    = 'var(--space-md) 0',
+} = Astro.props;
+---
+<hr
+  class="site-divider"
+  style={`border: none; border-top: ${thickness} solid ${color}; margin: ${margin};`}
+/>

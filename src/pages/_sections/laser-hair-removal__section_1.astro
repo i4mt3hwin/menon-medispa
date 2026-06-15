@@ -1,0 +1,244 @@
+---
+import site from '@/lib/site';
+
+import heroBg from '@/assets/images/651c7c197b52.png';
+import clientPhoto from '@/assets/images/9797ba5f6b06.jpg';
+import reviewIcon1 from '@/assets/images/90411e0041df.png';
+import reviewIcon2 from '@/assets/images/305afeda5f9a.png';
+import reviewIcon3 from '@/assets/images/b95880091b44.png';
+---
+
+<section class="media-bg section s1-hero" style="--scrim-strength:0.60">
+  <img class="media-bg__img media-bg__img--blur" src={heroBg.src} alt="" aria-hidden="true"
+       loading="eager" decoding="async" width="1440" height="596" />
+  <span class="media-bg__scrim media-bg__scrim--l"></span>
+
+  <div class="media-bg__inner container on-media">
+    <div class="lhr-s1__layout">
+
+      <div class="lhr-s1__text">
+        <h1 class="lhr-s1__heading">
+          Laser Hair Removal in Millburn NJ
+        </h1>
+
+        <h2 class="lhr-s1__subheading">
+          Never Worry About Unwanted Hair Again - Permanently Smooth Skin in Just 6-8 Treatments
+        </h2>
+
+        <p class="lhr-s1__body">
+          Experience the freedom of permanent hair reduction at Menon Medispa, Millburn NJ's premier physician-supervised laser hair removal center. Our advanced technology delivers lasting results for all skin tones.
+        </p>
+
+        <div class="lhr-s1__ctas">
+          <a
+            href="https://www.google.com/maps/search/Menon+Medispa+Millburn+NJ"
+            class="btn btn--secondary btn--on-dark btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read Our Reviews
+          </a>
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Start Your Journey to Hair-Free Confidence
+          </a>
+        </div>
+
+        <div class="lhr-s1__social-proof">
+          <div class="lhr-s1__social-icons">
+            <img
+              src={reviewIcon1.src}
+              alt="Review platform"
+              class="lhr-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="46"
+              height="50"
+            />
+            <img
+              src={reviewIcon2.src}
+              alt="Review platform"
+              class="lhr-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+            <img
+              src={reviewIcon3.src}
+              alt="Review platform"
+              class="lhr-s1__social-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="50"
+            />
+          </div>
+          <div class="lhr-s1__stars-block">
+            <p class="lhr-s1__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <p class="lhr-s1__review-count">100+ 5 Star Reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lhr-s1__img-col">
+        <img
+          src={clientPhoto.src}
+          alt="Laser hair removal client at Menon Medispa Millburn NJ"
+          class="lhr-s1__client-photo"
+          loading="eager"
+          decoding="async"
+          width="430"
+          height="430"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .lhr-s1 {
+    min-height: 596px;
+  }
+
+  .media-bg__inner.container {
+    padding-block: var(--section-py);
+  }
+
+  .lhr-s1__layout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .lhr-s1__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 620px;
+  }
+
+  .lhr-s1__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .lhr-s1__subheading {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lhr-s1__body {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .lhr-s1__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .lhr-s1__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .lhr-s1__social-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .lhr-s1__social-icon {
+    display: block;
+    object-fit: contain;
+    filter: brightness(1.15);
+  }
+
+  .lhr-s1__stars-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .lhr-s1__stars {
+    font-size: var(--text-base);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .lhr-s1__review-count {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lhr-s1__img-col {
+    flex-shrink: 0;
+    width: 430px;
+  }
+
+  .lhr-s1__client-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.35);
+  }
+
+  @media (max-width: 1024px) {
+    .lhr-s1__img-col {
+      width: 340px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .lhr-s1__layout {
+      flex-direction: column-reverse;
+    }
+
+    .lhr-s1__text {
+      max-width: 100%;
+    }
+
+    .lhr-s1__img-col {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .lhr-s1__ctas {
+      flex-direction: column;
+    }
+
+    .lhr-s1__ctas .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .lhr-s1__social-proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

@@ -1,28 +1,32 @@
 ---
 /**
- * BaseLayout.astro — HTML shell + <head> meta scaffolding.
+ * BaseLayout.astro, HTML shell + <head> meta scaffolding.
  *
  * P03 SKELETON: provides the meta/canonical/OG/Twitter/JSON-LD plumbing that
  * downstream phases populate per page. Per-page values come from:
  *   - 04-architecture/page-seo-plan.csv  (title / meta description / H1 per page)
  *   - 02-research/business-metadata.md   (org-level schema) -> src/lib/site.ts
  *
- * Header/Footer and the component library are intentionally NOT built here —
+ * Header/Footer and the component library are intentionally NOT built here, 
  * that's 02-synthesize (components) + 03-build-replicate (pages). This layout
  * just renders a <slot/> so the scaffold compiles and pages can mount.
  */
 import '../styles/tokens.css';
-/* tokens.css @imports fonts.css — all design tokens + font faces loaded here */
+/* tokens.css @imports fonts.css, all design tokens + font faces loaded here */
+import '../styles/base.css';
+/* base.css, redesign layout system: container, section rhythm, responsive
+   type, button system, and the media-background/overlay treatment. */
 import site from '../lib/site';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ChatAssistant from '../components/ChatAssistant.astro';
+import SocialProofToast from '../components/SocialProofToast.astro';
 import ThirdPartyScripts from '../components/ThirdPartyScripts.astro';
 
 export interface Props {
-  /** <title> — from page-seo-plan.csv "Meta Title". Falls back to site name. */
+  /** <title>, from page-seo-plan.csv "Meta Title". Falls back to site name. */
   title?: string;
-  /** meta description — from page-seo-plan.csv "Meta Description". */
+  /** meta description, from page-seo-plan.csv "Meta Description". */
   description?: string;
   /** Canonical URL. Defaults to the current page URL resolved against `site`. */
   canonical?: string;
@@ -66,17 +70,20 @@ const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Enable scroll-reveal hidden states only when JS runs (graceful + SEO-safe) -->
+    <script is:inline>document.documentElement.classList.add('reveal-ready');</script>
+
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Icons — TODO(03-build): replace with the captured Menon favicon set. -->
+    <!-- Icons, TODO(03-build): replace with the captured Menon favicon set. -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Fonts: self-hosted via tokens.css → fonts.css @font-face.
          Preload LCP-critical faces:
-           Raleway-v2 400 latin primary block → d42b96c5612a.woff2 (body — dominant 3867+ uses)
+           Raleway-v2 400 latin primary block → d42b96c5612a.woff2 (body, dominant 3867+ uses)
            Playfair Display 400 latin primary block → 973711d84225.woff2 (headings)
            Lato 400 latin primary block → 3f18028a04b3.woff2 (UI/eyebrow) -->
     <link rel="preload" href="/fonts/d42b96c5612a.woff2" as="font" type="font/woff2" crossorigin />
@@ -112,6 +119,25 @@ const jsonldArray = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
     <slot name="end-of-body" />
 
     <ChatAssistant />
+    <SocialProofToast />
     <ThirdPartyScripts />
+
+    <!-- Scroll reveal: fade + rise top-level sections (and [data-reveal] elements) as they enter view -->
+    <script is:inline>
+      (function () {
+        var els = document.querySelectorAll('body > section:not(.hero), [data-reveal]');
+        if (!els.length) return;
+        if (!('IntersectionObserver' in window)) {
+          for (var i = 0; i < els.length; i++) els[i].classList.add('is-visible');
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
   </body>
 </html>

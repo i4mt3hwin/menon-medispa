@@ -1,0 +1,138 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/glass-facial__section_2.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ProcessSteps from '@/pages/_sections/glass-facial__section_5.astro';
+import BookingCard from '@/pages/_sections/glass-facial__section_6.astro';
+import FinalCta from '@/pages/_sections/glass-facial__section_8.astro';
+
+import heroImg from '@/assets/images/651c7c197b52.png';
+
+const slug = 'glass-facial';
+const posts = getRelatedPosts(slug);
+
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'Does the Glass Facial with Salmon DNA hurt?',
+    answer:
+      'No. The Glass Facial is a gentle, pain-free treatment. The nano-infusion technology used to deliver the PDRN serum is virtually painless, and most clients find the experience deeply relaxing. You may notice a mild tingling sensation during the treatment, which is entirely normal.',
+  },
+  {
+    question: 'Is there any downtime after the treatment?',
+    answer:
+      'There is no significant downtime associated with the Glass Facial. You may experience minor redness or sensitivity immediately after your session, but this typically resolves within a few hours. Most clients return to their normal activities the same day and leave with a visible, dewy glow.',
+  },
+  {
+    question: 'Who is a good candidate for the Glass Facial?',
+    answer:
+      'The Glass Facial with Salmon DNA is suitable for most skin types and is especially beneficial for clients dealing with dullness, dehydration, fine lines, uneven skin texture, or loss of firmness. During your consultation, our aesthetician will assess your skin to confirm that this treatment is the right fit for your goals.',
+  },
+  {
+    question: 'How soon will I see results, and how long do they last?',
+    answer:
+      'Many clients notice an immediate improvement in skin radiance, hydration, and texture right after their first session. The regenerative effects of PDRN continue working beneath the surface for several weeks, progressively improving firmness and clarity. Results typically last four to six weeks, and a series of treatments is recommended for optimal, long-lasting outcomes.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
+
+const jsonld = buildServiceSchema({
+  name: 'Glass Facial with Salmon DNA in Millburn, NJ',
+  description:
+    'The Glass Facial with Salmon DNA at Menon Medispa in Millburn, NJ uses regenerative PDRN to deeply hydrate and restore your skin, revealing an unparalleled luminous complexion.',
+  url: '/glass-facial',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'Facials',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Face', url: '/face' },
+    { name: 'Glass Facial', url: '/glass-facial' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Glass Facial with Salmon DNA Millburn NJ | Menon Medispa"
+  description="The Glass Facial with Salmon DNA at Menon Medispa in Millburn, NJ uses regenerative PDRN to deeply hydrate and restore your skin, revealing an unparalleled luminous complexion."
+  canonical="https://www.menonmedispa.com/glass-facial"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="GLASS FACIAL · MILLBURN, NJ"
+    h1="Glass Facial with Salmon DNA in Millburn, NJ"
+    subhead="Struggling with dull skin, fine lines, or uneven texture? Regenerative PDRN deeply hydrates and restores your skin at a cellular level, revealing a luminous, glass-skin complexion."
+    image={heroImg}
+    imageAlt="Glass facial client at Menon Medispa Millburn NJ"
+    price="Starting at $180"
+    note="Complimentary consultation to personalize your treatment plan."
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>Reveal Unmatched Radiance</h2>
+
+      <p class="svc-lead">This revitalizing facial harnesses the power of Polydeoxyribonucleotide (PDRN) derived from salmon DNA to rejuvenate your skin at a cellular level. Experience a transformation to a smoother, more luminous complexion.</p>
+
+      <p class="svc-eyebrow">Signature Glass Facial</p>
+
+      <p><em>Best for: Clients seeking to erase dullness, refine skin texture, and achieve a supreme, lasting radiance.</em></p>
+
+      <ul class="svc-checks">
+        <li><strong>Salmon DNA (PDRN):</strong> Stimulates collagen and elastin production, accelerates healing, and reduces inflammation for firmer, more youthful skin.</li>
+        <li><strong>Deep Hydration Complex:</strong> Infuses the skin with essential moisture, plumping fine lines and restoring a dewy, radiant glow.</li>
+        <li><strong>Gentle Exfoliants:</strong> Prepare the skin for optimal PDRN absorption by removing dull surface cells and improving texture.</li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$180' },
+          { label: 'Appointment', value: '60 minutes' },
+          { label: 'Results', value: 'Immediate glow; lasts 4–6 weeks' },
+          { label: 'Performed by', value: 'Expert aesthetician' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <ServiceTestimonial slug="glass-facial" />
+
+  <ProcessSteps />
+
+  <BookingCard />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_5 (ProcessSteps), section_6 (BookingCard), section_8 (FinalCta). Section_3 prose inlined into main column svc-block. Section_4 testimonial swapped to ServiceTestimonial (provider-safe curated reviews). Section_7 FAQ lifted into faqItems/FaqColumn. Section_10 June SALES promo removed (replaced by SalePopup). -->

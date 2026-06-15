@@ -1,5 +1,5 @@
 ---
-// Phase 3 Pass 1 — ServiceCard.astro
+// Phase 3 Pass 1, ServiceCard.astro
 // Renders a single service card: image top, display-font title, description, feature list, CTA button.
 import FeatureList from './FeatureList.astro';
 
@@ -29,7 +29,7 @@ const {
   bg,
 } = Astro.props;
 
-// Normalise image source — support both prop names and both string/object forms
+// Normalise image source, support both prop names and both string/object forms
 const rawSrc = image_src ?? image;
 const resolvedImageAlt = image_alt ?? imageAlt ?? title;
 const resolvedImageSrc = rawSrc
@@ -64,7 +64,7 @@ const resolvedImageSrc = rawSrc
       <FeatureList items={features} icon="check" />
     )}
 
-    <a href={href} class="service-card__cta">{cta_text}</a>
+    <a href={href} class="btn btn--primary btn--sm service-card__cta">{cta_text}</a>
   </div>
 </div>
 
@@ -74,17 +74,18 @@ const resolvedImageSrc = rawSrc
     flex-direction: column;
     border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.22s ease, transform 0.22s ease;
   }
 
   .service-card:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+    transform: translateY(-2px);
   }
 
   .service-card__img-wrap {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
   }
 
@@ -94,6 +95,11 @@ const resolvedImageSrc = rawSrc
     display: block;
     object-fit: cover;
     object-position: center;
+    transition: transform 0.35s ease;
+  }
+
+  .service-card:hover .service-card__img {
+    transform: scale(1.04);
   }
 
   .service-card__body {
@@ -111,6 +117,7 @@ const resolvedImageSrc = rawSrc
     color: var(--color-text);
     margin: 0;
     line-height: 1.25;
+    text-wrap: balance;
   }
 
   .service-card__desc {
@@ -122,21 +129,19 @@ const resolvedImageSrc = rawSrc
   }
 
   .service-card__cta {
-    display: inline-block;
     align-self: flex-start;
     margin-top: auto;
-    padding: 11px 16px;
-    background-color: var(--color-cta);
-    color: var(--color-text);
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(117, 77, 77, 0.6);
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   }
 
-  .service-card__cta:hover {
-    background-color: color-mix(in srgb, var(--color-cta) 85%, #000 15%);
+  @media (prefers-reduced-motion: reduce) {
+    .service-card, .service-card__img {
+      transition: none;
+    }
+    .service-card:hover {
+      transform: none;
+    }
+    .service-card:hover .service-card__img {
+      transform: none;
+    }
   }
 </style>

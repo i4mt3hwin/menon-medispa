@@ -1,0 +1,137 @@
+---
+import site from '@/lib/site';
+---
+
+<section class="section s3-iv-types">
+  <div class="container">
+
+    <h2 class="s3-iv-types__heading">Find Your Specialized IV Therapy</h2>
+
+    <div class="s3-iv-types__grid">
+
+      <div class="s3-iv-types__card">
+        <div class="s3-iv-types__card-body">
+          <h3 class="s3-iv-types__card-title">Pain Management &amp; Autoimmune Disease Drip</h3>
+          <p class="s3-iv-types__card-tagline">For Support With: Chronic Pain, Autoimmune Flare-Ups, Systemic Inflammation.</p>
+          <p class="s3-iv-types__card-desc">This powerful drip is designed for those dealing with chronic pain, autoimmune diseases, and systemic inflammation. Packed with antioxidants and anti-inflammatory agents, it aims to support your body's response to these challenging conditions.</p>
+        </div>
+      </div>
+
+      <div class="s3-iv-types__card">
+        <div class="s3-iv-types__card-body">
+          <h3 class="s3-iv-types__card-title">Heart Health &amp; Diabetes Drip</h3>
+          <p class="s3-iv-types__card-tagline">For Support With: Cardiovascular Wellness, Healthy Circulation, Blood Sugar Regulation.</p>
+          <p class="s3-iv-types__card-desc">Formulated to support cardiovascular health and blood sugar regulation. This drip contains a blend of amino acids, antioxidants, and essential nutrients that support healthy circulation and metabolic function.</p>
+        </div>
+      </div>
+
+      <div class="s3-iv-types__card">
+        <div class="s3-iv-types__card-body">
+          <h3 class="s3-iv-types__card-title">Prenatal/Pregnancy/Fertility Drip</h3>
+          <p class="s3-iv-types__card-tagline">For Support With: Fertility Journeys, Prenatal Nutrition, Postpartum Recovery.</p>
+          <p class="s3-iv-types__card-desc">A specially formulated drip for those on a fertility journey or navigating the demands of pregnancy and postpartum recovery. Contains essential folate, vitamins, and minerals to support both mother and baby.</p>
+        </div>
+      </div>
+
+      <div class="s3-iv-types__card">
+        <div class="s3-iv-types__card-body">
+          <h3 class="s3-iv-types__card-title">Gut Health (IBS, UC, Crohn's) Drip</h3>
+          <p class="s3-iv-types__card-tagline">For Support With: Leaky Gut, Malabsorption, Digestive Inflammation (IBS, UC, Crohn's).</p>
+          <p class="s3-iv-types__card-desc">Designed to support gut health from the inside out. This drip delivers anti-inflammatory nutrients directly into the bloodstream, bypassing the digestive system to support those with leaky gut, malabsorption issues, and digestive inflammation.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="s3-iv-types__cta">
+      <a
+        href={site.calcomUrl}
+        class="btn btn--primary btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s3-iv-types__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s3-iv-types__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .s3-iv-types__card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.05);
+  }
+
+  .s3-iv-types__card-body {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .s3-iv-types__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s3-iv-types__card-tagline {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .s3-iv-types__card-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s3-iv-types__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .s3-iv-types__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .s3-iv-types__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,150 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import site from '@/lib/site';
+import ServiceHero from '@/components/ServiceHero.astro';
+import ServiceLayout from '@/components/ServiceLayout.astro';
+import QuickFacts from '@/components/QuickFacts.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqColumn from '@/components/FaqColumn.astro';
+import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import SalePopup from '@/components/SalePopup.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+import { getRelatedPosts } from '@/lib/relatedPosts';
+import { buildServiceSchema } from '@/lib/serviceSchema';
+
+// Kept full-width experiential bands (reused verbatim from the original build)
+import TrustBar from '@/pages/_sections/myers-cocktail-iv-therapy__section_2.astro';
+import Gallery from '@/pages/_sections/myers-cocktail-iv-therapy__section_4.astro';
+import Pricing from '@/pages/_sections/myers-cocktail-iv-therapy__section_6.astro';
+import UpgradeNotice from '@/pages/_sections/myers-cocktail-iv-therapy__section_7.astro';
+import FinalCta from '@/pages/_sections/myers-cocktail-iv-therapy__section_9.astro';
+
+import heroImg from '@/assets/images/76295e9a95ba.avif';
+
+const slug = 'myers-cocktail-iv-therapy';
+const posts = getRelatedPosts(slug);
+
+// FAQ answers are blank/placeholder in the source sections -- skipping FAQ to avoid fabrication.
+const faqs: { question: string; answer: string }[] = [];
+const faqItems: { question: string; answer_html: string }[] = [];
+
+const jsonld = buildServiceSchema({
+  name: "Myers' Cocktail IV Therapy in Millburn, NJ",
+  description:
+    "Experience the original Myers' Cocktail IV therapy in Millburn NJ. The gold standard formula with Vitamin C, B-Complex, B12, and Magnesium for energy, immunity, and overall wellness.",
+  url: '/myers-cocktail-iv-therapy',
+  image: heroImg.src,
+  type: 'Service',
+  category: 'IV Therapy',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Body', url: '/body' },
+    { name: "Myers' Cocktail IV Therapy", url: '/myers-cocktail-iv-therapy' },
+  ],
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Myers' Cocktail IV Therapy in Millburn NJ | Menon Medispa"
+  description="Experience the original Myers' Cocktail IV therapy in Millburn NJ. The gold standard formula with Vitamin C, B-Complex, B12, and Magnesium for energy, immunity, and overall wellness."
+  canonical="https://www.menonmedispa.com/myers-cocktail-iv-therapy"
+  jsonld={jsonld}
+>
+
+  <ServiceHero
+    eyebrow="MYERS' COCKTAIL IV THERAPY · MILLBURN, NJ"
+    h1="The Gold Standard Myers' Cocktail IV Therapy in Millburn, NJ"
+    subhead="The original IV vitamin drip, time-tested and trusted, delivering essential nutrients directly to your body for energy, immunity, and overall wellness."
+    image={heroImg}
+    imageAlt="Myers Cocktail IV drip bag"
+    price="Starting at $250"
+    trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
+  />
+
+  <TrustBar />
+
+  <ServiceLayout>
+    <!-- MAIN COLUMN -->
+    <div class="svc-block">
+      <h2>The Myers' Cocktail: The Gold Standard Formula</h2>
+
+      <p class="svc-lead">Developed by Dr. John Myers in the 1960s, the Myers' Cocktail is the original IV vitamin therapy.</p>
+
+      <p>Its time-tested formula provides a powerful, comprehensive blend of essential vitamins and minerals that work synergistically to support your body's foundational health and address a wide range of common health concerns.</p>
+
+      <p class="svc-eyebrow">Key Ingredients and Their Benefits</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Vitamin C</h3>
+          <p>A powerful antioxidant that is crucial for a healthy immune system, protecting cells from damage, and promoting vibrant skin.</p>
+        </li>
+        <li>
+          <h3>B-Complex Vitamins</h3>
+          <p>The full suite of B vitamins that act as the building blocks of a healthy body, playing a vital role in energy production, brain function, and stress management.</p>
+        </li>
+        <li>
+          <h3>Vitamin B12</h3>
+          <p>A powerhouse for creating red blood cells and nerve cells, essential for fighting fatigue, sharpening focus, and enhancing mood.</p>
+        </li>
+        <li>
+          <h3>Magnesium</h3>
+          <p>A vital mineral involved in over 300 bodily processes. It is known to help relax muscles, calm anxiety, and reduce the frequency of migraines.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="svc-block">
+      <h2>Simple, Relaxing, and Effective</h2>
+
+      <ul class="svc-steps">
+        <li>
+          <h3>Personalized Consultation</h3>
+          <p>Your session begins with a brief consultation with one of our registered nurses. They will review your wellness goals and answer any questions to ensure your treatment is perfectly suited to your needs.</p>
+        </li>
+        <li>
+          <h3>Relax and Recharge</h3>
+          <p>Once settled in our comfortable therapy lounge, the IV drip is administered. The process is virtually painless and takes about 45 to 60 minutes. You can relax, read, or catch up on emails while your body absorbs the nutrients.</p>
+        </li>
+        <li>
+          <h3>Feel the Benefits</h3>
+          <p>Many clients report an immediate feeling of revitalization, clarity, and overall well-being after their session. This foundational blend of nutrients will continue to support your system, helping you feel balanced, energized, and ready to take on your week.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SIDEBAR -->
+    <Fragment slot="aside">
+      <QuickFacts
+        cta
+        reviewText="100+ 5 Star Reviews"
+        items={[
+          { label: 'Price', value: '$250' },
+          { label: 'Volume', value: '500 ml' },
+          { label: 'Appointment', value: '45 to 60 minutes' },
+          { label: 'Administered by', value: 'Registered Nurses' },
+          { label: 'Location', value: 'Millburn, NJ' },
+        ]}
+      />
+    </Fragment>
+  </ServiceLayout>
+
+  <Gallery />
+
+  <Pricing />
+
+  <UpgradeNotice />
+
+  <LeadForm />
+
+  <FinalCta />
+
+  <RelatedPosts posts={posts} layout="band" />
+
+  <MobileCtaBar ctaLabel="Book Online" />
+  <SalePopup />
+
+</BaseLayout>
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/4/6/7/9 kept verbatim. Sections 3 (formula) and 5 (process) inlined as svc-block prose. Section 8 FAQ skipped (all answers blank/placeholder -- not fabricated). Section 8 LeadForm restored (band-level, default props, placed before FinalCta). No promo band present in original. -->

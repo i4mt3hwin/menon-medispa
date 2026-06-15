@@ -1,0 +1,27 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import FeatureList from '@/components/FeatureList.astro';
+---
+
+<section class="section sp-payment">
+  <div class="container--narrow">
+    <SectionHeading
+      heading="Payment Methods"
+      level={2}
+    />
+
+    <FeatureList
+      items={[
+        { text: 'Credit / Debit Cards' },
+      ]}
+    />
+  </div>
+</section>
+
+<style>
+  .sp-payment .container--narrow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+import SchedulerEmbed from '@/components/SchedulerEmbed.astro';
+import site from '@/lib/site';
+---
+
+<section class="section section--tint lhr-s6-booking">
+  <div class="container--narrow">
+
+    <p class="lhr-s6__note">Please call for more information on our various laser hair removal packages</p>
+
+    <SchedulerEmbed
+      heading="Book Your Laser Hair Removal Appointment"
+      variant="inline"
+    />
+
+    <div class="lhr-s6__cta">
+      <a
+        href="tel:9734948431"
+        class="btn btn--primary btn--lg"
+      >
+        Call Now: (973) 494-8431
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .lhr-s6-booking .container--narrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .lhr-s6__note {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Collapse SchedulerEmbed's own padding so we control it from here */
+  .lhr-s6-booking :global(.scheduler-embed) {
+    padding: 0;
+    width: 100%;
+  }
+
+  .lhr-s6__cta {
+    margin-top: var(--space-sm);
+  }
+</style>

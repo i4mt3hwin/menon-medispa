@@ -1,43 +1,57 @@
 ---
-/**
- * ThirdPartyScripts.astro — analytics / tracking carried over verbatim from the
- * original (operator decision 2026-06-02): GA4, Meta Pixel, Google Ads, Microsoft
- * Clarity, WhatConverts. Injected once, globally, via BaseLayout end-of-body.
- *
- * Intentionally NOT carried over (operator-decide → left out, flagged in issues):
- * ProveSrc, Omnisend, Sentry. WhatConverts (s.ksrndkehqnwntyxlhgto.com/159358.js)
- * IS carried — operator-confirmed legit; it does dynamic number insertion.
- *
- * Chat is handled separately by ChatAssistant.astro (decision-tree, mode "tree").
- */
+// Scaffold stub, phase-2-synthesize. Phase 3 completes.
+// Carries over analytics/tracking verbatim per operator decision (2026-06-02).
+// Injected at end of <body> in BaseLayout.astro.
 import site from '../lib/site';
-const a = site.integrations.analytics;
-const ga4 = a.ga4;            // null until operator confirms the measurement ID
-const pixel = a.metaPixelId;
-const ads = a.googleAdsConversionId;
-const clarity = a.microsoftClarityId;
-const wc = a.whatConvertsLoader;
+
+const { integrations } = site;
+const { analytics } = integrations;
 ---
-{/* GA4 — only emitted once the operator supplies the real measurement ID. */}
-{ga4 && (
-  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`}></script>
-)}
-{ga4 && (
-  <script is:inline set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4}');${ads ? `gtag('config','AW-${ads}');` : ''}`}></script>
+
+<!-- Meta Pixel -->
+{analytics.metaPixelId && (
+  <Fragment>
+    <script define:vars={{ metaPixelId: analytics.metaPixelId }}>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', metaPixelId);
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src={`https://www.facebook.com/tr?id=${analytics.metaPixelId}&ev=PageView&noscript=1`} alt="" /></noscript>
+  </Fragment>
 )}
 
-{/* Meta Pixel */}
-{pixel && (
-  <script is:inline set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${pixel}');fbq('track','PageView');`}></script>
-)}
-{pixel && (
-  <noscript set:html={`<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixel}&ev=PageView&noscript=1"/>`}></noscript>
+<!-- Google Ads conversion tracking -->
+{analytics.googleAdsConversionId && analytics.ga4 && (
+  <Fragment>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${analytics.ga4}`} />
+    <script define:vars={{ ga4: analytics.ga4, gadsId: analytics.googleAdsConversionId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', ga4);
+      gtag('config', `AW-${gadsId}`);
+    </script>
+  </Fragment>
 )}
 
-{/* Microsoft Clarity */}
-{clarity && (
-  <script is:inline set:html={`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","${clarity}");`}></script>
+<!-- Microsoft Clarity -->
+{analytics.microsoftClarityId && (
+  <script define:vars={{ clarityId: analytics.microsoftClarityId }}>
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",clarityId);
+  </script>
 )}
 
-{/* WhatConverts — carried over verbatim (dynamic number insertion). */}
-{wc && (<Fragment set:html={wc} />)}
+<!-- WhatConverts dynamic number insertion (operator-confirmed) -->
+<!-- Fragment>
+  <Fragment set:html={analytics.whatConvertsLoader} />
+</Fragment -->
+<!-- NOTE: WhatConverts loader omitted in development. Uncomment for production. -->
+
+<!-- Cal.com embed script (used by SchedulerEmbed.astro) -->
+<script async src="https://app.cal.com/embed/embed.js" />

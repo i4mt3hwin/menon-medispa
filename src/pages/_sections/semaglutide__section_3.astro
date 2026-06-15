@@ -1,0 +1,134 @@
+---
+import FeatureList from '@/components/FeatureList.astro';
+import img from '@/assets/images/35f0f110b35f.jpg';
+---
+
+<section class="section sema-s3-problem">
+  <div class="container">
+
+    <div class="sema-s3__layout">
+
+      <div class="sema-s3__content">
+        <h2 class="sema-s3__heading">The Challenge of Sustainable Weight Loss</h2>
+
+        <p class="sema-s3__body">
+          Losing weight can be one of life's most frustrating struggles. Despite countless diets, exercise programs, and willpower, many people find themselves trapped in a cycle of initial success followed by disappointing regain.
+        </p>
+
+        <FeatureList
+          items={[
+            "Traditional diets often fail because they don't address the biological factors driving hunger",
+            "Exercise alone rarely produces significant weight loss for those with metabolic challenges",
+            "Over-the-counter supplements promise results but deliver minimal, temporary changes",
+          ]}
+          icon="check"
+        />
+      </div>
+
+      <div class="sema-s3__img-col">
+        <img
+          src={img.src}
+          alt="Photo of a Woman Upset About Weight"
+          class="sema-s3__img"
+          loading="lazy"
+          decoding="async"
+          width="343"
+          height="231"
+        />
+      </div>
+
+    </div>
+
+    <div class="sema-s3__footer">
+      <p class="sema-s3__body">
+        The reality is that weight management isn't simply about willpower. Your body actively fights weight loss through powerful hormonal signals that increase hunger and slow metabolism. This biological resistance makes sustainable weight reduction nearly impossible for many people, especially those with insulin resistance, hormonal imbalances, or genetic predispositions.
+      </p>
+      <p class="sema-s3__body">
+        For those who have struggled with their weight for years, each failed attempt chips away at confidence and motivation, leading many to believe that significant, lasting weight loss may be out of reach without medical intervention.
+      </p>
+      <p class="sema-s3__callout">
+        But there is a better way forward, one based on medical science rather than willpower alone!
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .sema-s3__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+  }
+
+  .sema-s3__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sema-s3__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .sema-s3__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .sema-s3__img-col {
+    flex-shrink: 0;
+    width: 343px;
+  }
+
+  .sema-s3__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  .sema-s3__footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .sema-s3__callout {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1024px) {
+    .sema-s3__img-col {
+      width: 260px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sema-s3__layout {
+      flex-direction: column;
+    }
+
+    .sema-s3__img-col {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+</style>

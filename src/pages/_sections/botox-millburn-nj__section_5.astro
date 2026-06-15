@@ -1,0 +1,222 @@
+---
+import site from '@/lib/site';
+
+import featureImg from '@/assets/images/2ea069e3f116.jpg';
+---
+
+<section class="section section--tint s5-difference">
+  <div class="container">
+
+    <h2 class="s5-difference__heading">
+      Reimagine Facial Rejuvenation With The Menon Medispa Botox Difference
+    </h2>
+
+    <div class="s5-difference__layout">
+
+      <div class="s5-difference__img-col">
+        <img
+          src={featureImg.src}
+          alt="Botox treatment at Menon Medispa Millburn NJ"
+          class="s5-difference__img"
+          loading="lazy"
+          decoding="async"
+          width="476"
+          height="316"
+        />
+      </div>
+
+      <div class="s5-difference__content">
+
+        <h3 class="s5-difference__content-heading">
+          We understand the frustration of failed anti-aging attempts.
+        </h3>
+
+        <p class="s5-difference__body">
+          That is why Dr. Menon has developed a physician-administered Botox program that delivers natural-looking results tailored to your facial anatomy and aesthetic goals. Unlike discount injection services, every treatment at Menon Medispa is performed with the precision of a medical doctor.
+        </p>
+
+        <p class="eyebrow s5-difference__section-label">How It Works</p>
+
+        <p class="s5-difference__body">
+          Botox is an FDA-approved neuromodulator that temporarily blocks the nerve signals responsible for muscle contractions. When injected into targeted facial muscles, it relaxes those muscles, preventing the repeated movements that cause expression lines. The surrounding skin smooths as the muscle tension releases, revealing a refreshed, more youthful appearance.
+        </p>
+
+        <div class="s5-difference__features">
+
+          <div class="s5-difference__feature">
+            <h4 class="s5-difference__feature-title">Targeted Treatment</h4>
+            <p class="s5-difference__feature-desc">Addresses facial muscles responsible for expression lines</p>
+          </div>
+
+          <div class="s5-difference__feature">
+            <h4 class="s5-difference__feature-title">Natural Results</h4>
+            <p class="s5-difference__feature-desc">Creates a relaxed appearance that looks refreshed, not frozen</p>
+          </div>
+
+          <div class="s5-difference__feature">
+            <h4 class="s5-difference__feature-title">Quick Results</h4>
+            <p class="s5-difference__feature-desc">Noticeable improvement with results visible within 3 to 7 days</p>
+          </div>
+
+          <div class="s5-difference__feature">
+            <h4 class="s5-difference__feature-title">Expert Care</h4>
+            <p class="s5-difference__feature-desc">Performed by Dr. Menon with personalized treatment planning</p>
+          </div>
+
+        </div>
+
+        <p class="eyebrow s5-difference__section-label">The Doctor's Difference</p>
+
+        <p class="s5-difference__body">
+          At Menon Medispa, all Botox injections are administered by Dr. Jennifer Menon herself. This physician-level expertise means your treatment is guided by a comprehensive understanding of facial anatomy, muscle dynamics, and aesthetic medicine principles.
+        </p>
+
+        <p class="s5-difference__body">
+          Dr. Menon takes the time to understand your individual concerns and goals before creating a treatment plan that targets specific areas while preserving the natural movement that makes your expressions uniquely yours.
+        </p>
+
+        <div class="s5-difference__cta">
+          <a
+            href={site.calcomUrl}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Schedule Your Botox&#174; Today
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .s5-difference__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0 0 var(--space-lg);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .s5-difference__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .s5-difference__img-col {
+    flex-shrink: 0;
+    width: 380px;
+    position: sticky;
+    top: var(--space-lg);
+  }
+
+  .s5-difference__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .s5-difference__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .s5-difference__content-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s5-difference__body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .s5-difference__section-label {
+    margin-top: var(--space-xs);
+    color: var(--color-text);
+  }
+
+  .s5-difference__features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-block: var(--space-xs);
+  }
+
+  .s5-difference__feature {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--space-sm);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+  }
+
+  .s5-difference__feature-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .s5-difference__feature-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .s5-difference__cta {
+    margin-top: var(--space-xs);
+  }
+
+  @media (max-width: 1024px) {
+    .s5-difference__img-col {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .s5-difference__layout {
+      flex-direction: column;
+    }
+
+    .s5-difference__img-col {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      position: static;
+    }
+
+    .s5-difference__features {
+      grid-template-columns: 1fr;
+    }
+
+    .s5-difference__cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
