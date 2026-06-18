@@ -117,7 +117,7 @@ const book = resolveBooking(Astro.url.pathname);
 
     <slot name="head" />
   </head>
-  <body data-book-mode={book.mode} data-book-service={book.service}>
+  <body data-book-mode={book.mode} data-book-service={book.service} data-book-anchor={book.anchor}>
     <SiteHeader />
     <slot />
     <SiteFooter />
@@ -152,17 +152,27 @@ const book = resolveBooking(Astro.url.pathname);
         var b = document.body;
         var mode = b.getAttribute('data-book-mode');
         var svc = b.getAttribute('data-book-service');
+        var anchor = b.getAttribute('data-book-anchor');
         var links = document.querySelectorAll('a[href^="/request-appointment"]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var href = a.getAttribute('href') || '';
           if (href.indexOf('service=') !== -1) continue; /* an explicit tier/service always wins */
           /* A CTA that says "consultation" (or opts in via data-book) always goes to the
-             guided consultation — e.g. the bottom-of-page CTA on a specific treatment page. */
+             guided consultation — e.g. the bottom-of-page CTA on a specific treatment page.
+             Land on #options (the free vs $50-with-Dr.-Menon choice), not the page top. */
           var txt = (a.textContent || '').toLowerCase();
           var wantsConsult = a.getAttribute('data-book') === 'consultation' || txt.indexOf('consultation') !== -1;
-          if (mode === 'consultation' || wantsConsult) { a.setAttribute('href', '/consultation'); continue; }
+          if (mode === 'consultation' || wantsConsult) { a.setAttribute('href', '/consultation#options'); continue; }
+          /* Multi-tier page: the generic Book scrolls down to the on-page tier choices. */
+          if (mode === 'scroll' && anchor) { a.setAttribute('href', anchor); continue; }
           if (svc) { a.setAttribute('href', '/request-appointment?service=' + encodeURIComponent(svc)); }
+        }
+        /* SSR-hardcoded "/consultation" CTAs (pillar heroes, "Book a Consultation" cards) should
+           also land on the options block, not the page top — except on the consultation page itself. */
+        if (location.pathname.replace(/\/+$/, '') !== '/consultation') {
+          var clinks = document.querySelectorAll('a[href="/consultation"]');
+          for (var k = 0; k < clinks.length; k++) clinks[k].setAttribute('href', '/consultation#options');
         }
       })();
     </script>

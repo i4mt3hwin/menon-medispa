@@ -45,7 +45,7 @@ Import path from pages: `../components/<Name>.astro`.
 
 | Component | File | Replaces | Notes | Status |
 |-----------|------|----------|-------|--------|
-| SchedulerEmbed | `SchedulerEmbed.astro` | Wix Bookings | Cal.com inline embed; reads `site.calcomUrl` | Stub |
+| SchedulerEmbed | `SchedulerEmbed.astro` | Wix Bookings | Self-hosted BookingRequest form (Cal.com dropped); reads `site.calcomUrl` | Live |
 | LeadForm | `LeadForm.astro` | Wix Forms | POST /api/lead → D1/Resend (Phase 3) | Stub |
 | ChatAssistant | `ChatAssistant.astro` | Wix Chat | HIPAA-safe decision-tree; uses chat-tree.ts | Stub |
 | ThirdPartyScripts | `ThirdPartyScripts.astro` | Wix tracking embed | Meta Pixel, Google Ads, Clarity, WhatConverts, Cal.com loader | Stub |
@@ -54,10 +54,8 @@ Import path from pages: `../components/<Name>.astro`.
 
 | Component | File | Used for | Status |
 |-----------|------|----------|--------|
-| ServicePageTemplate | `ServicePageTemplate.astro` | 81 service pages | Stub |
 | BlogList | `BlogList.astro` | /blog index | Stub |
 | BlogPostTemplate | `BlogPostTemplate.astro` | /blog/[slug] | Stub |
-| BookingCalendarTemplate | `BookingCalendarTemplate.astro` | /booking-calendar/[slug] | Stub |
 | ConfirmationSection | `ConfirmationSection.astro` | /thank-you | Stub |
 
 ---

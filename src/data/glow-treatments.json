@@ -135,7 +135,7 @@
   {
     "id": "gua-sha",
     "name": "Gua Sha Stone Facial",
-    "href": "/service-page/gua-sha-stone-facial",
+    "href": "/menon-facials",
     "category": "Holistic Facials",
     "icon": "stone",
     "blurb": "A sculpting, circulation-boosting massage for a lifted, de-puffed look.",
@@ -192,7 +192,7 @@
   {
     "id": "vtox-carboxy",
     "name": "V-Tox + Carboxy Combo",
-    "href": "/service-page/v-tox-carboxy-combo",
+    "href": "/menon-facials",
     "category": "Advanced Facials",
     "icon": "bubbles",
     "blurb": "An oxygenating, glow-boosting combo that wakes up tired, congested skin.",
@@ -268,7 +268,7 @@
   {
     "id": "photorejuvenation",
     "name": "IPL Photorejuvenation",
-    "href": "/service-page/hyperpigmentation-photorejuvenation",
+    "href": "/laser-facials",
     "category": "Laser",
     "icon": "laser",
     "blurb": "Erase sun spots and diffuse redness for clearer, more even skin.",
@@ -287,7 +287,7 @@
   {
     "id": "laser-spot",
     "name": "Laser Spot Treatment",
-    "href": "/service-page/laser-spot-treatment",
+    "href": "/laser-facials",
     "category": "Laser",
     "icon": "target",
     "blurb": "Pinpoint stubborn brown or red spots in a quick, focused session.",

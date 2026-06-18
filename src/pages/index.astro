@@ -51,24 +51,24 @@ const specials = [
     price: '$225',
     img: hydrafacialImg.src,
     alt: 'Hydrafacial.jpg',
-    book: 'https://www.menonmedispa.com/booking-calendar/summer-glow-hydrafacial',
-    more: 'https://www.menonmedispa.com/service-page/summer-glow-hydrafacial',
+    book: '/request-appointment?service=Summer%20Glow%20Hydrafacial',
+    more: '/request-appointment?service=Summer%20Glow%20Hydrafacial',
   },
   {
     title: 'Custom Hydrating IV',
     price: '$99',
     img: ivImg.src,
     alt: 'shutterstock_2578361641.jpg',
-    book: 'https://www.menonmedispa.com/booking-calendar/custom-hydrating-iv',
-    more: 'https://www.menonmedispa.com/service-page/custom-hydrating-iv',
+    book: '/request-appointment?service=Custom%20Hydrating%20IV',
+    more: '/request-appointment?service=Custom%20Hydrating%20IV',
   },
   {
     title: "BRO-Tox Father's Day Special",
     price: '$12 Per Unit',
     img: brotoxImg.src,
     alt: 'shutterstock_2193199469.jpg',
-    book: 'https://www.menonmedispa.com/booking-calendar/bro-tox-father-s-day-special',
-    more: 'https://www.menonmedispa.com/service-page/bro-tox-father-s-day-special',
+    book: '/request-appointment?service=BRO-Tox%20Father%27s%20Day%20Special',
+    more: '/request-appointment?service=BRO-Tox%20Father%27s%20Day%20Special',
   },
 ];
 
@@ -472,7 +472,7 @@ const faqPage = {
         items={[
           {
             title: "BOTOX® Injectables",
-            href: "/service-page/botox-injectables",
+            href: `/request-appointment?service=${encodeURIComponent("BOTOX® Injectables")}`,
             image_src: botoxImg.src,
             image_alt: "BOTOX® Injectables at Menon Medispa",
             description_html: "<p>$14 per unit</p>",
@@ -480,7 +480,7 @@ const faqPage = {
           },
           {
             title: "Juvéderm Fillers",
-            href: "/service-page/juvéderm-fillers",
+            href: `/request-appointment?service=${encodeURIComponent("Juvéderm Fillers")}`,
             image_src: juvedermImg.src,
             image_alt: "Injection cosmetology",
             description_html: "<p>From $750</p>",
@@ -488,7 +488,7 @@ const faqPage = {
           },
           {
             title: "HydraFacial™ Keravive™",
-            href: "/service-page/hydrafacial-keravive",
+            href: `/request-appointment?service=${encodeURIComponent("HydraFacial™ Keravive™")}`,
             image_src: keraviveImg.src,
             image_alt: "The Benefits of Hair Restoration Therapy",
             description_html: "<p>$500</p>",

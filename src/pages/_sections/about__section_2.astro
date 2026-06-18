@@ -2,39 +2,115 @@
 ---
 
 <section class="section about-s2">
-  <div class="container--narrow about-s2__inner">
+  <div class="container">
 
-    <h2 class="about-s2__subheading about-s2__subheading--center">
-      Our Approach:
-    </h2>
+    <div class="about-s2__header">
+      <p class="eyebrow">Why Menon MediSpa</p>
+      <h2 class="about-s2__subheading about-s2__subheading--center">
+        Our Approach
+      </h2>
+      <p class="about-s2__lead">What sets us apart is our commitment to three core principles:</p>
+    </div>
 
-    <p class="about-s2__body">What sets us apart is our commitment to three core principles:</p>
+    <ul class="about-s2__principles" role="list" data-reveal data-reveal-children>
+      <li class="about-s2__principle">
+        <span class="about-s2__principle-num">01</span>
+        <h3 class="about-s2__principle-name">Medical Excellence</h3>
+        <p class="about-s2__principle-body">Our team of licensed medical professionals brings clinical expertise to every treatment. Led by Dr. Aditi Menon, MD, we combine the precision of medical science with the artistry of aesthetics.</p>
+      </li>
+      <li class="about-s2__principle">
+        <span class="about-s2__principle-num">02</span>
+        <h3 class="about-s2__principle-name">Cutting-Edge Technology</h3>
+        <p class="about-s2__principle-body">We invest in state-of-the-art equipment and advanced techniques that deliver superior results with minimal downtime. Our technology undergoes rigorous testing to ensure safety, comfort, and effectiveness.</p>
+      </li>
+      <li class="about-s2__principle">
+        <span class="about-s2__principle-num">03</span>
+        <h3 class="about-s2__principle-name">Personalized Care</h3>
+        <p class="about-s2__principle-body">Your beauty journey is unique, which is why we begin with a comprehensive consultation to understand your goals. We design customized treatment plans that address your specific concerns and celebrate your individual beauty.</p>
+      </li>
+    </ul>
 
-    <p class="about-s2__body">Medical Excellence - Our team of licensed medical professionals brings clinical expertise to every treatment. Led by Dr. Aditi Menon, MD, we combine the precision of medical science with the artistry of aesthetics.</p>
+    <div class="about-s2__prose">
+      <h2 class="about-s2__subheading">
+        Our Commitment:
+      </h2>
 
-    <p class="about-s2__body">Cutting-Edge Technology - We invest in state-of-the-art equipment and advanced techniques that deliver superior results with minimal downtime. Our technology undergoes rigorous testing to ensure safety, comfort, and effectiveness.</p>
+      <p class="about-s2__body">We continually research emerging trends and techniques in aesthetic medicine, introducing new treatments only after they&#39;ve proven their efficacy and safety. This dedication to innovation means you&#39;ll always have access to the most effective solutions available.</p>
 
-    <p class="about-s2__body">Personalized Care - Your beauty journey is unique, which is why we begin with a comprehensive consultation to understand your goals. We design customized treatment plans that address your specific concerns and celebrate your individual beauty.</p>
+      <h2 class="about-s2__subheading">
+        The Experience:
+      </h2>
 
-    <h2 class="about-s2__subheading">
-      Our Commitment:
-    </h2>
+      <p class="about-s2__body">From the moment you walk through our doors, you&#39;ll feel the difference in our warm, discreet environment designed for your comfort. Our attentive staff ensures every visit leaves you feeling refreshed, rejuvenated, and ready to face the world with confidence.</p>
 
-    <p class="about-s2__body">We continually research emerging trends and techniques in aesthetic medicine, introducing new treatments only after they&#39;ve proven their efficacy and safety. This dedication to innovation means you&#39;ll always have access to the most effective solutions available.</p>
-
-    <h2 class="about-s2__subheading">
-      The Experience:
-    </h2>
-
-    <p class="about-s2__body">From the moment you walk through our doors, you&#39;ll feel the difference in our warm, discreet environment designed for your comfort. Our attentive staff ensures every visit leaves you feeling refreshed, rejuvenated, and ready to face the world with confidence.</p>
-
-    <p class="about-s2__body">Your journey to radiance begins here at Menon MediSpa, where science meets beauty, and expertise meets compassion.</p>
+      <p class="about-s2__body">Your journey to radiance begins here at Menon MediSpa, where science meets beauty, and expertise meets compassion.</p>
+    </div>
 
   </div>
 </section>
 
 <style>
-  .about-s2__inner {
+  .about-s2__header {
+    max-width: var(--container-narrow);
+    margin: 0 auto var(--space-lg);
+    text-align: center;
+  }
+
+  .about-s2__lead {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    margin: var(--space-sm) 0 0;
+    line-height: 1.6;
+  }
+
+  /* Three core principles, scannable trio */
+  .about-s2__principles {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .about-s2__principle {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background-color: rgb(196 164 132 / 0.08);
+    border-radius: var(--radius-md);
+    border-top: 3px solid var(--color-accent);
+  }
+
+  .about-s2__principle-num {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: var(--text-h3);
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .about-s2__principle-name {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .about-s2__principle-body {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .about-s2__prose {
+    max-width: var(--container-narrow);
     margin-inline: auto;
     display: flex;
     flex-direction: column;
@@ -54,7 +130,7 @@
 
   .about-s2__subheading--center {
     text-align: center;
-    margin-top: 0;
+    margin: 0;
   }
 
   .about-s2__body {
@@ -66,6 +142,10 @@
   }
 
   @media (max-width: 768px) {
+    .about-s2__principles {
+      grid-template-columns: 1fr;
+    }
+
     .about-s2__subheading {
       font-size: var(--text-h3);
     }

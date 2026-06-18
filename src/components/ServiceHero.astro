@@ -44,9 +44,13 @@ const {
 // "...Consultation" CTA stays a consultation (routed by the BaseLayout rewrite).
 const book = resolveBooking(Astro.url.pathname);
 const article = (s: string) => (/^[aeiou]/i.test(s) ? 'an' : 'a');
-const defaultCta: CtaLink = book.service
-  ? { label: `Book ${article(book.service)} ${book.service}`, href: `/request-appointment?service=${encodeURIComponent(book.service)}` }
-  : { label: 'Book Your Consultation', href: site.calcomUrl };
+const defaultCta: CtaLink =
+  book.mode === 'scroll'
+    // Multi-tier page: the hero CTA scrolls down to the tier choices (the booking band).
+    ? { label: 'View Pricing & Book', href: book.anchor ?? '#book' }
+    : book.service
+      ? { label: `Book ${article(book.service)} ${book.service}`, href: `/request-appointment?service=${encodeURIComponent(book.service)}` }
+      : { label: 'Book Your Consultation', href: site.calcomUrl };
 const primaryCta: CtaLink = Astro.props.primaryCta ?? defaultCta;
 
 const isExternal = primaryCta.href.startsWith('http');

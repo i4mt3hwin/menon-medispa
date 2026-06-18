@@ -8,7 +8,10 @@ import imgClinic from '@/assets/images/68f97116134e.jpg';
 
       <div class="mtt-s3__text-col">
 
-        <p class="eyebrow">DR. ADITI MENON, MD</p>
+        <p class="eyebrow">Meet The Founder</p>
+
+        <h2 class="mtt-s3__name">Dr. Aditi Menon, MD</h2>
+        <p class="mtt-s3__role">Founder &amp; CEO</p>
 
         <p class="mtt-s3__body">
           Dr. Aditi Menon, MD is Board Certified in Physical Medicine and Rehabilitation, and specializes in musculoskeletal, pain and sports medicine.
@@ -58,6 +61,34 @@ import imgClinic from '@/assets/images/68f97116134e.jpg';
     gap: var(--space-sm);
   }
 
+  .mtt-s3__name {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin: var(--space-xs) 0 0;
+    line-height: 1.2;
+  }
+
+  /* Gold accent rule under the founder name */
+  .mtt-s3__name::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 2px;
+    margin-top: var(--space-sm);
+    background-color: var(--color-accent);
+  }
+
+  .mtt-s3__role {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: calc(-1 * var(--space-xs)) 0 0;
+  }
+
   .mtt-s3__body {
     font-family: var(--font-body);
     font-size: var(--text-sm);
@@ -69,14 +100,31 @@ import imgClinic from '@/assets/images/68f97116134e.jpg';
   .mtt-s3__img-col {
     flex-shrink: 0;
     width: 380px;
+    position: relative;
+  }
+
+  /* Offset warm-sand accent block behind the photo */
+  .mtt-s3__img-col::before {
+    content: "";
+    position: absolute;
+    right: -16px;
+    bottom: -16px;
+    width: 60%;
+    height: 60%;
+    background-color: rgb(196 164 132 / 0.18);
+    border-radius: var(--radius-md);
+    z-index: 0;
   }
 
   .mtt-s3__img {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 32px rgb(30 24 41 / 0.16);
     aspect-ratio: 821 / 772;
   }
 
@@ -96,6 +144,11 @@ import imgClinic from '@/assets/images/68f97116134e.jpg';
       width: 100%;
       max-width: 480px;
       margin: 0 auto;
+    }
+
+    .mtt-s3__img-col::before {
+      right: -10px;
+      bottom: -10px;
     }
   }
 </style>

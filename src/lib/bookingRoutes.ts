@@ -23,12 +23,32 @@ export const BROAD_PATHS: ReadonlySet<string> = new Set([
   '/hair',
   '/menon-facials',
   '/iv-therapy-millburn-nj',
-  '/fillers-injectables',
-  '/vitamin-shots-millburn-nj',
-  '/vascular-treatments',
-  '/laser-facials',
   '/short-hills-medispa-treatments',
 ]);
+
+// Pages whose ServiceBookingCta lists MULTIPLE cards (tiers/options of the service). The generic
+// "Book" (hero / sticky sidebar / mobile bar) should SCROLL DOWN to those choices (the booking
+// band, id="book") instead of pre-selecting one — then each card books its own tier. Keep a
+// display name where the cards are tiers of ONE treatment (used for the hero CTA label).
+export const MULTI_TIER_PATHS: ReadonlySet<string> = new Set([
+  '/hydrafacial',
+  '/hydrafacial-keravive',
+  '/laser-hair-removal',
+  '/laser-facials',
+  '/fillers-injectables',
+  '/clear-lift-skin-rejuvination',
+  '/energy-performance',
+  '/immunity-support',
+  '/recovery-detox',
+  '/nad-iv-drip-therapy',
+  '/anti-aging-beauty',
+  '/targeted-health-solutions-iv',
+  '/vitamin-shots-millburn-nj',
+  '/vascular-treatments',
+]);
+
+/** The booking band anchor a multi-tier "Book" scrolls to (set on the ServiceBookingCta section). */
+export const BOOKING_ANCHOR = '#book';
 
 // Single-treatment pages → pre-select this service in the booking form.
 export const SERVICE_BY_PATH: Readonly<Record<string, string>> = {
@@ -59,7 +79,7 @@ export const SERVICE_BY_PATH: Readonly<Record<string, string>> = {
   '/platelet-rich-plasma-hair-millburn': 'PRP Hair Restoration',
 };
 
-export type BookingResolution = { mode: 'request' | 'consultation'; service?: string };
+export type BookingResolution = { mode: 'request' | 'consultation' | 'scroll'; service?: string; anchor?: string };
 
 /** Normalize a pathname (drop a trailing slash, keep root as '/'). */
 function normalizePath(pathname: string): string {
@@ -71,6 +91,8 @@ function normalizePath(pathname: string): string {
 /** Decide where this page's generic "Book" CTAs should point. */
 export function resolveBooking(pathname: string): BookingResolution {
   const p = normalizePath(pathname);
+  // Multi-tier pages win first: the generic Book scrolls to the on-page choices.
+  if (MULTI_TIER_PATHS.has(p)) return { mode: 'scroll', service: SERVICE_BY_PATH[p], anchor: BOOKING_ANCHOR };
   if (BROAD_PATHS.has(p)) return { mode: 'consultation' };
   const service = SERVICE_BY_PATH[p];
   if (service) return { mode: 'request', service };

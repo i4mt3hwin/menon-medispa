@@ -10,6 +10,8 @@ import imgStaff from '@/assets/images/b1a819f35921.webp';
 
       <div class="mtt-s4__text-col">
 
+        <p class="eyebrow mtt-s4__eyebrow">Ready When You Are</p>
+
         <h2 class="mtt-s4__heading">Begin Your Transformation Today</h2>
 
         <p class="mtt-s4__subtitle">Menon Medispa Millburn NJ</p>
@@ -59,6 +61,12 @@ import imgStaff from '@/assets/images/b1a819f35921.webp';
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+  }
+
+  /* Gold eyebrow on the dark section (base .eyebrow is dark + !important) */
+  .mtt-s4 .mtt-s4__eyebrow {
+    color: var(--color-cta) !important;
+    margin-bottom: calc(-1 * var(--space-xs));
   }
 
   .mtt-s4__heading {

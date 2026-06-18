@@ -1,64 +1,237 @@
 ---
+import site from '@/lib/site';
 import heroBg from '@/assets/images/fc22050ddcb3.webp';
+import socialIcon1 from '@/assets/images/90411e0041df.png';
+import socialIcon2 from '@/assets/images/305afeda5f9a.png';
+import socialIcon3 from '@/assets/images/b95880091b44.png';
 ---
 
-<section class="media-bg section s1-hero mtt-s1-hero" style="--scrim-strength:0.55">
-  <img
-    class="media-bg__img"
-    src={heroBg.src}
-    alt="download copy.webp"
-    loading="eager"
-    decoding="async"
-    width="1440"
-    height="287"
-  />
-  <span class="media-bg__scrim media-bg__scrim--b"></span>
+<section class="mtt-hero hero" data-hero>
+  <div class="mtt-hero__media">
+    <img
+      class="mtt-hero__img"
+      src={heroBg.src}
+      alt="Radiant skin results from the Menon MediSpa team in Millburn, NJ"
+      loading="eager"
+      decoding="async"
+      width={heroBg.width}
+      height={heroBg.height}
+    />
+  </div>
 
-  <div class="media-bg__inner container on-media mtt-s1-hero__inner">
-    <h1 class="mtt-s1-hero__heading">Meet the Menon Medispa Millburn Team</h1>
+  <span class="mtt-hero__scrim" aria-hidden="true"></span>
+  <canvas class="mtt-hero__particles" data-hero-canvas aria-hidden="true"></canvas>
+
+  <div class="container mtt-hero__inner on-media">
+    <div class="mtt-hero__text">
+      <p class="eyebrow mtt-hero__eyebrow">Our Team</p>
+
+      <h1 class="mtt-hero__h1">Meet the Menon Medispa Millburn Team</h1>
+
+      <p class="mtt-hero__subhead">
+        Licensed professionals dedicated to your confidence, comfort, and care.
+      </p>
+
+      <div class="mtt-hero__trust">
+        <div class="mtt-hero__avatars">
+          <img src={socialIcon1.src} alt="" aria-hidden="true" class="mtt-hero__avatar" loading="lazy" decoding="async" width="46" height="46" />
+          <img src={socialIcon2.src} alt="" aria-hidden="true" class="mtt-hero__avatar" loading="lazy" decoding="async" width="46" height="46" />
+          <img src={socialIcon3.src} alt="" aria-hidden="true" class="mtt-hero__avatar" loading="lazy" decoding="async" width="46" height="46" />
+        </div>
+        <div class="mtt-hero__trust-text">
+          <span class="mtt-hero__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="mtt-hero__count">100+ 5 Star Reviews</span>
+        </div>
+      </div>
+
+      <div class="mtt-hero__ctas">
+        <a href="/consultation" class="btn btn--primary btn--lg">Book a Consultation</a>
+        <a href={site.phone.tel} class="btn btn--secondary btn--on-dark btn--lg">
+          Call {site.phone.display}
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  .mtt-s1-hero {
-    min-height: 287px;
-  }
-
-  .mtt-s1-hero__inner {
+  .mtt-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: clamp(480px, 70vh, 660px);
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-block: var(--section-py);
-    text-align: center;
+    background: #1b1522;
   }
 
-  .mtt-s1-hero__heading {
+  /* Full-bleed portrait on the RIGHT; left edge dissolves into the dark text panel. */
+  .mtt-hero__media {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: auto;
+    width: 64%;
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 36%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 36%);
+  }
+  .mtt-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+    display: block;
+  }
+
+  .mtt-hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, #1b1522 0%, #1b1522 34%, rgb(27 21 34 / 0.86) 48%, rgb(27 21 34 / 0.48) 75%, rgb(27 21 34 / 0.28) 100%),
+      linear-gradient(0deg, rgb(27 21 34 / 0.5) 0%, transparent 52%);
+  }
+
+  .mtt-hero__particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+
+  .mtt-hero__inner { position: relative; z-index: 3; padding-block: var(--section-py); }
+  .mtt-hero__text { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 600px; }
+
+  .mtt-hero__eyebrow { color: var(--color-cta); opacity: 1; }
+
+  .mtt-hero__h1 {
     font-family: var(--font-display);
-    font-size: var(--text-h1);
+    font-size: var(--text-display);
     font-weight: var(--weight-regular);
+    line-height: 1.06;
     margin: 0;
-    line-height: 1.2;
+    text-wrap: balance;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.45);
   }
 
-  @media (max-width: 1024px) {
-    .mtt-s1-hero {
-      min-height: 220px;
-    }
+  .mtt-hero__subhead {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    margin: 0;
+    max-width: 44ch;
+    opacity: 0.95;
   }
 
-  @media (max-width: 768px) {
-    .mtt-s1-hero {
-      min-height: auto;
-    }
+  /* Review proof: avatar trio + gold stars + count */
+  .mtt-hero__trust {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin-top: var(--space-xs);
+  }
+  .mtt-hero__avatars { display: flex; align-items: center; }
+  .mtt-hero__avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgb(255 255 255 / 0.85);
+    margin-left: -12px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.35);
+  }
+  .mtt-hero__avatar:first-child { margin-left: 0; }
+  .mtt-hero__trust-text { display: flex; flex-direction: column; gap: 1px; }
+  /* scoped selector beats `.on-media :where(span){color:#fff}` so the stars stay gold */
+  .mtt-hero__stars { color: var(--color-star); font-size: var(--text-base); letter-spacing: 2px; line-height: 1; }
+  .mtt-hero__count { font-family: var(--font-display); font-size: var(--text-xs); color: #fff; line-height: 1.2; }
 
-    .mtt-s1-hero__inner {
-      padding-block: var(--space-xl);
+  .mtt-hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-sm); }
+
+  @media (max-width: 900px) {
+    .mtt-hero__media { left: 0; width: 100%; -webkit-mask-image: none; mask-image: none; }
+    .mtt-hero__scrim {
+      background:
+        linear-gradient(90deg, rgb(27 21 34 / 0.92) 0%, rgb(27 21 34 / 0.74) 48%, rgb(27 21 34 / 0.55) 100%),
+        linear-gradient(0deg, rgb(27 21 34 / 0.55) 0%, transparent 55%);
     }
   }
 
   @media (max-width: 600px) {
-    .mtt-s1-hero__heading {
-      font-size: var(--text-h2);
-    }
+    .mtt-hero { min-height: clamp(440px, 80vh, 580px); }
+    .mtt-hero__ctas { flex-direction: column; align-items: stretch; }
+    .mtt-hero__ctas .btn { width: 100%; }
+  }
+
+  /* ── Motion (only when allowed) ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .mtt-hero__media { animation: mtt-zoom 2s cubic-bezier(0.16, 1, 0.3, 1) forwards; transform: scale(1.1); }
+    @keyframes mtt-zoom { to { transform: scale(1); } }
+
+    .mtt-hero__text > * { opacity: 0; transform: translateY(22px); filter: blur(10px); animation: mtt-rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .mtt-hero__text > *:nth-child(1) { animation-delay: 0.20s; }
+    .mtt-hero__text > *:nth-child(2) { animation-delay: 0.32s; }
+    .mtt-hero__text > *:nth-child(3) { animation-delay: 0.44s; }
+    .mtt-hero__text > *:nth-child(4) { animation-delay: 0.56s; }
+    .mtt-hero__text > *:nth-child(5) { animation-delay: 0.66s; }
+    @keyframes mtt-rise { to { opacity: 1; transform: none; filter: blur(0); } }
   }
 </style>
+
+<script>
+  // Autonomous drifting light particles (no mouse, no parallax). Reduced-motion safe; idles offscreen.
+  (function () {
+    const hero = document.querySelector('.mtt-hero[data-hero]');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canvas = hero.querySelector('[data-hero-canvas]');
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = 0, h = 0, dpr = 1, parts = [], raf = 0, running = false;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = hero.clientWidth; h = hero.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function spawn(init) {
+      return {
+        x: Math.random() * w,
+        y: init ? Math.random() * h : h + 14,
+        r: 0.5 + Math.random() * 1.1,
+        vy: 0.05 + Math.random() * 0.18,
+        vx: (Math.random() - 0.5) * 0.12,
+        a: 0.12 + Math.random() * 0.30,
+        white: Math.random() < 0.32,
+      };
+    }
+    function build() {
+      const n = Math.max(12, Math.min(30, Math.round((w * h) / 54000)));
+      parts = []; for (let i = 0; i < n; i++) parts.push(spawn(true));
+    }
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of parts) {
+        p.y -= p.vy; p.x += p.vx;
+        if (p.y < -14) Object.assign(p, spawn(false));
+        const rad = p.r * 7;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+        const c = p.white ? '245,239,228' : '226,186,120';
+        g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')');
+        g.addColorStop(0.5, 'rgba(' + c + ',' + (p.a * 0.35) + ')');
+        g.addColorStop(1, 'rgba(' + c + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 6.2832); ctx.fill();
+      }
+      raf = requestAnimationFrame(step);
+    }
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(step); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    size(); build();
+    let rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { size(); build(); }, 150); }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (en) { en.isIntersecting ? start() : stop(); }); }, { threshold: 0.01 }).observe(hero);
+    } else { start(); }
+  })();
+</script>
