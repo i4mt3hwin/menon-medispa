@@ -3,12 +3,12 @@
  * PackageTable.astro — the on-page pricing grid for a multi-package service.
  *
  * Renders the area-size tiers from data/service-packages.json (via lib/packages):
- * one card per tier (Small / Medium / Large / XLarge) showing the 6-session
- * package price, per-session price, duration, and the treatment areas in that
- * tier. Each tier has a "Request this package" CTA that deep-links the booking
- * form with the service + size pre-selected (the form's area picker takes over).
+ * one compact card per tier (Small / Medium / Large / XLarge) showing the
+ * 6-session package price, per-session price, duration, and the treatment areas
+ * in that tier. Each tier has a "Request this package" CTA that deep-links the
+ * booking form with the service + size pre-selected (the form's picker takes over).
  *
- * Usage:  <PackageTable slug="laser-hair-removal" heading="Laser Hair Removal Packages" />
+ * Usage:  <PackageTable slug="laser-hair-removal" heading="Laser Hair Removal Pricing" />
  */
 import site from '@/lib/site';
 import { getPackagesBySlug, usd } from '@/lib/packages';
@@ -27,7 +27,7 @@ const bookHref = (size?: string) => {
 };
 ---
 {pkg && (
-  <section class="pkgtable section section--tint">
+  <section class="pkgtable section section--tight section--tint">
     <div class="container">
       {heading && <h2 class="pkgtable__heading">{heading}</h2>}
       <p class="pkgtable__plan">Every package is a series of <strong>{pkg.plan}</strong>. Single sessions available at the per-session rate.</p>
@@ -68,7 +68,7 @@ const bookHref = (size?: string) => {
 <style>
   .pkgtable__heading {
     font-family: var(--font-display);
-    font-size: var(--text-h2);
+    font-size: var(--text-h3);
     font-weight: var(--weight-regular);
     color: var(--color-text);
     text-align: center;
@@ -77,19 +77,19 @@ const bookHref = (size?: string) => {
   }
   .pkgtable__plan {
     font-family: var(--font-body);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     color: var(--color-text);
-    opacity: 0.85;
+    opacity: 0.8;
     text-align: center;
-    margin: 0 auto var(--space-lg);
-    max-width: 640px;
-    line-height: 1.6;
+    margin: 0 auto var(--space-md);
+    max-width: 620px;
+    line-height: 1.55;
   }
 
   .pkgtable__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: var(--space-sm);
   }
 
   .pkgtable__tier {
@@ -98,18 +98,18 @@ const bookHref = (size?: string) => {
     background: var(--color-surface);
     border: 1px solid rgb(0 0 0 / 0.08);
     border-radius: var(--radius-md);
-    box-shadow: 0 14px 36px rgb(27 21 34 / 0.10);
+    box-shadow: 0 8px 22px rgb(27 21 34 / 0.08);
     overflow: hidden;
   }
 
   .pkgtable__tier-head {
-    padding: var(--space-md);
+    padding: var(--space-sm);
     border-bottom: 1px solid rgb(0 0 0 / 0.07);
     background: rgb(196 164 132 / 0.08);
   }
   .pkgtable__tier-name {
     font-family: var(--font-display);
-    font-size: var(--text-h3);
+    font-size: 1.25rem;
     font-weight: var(--weight-regular);
     color: var(--color-text);
     margin: 0;
@@ -118,20 +118,19 @@ const bookHref = (size?: string) => {
   .pkgtable__tier-meta {
     font-family: var(--font-ui);
     font-size: var(--text-xs);
-    letter-spacing: 0.02em;
     color: var(--color-text);
     opacity: 0.7;
-    margin: 4px 0 0;
+    margin: 3px 0 0;
   }
   .pkgtable__tier-price {
     display: flex;
     align-items: baseline;
-    gap: 8px;
-    margin: var(--space-sm) 0 0;
+    gap: 7px;
+    margin: var(--space-xs) 0 0;
   }
   .pkgtable__tier-amt {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: var(--weight-bold);
     color: var(--color-text);
     line-height: 1;
@@ -146,7 +145,7 @@ const bookHref = (size?: string) => {
   .pkgtable__areas {
     list-style: none;
     margin: 0;
-    padding: var(--space-sm) var(--space-md);
+    padding: 6px var(--space-sm) var(--space-sm);
     flex: 1;
   }
   .pkgtable__area {
@@ -154,7 +153,7 @@ const bookHref = (size?: string) => {
     justify-content: space-between;
     align-items: baseline;
     gap: var(--space-sm);
-    padding: 7px 0;
+    padding: 5px 0;
     border-bottom: 1px solid rgb(0 0 0 / 0.06);
     font-family: var(--font-body);
     font-size: var(--text-sm);
@@ -172,7 +171,7 @@ const bookHref = (size?: string) => {
 
   .pkgtable__cta {
     align-self: stretch;        /* fill the card width minus the side margins (no width:100% overflow) */
-    margin: 0 var(--space-md) var(--space-md);
+    margin: 0 var(--space-sm) var(--space-sm);
     box-sizing: border-box;
     text-align: center;
   }
@@ -183,9 +182,9 @@ const bookHref = (size?: string) => {
     color: var(--color-text);
     opacity: 0.75;
     text-align: center;
-    margin: var(--space-lg) auto 0;
-    max-width: 640px;
-    line-height: 1.6;
+    margin: var(--space-md) auto 0;
+    max-width: 620px;
+    line-height: 1.55;
   }
   .pkgtable__note a { color: inherit; font-weight: 600; }
 </style>

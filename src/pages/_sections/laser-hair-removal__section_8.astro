@@ -3,19 +3,20 @@ import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
 import PackageTable from '@/components/PackageTable.astro';
 import packageImg from '@/assets/images/c28a6e6b3030.jpg';
 ---
+<PackageTable slug="laser-hair-removal" />
+
 <ServiceBookingCta
-  heading={`Laser Hair Removal Packages`}
+  eyebrow={`Ready to Book`}
+  heading={`Book Your Laser Hair Removal`}
   cards={[
     {
       image: packageImg,
       imageAlt: `6 Laser Hair Removal Treatment Package at Menon Medispa`,
       title: `6-Session Treatment Package`,
-      tagline: `Choose your area below — Small, Medium, Large or Extra Large. Packages are a series of 6 sessions, 4-6 weeks apart.`,
+      tagline: `Pick from Small, Medium, Large or Extra Large areas — every package is a series of 6 sessions, 4-6 weeks apart.`,
       price: `From $200`,
       bookHref: `/request-appointment?service=${encodeURIComponent('Laser Hair Removal')}`,
       bookLabel: `Choose your area & book`,
     },
   ]}
 />
-
-<PackageTable slug="laser-hair-removal" heading="Laser Hair Removal Pricing" />
