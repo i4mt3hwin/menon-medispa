@@ -15,13 +15,12 @@ import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
 import TrustBar from '@/pages/_sections/laser-hair-removal__section_2.astro';
-import BookingEmbed from '@/pages/_sections/laser-hair-removal__section_6.astro';
 import PkgHeading from '@/pages/_sections/laser-hair-removal__section_7.astro';
 import Pricing from '@/pages/_sections/laser-hair-removal__section_8.astro';
 import Process from '@/pages/_sections/laser-hair-removal__section_9.astro';
 import FinalCta from '@/pages/_sections/laser-hair-removal__section_11.astro';
 
-import heroImg from '@/assets/images/651c7c197b52.png';
+import heroImg from '@/assets/images/laser-hair-removal-hero.jpg';
 import videoPosterImg from '@/assets/images/7627e3d6ea08.jpg';
 import problemImg from '@/assets/images/82c8c6459d7d.png';
 
@@ -87,7 +86,8 @@ const jsonld = buildServiceSchema({
     h1="Permanently Smooth Skin with Laser Hair Removal in Millburn, NJ"
     subhead="Never worry about unwanted hair again. Physician-supervised treatments that deliver lasting results for all skin tones in just 6-8 sessions."
     image={heroImg}
-    imageAlt="Laser hair removal client at Menon Medispa Millburn NJ"
+    imageAlt="Laser hair removal treatment on smooth skin at Menon Medispa Millburn NJ"
+    imagePosition="center"
     price="Starting at $75 per session"
     note="Please call for more information on our various laser hair removal packages."
     trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
@@ -191,8 +191,6 @@ const jsonld = buildServiceSchema({
   </ServiceLayout>
 
   <ServiceTestimonial slug="laser-hair-removal" />
-
-  <BookingEmbed />
 
   <PkgHeading />
   <Pricing />
