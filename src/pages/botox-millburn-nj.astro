@@ -44,9 +44,14 @@ const faqs = [
       'No. The goal of Botox at Menon Medispa is to create a refreshed, natural appearance that preserves your expressive range. Dr. Menon uses a conservative, targeted approach that relaxes the specific muscles causing lines while allowing the surrounding muscles to move normally. The result is subtle, natural-looking improvement that enhances rather than alters your appearance.',
   },
   {
-    question: 'What should I expect during and after treatment?',
+    question: 'How long does a Botox appointment take?',
     answer:
-      'The procedure takes approximately 15 minutes and involves a series of small injections using a fine needle. Most patients describe minimal discomfort. You can return to most normal activities immediately following treatment. Some mild redness or swelling at injection sites may occur and typically resolves within a few hours. Results begin appearing within 3 to 7 days, with full results visible at 2 weeks.',
+      'Most Botox appointments are quick. The injection portion often takes about 10 to 15 minutes, and the full visit is commonly completed in about 30 minutes depending on consultation needs and treatment areas.',
+  },
+  {
+    question: 'How should I prepare for my first Botox appointment?',
+    answer:
+      'Arrive with clean skin if possible and be ready to review medications, supplements, allergies, and health history. Your provider may recommend avoiding alcohol and certain blood-thinning supplements before treatment to help reduce bruising risk.',
   },
   {
     question: 'How much does Botox cost and how often will I need it?',
@@ -59,7 +64,7 @@ const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.a
 const jsonld = buildServiceSchema({
   name: 'Botox in Millburn, NJ',
   description:
-    'Physician-administered Botox at Menon Medispa in Millburn, NJ. Natural-looking results for fine lines and wrinkles, performed by Dr. Menon. $14 per unit.',
+    'Physician-administered Botox in Millburn, NJ. Natural-looking wrinkle softening by Dr. Menon with appointment prep, pricing, and timing guidance.',
   url: '/botox-millburn-nj',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -74,8 +79,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Botox in Millburn NJ | Menon Medispa"
-  description="Get natural-looking Botox results from our expert injectors in Millburn NJ. All treatments administered by Dr. Menon. $14/unit. Book your consultation today."
+  title="Botox Treatment in Millburn NJ by Dr. Menon | Menon Medispa"
+  description="Botox in Millburn NJ, administered by Dr. Menon for natural-looking wrinkle softening. Learn appointment timing, prep, pricing, and results before you book."
   canonical="https://www.menonmedispa.com/botox-millburn-nj"
   jsonld={jsonld}
 >
@@ -128,12 +133,12 @@ const jsonld = buildServiceSchema({
     </div>
 
     <div class="svc-block">
-      <h2>The Menon Medispa Botox Difference</h2>
+      <h2>The Menon Medispa Botox Difference in Millburn, NJ</h2>
       <h3>We understand the frustration of failed anti-aging attempts.</h3>
       <figure>
         <img src={differenceImg.src} alt="Botox treatment at Menon Medispa Millburn NJ" width="476" height="316" loading="lazy" decoding="async" />
       </figure>
-      <p>That is why Dr. Menon has developed a physician-administered Botox program that delivers natural-looking results tailored to your facial anatomy and aesthetic goals. Unlike discount injection services, every treatment at Menon Medispa is performed with the precision of a medical doctor.</p>
+      <p>That is why Dr. Menon has developed a physician-administered Botox program in Millburn, NJ that delivers natural-looking results tailored to your facial anatomy and aesthetic goals. Unlike discount injection services, every treatment at Menon Medispa is performed with the precision of a medical doctor.</p>
 
       <p class="svc-eyebrow">How It Works</p>
       <p>Botox is an FDA-approved neuromodulator that temporarily blocks the nerve signals responsible for muscle contractions. When injected into targeted facial muscles, it relaxes those muscles, preventing the repeated movements that cause expression lines. The surrounding skin smooths as the muscle tension releases, revealing a refreshed, more youthful appearance.</p>

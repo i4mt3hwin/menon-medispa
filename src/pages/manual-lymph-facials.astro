@@ -5,7 +5,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -25,14 +25,34 @@ import heroImg from '@/assets/images/39875cd4ea73.png';
 const slug = 'manual-lymph-facials';
 const posts = getRelatedPosts(slug);
 
-// FAQ answers in the original section_8 are blank placeholders — omitted per guardrail.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+const faqs = [
+  {
+    question: 'Does lymphatic drainage work on the face?',
+    answer:
+      'Facial lymphatic drainage uses gentle, rhythmic massage to encourage fluid movement and reduce the look of puffiness. Many clients notice a more refreshed, contoured appearance after treatment, especially around the under-eyes and jawline.',
+  },
+  {
+    question: 'How long does lymphatic drainage last on the face?',
+    answer:
+      'Results vary, but many clients enjoy a refreshed look for several days after a lymphatic drainage facial. Regular sessions may help maintain a less puffy, more balanced appearance over time.',
+  },
+  {
+    question: 'What should I expect before and after a lymphatic drainage facial?',
+    answer:
+      'Before treatment, your provider will review your skin concerns and comfort level. After treatment, skin often looks calmer, smoother, and less puffy. There is typically no downtime, though hydration and gentle skincare are recommended.',
+  },
+  {
+    question: 'Is facial lymphatic drainage massage painful?',
+    answer:
+      'No. This is a light, soothing technique rather than a deep-tissue massage. The goal is to support natural lymph flow with gentle pressure, making it a comfortable option for clients who want a refreshed look without aggressive treatment.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Manual Lymph Drainage Facials in Millburn, NJ',
   description:
-    'Gentle manual lymph drainage facials in Millburn NJ. Reduce puffiness, sculpt contours, and reveal your natural glow. Book at Menon Medispa.',
+    'Gentle lymphatic drainage facials in Millburn NJ. Reduce puffiness, support facial lymph flow, and restore a refreshed glow at Menon Medispa.',
   url: '/manual-lymph-facials',
   image: heroImg.src,
   type: 'Service',
@@ -47,8 +67,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Expert Manual Lymph Drainage Facials in Millburn NJ | Menon Medispa"
-  description="Gentle manual lymph drainage facials in Millburn NJ. Reduce puffiness, sculpt contours, and reveal your natural glow. Book at Menon Medispa."
+  title="Lymphatic Drainage Facial in Millburn NJ | Menon Medispa"
+  description="Reduce facial puffiness with a gentle lymphatic drainage facial in Millburn NJ. Manual lymph massage helps contour, refresh, and restore glow at Menon Medispa."
   canonical="https://www.menonmedispa.com/manual-lymph-facials"
   jsonld={jsonld}
 >
@@ -69,14 +89,16 @@ const jsonld = buildServiceSchema({
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
-      <h2>Why Manual Lymph Drainage Transforms Your Skin From The Inside Out</h2>
+      <h2>Lymphatic Drainage Facial for Puffiness, Contour, and Glow</h2>
 
-      <p class="svc-lead">Our gentle manual lymph drainage technique helps eliminate toxins, reduces under-eye bags, and sculpts your facial contours naturally. Perfect for anyone dealing with morning puffiness, dull skin, or wanting a non-surgical way to look more refreshed and defined.</p>
+      <p class="svc-lead">Our gentle manual lymph drainage technique supports facial lymph flow, reduces the look of puffiness, and helps your contours look more refreshed. It is ideal for anyone dealing with morning puffiness, dull skin, or wanting a non-surgical way to look more rested.</p>
+
+      <p>For clients searching for facial lymphatic drainage massage in NJ, Menon Medispa offers a calm, hands-on treatment in Millburn designed for visible refreshment without downtime.</p>
 
       <ul class="svc-features">
         <li>
           <h3>Immediate Visible Results</h3>
-          <p>You'll notice reduced puffiness and a more sculpted jawline right after your treatment. Most clients see their under-eye bags diminish by 40-50% and experience an instant glow that lasts for days. The gentle pressure helps move stagnant fluid, revealing the defined facial structure hiding underneath.</p>
+          <p>Many clients notice reduced puffiness, a more defined-looking jawline, and a fresh glow right after treatment. The gentle pressure helps encourage fluid movement, revealing a more rested facial appearance.</p>
         </li>
         <li>
           <h3>Long-Term Skin Health Benefits</h3>
@@ -116,6 +138,8 @@ const jsonld = buildServiceSchema({
   <ServiceCard />
 
   <AddOns />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

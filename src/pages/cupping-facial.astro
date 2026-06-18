@@ -4,7 +4,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -24,14 +24,34 @@ import heroImg from '@/assets/images/2d2699eae2a5.jpeg';
 const slug = 'cupping-facial';
 const posts = getRelatedPosts(slug);
 
-// FAQ answers were blank/placeholder in section_8 — skipped to avoid fabrication.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+const faqs = [
+  {
+    question: 'What do facial cupping before and after results look like?',
+    answer:
+      'Facial cupping results are usually subtle and natural-looking. Many clients notice less puffiness, a brighter complexion, and a temporarily lifted or more sculpted appearance after treatment.',
+  },
+  {
+    question: 'How long do facial cupping results last?',
+    answer:
+      'Results vary by skin type, lifestyle, and treatment frequency. Many clients notice a refreshed look for several days, while a series of treatments may help support longer-lasting improvements in tone and puffiness.',
+  },
+  {
+    question: 'Does facial cupping hurt or leave marks?',
+    answer:
+      'Facial cupping should feel gentle and should not be painful. The technique uses controlled movement and light suction on the face, so it is different from stronger body cupping that can leave circular marks.',
+  },
+  {
+    question: 'Who is a good candidate for a cupping facial?',
+    answer:
+      'A cupping facial may be a good fit if you want a non-injection option for puffiness, dullness, and temporary facial contouring. Your provider will review your skin and health history before treatment.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Cupping Facial in Millburn, NJ',
   description:
-    'Experience a cupping facial in Millburn NJ at Menon Medispa. Natural skin lifting and firming without surgery or injections. 100+ 5-star reviews. Book today.',
+    'Facial cupping in Millburn NJ for puffiness, circulation, and a naturally lifted look. Gentle cupping facials at Menon Medispa.',
   url: '/cupping-facial',
   image: heroImg.src,
   type: 'Service',
@@ -46,8 +66,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Cupping Facial in Millburn NJ | Natural Skin Lifting | Menon Medispa"
-  description="Experience a cupping facial in Millburn NJ at Menon Medispa. Natural skin lifting and firming without surgery or injections. 100+ 5-star reviews. Book today."
+  title="Facial Cupping Results in Millburn NJ | Menon Medispa"
+  description="See what a facial cupping treatment can do for puffiness, circulation, and a lifted look. Menon Medispa offers cupping facials in Millburn NJ with no downtime."
   canonical="https://www.menonmedispa.com/cupping-facial"
   jsonld={jsonld}
 >
@@ -67,9 +87,11 @@ const jsonld = buildServiceSchema({
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
-      <h2>Why Cupping Therapy Is The Natural Alternative To Cosmetic Procedures</h2>
+      <h2>Facial Cupping for Puffiness, Circulation, and Natural Lift</h2>
 
-      <p class="svc-lead">For clients who want real, visible lifting and firming without needles or downtime, cupping facial therapy offers a proven, naturally rooted approach.</p>
+      <p class="svc-lead">For clients who want visible refreshment without needles or downtime, cupping facial therapy offers a gentle, naturally rooted approach.</p>
+
+      <p>Clients often ask about facial cupping before and after results. The most common changes are reduced puffiness, a brighter-looking complexion, and a temporary lifted appearance that looks refreshed rather than overdone.</p>
 
       <ul class="svc-features">
         <li>
@@ -78,7 +100,7 @@ const jsonld = buildServiceSchema({
         </li>
         <li>
           <h3>Increased Blood Flow and Collagen Production</h3>
-          <p>Cupping increases facial circulation by up to 400%, dramatically boosting oxygen and nutrient delivery to your skin cells. This surge in blood flow triggers your body's natural collagen synthesis, helping to rebuild the structural proteins that keep your skin plump, elastic, and youthful-looking.</p>
+          <p>Cupping helps stimulate facial circulation, supporting oxygen and nutrient delivery to the skin. This gentle boost can leave the complexion looking brighter, healthier, and more awake.</p>
         </li>
         <li>
           <h3>Natural Detoxification and Lymphatic Drainage</h3>
@@ -86,7 +108,7 @@ const jsonld = buildServiceSchema({
         </li>
         <li>
           <h3>Long-Lasting Anti-Aging Benefits</h3>
-          <p>Unlike surface-level treatments, cupping works at the cellular level to create lasting change. A series of 4–6 treatments spaced 2 weeks apart can produce cumulative anti-aging benefits that rival more invasive procedures, with results that continue to improve as your skin's natural renewal processes are activated.</p>
+          <p>Unlike a quick surface refresh, a series of cupping facials may help maintain improvements in puffiness, tone, and facial definition. Your provider can recommend a treatment rhythm based on your skin and goals.</p>
         </li>
       </ul>
     </div>
@@ -114,6 +136,8 @@ const jsonld = buildServiceSchema({
   <BookingCta />
 
   <AddOns />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

@@ -4,6 +4,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -21,13 +22,34 @@ import heroImg from '@/assets/images/be07a65c0c65.png';
 const slug = 'vitamin-shots-millburn-nj';
 const posts = getRelatedPosts(slug);
 
-// No authored FAQ content on this page.
-const faqs: { question: string; answer: string }[] = [];
+const faqs = [
+  {
+    question: 'Do you offer B12 shots near Millburn, NJ?',
+    answer:
+      'Yes. Menon Medispa offers B12 shots and other vitamin injections in Millburn, NJ for clients looking for targeted energy and wellness support in a quick in-office visit.',
+  },
+  {
+    question: 'How are B12 shots different from B complex injections?',
+    answer:
+      'B12 shots focus on vitamin B12 support, while B complex injections include multiple B vitamins. Your provider can help you choose the option that best matches your goals, symptoms, and wellness history.',
+  },
+  {
+    question: 'How long does a vitamin shot appointment take?',
+    answer:
+      'Vitamin shot visits are typically quick. Your provider will confirm the right option for you, review any relevant health information, and administer the injection during the same in-office visit when appropriate.',
+  },
+  {
+    question: 'Which vitamin injections are available?',
+    answer:
+      'Menon Medispa offers B12, B complex, glutathione, glow, and energy shots. Availability and recommendations can vary by patient, so your provider will help match the injection to your needs.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Vitamin Shots in Millburn, NJ',
   description:
-    'Vitamin Shots at Menon Medispa in Millburn, NJ. B12, Glutathione, B Complex, Glow Shot, and Energy Shot starting at $35. Boost energy, immunity, and radiance.',
+    'B12 shots and vitamin injections in Millburn NJ. Choose B12, B complex, glutathione, glow, or energy shots starting at $35.',
   url: '/vitamin-shots-millburn-nj',
   image: heroImg.src,
   type: 'Service',
@@ -42,8 +64,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Vitamin Shots in Millburn NJ | B12, Glutathione & More | Menon Medispa"
-  description="Boost energy, immunity, and radiance with Vitamin Shots at Menon Medispa in Millburn, NJ. B12, Glutathione, B Complex, Glow Shot, and Energy Shot starting at $35. Call (973) 494-8431."
+  title="B12 Vitamin Shots Near Me in Millburn NJ | Menon Medispa"
+  description="B12 shots and vitamin injections in Millburn NJ starting at $35. Choose B12, B complex, glutathione, glow, or energy shots at Menon Medispa for targeted support"
   canonical="https://www.menonmedispa.com/vitamin-shots-millburn-nj"
   jsonld={jsonld}
 >
@@ -63,7 +85,7 @@ const jsonld = buildServiceSchema({
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
-      <h2>The Struggle with Low Energy and Vitamin Deficiency</h2>
+      <h2>B12 Shots and Vitamin Injections for Targeted Wellness Support</h2>
       <p class="svc-lead">Constantly feeling tired, unfocused, or just "off" can make it hard to keep up with life. While coffee, energy drinks, and daily vitamins offer quick boosts, they rarely address the root cause:</p>
 
       <ul class="svc-checks">
@@ -75,7 +97,9 @@ const jsonld = buildServiceSchema({
 
       <p>Many people hesitate to take action because they're unsure what their body really needs, or whether vitamin injections actually work. The result? A frustrating cycle of burnout and band-aid solutions that don't restore lasting wellness.</p>
 
-      <p>At Menon Medispa, our targeted Vitamin Shots deliver exactly what your body craves, quickly, safely, and effectively.</p>
+      <p>At Menon Medispa, our targeted Vitamin Shots deliver focused support quickly and safely in a convenient Millburn office visit.</p>
+
+      <p>For clients searching for B12 shots near me or vitamin B injections near me, our team can help match B12, B complex, glutathione, glow, or energy shots to your wellness goals.</p>
     </div>
 
     <!-- SIDEBAR -->
@@ -96,6 +120,8 @@ const jsonld = buildServiceSchema({
   <ServiceCards />
 
   <ServiceTestimonial slug="vitamin-shots-millburn-nj" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

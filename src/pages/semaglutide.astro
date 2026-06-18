@@ -46,6 +46,11 @@ const faqs = [
       'Semaglutide is administered as a once-weekly subcutaneous injection. At Menon Medispa, Dr. Aditi Menon will provide comprehensive training on self-administration or can administer the injection for you during office visits. The medication is typically started at a lower dose and gradually increased to minimize side effects.',
   },
   {
+    question: 'Do you offer Semaglutide weight loss injections in NJ?',
+    answer:
+      'Yes. Menon Medispa offers physician-directed Semaglutide weight loss support from our Millburn, NJ office. The program is designed for appropriate candidates and includes medical review, monitoring, and lifestyle guidance.',
+  },
+  {
     question: 'What side effects might I experience?',
     answer:
       'Common side effects of Semaglutide may include nausea (most common, especially when starting treatment), diarrhea, vomiting, constipation, abdominal pain, and headache. Most side effects are mild to moderate and tend to decrease over time. Dr. Menon employs a gradual dose escalation strategy to minimize these effects and will work with you to manage any discomfort.',
@@ -73,6 +78,11 @@ const faqItems = [
       '<p>Semaglutide is administered as a once-weekly subcutaneous injection. At Menon Medispa, Dr. Aditi Menon will provide comprehensive training on self-administration or can administer the injection for you during office visits. The medication is typically started at a lower dose and gradually increased to minimize side effects.</p>',
   },
   {
+    question: 'Do you offer Semaglutide weight loss injections in NJ?',
+    answer_html:
+      '<p>Yes. Menon Medispa offers physician-directed Semaglutide weight loss support from our Millburn, NJ office. The program is designed for appropriate candidates and includes medical review, monitoring, and lifestyle guidance.</p>',
+  },
+  {
     question: 'What side effects might I experience?',
     answer_html:
       '<p>Common side effects of Semaglutide may include:</p><ul><li>Nausea (most common, especially when starting treatment)</li><li>Diarrhea</li><li>Vomiting</li><li>Constipation</li><li>Abdominal pain</li><li>Headache</li></ul><p>Most side effects are mild to moderate and tend to decrease over time. Dr. Menon employs a gradual dose escalation strategy to minimize these effects and will work with you to manage any discomfort.</p>',
@@ -82,7 +92,7 @@ const faqItems = [
 const jsonld = buildServiceSchema({
   name: 'Semaglutide Medical Weight Loss in Millburn, NJ',
   description:
-    'Physician-directed Semaglutide medical weight loss treatments in Millburn, NJ. Safe, effective, and tailored to your unique health needs for lasting results. Book a consultation with Dr. Aditi Menon today.',
+    'Physician-directed Semaglutide weight loss in Millburn NJ with weekly injections, nutrition guidance, lab review, and monitoring from Dr. Aditi Menon.',
   url: '/semaglutide',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -97,8 +107,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Semaglutide Medical Weight Loss in Millburn NJ | Menon Medispa & Wellness"
-  description="Physician-directed Semaglutide medical weight loss treatments in Millburn, NJ. Safe, effective, and tailored to your unique health needs for lasting results. Book a consultation with Dr. Aditi Menon today."
+  title="Semaglutide Weight Loss in Millburn NJ | Menon Medispa"
+  description="Physician-directed Semaglutide weight loss in Millburn NJ with weekly injections, nutrition guidance, lab review, and monitoring from Dr. Aditi Menon."
   canonical="https://www.menonmedispa.com/semaglutide"
   jsonld={jsonld}
 >
@@ -139,11 +149,13 @@ const jsonld = buildServiceSchema({
     </div>
 
     <div class="svc-block">
-      <h2>Reimagine Weight Loss With The Semaglutide Difference</h2>
+      <h2>Semaglutide Weight Loss Injections in Millburn, NJ</h2>
 
       <p>We understand the frustration of failed weight loss attempts.</p>
 
-      <p>Our medically supervised Semaglutide program offers a scientifically proven approach that addresses the biological factors that make sustainable weight loss so challenging!</p>
+      <p>Our medically supervised Semaglutide program offers a science-based approach that addresses the biological factors that make sustainable weight loss so challenging.</p>
+
+      <p>For NJ patients searching for Semaglutide weight loss or weight loss injections near Millburn, care begins with a medical review so Dr. Menon can determine whether this treatment is appropriate for your health history and goals.</p>
 
       <p class="svc-eyebrow">How Semaglutide Controls Appetite</p>
 
@@ -179,7 +191,7 @@ const jsonld = buildServiceSchema({
         items={[
           { label: 'Price', value: 'From $100' },
           { label: 'Frequency', value: 'Once-weekly injection' },
-          { label: 'Results', value: '15-20% body weight loss*' },
+          { label: 'Results', value: 'Varies by patient' },
           { label: 'Performed by', value: 'Dr. Aditi Menon, MD' },
           { label: 'Location', value: 'Millburn, NJ' },
         ]}
