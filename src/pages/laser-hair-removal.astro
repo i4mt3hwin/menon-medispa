@@ -37,7 +37,7 @@ const faqs = [
   {
     question: 'How many treatments will I need?',
     answer:
-      'Most clients require 6-8 treatments to achieve optimal permanent hair reduction results. Hair grows in cycles, and laser hair removal is most effective during the active growth phase. Because not all hairs are in the same growth stage simultaneously, multiple sessions are necessary to treat each follicle effectively. Sessions are typically spaced 4-8 weeks apart depending on the treatment area.',
+      'Our laser hair removal packages are a series of 6 sessions, which is what most clients need for optimal permanent hair reduction. Hair grows in cycles, and laser hair removal is most effective during the active growth phase. Because not all hairs are in the same growth stage simultaneously, multiple sessions are necessary to treat each follicle effectively. Sessions are spaced 4-6 weeks apart.',
   },
   {
     question: 'Is laser hair removal safe for light skin or darker skin tones?',
@@ -60,7 +60,7 @@ const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.a
 const jsonld = buildServiceSchema({
   name: 'Laser Hair Removal in Millburn, NJ',
   description:
-    'Physician-supervised laser hair removal in Millburn NJ. Achieve permanently smooth skin in just 6-8 treatments at Menon Medispa. Book your consultation today.',
+    'Physician-supervised laser hair removal in Millburn NJ. Achieve permanently smooth skin in just 6 sessions at Menon Medispa. Book your consultation today.',
   url: '/laser-hair-removal',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -76,7 +76,7 @@ const jsonld = buildServiceSchema({
 
 <BaseLayout
   title="Laser Hair Removal Millburn NJ | Permanent Hair Reduction | Menon Medispa"
-  description="Physician-supervised laser hair removal in Millburn NJ. Achieve permanently smooth skin in just 6-8 treatments at Menon Medispa. Book your consultation today."
+  description="Physician-supervised laser hair removal in Millburn NJ. Achieve permanently smooth skin in just 6 sessions at Menon Medispa. Book your consultation today."
   canonical="https://www.menonmedispa.com/laser-hair-removal"
   jsonld={jsonld}
 >
@@ -84,7 +84,7 @@ const jsonld = buildServiceSchema({
   <ServiceHero
     eyebrow="LASER HAIR REMOVAL · MILLBURN, NJ"
     h1="Permanently Smooth Skin with Laser Hair Removal in Millburn, NJ"
-    subhead="Never worry about unwanted hair again. Physician-supervised treatments that deliver lasting results for all skin tones in just 6-8 sessions."
+    subhead="Never worry about unwanted hair again. Physician-supervised treatments that deliver lasting results for all skin tones in a series of 6 sessions."
     image={heroImg}
     imageAlt="Laser hair removal treatment on smooth skin at Menon Medispa Millburn NJ"
     imagePosition="center"
@@ -180,8 +180,8 @@ const jsonld = buildServiceSchema({
         reviewText="100+ 5 Star Reviews"
         items={[
           { label: 'Price', value: 'From $40/session · pkgs from $200' },
-          { label: 'Sessions needed', value: '6-8 treatments' },
-          { label: 'Session spacing', value: '4-8 weeks apart' },
+          { label: 'Sessions needed', value: '6 sessions' },
+          { label: 'Session spacing', value: '4-6 weeks apart' },
           { label: 'Results', value: '70-95% hair reduction' },
           { label: 'Supervised by', value: 'Dr. Aditi Menon, MD' },
           { label: 'Location', value: 'Millburn, NJ' },
