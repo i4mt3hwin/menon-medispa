@@ -1,0 +1,70 @@
+{
+  "laser-hair-removal": {
+    "service": "Laser Hair Removal",
+    "sessions": 6,
+    "plan": "6 sessions, 4-6 weeks apart",
+    "note": "Pricing varies by treatment area and individual assessment. We confirm your plan and total at a complimentary consultation.",
+    "tiers": [
+      {
+        "size": "Small",
+        "label": "Small Area",
+        "perSession": 40,
+        "packagePrice": 200,
+        "duration": "15 min",
+        "areas": [
+          "In Between Brows",
+          "Fingers",
+          "Toes",
+          "Sideburns",
+          "Ears",
+          "Upper Lip",
+          "Chin",
+          "Breasts"
+        ]
+      },
+      {
+        "size": "Medium",
+        "label": "Medium Area",
+        "perSession": 65,
+        "packagePrice": 350,
+        "duration": "30 min",
+        "areas": [
+          "Full Face",
+          "Underarms",
+          "Front or Back of Neck",
+          "Bikini (Standard)",
+          "Abdomen",
+          "Upper Arms",
+          "Lower Arms"
+        ]
+      },
+      {
+        "size": "Large",
+        "label": "Large Area",
+        "perSession": 150,
+        "packagePrice": 600,
+        "duration": "45 min",
+        "areas": [
+          { "name": "Brazilian", "packagePrice": 800 },
+          "Shoulders",
+          "Upper Legs",
+          "Lower Legs",
+          "Full Arms",
+          "Chest"
+        ]
+      },
+      {
+        "size": "XLarge",
+        "label": "XLarge Area",
+        "perSession": 300,
+        "packagePrice": 1200,
+        "duration": "60 min",
+        "areas": [
+          "Full Back",
+          "Full Chest",
+          "Full Legs"
+        ]
+      }
+    ]
+  }
+}

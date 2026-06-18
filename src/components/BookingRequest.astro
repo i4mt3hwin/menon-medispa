@@ -15,12 +15,33 @@
  */
 import services from '../data/services.json';
 import site from '../lib/site';
+import { allPackageServices } from '../lib/packages';
 
 interface Props {
   heading?: string;
   prefill?: string;
 }
 const { heading = 'Request an Appointment', prefill } = Astro.props as Props;
+
+// Multi-package services (e.g. Laser Hair Removal). Serialized to a data-attr so the
+// client script can reveal an area picker when one of these services is chosen/locked.
+// Keyed by the service name (which equals the service_interest value).
+const packageData = Object.fromEntries(
+  allPackageServices().map((p) => [
+    p.service,
+    {
+      sessions: p.sessions,
+      tiers: p.tiers.map((t) => ({
+        size: t.size,
+        label: t.label,
+        perSession: t.perSession,
+        packagePrice: t.packagePrice,
+        duration: t.duration,
+        areas: t.areas.map((a) => ({ name: a.name, perSession: a.perSession, packagePrice: a.packagePrice, duration: a.duration })),
+      })),
+    },
+  ])
+);
 
 // Distinct service categories (data-driven — stays in sync with services.json).
 const categories = Array.from(
@@ -48,7 +69,7 @@ const HORIZON_DAYS = 60;
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 ---
 
-<div class="bk" data-booking data-hours={JSON.stringify(hoursByDow)} data-horizon={HORIZON_DAYS}>
+<div class="bk" data-booking data-hours={JSON.stringify(hoursByDow)} data-horizon={HORIZON_DAYS} data-packages={JSON.stringify(packageData)}>
   <div data-leadform-root>
     <form class="bk__form" method="POST" action="/api/lead" novalidate>
       <h2 class="bk__heading">{heading}</h2>
@@ -96,6 +117,32 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             <span class="bk__locked-name" data-locked-name></span>
           </div>
           <button type="button" class="bk__locked-change" data-change>Change</button>
+        </div>
+
+        <!-- Package picker: revealed when the chosen service is sold as multiple
+             packages (e.g. Laser Hair Removal). Options are injected by the script
+             from the service's data. "Not sure" routes to a consultation. -->
+        <div class="bk__pkg" data-pkg hidden>
+          <div class="bk__field">
+            <label for="bk-pkg-area">Which area would you like?</label>
+            <select id="bk-pkg-area" data-pkg-area>
+              <option value="">I'm not sure yet — recommend during my consultation</option>
+            </select>
+          </div>
+          <div class="bk__pkg-session" data-pkg-session hidden>
+            <span class="bk__pkg-session-label">Session type</span>
+            <div class="bk__pkg-toggle" role="radiogroup" aria-label="Session type">
+              <label class="bk__pkg-opt">
+                <input type="radio" name="pkg_session" value="package" checked />
+                <span data-pkg-package-label>Package</span>
+              </label>
+              <label class="bk__pkg-opt">
+                <input type="radio" name="pkg_session" value="single" />
+                <span data-pkg-single-label>Single session</span>
+              </label>
+            </div>
+          </div>
+          <p class="bk__pkg-summary" data-pkg-summary hidden></p>
         </div>
 
         <p class="bk__fee-note" data-fee-note hidden>
@@ -316,12 +363,110 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       feeNote.hidden = !/botox|juv|filler|semaglutide/.test((select.value || '').toLowerCase());
     }
     updateFeeNote();
-    select?.addEventListener('change', updateFeeNote);
+
+    // ── Multi-package picker (e.g. Laser Hair Removal: choose an area-size tier + area) ──
+    // Revealed when the chosen/locked service has package data. The selection is folded
+    // into service_interest at submit so the front desk sees the exact area + package.
+    const packages: Record<string, any> = JSON.parse(root.dataset.packages || '{}');
+    const pkgWrap = root.querySelector('[data-pkg]') as HTMLElement | null;
+    const areaSelect = root.querySelector('[data-pkg-area]') as HTMLSelectElement | null;
+    const sessionWrap = root.querySelector('[data-pkg-session]') as HTMLElement | null;
+    const pkgSummary = root.querySelector('[data-pkg-summary]') as HTMLElement | null;
+    const pkgPackageLabel = root.querySelector('[data-pkg-package-label]') as HTMLElement | null;
+    const pkgSingleLabel = root.querySelector('[data-pkg-single-label]') as HTMLElement | null;
+
+    const money = (n: string | number) => '$' + Number(n).toLocaleString('en-US');
+    const currentPackage = () => (select && packages[select.value]) || null;
+    const sessionType = () => {
+      const r = sessionWrap?.querySelector('input[name="pkg_session"]:checked') as HTMLInputElement | null;
+      return r ? r.value : 'package';
+    };
+    const selectedArea = () => {
+      const o = areaSelect?.selectedOptions[0];
+      return o && o.value ? o : null;
+    };
+
+    function updatePkgSummary() {
+      if (!areaSelect || !sessionWrap || !pkgSummary) return;
+      const pkg = currentPackage();
+      const o = selectedArea();
+      if (!pkg || !o) {
+        sessionWrap.hidden = true;
+        pkgSummary.textContent = pkg ? 'No problem — we will recommend the right package and confirm pricing at your visit.' : '';
+        pkgSummary.hidden = !pkg;
+        return;
+      }
+      sessionWrap.hidden = false;
+      const per = o.dataset.persession || '', pkgp = o.dataset.packageprice || '', dur = o.dataset.duration || '', size = o.dataset.size || '';
+      if (pkgPackageLabel) pkgPackageLabel.textContent = `${pkg.sessions}-session package — ${money(pkgp)}`;
+      if (pkgSingleLabel) pkgSingleLabel.textContent = `Single session — ${money(per)}`;
+      const isPkg = sessionType() === 'package';
+      pkgSummary.hidden = false;
+      pkgSummary.textContent = `${o.dataset.area} · ${size} area · ${dur} — ${isPkg ? `${pkg.sessions}-session package (${money(pkgp)})` : `single session (${money(per)})`}`;
+    }
+
+    function renderPackage(preferredSize?: string | null, preferredArea?: string | null) {
+      if (!pkgWrap || !areaSelect) return;
+      const pkg = currentPackage();
+      if (!pkg) { pkgWrap.hidden = true; return; }
+      pkgWrap.hidden = false;
+      const prev = areaSelect.value;
+      areaSelect.innerHTML = '';
+      const none = document.createElement('option');
+      none.value = '';
+      none.textContent = "I'm not sure yet — recommend during my consultation";
+      areaSelect.appendChild(none);
+      pkg.tiers.forEach((t: any) => {
+        const og = document.createElement('optgroup');
+        og.label = `${t.label} — ${money(t.perSession)}/session`;
+        t.areas.forEach((a: any) => {
+          const opt = document.createElement('option');
+          opt.value = a.name;
+          opt.textContent = a.packagePrice !== t.packagePrice ? `${a.name} (package ${money(a.packagePrice)})` : a.name;
+          opt.dataset.area = a.name;
+          opt.dataset.size = t.size;
+          opt.dataset.persession = String(a.perSession);
+          opt.dataset.packageprice = String(a.packagePrice);
+          opt.dataset.duration = a.duration;
+          og.appendChild(opt);
+        });
+        areaSelect.appendChild(og);
+      });
+      // Restore / pre-select: explicit area wins, then a size tier, then the previous pick.
+      const opts = Array.from(areaSelect.options);
+      let pick = '';
+      if (preferredArea && opts.some((o) => o.value === preferredArea)) pick = preferredArea;
+      else if (preferredSize) { const m = opts.find((o) => o.dataset.size === preferredSize); if (m) pick = m.value; }
+      else if (prev && opts.some((o) => o.value === prev)) pick = prev;
+      areaSelect.value = pick;
+      updatePkgSummary();
+    }
+
+    areaSelect?.addEventListener('change', updatePkgSummary);
+    sessionWrap?.querySelectorAll('input[name="pkg_session"]').forEach((r) => r.addEventListener('change', updatePkgSummary));
+    select?.addEventListener('change', () => { updateFeeNote(); renderPackage(); });
+
+    // Initial render honours ?size= / ?area= deep links (from the on-page package table).
+    const pkgParams = new URLSearchParams(location.search);
+    renderPackage(pkgParams.get('size'), pkgParams.get('area'));
+
+    function composeServiceInterest(base: string) {
+      const pkg = currentPackage();
+      if (!pkg) return base;
+      const o = selectedArea();
+      if (!o) return `${base} — consultation (area to be advised)`;
+      const isPkg = sessionType() === 'package';
+      const price = isPkg ? o.dataset.packageprice : o.dataset.persession;
+      const label = isPkg ? `${pkg.sessions}-session pkg` : 'single session';
+      return `${base} — ${o.dataset.area} (${o.dataset.size} · ${label}, ${money(price || 0)})`;
+    }
 
     enhanceLeadForm(form, {
       validate: (data) => {
         if (!data.preferred_date) return 'Please pick a date on the calendar.';
         if (!data.preferred_window) return 'Please choose a time.';
+        // Fold the chosen package/area into service_interest so the front desk sees it.
+        data.service_interest = composeServiceInterest(data.service_interest || '');
         return null;
       },
     });
@@ -410,6 +555,29 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     flex: none; background: none; border: none; cursor: pointer; color: var(--color-cta);
     font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600; text-decoration: underline;
   }
+
+  /* Package picker (multi-package services, e.g. Laser Hair Removal) */
+  .bk__pkg { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .bk__pkg[hidden] { display: none; }
+  .bk__pkg-session { display: flex; flex-direction: column; gap: 6px; }
+  .bk__pkg-session[hidden] { display: none; }
+  .bk__pkg-session-label { font-family: var(--font-body); font-size: var(--text-xs); font-weight: var(--weight-bold); }
+  .bk__pkg-toggle { display: flex; gap: 8px; flex-wrap: wrap; }
+  .bk__pkg-opt {
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+    padding: 9px 14px; border: 1px solid rgba(0,0,0,0.18); border-radius: var(--radius-sm); background: #fff;
+    font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-text);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .bk__pkg-opt:hover { border-color: var(--color-cta); }
+  .bk__pkg-opt:has(input:checked) { border-color: var(--color-cta); background: rgba(196,164,132,0.1); font-weight: 600; }
+  .bk__pkg-opt input { accent-color: var(--color-cta); flex: none; }
+  .bk__pkg-summary {
+    margin: 0; padding: 10px 14px; border-radius: var(--radius-sm);
+    background: rgb(196 164 132 / 0.12); border: 1px solid rgb(196 164 132 / 0.4);
+    font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.5; color: var(--color-text);
+  }
+  .bk__pkg-summary[hidden] { display: none; }
 
   /* Fields */
   .bk__row { display: flex; gap: var(--space-sm); }
