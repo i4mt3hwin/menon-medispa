@@ -55,7 +55,7 @@ const bookHref = (size?: string) => {
               ))}
             </ul>
 
-            <a class="btn btn--secondary btn--block btn--sm pkgtable__cta" href={bookHref(tier.size)}>Request {tier.label}</a>
+            <a class="btn btn--secondary btn--sm pkgtable__cta" href={bookHref(tier.size)}>Request {tier.label}</a>
           </article>
         ))}
       </div>
@@ -171,7 +171,9 @@ const bookHref = (size?: string) => {
   }
 
   .pkgtable__cta {
+    align-self: stretch;        /* fill the card width minus the side margins (no width:100% overflow) */
     margin: 0 var(--space-md) var(--space-md);
+    box-sizing: border-box;
     text-align: center;
   }
 
