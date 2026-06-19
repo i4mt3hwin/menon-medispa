@@ -8,8 +8,12 @@
  * entrance. Conversion elements over the scrim: outcome H1, subhead, trust
  * (stars + gold review count), "Starting at $X", one CTA + tap-to-call.
  *
- * Carries the page's ONLY <h1> + the literal `hero` class so scroll-reveal skips
- * it and the H1 paints immediately (LCP). Motion gated on prefers-reduced-motion
+ * The EYEBROW (service + location) is the page's ONLY <h1> — a clean, consistent
+ * keyword + location heading for SEO. The large display line below it (`h1` prop) is
+ * the emotional headline, rendered as a non-heading <p> so its copy is free of
+ * keyword duty. (If a page omits the eyebrow, that display line falls back to <h1>
+ * so there is always exactly one.) The literal `hero` class makes scroll-reveal skip
+ * the hero so it paints immediately (LCP). Motion gated on prefers-reduced-motion
  * (reduced = crisp static photo, no particles); particles idle when offscreen.
  */
 import type { ImageMetadata } from 'astro';
@@ -54,6 +58,11 @@ const defaultCta: CtaLink =
 const primaryCta: CtaLink = Astro.props.primaryCta ?? defaultCta;
 
 const isExternal = primaryCta.href.startsWith('http');
+
+// The eyebrow (service + location) is the semantic <h1>. The big display line then
+// renders as a <p> so its copy can be a pure emotional hook. If a page has no eyebrow,
+// the display line stays the <h1> so every page always has exactly one heading.
+const Headline = eyebrow ? 'p' : 'h1';
 ---
 
 <section class="service-hero hero" data-hero>
@@ -75,8 +84,8 @@ const isExternal = primaryCta.href.startsWith('http');
 
   <div class="container service-hero__inner on-media">
     <div class="service-hero__text">
-      {eyebrow && <p class="eyebrow service-hero__eyebrow">{eyebrow}</p>}
-      <h1 class="service-hero__h1">{h1}</h1>
+      {eyebrow && <h1 class="eyebrow service-hero__eyebrow">{eyebrow}</h1>}
+      <Headline class="service-hero__h1">{h1}</Headline>
       {subhead && <p class="service-hero__subhead">{subhead}</p>}
 
       {trust && (trust.stars || trust.reviewText) && (
@@ -145,7 +154,9 @@ const isExternal = primaryCta.href.startsWith('http');
   .service-hero__inner { position: relative; z-index: 3; padding-block: var(--section-py); }
   .service-hero__text { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 640px; }
 
-  .service-hero__eyebrow { color: var(--color-cta); opacity: 1; }
+  /* This is now the <h1>; pin font-size/weight so the UA h1 defaults don't enlarge/bold it
+     (it must stay the small kicker it was as a <p>). .eyebrow already sets size/margin. */
+  .service-hero__eyebrow { color: var(--color-cta); opacity: 1; font-size: var(--text-xs); font-weight: var(--weight-regular); }
   .service-hero__h1 {
     font-family: var(--font-display);
     font-size: var(--text-display);
