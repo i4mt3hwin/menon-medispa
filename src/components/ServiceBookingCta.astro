@@ -41,6 +41,9 @@ interface Props {
   bookLabel?: string;
   // Multi-card: pages with more than one pricing tier pass an array.
   cards?: Card[];
+  // Section background: tinted "warm sand" by default. Pass tint={false} to sit on
+  // the plain page background (e.g. when the section directly above is already tinted).
+  tint?: boolean;
 }
 
 const {
@@ -49,6 +52,7 @@ const {
   body,
   image, imageAlt, title, titleHref, tagline, price, duration, bookHref, bookLabel,
   cards,
+  tint = true,
 } = Astro.props;
 
 // Normalise to a card list: explicit `cards` wins, else build one from the flat props.
@@ -57,7 +61,7 @@ const cardList: Card[] = (cards && cards.length)
   : [{ image, imageAlt, title: title ?? '', titleHref, tagline, price, duration, bookHref, bookLabel }];
 ---
 
-<section class="section section--tint svc-booking" id="book" style="scroll-margin-top: 100px;">
+<section class={`section ${tint ? 'section--tint ' : ''}svc-booking`} id="book" style="scroll-margin-top: 100px;">
   <div class="container">
 
     <div class="svc-booking__intro">

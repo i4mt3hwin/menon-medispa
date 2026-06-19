@@ -3,9 +3,10 @@ import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
 import PackageTable from '@/components/PackageTable.astro';
 import packageImg from '@/assets/images/c28a6e6b3030.jpg';
 ---
-<PackageTable slug="laser-hair-removal" />
+<PackageTable slug="laser-hair-removal" heading="Laser Hair Removal Pricing" />
 
 <ServiceBookingCta
+  tint={false}
   eyebrow={`Ready to Book`}
   heading={`Book Your Laser Hair Removal`}
   cards={[
