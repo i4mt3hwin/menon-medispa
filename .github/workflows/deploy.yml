@@ -15,10 +15,13 @@ jobs:
         with: { node-version: 22, cache: npm }
       - run: npm ci
       - run: npm run build
-      - uses: cloudflare/pages-action@v1
+      # Deploy only on push to main. PRs just build (validation), so they don't
+      # need the secret and can't deploy. Uses wrangler-action so it mirrors the
+      # manual `wrangler pages deploy dist` exactly — incl. the functions/ API bundle.
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name == 'push'
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: menon-medispa
-          directory: dist
-          branch: ${{ github.ref_name }}
+          command: pages deploy dist --project-name=menon-medispa --branch=${{ github.ref_name }}
