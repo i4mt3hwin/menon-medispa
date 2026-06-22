@@ -20,8 +20,10 @@ import site from '@/lib/site';
     <div class="con-offer__cards">
 
       <div class="con-offer__card">
-        <p class="con-offer__card-label">With a Licensed Esthetician</p>
-        <p class="con-offer__price"><span class="con-offer__price-num">Free</span></p>
+        <div class="con-offer__card-top">
+          <p class="con-offer__card-label">With a Licensed Esthetician</p>
+          <p class="con-offer__price"><span class="con-offer__price-num">Free</span></p>
+        </div>
         <p class="con-offer__card-body">
           A 30-minute skin assessment with a licensed esthetician who maps out the right treatments
           for your skin type, concerns, and goals.
@@ -35,8 +37,10 @@ import site from '@/lib/site';
       </div>
 
       <div class="con-offer__card con-offer__card--featured">
-        <p class="con-offer__card-label">With Dr. Aditi Menon, MD</p>
-        <p class="con-offer__price"><span class="con-offer__price-num">$50</span> <span class="con-offer__price-note">applied to your treatment</span></p>
+        <div class="con-offer__card-top">
+          <p class="con-offer__card-label">With Dr. Aditi Menon, MD</p>
+          <p class="con-offer__price"><span class="con-offer__price-num">$50</span> <span class="con-offer__price-note">applied to your treatment</span></p>
+        </div>
         <p class="con-offer__card-body">
           A 30-minute medical consultation with our physician and medical director, ideal for
           injectables, lasers, and advanced treatment planning.
@@ -133,6 +137,10 @@ import site from '@/lib/site';
     padding: 5px 12px;
     border-radius: var(--radius-sm);
   }
+
+  /* Transparent on desktop: label + price stay flex items of the card (stacked,
+     inheriting the card gap). On mobile this becomes a label-left / price-right row. */
+  .con-offer__card-top { display: contents; }
 
   .con-offer__card-label {
     font-family: var(--font-ui);
@@ -232,10 +240,38 @@ import site from '@/lib/site';
   .con-offer__phone:hover { text-decoration: underline; }
 
   @media (max-width: 768px) {
+    /* Condense both options so the Free and $50 cards are visible together,
+       without forcing a full-screen scroll between them. */
+    .con-offer .container { gap: var(--space-md); }
+
+    .con-offer__intro { display: none; }
+
     .con-offer__cards {
       grid-template-columns: 1fr;
+      gap: var(--space-sm);
       max-width: 460px;
       margin: 0 auto;
     }
+
+    .con-offer__card {
+      padding: 22px;
+      gap: 10px;
+    }
+
+    /* Label left, price right on one compact row. */
+    .con-offer__card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    .con-offer__price-num { font-size: var(--text-h3); }
+
+    /* Bullets carry the same info; drop the long paragraph to save height. */
+    .con-offer__card-body { display: none; }
+
+    .con-offer__list { gap: 6px; }
+    .con-offer__list li { font-size: var(--text-xs); }
   }
 </style>

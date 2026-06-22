@@ -104,6 +104,10 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
 </section>
 
 <style>
+  /* Header-offset so landing on #request shows the form heading, not tucked
+     under the sticky header (matches the #options section). */
+  .con-request { scroll-margin-top: 100px; }
+
   .con-request__layout {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -238,7 +242,9 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
 
   @media (max-width: 900px) {
     .con-request__layout { grid-template-columns: 1fr; gap: var(--space-lg); }
-    .con-request__proof { position: static; order: -1; }
+    /* Form first on mobile so the "Request Your Consultation" CTA lands on the
+       form, not the reviews card. Social proof drops below as reassurance. */
+    .con-request__proof { position: static; order: 0; }
   }
 
   @media (max-width: 600px) {
