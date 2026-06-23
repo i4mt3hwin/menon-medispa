@@ -10,6 +10,7 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import FeatureList from '@/components/FeatureList.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import site from '@/lib/site';
+import { buildLocalBusiness } from '@/lib/businessSchema';
 import { getReview } from '@/lib/reviews';
 import { getAllPosts, formatDate } from '@/lib/blog';
 import { getSaleOffers } from '@/lib/sales';
@@ -74,36 +75,9 @@ const faqs = [
 ];
 
 // ── Invisible SEO: LocalBusiness + FAQPage JSON-LD (built from site.ts + the on-page FAQ) ──
-const localBusiness = {
-  '@context': 'https://schema.org',
-  '@type': 'MedicalBusiness',
-  '@id': site.schemaId,
-  name: site.legalName,
-  url: site.url,
-  telephone: site.phone.schema,
-  email: site.email,
-  image: site.url + posterImg.src,
-  priceRange: site.priceRange,
-  description: site.description,
-  founder: { '@type': 'Person', name: site.founder },
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.address.street,
-    addressLocality: site.address.locality,
-    addressRegion: site.address.region,
-    postalCode: site.address.postalCode,
-    addressCountry: site.address.country,
-  },
-  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
-  areaServed: site.areaServed,
-  sameAs: Object.values(site.social),
-  openingHoursSpecification: site.hours.map((h) => ({
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: h.days,
-    opens: h.opens,
-    closes: h.closes,
-  })),
-};
+// MedicalBusiness node now lives in lib/businessSchema.ts so the contact page reuses the
+// exact same node + @id (see 2026-06-22 SEO audit). Pass the hero poster as the image.
+const localBusiness = buildLocalBusiness({ image: posterImg.src });
 const faqPage = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -116,8 +90,8 @@ const faqPage = {
 ---
 
 <BaseLayout
-  title="Medical Spa | Menon Medispa & Wellness | Millburn, NJ"
-  description="Experience the top-rated services at Menon Medispa in Millburn, NJ, including HydraFacial, Botox, and more. Book today!"
+  title="Medical Spa in Millburn, NJ | Menon Medispa & Wellness"
+  description="Menon Medispa & Wellness in Millburn, NJ offers HydraFacial, Botox, fillers, laser and IV therapy led by Dr. Aditi Menon. Book a consultation today."
   canonical="https://www.menonmedispa.com"
   jsonld={[localBusiness, faqPage]}
 >
@@ -134,9 +108,9 @@ const faqPage = {
       { text: "Schedule An Appointment", href: site.calcomUrl, variant: "primary" }
     ]}
     social_proof={[
-      { image_key: "90411e0041df", alt: "Picture of a Client Who Reviewed Us" },
-      { image_key: "305afeda5f9a", alt: "Picture of a Client Who Reviewed Us" },
-      { image_key: "b95880091b44", alt: "Picture of a Client Who Reviewed Us" }
+      { image_key: "90411e0041df", alt: "" },
+      { image_key: "305afeda5f9a", alt: "" },
+      { image_key: "b95880091b44", alt: "" }
     ]}
     stars_text="★★★★★"
     review_count_text="100+ 5 Star Reviews"
@@ -182,7 +156,7 @@ const faqPage = {
   <section class="intro-band section section--tint">
     <div class="container intro-band__inner">
       <div class="intro-band__media">
-        <img src={staffImg.src} alt="Menon Office Staff" class="intro-band__img" width="431" height="540" loading="lazy" decoding="async" />
+        <img src={staffImg.src} alt="Menon Medispa office staff in Millburn, NJ" class="intro-band__img" width="431" height="540" loading="lazy" decoding="async" />
       </div>
       <div class="intro-band__text">
         <p class="intro-band__eyebrow">Welcome To</p>
@@ -193,7 +167,7 @@ const faqPage = {
           <p>Click below to book your session and start your journey to looking and feeling your best.</p>
         </div>
         <h2 class="intro-band__subhead">Expert Medispa and Skin Care Clinic in Millburn, NJ</h2>
-        <p class="intro-band__about">Menon Medispa has been at the forefront of medical aesthetics and anti-aging innovations since 2019. Our team of esteemed medical experts is committed to providing outstanding care and achieving lasting outcomes that not only improve your looks but also boost your overall wellness. We take pride in our recognition as the top-rated medispa in Millburn NJ.</p>
+        <p class="intro-band__about">Menon Medispa has been at the forefront of medical aesthetics and anti-aging innovations since 2019. Our team of esteemed medical experts is committed to providing outstanding care and achieving lasting outcomes that not only improve your looks but also boost your overall wellness. We are proud to care for patients across Millburn, NJ and the surrounding communities.</p>
         <a href="/consultation" class="btn btn--primary">Schedule Consultation</a>
       </div>
     </div>
@@ -428,8 +402,8 @@ const faqPage = {
   <section class="home-section-6 section section--tint">
     <div class="container">
       <div class="home-section-6__header">
-        <SectionHeading text="MUST TRY" tag="h5" align="center" font="ui" size="sm" />
-        <SectionHeading text="Popular Treatments" tag="h3" align="center" font="display" size="md" />
+        <p class="eyebrow" style="text-align: center;">MUST TRY</p>
+        <SectionHeading text="Popular Treatments" tag="h2" align="center" font="display" size="md" />
       </div>
 
       <ServicesGrid
@@ -447,7 +421,7 @@ const faqPage = {
             title: "Juvéderm Fillers",
             href: `/request-appointment?service=${encodeURIComponent("Juvéderm Fillers")}`,
             image_src: juvedermImg.src,
-            image_alt: "Injection cosmetology",
+            image_alt: "Juvéderm dermal filler treatment at Menon Medispa",
             description_html: "<p>From $750</p>",
             cta_text: "Request to Book",
           },
@@ -455,7 +429,7 @@ const faqPage = {
             title: "HydraFacial™ Keravive™",
             href: `/request-appointment?service=${encodeURIComponent("HydraFacial™ Keravive™")}`,
             image_src: keraviveImg.src,
-            image_alt: "The Benefits of Hair Restoration Therapy",
+            image_alt: "HydraFacial Keravive scalp treatment at Menon Medispa",
             description_html: "<p>$500</p>",
             cta_text: "Request to Book",
           },
@@ -537,7 +511,7 @@ const faqPage = {
           <RichText html="<p>Founded and led by regenerative medicine specialist Dr. Aditi Menon, our medispa provides aesthetic and dermatological treatment solutions to maintain your outer glow and inner beauty.</p>" />
         </div>
         <div class="home-section-10__cta-wrap">
-          <a href="/about" class="btn btn--secondary">READ MORE</a>
+          <a href="/about" class="btn btn--secondary">About Menon Medispa</a>
         </div>
       </div>
 
@@ -760,9 +734,9 @@ const faqPage = {
 
       <div class="home-section-7__social-proof">
         <div class="home-section-7__avatars">
-          <img src={avatar1.src} alt="Picture of a Client Who Reviewed Us" class="home-section-7__avatar" loading="lazy" decoding="async" width="46" height="50" />
-          <img src={avatar2.src} alt="Picture of a Client Who Reviewed Us" class="home-section-7__avatar" loading="lazy" decoding="async" width="52" height="50" />
-          <img src={avatar3.src} alt="Picture of a Client Who Reviewed Us" class="home-section-7__avatar" loading="lazy" decoding="async" width="52" height="50" />
+          <img src={avatar1.src} alt="" class="home-section-7__avatar" loading="lazy" decoding="async" width="46" height="50" />
+          <img src={avatar2.src} alt="" class="home-section-7__avatar" loading="lazy" decoding="async" width="52" height="50" />
+          <img src={avatar3.src} alt="" class="home-section-7__avatar" loading="lazy" decoding="async" width="52" height="50" />
         </div>
         <div class="home-section-7__stars-block">
           <p class="home-section-7__stars stars">★★★★★</p>
@@ -844,7 +818,7 @@ const faqPage = {
   </section>
 
   <style>
-    .home-faq .section-heading { margin-bottom: var(--space-md); }
+    .home-faq .section-heading { margin-bottom: var(--space-lg); }
     .home-faq :global(.faq-accordion) { padding: 0; }
   </style>
 

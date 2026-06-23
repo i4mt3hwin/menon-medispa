@@ -1,5 +1,12 @@
 ---
-import googleBadge from '@/assets/images/5be44787b3a9.png';
+import googleBadge from '@/assets/images/5be44787b3a9.webp';
+import { serviceInterestOptions, interestLabel } from '@/lib/services';
+import { CONSULT_NOTES, consultTierFor } from '@/lib/consult';
+
+// "What are you interested in?" options shared with the booking form; the picked
+// value decides the consultation tier (esthetician vs $50 Dr. Menon) shown below.
+const { options, selected } = serviceInterestOptions();
+const initialNote = CONSULT_NOTES[consultTierFor(selected)];
 ---
 
 <!-- Section 5: Request form (conversion focal) + social proof -->
@@ -12,7 +19,7 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
         <p class="eyebrow con-request__eyebrow">Request Your Consultation</p>
         <h2 class="con-request__heading">Let&rsquo;s Plan Your Best Skin</h2>
         <p class="con-request__sub">
-          Fill out the form and we&rsquo;ll reach out within 24 hours. It&rsquo;s free, fast, and
+          Fill out the form and we&rsquo;ll reach out within 24 hours. It&rsquo;s quick, and
           there&rsquo;s no obligation.
         </p>
 
@@ -38,6 +45,18 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
               <label for="con-email" class="con-request__label">Email <span aria-hidden="true">*</span></label>
               <input id="con-email" name="email" type="email" required autocomplete="email" class="con-request__input" placeholder="Email" />
             </div>
+          </div>
+
+          <div class="con-request__field">
+            <label for="con-interest" class="con-request__label">What are you interested in?</label>
+            <select id="con-interest" name="service_interest" class="con-request__input con-request__select">
+              {options.map((opt) => (
+                <option value={opt} selected={opt === selected}>{interestLabel(opt)}</option>
+              ))}
+            </select>
+            <p class="con-request__tier-note" data-tier-note>
+              <strong data-tier-emphasis>{initialNote.emphasis}</strong><span data-tier-rest>{initialNote.rest}</span>
+            </p>
           </div>
 
           <div class="con-request__field">
@@ -150,7 +169,7 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
   }
   .con-request__label span { color: var(--color-cta); }
 
-  .con-request__input, .con-request__textarea {
+  .con-request__input, .con-request__textarea, .con-request__select {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--color-text);
@@ -164,8 +183,24 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
     transition: border-color 0.2s;
     outline: none;
   }
-  .con-request__input:focus, .con-request__textarea:focus { border-color: var(--color-cta); }
+  .con-request__input:focus, .con-request__textarea:focus, .con-request__select:focus { border-color: var(--color-cta); }
   .con-request__textarea { resize: vertical; min-height: 104px; }
+  .con-request__select { appearance: auto; cursor: pointer; }
+
+  /* Consultation-tier notice: reflects the picked treatment (complimentary
+     esthetician vs $50 Dr. Menon, credited). Copy comes from lib/consult. */
+  .con-request__tier-note {
+    margin: 8px 0 0;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: rgb(196 164 132 / 0.12);
+    border: 1px solid rgb(196 164 132 / 0.4);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+  .con-request__tier-note[hidden] { display: none; }
 
   .con-request__submit { margin-top: var(--space-xs); }
 
@@ -266,13 +301,14 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
     padding: var(--space-lg); background: #fff; border: 1px solid rgba(0,0,0,0.08);
     border-radius: var(--radius-sm); box-shadow: 0 4px 18px rgb(0 0 0 / 0.05);
   }
-  .con-request__success a { color: var(--color-cta); font-weight: 600; }
+  .con-request__success a { color: var(--color-accent-ink); font-weight: 600; }
   /* The `hidden` attribute must beat the display:flex above. */
   .con-request__success[hidden] { display: none; }
 </style>
 
 <script>
   import { enhanceLeadForm } from '../../lib/leadForm';
+  import { CONSULT_NOTES, consultTierFor, withConsultTag } from '../../lib/consult';
 
   const form = document.querySelector('.con-request__form') as HTMLFormElement | null;
   if (form) {
@@ -285,8 +321,41 @@ import googleBadge from '@/assets/images/5be44787b3a9.png';
     // Runs before the enhancer's submit handler (added below), so the hidden
     // `name` is populated before the payload is read from the form.
     form.addEventListener('submit', syncName);
+
+    // Interest picker → consultation-tier notice. The picked treatment decides whether
+    // this is the complimentary esthetician consult or the $50 Dr. Menon medical consult
+    // (lib/consult is the single source of truth, shared with the booking form).
+    const interest = form.querySelector('#con-interest') as HTMLSelectElement | null;
+    const emphasisEl = form.querySelector('[data-tier-emphasis]') as HTMLElement | null;
+    const restEl = form.querySelector('[data-tier-rest]') as HTMLElement | null;
+    function updateTierNote() {
+      if (!interest || !emphasisEl || !restEl) return;
+      const note = CONSULT_NOTES[consultTierFor(interest.value)];
+      emphasisEl.textContent = note.emphasis;
+      restEl.textContent = note.rest;
+    }
+    // Honor a ?service= deep-link (e.g. an injectables page linking into the consult).
+    if (interest) {
+      const svc = (new URLSearchParams(location.search).get('service') || '').trim();
+      if (svc) {
+        if (!Array.from(interest.options).some((o) => o.value === svc)) {
+          const opt = document.createElement('option');
+          opt.value = svc; opt.textContent = svc;
+          interest.insertBefore(opt, interest.firstChild);
+        }
+        interest.value = svc;
+      }
+      interest.addEventListener('change', updateTierNote);
+      updateTierNote();
+    }
+
     enhanceLeadForm(form, {
-      validate: (d) => (!d.message || !d.message.trim() ? 'Please tell us what you would like to work on.' : null),
+      validate: (d) => {
+        if (!d.message || !d.message.trim()) return 'Please tell us what you would like to work on.';
+        // Tag physician-led picks so the front desk books the $50 Dr. Menon consult.
+        d.service_interest = withConsultTag(d.service_interest || '');
+        return null;
+      },
     });
   }
 </script>

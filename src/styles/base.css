@@ -22,7 +22,7 @@
   /* ── Media overlay (fresh Refined scrim) ── */
   --scrim-rgb: 30 24 41;       /* deep plum-charcoal */
   --scrim-strength: 0.55;      /* default darken so light text pops */
-  --media-blur: 3px;           /* subtle background blur */
+  --media-blur: 1.5px;         /* subtle background blur (kept light so the photo stays crisp) */
 
   /* ── Review stars ── */
   --color-star: #E6B450;       /* warm gold for ★ ratings */
@@ -254,14 +254,14 @@
    The hero is excluded (it has its own entrance). Honors reduced-motion.
    ============================================================================ */
 @media (prefers-reduced-motion: no-preference) {
-  html.reveal-ready :is(body > section:not(.hero), [data-reveal]) {
+  html.reveal-ready :is(body > section:not(.hero), main > section:not(.hero), [data-reveal]) {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.75s cubic-bezier(0.2, 0.7, 0.2, 1),
                 transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
     will-change: opacity, transform;
   }
-  html.reveal-ready :is(body > section:not(.hero), [data-reveal]).is-visible {
+  html.reveal-ready :is(body > section:not(.hero), main > section:not(.hero), [data-reveal]).is-visible {
     opacity: 1;
     transform: none;
   }

@@ -1,11 +1,25 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import site from '@/lib/site'
 import Section1 from './_sections/meet-the-team__section_1.astro'
 import Section2 from './_sections/meet-the-team__section_2.astro'
 import Section3 from './_sections/meet-the-team__section_3.astro'
 import Section4 from './_sections/meet-the-team__section_4.astro'
+
+// SEO (2026-06-22 audit): Person schema for E-E-A-T. Scoped to Dr. Aditi Menon only
+// (founder, verifiable from site.ts) to avoid asserting schema for any departed staff
+// still listed on the page. Add more Person nodes here once the roster is confirmed current.
+const founder = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Dr. Aditi Menon',
+  honorificSuffix: 'MD',
+  jobTitle: 'Founder',
+  worksFor: { '@id': site.schemaId, name: site.legalName },
+  url: `${site.url}/meet-the-team/`,
+};
 ---
-<BaseLayout title="Meet the Team | Menon Medispa Millburn NJ" description="Meet the dedicated team at Menon Medispa in Millburn, NJ. Dr. Aditi Menon and her expert staff provide personalized skincare and wellness treatments.">
+<BaseLayout title="Meet the Team | Menon Medispa Millburn NJ" description="Meet the dedicated team at Menon Medispa in Millburn, NJ. Dr. Aditi Menon and her expert staff provide personalized skincare and wellness treatments." jsonld={founder}>
   <Section1 />
   <Section2 />
   <Section3 />

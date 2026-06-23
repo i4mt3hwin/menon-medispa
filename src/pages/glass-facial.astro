@@ -18,7 +18,7 @@ import ProcessSteps from '@/pages/_sections/glass-facial__section_5.astro';
 import BookingCard from '@/pages/_sections/glass-facial__section_6.astro';
 import FinalCta from '@/pages/_sections/glass-facial__section_8.astro';
 
-import heroImg from '@/assets/images/3cc130d2907a.png';
+import heroImg from '@/assets/images/3cc130d2907a.webp';
 
 const slug = 'glass-facial';
 const posts = getRelatedPosts(slug);
@@ -51,7 +51,7 @@ const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.a
 const jsonld = buildServiceSchema({
   name: 'Glass Facial with Salmon DNA in Millburn, NJ',
   description:
-    'The Glass Facial with Salmon DNA at Menon Medispa in Millburn, NJ uses regenerative PDRN to deeply hydrate and restore your skin, revealing an unparalleled luminous complexion.',
+    'Glass Facial with Salmon DNA at Menon Medispa in Millburn, NJ. Regenerative PDRN deeply hydrates and restores skin for a luminous, glass-like glow.',
   url: '/glass-facial',
   image: heroImg.src,
   type: 'Service',
@@ -67,7 +67,7 @@ const jsonld = buildServiceSchema({
 
 <BaseLayout
   title="Glass Facial with Salmon DNA Millburn NJ | Menon Medispa"
-  description="The Glass Facial with Salmon DNA at Menon Medispa in Millburn, NJ uses regenerative PDRN to deeply hydrate and restore your skin, revealing an unparalleled luminous complexion."
+  description="Glass Facial with Salmon DNA at Menon Medispa in Millburn, NJ. Regenerative PDRN deeply hydrates and restores skin for a luminous, glass-like glow."
   canonical="https://www.menonmedispa.com/glass-facial"
   jsonld={jsonld}
 >

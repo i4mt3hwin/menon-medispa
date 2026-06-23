@@ -24,6 +24,7 @@ import type { PostCard } from '@/lib/blog';
 
 interface Props {
   title: string;
+  seoTitle?: string;
   slug: string;
   description: string;
   date: string;          // formatted
@@ -39,13 +40,13 @@ interface Props {
   jsonld: Record<string, unknown>[];
 }
 const {
-  title, slug, description, date, readTime, coverImage, content_html,
+  title, seoTitle, slug, description, date, readTime, coverImage, content_html,
   topicLabel, topicSlug, serviceSlug, serviceLabel, reviewTag, related, jsonld,
 } = Astro.props;
 ---
 
 <BaseLayout
-  title={`${title} | Menon Medispa`}
+  title={`${seoTitle ?? title} | Menon Medispa`}
   description={description}
   canonical={`${site.url}/post/${slug}`}
   ogImage={coverImage}

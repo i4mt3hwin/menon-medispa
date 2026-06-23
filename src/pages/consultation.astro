@@ -1,13 +1,27 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { buildServiceSchema } from '@/lib/serviceSchema'
 import Section1 from './_sections/consultation__section_1.astro'
 import Section2 from './_sections/consultation__section_2.astro'
 import Section3 from './_sections/consultation__section_3.astro'
 import Section4 from './_sections/consultation__section_4.astro'
 import Section5 from './_sections/consultation__section_5.astro'
 import Section6 from './_sections/consultation__section_6.astro'
+
+// SEO (2026-06-22 audit): Service + breadcrumb schema on this high-intent conversion page.
+const schema = buildServiceSchema({
+  name: 'Skin & Aesthetic Consultation',
+  description: 'Personalized skin and aesthetic consultations in Millburn, NJ. Complimentary visits with a licensed esthetician; injectable and Semaglutide consults credit toward your treatment.',
+  url: '/consultation',
+  type: 'Service',
+  category: 'Consultation',
+  breadcrumb: [
+    { name: 'Home', url: '/' },
+    { name: 'Consultation', url: '/consultation' },
+  ],
+});
 ---
-<BaseLayout title="Personalized Skin Consultation in Millburn NJ | Menon Medispa" description="Book a FREE skin consultation with our esthetician or a $50 consultation with Dr. Menon (applied toward your treatment). Custom treatment plans for your skincare goals. Menon Medispa, Millburn NJ.">
+<BaseLayout title="Personalized Skin Consultation in Millburn NJ | Menon Medispa" description="Complimentary skin consultations with a licensed esthetician in Millburn, NJ. Injectable, Semaglutide, and microneedling consults credit toward your treatment." jsonld={schema}>
   <Section1 />
   <Section2 />
   <Section3 />

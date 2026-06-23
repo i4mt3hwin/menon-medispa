@@ -122,15 +122,23 @@ export const site = {
        ProveSrc / Omnisend / Sentry / the obfuscated 159358-domain pre-WhatConverts
        tracker are intentionally NOT here (operator-decide → left out / flagged). */
     analytics: {
-      ga4: null as string | null,              // gtag present on original; ID to confirm
-      metaPixelId: '1005972549954643',
-      googleAdsConversionId: '10822588412',
-      microsoftClarityId: 'ordx9s73l4',
-      // WhatConverts call/lead tracking (operator-confirmed legit). Dynamic number
-      // insertion: swaps the displayed phone for a tracking line forwarding to the
-      // canonical (973) 494-8431. Loader carried over verbatim.
-      whatConvertsLoader:
-        '<script id="" text="" charset="" type="text/javascript" src="//s.ksrndkehqnwntyxlhgto.com/159358.js"></script>',
+      // Google Tag Manager owns all GOOGLE tags. Container GTM-MSMM2PHT holds the
+      // Google Ads base tag for AW-10822588412 + 9 conversion actions + Enhanced
+      // Conversions + phone-click (tel:) tracking. Loaded once in BaseLayout (head
+      // script + body noscript). Add GA4 as a tag INSIDE GTM (leave ga4 null below
+      // so a second GA4 does not also load from here).
+      gtmId: 'GTM-MSMM2PHT' as string | null,
+      ga4: null as string | null,              // add GA4 inside GTM, not here
+      metaPixelId: '1005972549954643',         // not in GTM -> stays hardcoded
+      // Google Ads now lives in GTM (gtmId above). Null here so the hardcoded gtag
+      // does NOT also load the Google tag and double-fire AW-10822588412.
+      googleAdsConversionId: null as string | null,
+      microsoftClarityId: 'ordx9s73l4',        // not in GTM -> stays hardcoded
+      // WhatConverts call/lead tracking. SECURITY: the captured loader pointed at
+      // s.ksrndkehqnwntyxlhgto.com (obfuscated/suspicious domain flagged at capture)
+      // and has been removed so it can never ship. If WhatConverts call tracking is
+      // wanted, paste the real loader snippet from the WhatConverts dashboard here.
+      whatConvertsLoader: '',
     },
     // Chat: Wix-native chat REPLACED by the built-in decision-tree assistant.
     // No AI, no free-text, no PHI egress (HIPAA-safe). One chat per site.

@@ -88,9 +88,9 @@ Import path from pages: `../components/<Name>.astro`.
 | `assets/social/icon-instagram.webp` | a29df34857a1 | Instagram | contact/2 |
 | `assets/social/icon-tiktok.webp` | d11778476dcb | TikTok | contact/2 |
 | `assets/images/f2a8f8988125.jpg` | f2a8f8988125 | (video poster fallback, no alt) | home/1 |
-| `assets/images/90411e0041df.png` | 90411e0041df | Picture of a Client Who Reviewed Us | home/1 |
-| `assets/images/305afeda5f9a.png` | 305afeda5f9a | Picture of a Client Who Reviewed Us | home/1 |
-| `assets/images/b95880091b44.png` | b95880091b44 | Picture of a Client Who Reviewed Us | home/1 |
+| `assets/images/90411e0041df.webp` | 90411e0041df | Picture of a Client Who Reviewed Us | home/1 |
+| `assets/images/305afeda5f9a.webp` | 305afeda5f9a | Picture of a Client Who Reviewed Us | home/1 |
+| `assets/images/b95880091b44.webp` | b95880091b44 | Picture of a Client Who Reviewed Us | home/1 |
 | `assets/images/abe70978be24.jpg` | abe70978be24 | Vogue Logo - Link to Related Article | home/3 |
 | `assets/images/a907a2a5b193.jpg` | a907a2a5b193 | Cosmopolitan Logo - Link to Related Article | home/3 |
 | `assets/images/c1cefa7e9c95.jpg` | c1cefa7e9c95 | Bazaar Logo - Link to Related Article | home/3 |

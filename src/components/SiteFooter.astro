@@ -19,9 +19,9 @@
 
 import { Image } from 'astro:assets';
 import site from '@/lib/site.js';
-import igImg from '@/assets/images/d85622e84ef0.png';
-import fbImg from '@/assets/images/482f7439ea47.png';
-import ttImg from '@/assets/images/de7ef3d7c470.png';
+import igImg from '@/assets/images/d85622e84ef0.webp';
+import fbImg from '@/assets/images/482f7439ea47.webp';
+import ttImg from '@/assets/images/de7ef3d7c470.webp';
 
 const year = new Date().getFullYear();
 ---
@@ -38,7 +38,7 @@ const year = new Date().getFullYear();
       <div class="footer-newsletter__actions">
         <form
           class="footer-newsletter__form"
-          action="#"
+          action="/api/lead"
           method="post"
           aria-label="Newsletter signup"
           novalidate
@@ -54,23 +54,27 @@ const year = new Date().getFullYear();
             class="footer-newsletter__input"
             aria-required="true"
           />
+          <input type="hidden" name="type" value="newsletter" />
+          {/* Honeypot: real people leave this empty. */}
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
           <button type="submit" class="footer-newsletter__btn">Submit</button>
         </form>
+        <p class="footer-newsletter__msg" data-newsletter-msg hidden></p>
         <!-- Social icons in newsletter band -->
         <ul class="footer-newsletter__social" role="list" aria-label="Follow us">
           <li>
-            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <Image src={igImg} alt="Instagram" width={28} height={28} loading="lazy" />
+            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Instagram">
+              <Image src={igImg} alt="" width={28} height={28} loading="lazy" />
             </a>
           </li>
           <li>
-            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <Image src={fbImg} alt="Facebook" width={28} height={28} loading="lazy" />
+            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Facebook">
+              <Image src={fbImg} alt="" width={28} height={28} loading="lazy" />
             </a>
           </li>
           <li>
-            <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-              <Image src={ttImg} alt="TikTok" width={28} height={28} loading="lazy" />
+            <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on TikTok">
+              <Image src={ttImg} alt="" width={28} height={28} loading="lazy" />
             </a>
           </li>
         </ul>
@@ -148,20 +152,20 @@ const year = new Date().getFullYear();
             <a href={`mailto:${site.email}`} aria-label="Email us">{site.email}</a>
           </li>
           <li>
-            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <Image src={igImg} alt="Instagram" width={20} height={20} loading="lazy" class="footer-social-icon" />
+            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer">
+              <Image src={igImg} alt="" width={20} height={20} loading="lazy" class="footer-social-icon" />
               Instagram
             </a>
           </li>
           <li>
-            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <Image src={fbImg} alt="Facebook" width={20} height={20} loading="lazy" class="footer-social-icon" />
+            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer">
+              <Image src={fbImg} alt="" width={20} height={20} loading="lazy" class="footer-social-icon" />
               Facebook
             </a>
           </li>
           <li>
-            <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-              <Image src={ttImg} alt="TikTok" width={20} height={20} loading="lazy" class="footer-social-icon" />
+            <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer">
+              <Image src={ttImg} alt="" width={20} height={20} loading="lazy" class="footer-social-icon" />
               TikTok
             </a>
           </li>
@@ -187,6 +191,13 @@ const year = new Date().getFullYear();
 
 </footer>
 
+<script>
+  // Wire the "Are you on the list?" newsletter sign-up to /api/lead (email-only -> Resend audience).
+  import { enhanceNewsletterForm } from '@/lib/leadForm';
+  const f = document.querySelector('.footer-newsletter__form');
+  if (f) enhanceNewsletterForm(f as HTMLFormElement);
+</script>
+
 <style>
 /* ===== Site Footer ===== */
 .site-footer {
@@ -202,6 +213,15 @@ const year = new Date().getFullYear();
   border-bottom: 1px solid rgba(26, 26, 46, 0.14);
   padding: 34px 24px;
 }
+.footer-newsletter__msg {
+  flex-basis: 100%;
+  width: 100%;
+  margin: 10px 0 0;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+.footer-newsletter__msg[data-state='error'] { color: #c0392b; }
 
 .footer-newsletter__inner {
   max-width: 1200px;

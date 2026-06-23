@@ -45,6 +45,8 @@ const SLUG_TAGS: Record<string, string[]> = {
   'anti-aging-beauty': ['facial'],
   'clear-lift-skin-rejuvination': ['facial'],
   face: ['facial'],
+  // Vascular / vein (no vascular-tagged reviews yet; use skin/facial social proof)
+  'vascular-treatments': ['facial'],
   // Laser hair removal
   'laser-hair-removal': ['laser-hair-removal'],
   hair: ['laser-hair-removal'],

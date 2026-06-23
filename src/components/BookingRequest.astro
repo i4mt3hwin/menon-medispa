@@ -71,6 +71,28 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       <h2 class="bk__heading">{heading}</h2>
       <p class="bk__lead">Pick a day and a time that works for you. We will call or email to confirm.</p>
 
+      <!-- What are you booking? — persistent above the wizard; shows the dropdown (generic
+           entry, no ?service=) or the locked chip (?service= / prefill). NOT a [data-step],
+           so it stays visible on every step. Service-driven UI (package picker, fee note)
+           still lives in step 3 and reacts to this selection. -->
+      <div class="bk__booking-for" data-booking-for>
+        <div class="bk__field" data-service-field>
+          <label for="bk-service">What are you interested in?</label>
+          <select id="bk-service" name="service_interest" data-prefill={prefill}>
+            {options.map((opt) => (
+              <option value={opt} selected={opt === selectedService}>{labelFor(opt)}</option>
+            ))}
+          </select>
+        </div>
+        <div class="bk__locked" data-service-locked hidden>
+          <div class="bk__locked-text">
+            <span class="bk__locked-eyebrow">Booking</span>
+            <span class="bk__locked-name" data-locked-name></span>
+          </div>
+          <button type="button" class="bk__locked-change" data-change>Change</button>
+        </div>
+      </div>
+
       <ol class="bk__progress" data-progress aria-label="Booking progress">
         <li class="bk__progress-item is-current" data-progress-step="1" aria-current="step"><span class="bk__progress-dot">1</span><span class="bk__progress-text">Date</span></li>
         <li class="bk__progress-item" data-progress-step="2"><span class="bk__progress-dot">2</span><span class="bk__progress-text">Time</span></li>
@@ -112,22 +134,6 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
           <h3 class="bk__chosen-summary" data-detail-summary tabindex="-1"></h3>
         </div>
         <legend class="bk__step-label"><span class="bk__step-num">3</span> Your details</legend>
-
-        <div class="bk__field" data-service-field>
-          <label for="bk-service">What are you interested in?</label>
-          <select id="bk-service" name="service_interest" data-prefill={prefill}>
-            {options.map((opt) => (
-              <option value={opt} selected={opt === selectedService}>{labelFor(opt)}</option>
-            ))}
-          </select>
-        </div>
-        <div class="bk__locked" data-service-locked hidden>
-          <div class="bk__locked-text">
-            <span class="bk__locked-eyebrow">Booking</span>
-            <span class="bk__locked-name" data-locked-name></span>
-          </div>
-          <button type="button" class="bk__locked-change" data-change>Change</button>
-        </div>
 
         <!-- Package picker: revealed when the chosen service is sold as multiple
              packages (e.g. Laser Hair Removal). Options are injected by the script
@@ -183,7 +189,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         </div>
 
         <label class="bk__consent">
-          <input type="checkbox" name="consent_email" value="on" />
+          <input type="checkbox" name="consent_email" value="on" checked />
           <span>{CONSENT_EMAIL_TEXT}</span>
         </label>
       </fieldset>
@@ -253,6 +259,24 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const progressItems = Array.from(root.querySelectorAll('[data-progress-step]')) as HTMLElement[];
     const nextTimeBtn = root.querySelector('[data-next-time]') as HTMLButtonElement | null;
     const detailSummary = root.querySelector('[data-detail-summary]') as HTMLElement | null;
+    const submitBtn = root.querySelector('.bk__submit') as HTMLButtonElement | null;
+
+    // Astro scopes this component's <style> to a [data-astro-cid-…] attribute that it only
+    // stamps onto elements present in the template at build time. The calendar days and time
+    // slots below are created at runtime with createElement, so without help they'd miss that
+    // attribute and NONE of the scoped .bk-cal__day / .bk__slot rules — including the
+    // .is-selected highlight — would match them (they'd render as unstyled default buttons).
+    // Read the scope attribute off a template element and re-stamp it on each dynamic subtree.
+    const scopeHost = [root, grid, slotsWrap].find(
+      (el) => el && Array.from(el.attributes).some((a) => a.name.startsWith('data-astro-cid-')),
+    );
+    const SCOPE_ATTR = scopeHost
+      ? Array.from(scopeHost.attributes).map((a) => a.name).find((n) => n.startsWith('data-astro-cid-'))
+      : undefined;
+    function applyScope(container: HTMLElement) {
+      if (!SCOPE_ATTR) return;
+      container.querySelectorAll('*').forEach((el) => el.setAttribute(SCOPE_ATTR, ''));
+    }
 
     // "Today" pinned to the shop's timezone (America/New_York), not the visitor's,
     // so an out-of-state visitor near midnight can't select a day that's already past
@@ -285,6 +309,9 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         if (k === n) p.setAttribute('aria-current', 'step');
         else p.removeAttribute('aria-current');
       });
+      // Show "Request Appointment" ONLY on the final step so it never competes with
+      // the step-2 "Continue" button (two gold buttons read as ambiguous).
+      if (submitBtn) submitBtn.hidden = n !== 3;
       // Scroll to the TOP of the wizard (not into the step) so the chosen-date
       // header / highlighted day stays in view — fixes the old scrollIntoView bug.
       if (scroll) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -348,6 +375,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         group.appendChild(row);
         slotsWrap.appendChild(group);
       });
+      applyScope(slotsWrap);
     }
 
     function renderMonth() {
@@ -379,6 +407,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         }
         grid.appendChild(btn);
       }
+      applyScope(grid);
       prevBtn.disabled = view.getFullYear() === today.getFullYear() && view.getMonth() === today.getMonth();
       nextBtn.disabled = view.getFullYear() === maxDate.getFullYear() && view.getMonth() === maxDate.getMonth();
     }
@@ -565,9 +594,12 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   }
   .bk__fee-note[hidden] { display: none; }
 
-  .bk__step { border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
+  /* min-width:0 overrides the browser-default `min-width: min-content` on <fieldset>,
+     which otherwise refuses to shrink below the calendar's intrinsic width and makes
+     the page scroll sideways on phones narrower than ~395px. */
+  .bk__step { border: none; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
   /* The `hidden` attribute must beat the display rules above (UA display:none is too weak). */
-  .bk__step[hidden], .bk__success[hidden] { display: none; }
+  .bk__step[hidden], .bk__success[hidden], .bk__submit[hidden] { display: none; }
   .bk__step-label { font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-bold); display: flex; align-items: center; gap: 10px; padding: 0; }
   .bk__step-label--sub { margin-left: 34px; font-weight: 600; opacity: 0.85; }
   .bk__step-num {
@@ -585,7 +617,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__progress-dot {
     display: inline-flex; align-items: center; justify-content: center; flex: none;
     width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--color-cta);
-    color: var(--color-cta); font-size: 13px; font-weight: 700;
+    color: var(--color-accent-ink); font-size: 13px; font-weight: 700;
   }
   .bk__progress-item.is-current .bk__progress-dot,
   .bk__progress-item.is-done .bk__progress-dot { background: var(--color-cta); color: var(--color-surface); }
@@ -596,7 +628,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__step-bar { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
   .bk__back {
     display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 4px;
-    background: none; border: none; cursor: pointer; color: var(--color-cta);
+    background: none; border: none; cursor: pointer; color: var(--color-accent-ink);
     font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600;
   }
   .bk__chosen-date, .bk__chosen-summary { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; margin: 0; }
@@ -619,7 +651,11 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   }
   .bk-cal__nav:hover:not(:disabled) { border-color: var(--color-cta); color: var(--color-cta); }
   .bk-cal__nav:disabled { opacity: 0.3; cursor: not-allowed; }
-  .bk-cal__weekdays, .bk-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  /* minmax(0,1fr), not 1fr: `1fr` = minmax(auto,1fr), whose `auto` floor won't let the
+     7 columns shrink below the day cells' intrinsic 44px, overflowing narrow phones.
+     minmax(0,1fr) lets the columns shrink to fit (cells stay 44px TALL for tap targets,
+     width flexes ~31–44px), so the calendar never forces horizontal scroll. */
+  .bk-cal__weekdays, .bk-cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
   .bk-cal__weekday { text-align: center; font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.6; padding: 4px 0; }
   .bk-cal__cell--empty { aspect-ratio: 1; }
   .bk-cal__day {
@@ -628,7 +664,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     color: var(--color-text); transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
   .bk-cal__day:hover:not(.is-disabled) { border-color: var(--color-cta); }
-  .bk-cal__day.is-selected { background: var(--color-cta); color: var(--color-surface); border-color: var(--color-cta); font-weight: 700; box-shadow: 0 0 0 2px var(--color-cta), 0 2px 6px rgb(196 164 132 / 0.5); }
+  .bk-cal__day.is-selected { background: var(--color-accent-ink); color: var(--color-surface); border-color: var(--color-accent-ink); font-weight: 700; box-shadow: 0 0 0 2px var(--color-accent-ink), 0 2px 6px rgb(148 99 46 / 0.5); }
   .bk-cal__day.is-disabled { opacity: 0.32; cursor: not-allowed; text-decoration: line-through; }
   .bk-cal__note { font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.6; margin: var(--space-xs) 0 0; }
 
@@ -640,12 +676,24 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__slot-group-label { font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.55; text-transform: uppercase; letter-spacing: 0.05em; }
   .bk__slot-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
   .bk__slot {
-    min-height: 48px; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.18); background: #fff; border-radius: var(--radius-sm);
+    position: relative; min-height: 48px; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.18); background: #fff; border-radius: var(--radius-sm);
     cursor: pointer; font-family: var(--font-ui); font-size: var(--text-base); color: var(--color-text);
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
   }
   .bk__slot:hover { border-color: var(--color-cta); }
-  .bk__slot.is-selected { background: var(--color-cta); color: var(--color-surface); border-color: var(--color-cta); font-weight: 600; }
+  .bk__slot.is-selected {
+    background: var(--color-accent-ink); color: var(--color-surface); border-color: var(--color-accent-ink); font-weight: 700;
+    box-shadow: 0 0 0 2px var(--color-accent-ink), 0 2px 8px rgb(148 99 46 / 0.55);
+  }
+  /* Unmistakable "selected" cue: a checkmark in the corner, no layout shift. */
+  .bk__slot.is-selected::after { content: "\2713"; position: absolute; top: 3px; right: 7px; font-size: 12px; line-height: 1; font-weight: 700; }
+
+  /* "What are you booking?" header — persistent above the wizard. Holds the service
+     dropdown (generic) or the locked chip (?service=). The chip below has its own
+     border/background, so suppress the wrapper's box when it's the one showing. */
+  .bk__booking-for { display: flex; flex-direction: column; gap: var(--space-xs); padding: var(--space-sm);
+    border: 1px solid rgba(0,0,0,0.12); border-radius: var(--radius-sm); background: rgba(196,164,132,0.05); }
+  .bk__booking-for:has([data-service-locked]:not([hidden])) { border-color: transparent; background: none; padding: 0; }
 
   /* Service lock */
   .bk__locked {
@@ -656,7 +704,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__locked-eyebrow { font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
   .bk__locked-name { font-family: var(--font-display); font-size: var(--text-base); }
   .bk__locked-change {
-    flex: none; background: none; border: none; cursor: pointer; color: var(--color-cta);
+    flex: none; background: none; border: none; cursor: pointer; color: var(--color-accent-ink);
     font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600; text-decoration: underline;
   }
 
@@ -702,7 +750,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__consent { display: flex; gap: 8px; align-items: flex-start; font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.85; line-height: 1.4; }
   .bk__consent input { margin-top: 2px; flex: none; }
 
-  .bk__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .bk__hp { position: absolute; left: 0; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
 
   .bk__error {
     font-family: var(--font-body); font-size: var(--text-sm); color: #b00020;
@@ -716,7 +764,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__submit:hover:not(:disabled) { opacity: 0.9; }
   .bk__submit:disabled { opacity: 0.6; cursor: progress; }
   .bk__fallback { font-family: var(--font-body); font-size: var(--text-sm); text-align: center; margin: 0; opacity: 0.8; }
-  .bk__fallback a { color: var(--color-cta); font-weight: 600; }
+  .bk__fallback a { color: var(--color-accent-ink); font-weight: 600; }
 
   .bk__success { text-align: center; display: flex; flex-direction: column; gap: var(--space-sm); align-items: center; padding: var(--space-lg) 0; }
   .bk__success-icon {
@@ -728,6 +776,6 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   @media (max-width: 520px) {
     .bk__row { flex-direction: column; }
     /* Compact progress on phones: dots + connectors only, hide the text labels. */
-    .bk__progress-text { position: absolute; left: -9999px; }
+    .bk__progress-text { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
   }
 </style>

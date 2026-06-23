@@ -1,8 +1,8 @@
 // functions/api/lead.js — lead + appointment-request intake.
 // Bindings (Cloudflare Pages -> Settings): D1 database `DB`; secrets RESEND_API_KEY,
-// LEAD_NOTIFY_TO, LEAD_FROM. Resend secrets are DEFERRED (operator 2026-06-02): the
-// Function persists to D1 even when the email env vars are unset (graceful degrade).
-// NON-PHI store — see prompts/shared/reference/customer-data-best-practices.md.
+// LEAD_NOTIFY_TO, LEAD_FROM. Optional RESEND_AUDIENCE_ID (when set, consented leads are added to that
+// Resend Audience). Email/audience are DEFERRED: the Function persists to D1 even when those env vars
+// are unset (graceful degrade). NON-PHI store — see prompts/shared/reference/customer-data-best-practices.md.
 
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { 'content-type': 'application/json' } });
@@ -53,9 +53,34 @@ function formatApptWhen(date, window, tz) {
   return `${dateStr} (${w}, ET)`;
 }
 
+// Unsubscribe link signing. The token is an HMAC of the email keyed by RESEND_API_KEY (already
+// configured for sending), so a recipient can unsubscribe themselves but cannot unsubscribe others.
+// functions/api/unsubscribe.js verifies the same way and marks the contact unsubscribed in Resend.
+async function unsubToken(email, secret) {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(String(email).toLowerCase()));
+  return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+async function buildUnsubUrl(email, env, origin) {
+  if (!email || !env.RESEND_API_KEY) return null;
+  const t = await unsubToken(email, env.RESEND_API_KEY);
+  return `${origin}/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+}
+
+// Sender header. LEAD_FROM is just the mailbox (e.g. appointments@menonmedispa.com); inboxes show
+// the bare local part ("appointments") as the sender name. Prepend the business display name so it
+// reads "Menon Medispa". If LEAD_FROM already carries a display name (contains "<"), use it verbatim.
+function fromHeader(env) {
+  const f = (env.LEAD_FROM || '').trim();
+  return f.includes('<') ? f : `${SITE.name} <${f}>`;
+}
+
 // Shared branded chrome for the customer emails: purple logo band + gold hairline + a centered
 // footer. `disclaimer` is trusted HTML (a fixed string), rendered bold + centered when present.
-function emailShell(inner, disclaimer) {
+// `unsubUrl` (when present) adds an Unsubscribe link to the footer (CAN-SPAM; matched by the
+// List-Unsubscribe header on the send).
+function emailShell(inner, disclaimer, unsubUrl) {
   return `<!doctype html><html><body style="margin:0;padding:0;background:#f1edf0;">
 <div style="background:#f1edf0;padding:28px 12px;font-family:Georgia,'Times New Roman',serif;color:#2e2a31;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e7dfe6;">
@@ -66,12 +91,13 @@ ${inner}
 <p style="margin:0;font-size:15px;color:${SITE.brand};letter-spacing:.06em;">${esc(SITE.name.toUpperCase())}</p>
 <p style="margin:9px 0 0;font-size:13px;line-height:1.8;color:#9a92a0;">${esc(SITE.address)}<br/>${esc(SITE.phone)}<br/><a href="${SITE.url}" style="color:${SITE.brand};text-decoration:none;">menonmedispa.com</a></p>
 ${disclaimer ? `<p style="margin:20px 0 0;font-size:12px;line-height:1.6;color:#7c7585;font-weight:bold;">${disclaimer}</p>` : ''}
+${unsubUrl ? `<p style="margin:16px 0 0;font-size:11px;line-height:1.5;color:#b3acb8;"><a href="${unsubUrl}" style="color:#9a92a0;text-decoration:underline;">Unsubscribe</a> from marketing emails</p>` : ''}
 </div></td></tr>
 </table></div></body></html>`;
 }
 
 // The booking-request confirmation sent to the customer (appointment requests).
-function customerBookingHtml({ firstName, service, whenStr, price, name, phone }) {
+function customerBookingHtml({ firstName, service, whenStr, price, name, phone, unsubUrl }) {
   const cardRow = (k, v) => `<tr><td style="padding:6px 0;color:#8a8290;width:96px;vertical-align:top;">${esc(k)}</td><td style="padding:6px 0;color:#43404a;">${esc(v)}</td></tr>`;
   let rows = '';
   if (whenStr) rows += cardRow('Date', whenStr);
@@ -90,16 +116,24 @@ function customerBookingHtml({ firstName, service, whenStr, price, name, phone }
 <tr><td style="padding:16px 32px 4px;">
 <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9a92a0;margin-bottom:4px;">Client details</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">${detail('Name', name)}${detail('Contact number', phone)}</table></td></tr>`;
-  return emailShell(inner, 'This is a request confirmation, not a finalized appointment.<br/>Our team will reach out to confirm your time.');
+  return emailShell(inner, 'This is a request confirmation, not a finalized appointment.<br/>Our team will reach out to confirm your time.', unsubUrl);
 }
 
 // The lighter confirmation sent to the customer for a plain contact inquiry (no booking card).
-function customerContactHtml({ firstName }) {
+function customerContactHtml({ firstName, unsubUrl }) {
   const inner = `<tr><td style="padding:30px 32px 22px;">
 <h1 style="margin:0;font-size:23px;font-weight:normal;color:${SITE.brand};">We received your message</h1>
 <p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#43404a;">Hi ${esc(firstName)},</p>
 <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#43404a;">Thanks for reaching out to ${esc(SITE.name)}. We received your message and our team will be in touch shortly.</p></td></tr>`;
-  return emailShell(inner, null);
+  return emailShell(inner, null, unsubUrl);
+}
+
+// The confirmation sent to someone who joins the email list via the website newsletter sign-up.
+function customerNewsletterHtml(unsubUrl) {
+  const inner = `<tr><td style="padding:30px 32px 22px;">
+<h1 style="margin:0;font-size:23px;font-weight:normal;color:${SITE.brand};">You're on the list</h1>
+<p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#43404a;">Thanks for subscribing to ${esc(SITE.name)}. You'll get our monthly offers and skincare tips by email. You can unsubscribe anytime from any email.</p></td></tr>`;
+  return emailShell(inner, null, unsubUrl);
 }
 
 // The Find Your Glow profile block for the STAFF email. `raw` is the stringified profile a booking
@@ -188,6 +222,77 @@ function maybeForwardLead(env, waitUntil, lead) {
   if (typeof waitUntil === 'function') waitUntil(p);
 }
 
+// --- Resend audience (grow the marketing list) ----------------------------------------------------
+// Adds a CONSENTED lead's email to a Resend Audience so the practice can newsletter/offer them later.
+// Guaranteed NO-OP unless RESEND_API_KEY + RESEND_AUDIENCE_ID are both set. The caller only invokes
+// this when the email-consent box was ticked (compliance). Best-effort via waitUntil — never blocks
+// or fails the lead. Resend dedupes by email within an audience, so a repeat submit is harmless.
+function maybeAddToAudience(env, waitUntil, contact) {
+  if (!env.RESEND_API_KEY || !env.RESEND_AUDIENCE_ID || !contact || !contact.email) return;
+  const body = { email: contact.email, unsubscribed: false };
+  if (contact.firstName) body.first_name = contact.firstName;
+  if (contact.lastName) body.last_name = contact.lastName;
+  const p = fetch(`https://api.resend.com/audiences/${env.RESEND_AUDIENCE_ID}/contacts`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  }).catch(() => {});
+  if (typeof waitUntil === 'function') waitUntil(p);
+}
+
+// Newsletter sign-up: email-only, consent implicit (subscribing IS the opt-in). Stores a minimal
+// record + consent audit, adds the email to the Resend audience, and sends a light confirmation.
+// No name required, no booking confirmation, no staff alert.
+async function handleNewsletterSignup(env, request, waitUntil, data) {
+  const email = (data.email || '').trim().toLowerCase();
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'bad_email' }, 422);
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const ip = request.headers.get('cf-connecting-ip') || null;
+  const consentText = 'Subscribed via the website newsletter sign-up ("Are you on the list?"): monthly offers and skincare tips by email.';
+
+  // Store a minimal record + the consent audit (NON-PHI: just the email). Best-effort: even if D1 is
+  // unbound or errors, still add to the audience below.
+  if (env.DB) {
+    try {
+      await env.DB.prepare(
+        `INSERT INTO leads (id, created_at, type, status, name, email, phone, service_interest, message,
+           preferred_date, preferred_window, source_page, utm_source, utm_medium, utm_campaign, utm_term, utm_content, user_agent)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+      ).bind(
+        id, now, 'newsletter', 'new', null, email, null, null, null, null, null,
+        (data.source_page || '').slice(0, 300),
+        data.utm_source || null, data.utm_medium || null, data.utm_campaign || null, data.utm_term || null, data.utm_content || null,
+        (request.headers.get('user-agent') || '').slice(0, 300),
+      ).run();
+      await env.DB.prepare(
+        `INSERT INTO consent_log (id, lead_id, channel, granted, consent_text, consent_version, ip, created_at)
+         VALUES (?,?,?,?,?,?,?,?)`
+      ).bind(crypto.randomUUID(), id, 'email', 1, consentText, '1', ip, now).run();
+    } catch (_) { /* never block the signup on a storage hiccup */ }
+  }
+
+  // Add to the Resend audience — the whole point of the form. Consent is implicit in subscribing.
+  maybeAddToAudience(env, waitUntil, { email });
+
+  // Light "you're on the list" confirmation (best-effort; only when Resend is configured). Carries an
+  // unsubscribe link + List-Unsubscribe header (the copy promises it, and it is a marketing email).
+  if (env.RESEND_API_KEY && env.LEAD_FROM) {
+    const unsub = await buildUnsubUrl(email, env, new URL(request.url).origin);
+    const p = fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        from: fromHeader(env), to: email, reply_to: SITE.replyTo, subject: "You're on the list", html: customerNewsletterHtml(unsub),
+        ...(unsub ? { headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } } : {}),
+      }),
+    }).catch(() => {});
+    if (typeof waitUntil === 'function') waitUntil(p);
+  }
+
+  return json({ ok: true, id });
+}
+
 export async function onRequestPost({ request, env, waitUntil }) {
   // Parse JSON or urlencoded form posts.
   let data = {};
@@ -199,6 +304,9 @@ export async function onRequestPost({ request, env, waitUntil }) {
 
   // Honeypot: a hidden field bots fill. Silently accept, store nothing.
   if (data.company_website) return json({ ok: true });
+
+  // Newsletter sign-up takes the email-only path (no name/booking required).
+  if (data.type === 'newsletter') return handleNewsletterSignup(env, request, waitUntil, data);
 
   // Minimal validation.
   const email = (data.email || '').trim();
@@ -264,20 +372,39 @@ export async function onRequestPost({ request, env, waitUntil }) {
     externalRef: id,
   });
 
+  // Grow the Resend marketing audience with leads who TICKED the email-consent box (compliance: only
+  // the consented). Dormant unless RESEND_API_KEY + RESEND_AUDIENCE_ID are set; best-effort.
+  if (email && (data.consent_email === 'on' || data.consent_email === 'true')) {
+    const parts = name.split(/\s+/);
+    maybeAddToAudience(env, waitUntil, {
+      // Lowercase to match the newsletter path and the unsubscribe lookup (which always
+      // PATCHes the lowercased address), so a mixed-case email can always be unsubscribed.
+      email: email.toLowerCase(),
+      firstName: parts[0] || name,
+      lastName: parts.length > 1 ? parts.slice(1).join(' ') : '',
+    });
+  }
+
   // --- Email via Resend. Best-effort: the lead is already persisted, so a send failure never loses
   // it. DEFERRED: nothing sends until RESEND_API_KEY + LEAD_FROM are set in Cloudflare Pages.
   if (env.RESEND_API_KEY && env.LEAD_FROM) {
-    const send = (to, subject, html, replyTo) => fetch('https://api.resend.com/emails', {
+    const send = (to, subject, html, replyTo, unsubUrl) => fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({ from: env.LEAD_FROM, to, subject, html, ...(replyTo ? { reply_to: replyTo } : {}) }),
+      body: JSON.stringify({
+        from: fromHeader(env), to, subject, html,
+        ...(replyTo ? { reply_to: replyTo } : {}),
+        ...(unsubUrl ? { headers: { 'List-Unsubscribe': `<${unsubUrl}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } } : {}),
+      }),
     }).catch(() => {});
 
     const firstName = name.split(/\s+/)[0] || name;
 
     // 1) Customer confirmation — always sent when we have an email (no opt-in gate). Booking layout
-    // for an appointment request, a lighter note for a plain contact inquiry.
+    // for an appointment request, a lighter note for a contact inquiry. Both carry an unsubscribe link
+    // + List-Unsubscribe header (CAN-SPAM).
     if (email) {
+      const unsub = await buildUnsubUrl(email, env, new URL(request.url).origin);
       if (type === 'appointment_request') {
         const service = (data.service_interest || '').trim();
         const html = customerBookingHtml({
@@ -287,10 +414,11 @@ export async function onRequestPost({ request, env, waitUntil }) {
           price: parsePrice(service),
           name,
           phone,
+          unsubUrl: unsub,
         });
-        await send(email, "We've received your booking request", html, SITE.replyTo);
+        await send(email, "We've received your booking request", html, SITE.replyTo, unsub);
       } else {
-        await send(email, 'We received your message', customerContactHtml({ firstName }), SITE.replyTo);
+        await send(email, 'We received your message', customerContactHtml({ firstName, unsubUrl: unsub }), SITE.replyTo, unsub);
       }
     }
 

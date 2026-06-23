@@ -70,7 +70,7 @@ function truncate(str: string | undefined, max: number): string {
               {post.excerpt && (
                 <p class="blog-list__excerpt">{truncate(post.excerpt, 150)}</p>
               )}
-              <a href={`/post/${post.slug}`} class="blog-list__readmore">
+              <a href={`/post/${post.slug}`} class="blog-list__readmore" aria-label={`Read more: ${post.title}`}>
                 Read More
               </a>
             </div>
@@ -151,7 +151,7 @@ function truncate(str: string | undefined, max: number): string {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-cta);
+    color: var(--color-accent-ink);
   }
   .blog-list__category--link { text-decoration: none; }
   .blog-list__category--link:hover { text-decoration: underline; }
@@ -193,7 +193,7 @@ function truncate(str: string | undefined, max: number): string {
     font-family: var(--font-cta);
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--color-cta);
+    color: var(--color-accent-ink);
     text-decoration: none;
     letter-spacing: 0.03em;
   }

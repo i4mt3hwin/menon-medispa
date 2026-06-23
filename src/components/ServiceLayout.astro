@@ -29,9 +29,9 @@ const { asideTop = 'calc(92px + var(--space-sm))', asideSticky = true, mobileCta
 
 <section class="section service-article" data-reveal data-mobile-cta={mobileCtaBar ? 'true' : undefined}>
   <div class="container service-article__grid">
-    <main class="service-article__main">
+    <article class="service-article__main">
       <slot />
-    </main>
+    </article>
     <aside
       class:list={['service-article__aside', { 'service-article__aside--sticky': asideSticky }]}
       style={`--svc-aside-top:${asideTop};`}

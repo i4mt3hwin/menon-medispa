@@ -19,9 +19,9 @@
 
 import { Image } from 'astro:assets';
 import logoImg from '@/assets/images/02a84c58deec.png';
-import igImg   from '@/assets/images/d85622e84ef0.png';
-import fbImg   from '@/assets/images/482f7439ea47.png';
-import ttImg   from '@/assets/images/de7ef3d7c470.png';
+import igImg   from '@/assets/images/d85622e84ef0.webp';
+import fbImg   from '@/assets/images/482f7439ea47.webp';
+import ttImg   from '@/assets/images/de7ef3d7c470.webp';
 ---
 
 <header id="site-header" class="site-header">
@@ -31,9 +31,9 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
     <a href="/" class="header-logo" aria-label="Menon Medispa home">
       <Image
         src={logoImg}
-        alt="Medispa Logo"
-        width={212}
-        height={51}
+        alt="Menon Medispa"
+        width={500}
+        height={130}
         loading="eager"
         decoding="async"
       />
@@ -153,18 +153,18 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
     <div class="header-actions">
       <ul class="social-icons" role="list" aria-label="Social media links">
         <li>
-          <a href="https://www.instagram.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <Image src={igImg} alt="Instagram" width={36} height={36} loading="eager" />
+          <a href="https://www.instagram.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Instagram">
+            <Image src={igImg} alt="" width={36} height={36} loading="eager" />
           </a>
         </li>
         <li>
-          <a href="https://www.facebook.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <Image src={fbImg} alt="Facebook" width={36} height={36} loading="eager" />
+          <a href="https://www.facebook.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Facebook">
+            <Image src={fbImg} alt="" width={36} height={36} loading="eager" />
           </a>
         </li>
         <li>
-          <a href="https://www.tiktok.com/@menonregen" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <Image src={ttImg} alt="TikTok" width={36} height={36} loading="eager" />
+          <a href="https://www.tiktok.com/@menonregen" target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on TikTok">
+            <Image src={ttImg} alt="" width={36} height={36} loading="eager" />
           </a>
         </li>
       </ul>
@@ -203,7 +203,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
     class="mobile-nav"
     id="mobile-nav"
     aria-label="Mobile navigation"
-    aria-hidden="true"
+    inert
   >
     <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation menu">
       &#x2715;
@@ -378,7 +378,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 .header-logo img {
   display: block;
   width: 212px;
-  height: 51px;
+  height: auto;
   object-fit: contain;
 }
 
@@ -952,14 +952,17 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 
   const open = () => {
     nav.classList.add('is-open');
-    nav.setAttribute('aria-hidden', 'false');
+    // `inert` (not just aria-hidden) so the off-canvas drawer's links are truly
+    // unfocusable + out of the a11y tree when closed (fixes the Lighthouse/agentic
+    // "aria-hidden element contains focusable descendants" finding, 2026-06-22 audit).
+    nav.removeAttribute('inert');
     btn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   };
 
   const close = () => {
     nav.classList.remove('is-open');
-    nav.setAttribute('aria-hidden', 'true');
+    nav.setAttribute('inert', '');
     btn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };

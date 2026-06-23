@@ -13,6 +13,10 @@ export default defineConfig({
   // Canonical/sitemap base. Update to the production custom domain at P06 cutover.
   site: 'https://www.menonmedispa.com',
   output: 'static',
+  // Trailing slash always: pages build/serve as /path/ and the sitemap emits /path/,
+  // so the canonical (normalized to a trailing slash in BaseLayout) now agrees with
+  // both. Fixes the canonical-vs-sitemap split-signal flagged in the SEO audit.
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       // Keep noindex / redirect-stub routes out of the sitemap so we never submit
@@ -20,6 +24,7 @@ export default defineConfig({
       filter: (page) => {
         const NOINDEX = [
           '/book-online',
+          '/online-booking', // thin booking page; overlaps /request-appointment + /consultation (2026-06-22 SEO)
           '/coming-soon',
           '/thank-you',
           '/hydrafacial-appointment-request-thanks',

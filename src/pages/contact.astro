@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import Picture from '@/components/Picture.astro';
 import site from '@/lib/site';
+import { buildLocalBusiness } from '@/lib/businessSchema';
 
 import officeStaffImg from '@/assets/contact/office-staff.webp';
 import facebookImg from '@/assets/social/icon-facebook.webp';
@@ -10,11 +11,24 @@ import instagramImg from '@/assets/social/icon-instagram.webp';
 import tiktokImg from '@/assets/social/icon-tiktok.webp';
 
 const mapsUrl = 'https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+NJ+07041';
+
+// SEO (2026-06-22 audit): the contact page is the most important place for LocalBusiness
+// schema (full NAP + hours + geo) and previously shipped none. Reuse the homepage node
+// (same @id so Google merges them) and wrap it in a ContactPage.
+const localBusiness = buildLocalBusiness({ image: officeStaffImg.src });
+const contactPage = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Menon Medispa & Wellness',
+  url: `${site.url}/contact/`,
+  about: { '@id': site.schemaId },
+};
 ---
 
 <BaseLayout
   title="Contact | Menon Medispa & Wellness | Millburn, NJ"
   description="Contact Menon Medispa & Wellness at 45 Essex St, Suite 202, Millburn, NJ. Call (973) 494-8431, email us, or send a message. We reply within 24 hours."
+  jsonld={[localBusiness, contactPage]}
 >
 
   <!-- Section 1: Header -->
@@ -105,18 +119,18 @@ const mapsUrl = 'https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+N
             <span class="contact-form-sec__social-label">Follow along</span>
             <ul class="contact-form-sec__social-list" aria-label="Social media">
               <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <Picture src={facebookImg} alt="Facebook" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Facebook">
+                  <Picture src={facebookImg} alt="" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
                 </a>
               </li>
               <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <Picture src={instagramImg} alt="Instagram" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Instagram">
+                  <Picture src={instagramImg} alt="" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
                 </a>
               </li>
               <li>
-                <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                  <Picture src={tiktokImg} alt="TikTok" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
+                <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on TikTok">
+                  <Picture src={tiktokImg} alt="" width={23} height={23} object_fit="cover" class_name="contact-form-sec__social-icon" />
                 </a>
               </li>
             </ul>

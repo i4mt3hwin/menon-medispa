@@ -36,9 +36,20 @@
   display: flex;
   flex-direction: column;
   color: var(--glow-ink);
+  /* Immersive full-bleed backdrop so the quiz never reads as an empty white void
+     on big/zoomed-out screens (layers paint top→bottom): soft gold blooms, a gentle
+     plum vignette, then a heavy cream scrim over a *faint* wash of the hero image
+     (set via --glow-bg-img on the page; falls back to the warm cream base). The light
+     content — white cards, dark text, frosted bars — stays fully legible on top. */
   background:
-    radial-gradient(120% 80% at 50% -10%, rgb(196 164 132 / 0.16) 0%, rgb(196 164 132 / 0) 60%),
-    linear-gradient(180deg, #fbf8f5 0%, #ffffff 38%, #fbf8f5 100%);
+    radial-gradient(62% 44% at 50% -2%, rgb(201 168 118 / 0.28) 0%, rgb(201 168 118 / 0) 62%),
+    radial-gradient(72% 58% at 50% 50%, rgb(212 180 130 / 0.17) 0%, rgb(212 180 130 / 0) 72%),
+    radial-gradient(42% 46% at 4% 14%, rgb(196 164 132 / 0.22) 0%, rgb(196 164 132 / 0) 60%),
+    radial-gradient(46% 50% at 96% 90%, rgb(130 121 138 / 0.22) 0%, rgb(130 121 138 / 0) 60%),
+    radial-gradient(130% 128% at 50% 44%, rgb(88 75 99 / 0) 46%, rgb(88 75 99 / 0.15) 100%),
+    linear-gradient(180deg, rgb(245 237 228 / 0.88) 0%, rgb(248 242 234 / 0.90) 100%),
+    var(--glow-bg-img, linear-gradient(rgb(244 236 227 / 1), rgb(244 236 227 / 1))) center / cover no-repeat,
+    linear-gradient(180deg, #f3ebe0 0%, #f7f1e8 50%, #f0e6d9 100%);
   overflow: clip;
 }
 
@@ -50,7 +61,7 @@
   height: 80vh;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(50% 50% at 50% 40%, rgb(201 168 118 / 0.18) 0%, rgb(201 168 118 / 0) 70%);
+  background: radial-gradient(50% 50% at 50% 40%, rgb(201 168 118 / 0.26) 0%, rgb(201 168 118 / 0) 70%);
   filter: blur(8px);
   animation: glow-aura 14s var(--glow-ease) infinite;
 }
@@ -632,7 +643,11 @@
 @media (max-width: 768px) {
   .glow-quiz {
     --glow-shellbar-height: 58px;
-    overflow: visible;
+    /* Was `overflow: visible`, which reopened the line-53 `overflow: clip` on phones
+       and let the immersive hero backdrop scroll the page sideways. Clip the X axis
+       only; keep Y visible (clip, not hidden, so no scroll container / no sticky break). */
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   .glow-quiz::before { height: 48vh; }

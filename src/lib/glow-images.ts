@@ -9,14 +9,14 @@ import hydrafacial from '../assets/images/34ef44b50a1c.jpg';
 import microneedling from '../assets/images/cebad624861f.jpg';
 import chemicalPeel from '../assets/images/444eec26c889.jpg';
 import dermaplaning from '../assets/images/a2e5efb60e6b.jpeg';
-import acneFacial from '../assets/images/1616d1e9f4e9.png';
-import vitaminC from '../assets/images/6608c4cfc0e4.png';
-import glassFacial from '../assets/images/3cc130d2907a.png';
+import acneFacial from '../assets/images/1616d1e9f4e9.webp';
+import vitaminC from '../assets/images/6608c4cfc0e4.webp';
+import glassFacial from '../assets/images/3cc130d2907a.webp';
 import cupping from '../assets/images/2d2699eae2a5.jpeg';
-import lymphatic from '../assets/images/39875cd4ea73.png';
+import lymphatic from '../assets/images/39875cd4ea73.webp';
 import botox from '../assets/images/f6d70f706248.jpg';
 import juvederm from '../assets/images/8ec275b96db1.jpeg';
-import clearlift from '../assets/images/5533cf5a75a8.png';
+import clearlift from '../assets/images/5533cf5a75a8.webp';
 import dyevl from '../assets/images/8f23c1351be4.jpg';
 
 export const treatmentImages: Record<string, string> = {

@@ -24,7 +24,8 @@ export interface Topic {
 
 export interface Post {
   slug: string;
-  title: string;
+  title: string;         // full editorial headline (used for the on-page H1)
+  seoTitle?: string;     // optional shorter <title> headline (brand appended downstream)
   date: string;          // ISO (firstPublished)
   excerpt: string;
   coverImage?: string;
@@ -52,10 +53,38 @@ function readTime(slug: string): number {
 
 interface RawPost { slug: string; title: string; firstPublished: string; excerpt: string; coverImage?: string; }
 
+/**
+ * Shorter <title> headlines for posts whose editorial headline would push the
+ * meta title past Google's ~60-char SERP limit (2026-06-22 SEO audit). The on-page
+ * H1 keeps the full `title`; only the <title> tag uses these. Keep each <= ~45 chars
+ * so that "<seoTitle> | Menon Medispa" stays under ~60.
+ */
+const SEO_TITLES: Record<string, string> = {
+  'is-botox-safe-risks-side-effects-what-research-says-in-millburn-nj': 'Is Botox Safe? Risks & Side Effects',
+  'why-millburn-nj-residents-are-choosing-hydrafacial-for-skin-rejuvenation': 'Why Millburn Chooses HydraFacial',
+  'spring-into-smoothness-laser-hair-removal-special': 'Spring Laser Hair Removal Special',
+  'the-ultimate-guide-to-fillers-injectables-what-you-need-to-know-before-getting-started': 'Guide to Fillers & Injectables',
+  '2023-skin-care-resolutions-5-tips-for-starting-the-year-right': '5 Skincare Resolutions for the New Year',
+  'dermaplaning-what-is-it-conditions-it-helps-why-you-should-start-using-it-today': 'Dermaplaning: What It Is & Who It Helps',
+  '5-holiday-self-care-treats-for-you-because-you-deserve-it': '5 Holiday Self-Care Treats',
+  'the-ultimate-guide-to-uncovering-healthy-younger-looking-skin': 'Guide to Younger-Looking Skin',
+  'the-complete-guide-to-microneedling-therapy-and-the-skinpen': 'Complete Guide to Microneedling & SkinPen',
+  'the-complete-guide-to-hydrafacial-and-how-it-can-improve-your-skin-health': 'Complete Guide to HydraFacial',
+  'need-a-quick-fix-for-those-pesky-wrinkles-try-botox-tired-of-seeing-wrinkles-every-time-you-loo': 'Quick Fix for Wrinkles? Try Botox',
+  'how-to-get-rid-of-spider-veins-with-laser-treatment': 'Get Rid of Spider Veins with Laser',
+  'how-to-choose-the-right-skin-care-service-for-you': 'How to Choose the Right Skincare Service',
+  'why-you-need-to-know-about-menon-medispa-and-wellness': 'Get to Know Menon Medispa',
+  'laser-hair-removal-everything-you-need-to-know': 'Laser Hair Removal: What to Know',
+  'the-many-benefits-of-lymphatic-drainage-massage': 'Benefits of Lymphatic Drainage Massage',
+  'reversing-the-signs-of-aging-with-obagi-products': 'Reversing Aging Signs with Obagi',
+  'the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite': 'Qwo: FDA-Approved Cellulite Treatment',
+};
+
 function enrich(p: RawPost): Post {
   return {
     slug: p.slug,
     title: p.title,
+    seoTitle: SEO_TITLES[p.slug],
     date: p.firstPublished,
     excerpt: p.excerpt,
     coverImage: p.coverImage,

@@ -2,7 +2,7 @@
 import { site } from "@/lib/site";
 import imgImmunity from "@/assets/images/3d59d03b4558.webp";
 import imgRecovery from "@/assets/images/70cda053abb7.avif";
-import imgAgeDefying from "@/assets/images/f0e5c69d74a7.png";
+import imgAgeDefying from "@/assets/images/f0e5c69d74a7.webp";
 import imgEnergy from "@/assets/images/537a32cc1127.avif";
 import imgPainMgmt from "@/assets/images/83acb599cd71.avif";
 import imgPrenatal from "@/assets/images/3c30a3051b2e.avif";
@@ -191,7 +191,7 @@ const drips = [
             <p class="s7-drip-menu__card-volume">{drip.volume}</p>
             <p class="s7-drip-menu__card-price">{drip.price}</p>
             <div class="s7-drip-menu__card-actions">
-              <a href={drip.readMoreUrl} class="btn btn--secondary btn--sm">Read More</a>
+              <a href={drip.readMoreUrl} class="btn btn--secondary btn--sm" aria-label={`Read more about ${drip.name}`}>Read More</a>
               <a
                 href={drip.bookUrl}
                 class="btn btn--primary btn--sm"

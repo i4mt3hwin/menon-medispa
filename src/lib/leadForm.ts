@@ -141,6 +141,9 @@ export function enhanceLeadForm(form: HTMLFormElement, opts: EnhanceOptions = {}
       });
       const json = await res.json().catch(() => ({} as { ok?: boolean; error?: string }));
       if (res.ok && json.ok) {
+        // GTM conversion signal. Forms are AJAX (no thank-you page nav), so point the
+        // Google Ads conversion trigger in GTM-MSMM2PHT at this custom event.
+        try { (window as any).dataLayer = (window as any).dataLayer || []; (window as any).dataLayer.push({ event: 'lead_submit', form_type: data.type || 'lead' }); } catch { /* no-op */ }
         if (opts.successUrl) {
           location.href = opts.successUrl;
           return;
@@ -161,6 +164,69 @@ export function enhanceLeadForm(form: HTMLFormElement, opts: EnhanceOptions = {}
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.textContent = submitBtn.dataset.label || 'Submit';
+    }
+  });
+}
+
+/**
+ * Newsletter sign-up (email-only): a lighter enhancer for the footer "Are you on the list?" form.
+ * Posts { email, type: 'newsletter' } to /api/lead, which adds the consented email straight to the
+ * Resend audience. On success it hides the form and reveals the sibling [data-newsletter-msg] note.
+ * Separate from enhanceLeadForm because that one requires a name; a newsletter signup is email-only.
+ */
+export function enhanceNewsletterForm(form: HTMLFormElement): void {
+  const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
+  const btn = form.querySelector('[type="submit"]') as HTMLButtonElement | null;
+  const msg = form.parentElement?.querySelector('[data-newsletter-msg]') as HTMLElement | null;
+  form.setAttribute('novalidate', '');
+
+  const show = (text: string, ok: boolean) => {
+    if (!msg) return;
+    msg.textContent = text;
+    msg.hidden = false;
+    msg.dataset.state = ok ? 'ok' : 'error';
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (input?.value || '').trim();
+    if (!EMAIL_RE.test(email)) {
+      show('Please enter a valid email address.', false);
+      return;
+    }
+    if (btn) {
+      btn.disabled = true;
+      btn.dataset.label = btn.textContent || '';
+      btn.textContent = 'Joining…';
+    }
+    const hp = (form.querySelector('input[name="company_website"]') as HTMLInputElement | null)?.value || '';
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          type: 'newsletter',
+          source_page: location.pathname + location.search,
+          company_website: hp,
+          ...firstTouchUtms(),
+        }),
+      });
+      const json = await res.json().catch(() => ({} as { ok?: boolean; error?: string }));
+      if (res.ok && json.ok) {
+        // GTM conversion signal for the newsletter sign-up (see lead_submit note above).
+        try { (window as any).dataLayer = (window as any).dataLayer || []; (window as any).dataLayer.push({ event: 'newsletter_signup' }); } catch { /* no-op */ }
+        form.hidden = true;
+        show("You're on the list. Watch your inbox for offers and skincare tips.", true);
+        return;
+      }
+      show(ERROR_COPY[json.error || 'bad_request'] || ERROR_COPY.bad_request, false);
+    } catch {
+      show(`Something went wrong. Please call us at ${PHONE_DISPLAY}.`, false);
+    }
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = btn.dataset.label || 'Submit';
     }
   });
 }

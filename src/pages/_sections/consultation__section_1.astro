@@ -16,6 +16,7 @@ import heroBg from '@/assets/images/fc22050ddcb3.webp';
     height="287"
   />
   <span class="media-bg__scrim media-bg__scrim--b"></span>
+  <canvas class="s1-con-hero__particles" data-con-canvas aria-hidden="true"></canvas>
 
   <div class="media-bg__inner container on-media">
     <div class="s1-con-hero__content">
@@ -50,6 +51,38 @@ import heroBg from '@/assets/images/fc22050ddcb3.webp';
     min-height: 64vh;
     display: flex;
     align-items: center;
+  }
+
+  /* Drifting light particles, above the scrim (z-1) but below the content (z-2) */
+  .s1-con-hero__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Cinematic entrance, matching the service-page heroes (motion-safe) */
+  @media (prefers-reduced-motion: no-preference) {
+    .s1-con-hero .media-bg__img {
+      animation: con-zoom 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes con-zoom {
+      from { transform: scale(1.16); }
+      to   { transform: scale(1.06); }  /* rests at the blur class's edge-hiding scale */
+    }
+
+    .s1-con-hero__content > * {
+      opacity: 0;
+      transform: translateY(22px);
+      filter: blur(10px);
+      animation: con-rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .s1-con-hero__content > *:nth-child(1) { animation-delay: 0.20s; }
+    .s1-con-hero__content > *:nth-child(2) { animation-delay: 0.32s; }
+    .s1-con-hero__content > *:nth-child(3) { animation-delay: 0.44s; }
+    .s1-con-hero__content > *:nth-child(4) { animation-delay: 0.56s; }
+    .s1-con-hero__content > *:nth-child(5) { animation-delay: 0.66s; }
+    @keyframes con-rise { to { opacity: 1; transform: none; filter: blur(0); } }
   }
 
   .s1-con-hero .media-bg__inner.container {
@@ -168,3 +201,65 @@ import heroBg from '@/assets/images/fc22050ddcb3.webp';
     }
   }
 </style>
+
+<script>
+  // Autonomous drifting light particles (matches ServiceHero). Reduced-motion safe; idles offscreen.
+  (function () {
+    const hero = document.querySelector('.s1-con-hero');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canvas = hero.querySelector('[data-con-canvas]');
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = 0, h = 0, dpr = 1, parts: any[] = [], raf = 0, running = false;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = (hero as HTMLElement).clientWidth; h = (hero as HTMLElement).clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function spawn(init: boolean) {
+      return {
+        x: Math.random() * w,
+        y: init ? Math.random() * h : h + 14,
+        r: 0.5 + Math.random() * 1.1,
+        vy: 0.05 + Math.random() * 0.18,
+        vx: (Math.random() - 0.5) * 0.12,
+        a: 0.12 + Math.random() * 0.30,
+        white: Math.random() < 0.32,
+      };
+    }
+    function build() {
+      const n = Math.max(12, Math.min(30, Math.round((w * h) / 54000)));
+      parts = []; for (let i = 0; i < n; i++) parts.push(spawn(true));
+    }
+    function step() {
+      ctx!.clearRect(0, 0, w, h);
+      for (const p of parts) {
+        p.y -= p.vy; p.x += p.vx;
+        if (p.y < -14) Object.assign(p, spawn(false));
+        const rad = p.r * 7;
+        const g = ctx!.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+        const c = p.white ? '245,239,228' : '226,186,120';
+        g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')');
+        g.addColorStop(0.5, 'rgba(' + c + ',' + (p.a * 0.35) + ')');
+        g.addColorStop(1, 'rgba(' + c + ',0)');
+        ctx!.fillStyle = g;
+        ctx!.beginPath(); ctx!.arc(p.x, p.y, rad, 0, 6.2832); ctx!.fill();
+      }
+      raf = requestAnimationFrame(step);
+    }
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(step); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    size(); build();
+    let rt: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { size(); build(); }, 150); }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (en) { en.isIntersecting ? start() : stop(); }); }, { threshold: 0.01 }).observe(hero);
+    } else { start(); }
+  })();
+</script>

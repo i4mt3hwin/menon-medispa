@@ -29,15 +29,16 @@ const consentEmailText =
 const consentSmsText =
   'I agree to receive occasional offers and reminders by text from Menon Medispa. Message and data rates may apply; reply STOP to opt out.';
 
-const pageTitle = 'Find Your Glow | Skin Quiz & Treatment Finder | Menon Medispa, Millburn NJ';
+const pageTitle = 'Find Your Glow Skin Quiz | Menon Medispa, Millburn NJ';
 const pageDesc =
-  'Take the 2-minute Find Your Glow quiz for personalized treatment recommendations and an at-home skincare routine, tailored to your skin by Menon Medispa in Millburn, NJ.';
+  'Take the 2-minute Find Your Glow quiz for personalized treatment and at-home skincare recommendations, tailored to your skin. Menon Medispa, Millburn NJ.';
 ---
 
 <BaseLayout title={pageTitle} description={pageDesc} canonical={`${site.url}/find-your-glow`} ogImage={heroImg.src} minimalShell={true}>
   <main
     class="glow-quiz"
     id="glow-quiz"
+    style={`--glow-bg-img:url(${heroImg.src})`}
     data-consent-email-text={consentEmailText}
     data-consent-sms-text={consentSmsText}
     data-booking-url={site.calcomUrl}

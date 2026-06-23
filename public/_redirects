@@ -99,3 +99,8 @@
 # ── Legacy Wix /booking-calendar/ pages (removed; Cal.com dropped in favour of the
 #    self-hosted /request-appointment flow). All -> the booking form.
 /booking-calendar/*                                    /request-appointment                 301
+
+# ── Duplicate Wix-import blog posts ("(1)" copies, removed from blog.json) -> canonical
+#    post. Resolves the self-cannibalization flagged in the 2026-06-22 SEO audit.
+/post/the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite-1   /post/the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite   301
+/post/the-many-benefits-of-lymphatic-drainage-massage-1                                         /post/the-many-benefits-of-lymphatic-drainage-massage                                         301

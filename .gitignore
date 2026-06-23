@@ -6,3 +6,9 @@ dist/
 .env.local
 .DS_Store
 *.log
+
+# SEO/build scratch + caches (regeneratable; originals recoverable from git history)
+scripts/.seo-*
+scripts/.img-backup/
+scripts/.content-*
+scripts/.baseline-text/

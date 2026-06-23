@@ -9,11 +9,13 @@ import site from '@/lib/site';
   <div class="container">
 
     <div class="con-offer__head">
-      <p class="eyebrow">Two Ways to Begin</p>
-      <h2 class="con-offer__heading">Choose the Consultation That Fits You</h2>
+      <p class="eyebrow">How Consultations Work</p>
+      <h2 class="con-offer__heading">The Right Consultation for Your Treatment</h2>
       <p class="con-offer__intro">
-        Not sure where to start? Either option ends the same way, with a clear, personalized plan
-        for your skin. No pressure, no obligation.
+        Your consultation is matched to what you have in mind. Skin and facial goals start with a
+        licensed esthetician, at no charge. Injectables, Semaglutide, and microneedling begin with
+        a brief medical consult with Dr. Menon. Tell us what you are after below and we will confirm
+        which applies. No pressure, no obligation.
       </p>
     </div>
 
@@ -29,11 +31,10 @@ import site from '@/lib/site';
           for your skin type, concerns, and goals.
         </p>
         <ul class="con-offer__list">
-          <li>30-minute one-on-one assessment</li>
+          <li>Best for facials, skincare, and laser treatments</li>
           <li>Personalized treatment recommendations</li>
           <li>Completely free, no obligation</li>
         </ul>
-        <a href="#request" class="btn btn--secondary con-offer__cta">Request This Consultation</a>
       </div>
 
       <div class="con-offer__card con-offer__card--featured">
@@ -42,17 +43,20 @@ import site from '@/lib/site';
           <p class="con-offer__price"><span class="con-offer__price-num">$50</span> <span class="con-offer__price-note">applied to your treatment</span></p>
         </div>
         <p class="con-offer__card-body">
-          A 30-minute medical consultation with our physician and medical director, ideal for
-          injectables, lasers, and advanced treatment planning.
+          A 30-minute medical consultation with our physician and medical director to plan your
+          treatment safely.
         </p>
         <ul class="con-offer__list">
-          <li>30 minutes with Dr. Menon, MD</li>
-          <li>Medical-grade treatment roadmap</li>
+          <li>Required for injectables, Semaglutide, and microneedling</li>
+          <li>Medical-grade treatment roadmap with Dr. Menon, MD</li>
           <li>The $50 fee is credited toward your treatment</li>
         </ul>
-        <a href="#request" class="btn btn--primary con-offer__cta">Request This Consultation</a>
       </div>
 
+    </div>
+
+    <div class="con-offer__action">
+      <a href="#request" class="btn btn--primary con-offer__action-cta">Request Your Consultation</a>
     </div>
 
     <p class="con-offer__reassure">
@@ -172,7 +176,7 @@ import site from '@/lib/site';
   .con-offer__price-note {
     font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--color-cta);
+    color: var(--color-accent-ink);
     font-weight: 600;
   }
 
@@ -218,8 +222,8 @@ import site from '@/lib/site';
     justify-content: center;
   }
 
-  .con-offer__cta {
-    margin-top: auto;
+  .con-offer__action {
+    margin-top: var(--space-xs);
     text-align: center;
   }
 
@@ -233,7 +237,7 @@ import site from '@/lib/site';
   }
 
   .con-offer__phone {
-    color: var(--color-cta);
+    color: var(--color-accent-ink);
     font-weight: 600;
     text-decoration: none;
   }

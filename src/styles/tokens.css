@@ -9,6 +9,9 @@
   --color-cta: #C4A484;        /* CTA buttons (hero + footer): rgb(196,164,132) */
   --color-cta-alt: #C9A876;    /* Header Call Now + subpage CTA: rgb(201,168,118) */
   --color-accent: #D4A574;     /* Service card rows + section accent: rgb(212,165,116) */
+  --color-accent-ink: #94632E; /* Darkened brand gold for LEGIBLE TEXT on light surfaces (~5.1:1 on white = WCAG AA).
+                                  Use for static gold text (roles, labels, prices) on white/tint/off-white.
+                                  Decorative gold (buttons, lines, borders, icons, text on dark/media) keeps --color-accent/--color-cta. */
 
   /* Surface / text */
   --color-surface: #FFFFFF;    /* Page bg, white sections */
@@ -42,7 +45,7 @@
      is multiplied by this, so nudging this value re-scales body text, section
      rhythm, cards and buttons site-wide in one place. Set to 1 to revert.
      Hero heights are vh/clamp-based and intentionally excluded. */
-  --ui-scale: 0.95;
+  --ui-scale: 0.90;
 
   /* ── Type scale (viewport-invariant, ×--ui-scale) ── */
   --text-display-xl: calc(60px * var(--ui-scale));   /* large stat/number callouts */

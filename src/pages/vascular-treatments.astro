@@ -4,7 +4,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -22,14 +22,45 @@ import legVeinsImg from '@/assets/images/40c58ae9b34c.jpg';
 const slug = 'vascular-treatments';
 const posts = getRelatedPosts(slug);
 
-// No FAQ section existed in the original page. Arrays left empty.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What vein and vascular concerns can laser treatment address?',
+    answer:
+      'Our Dye-VL laser treats a range of surface vascular and pigment concerns, including facial spider veins, broken capillaries, persistent facial redness and rosacea, hemangiomas, port wine stains, telangiectasia, small leg spider veins, and red or brown spots. These are surface, cosmetic concerns. Larger bulging or varicose veins are not treated with this laser and are best evaluated separately, which we are happy to discuss at your consultation.',
+  },
+  {
+    question: 'How does laser vein treatment work?',
+    answer:
+      'The Dye-VL laser delivers gentle pulses of light that are absorbed by the pigment inside the targeted vessel or spot. That energy heats the vessel just enough to close it, and over the following days and weeks your body gradually reabsorbs it. Because the light is drawn specifically to the vessel, the surrounding skin is left intact.',
+  },
+  {
+    question: 'How many sessions will I need?',
+    answer:
+      'Most people see the best results from a short series of 2 to 4 treatments, spaced a few weeks apart. The exact number depends on the concern being treated and how your skin responds. Your provider will confirm a recommended plan during your complimentary consultation.',
+  },
+  {
+    question: 'Is there any downtime after treatment?',
+    answer:
+      'Downtime is minimal. You may notice some mild redness in the treated area, or a temporary darkening of the vessels and spots that were treated, which typically settles within about 1 to 3 days. Most people return to their normal routine right away.',
+  },
+  {
+    question: 'Who is a good candidate?',
+    answer:
+      'Most people bothered by surface facial veins, broken capillaries, redness or rosacea, or small red and brown spots are good candidates. A complimentary consultation lets us confirm that laser treatment is right for your skin and concern. The treatment is not performed during pregnancy or over an active skin infection, and it is helpful to let us know if you have used isotretinoin recently so timing can be confirmed.',
+  },
+  {
+    question: 'How much does laser vein treatment cost?',
+    answer:
+      'Pricing starts at $89 for a spot treatment of 1 to 5 red or brown spots. Dye-VL facial vein treatment is $250 and Dye-VL for rosacea is $350, with hyperpigmentation options for the face, neck, and décolleté also available. You can see the full price list on this page, and your consultation is complimentary.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Vein & Vascular Treatments in Millburn, NJ',
   description:
-    'Effective laser vein and vascular treatments in Millburn, NJ. Facial spider veins, rosacea, hemangioma, port wine stains, varicose veins and more. Book at Menon Medispa.',
+    'Laser vein and vascular treatment in Millburn, NJ. Dye-VL laser for facial spider veins, broken capillaries, rosacea and facial redness, small leg spider veins, and red or brown spots. Book at Menon Medispa.',
   url: '/vascular-treatments',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -44,8 +75,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Vein &amp; Vascular Treatments | Menon Medispa &amp; Wellness | Millburn, NJ"
-  description="Effective laser vein and vascular treatments in Millburn, NJ. Facial spider veins, rosacea, hemangioma, varicose veins and more. Book at Menon Medispa, call (973) 494-8431."
+  title="Vein &amp; Vascular Treatments in Millburn, NJ | Menon Medispa"
+  description="Dye-VL laser vein treatment in Millburn, NJ for facial spider veins, broken capillaries, rosacea, and redness. Book at Menon Medispa: (973) 494-8431."
   canonical="https://www.menonmedispa.com/vascular-treatments"
   jsonld={jsonld}
 >
@@ -53,7 +84,7 @@ const jsonld = buildServiceSchema({
   <ServiceHero
     eyebrow="VASCULAR TREATMENTS · MILLBURN, NJ"
     h1="Laser Vein &amp; Vascular Treatments in Millburn, NJ"
-    subhead="Non-invasive laser solutions that close unwanted facial and leg veins safely and effectively, with minimal downtime."
+    subhead="Non-invasive Dye-VL laser that targets facial spider veins, broken capillaries, rosacea and redness, and small leg spider veins, safely and with minimal downtime."
     image={heroImg}
     imageAlt="Laser vein and vascular treatment at Menon Medispa in Millburn, NJ"
     price="Starting at $89"
@@ -64,16 +95,14 @@ const jsonld = buildServiceSchema({
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
-      <h2>About Vein &amp; Vascular Treatment</h2>
+      <h2>Laser Treatment for Spider Veins, Rosacea &amp; Facial Redness in Millburn, NJ</h2>
 
-      <p class="svc-lead">Our laser treatments offer effective, non-invasive solutions that close these veins for: Facial Spider Veins, Hemangioma, Port wine stains, Telangiectasia for face, and Varicose Veins.</p>
-
-      <p class="svc-eyebrow">Face</p>
+      <p class="svc-lead">Visible facial veins, a persistent flush of redness, tiny broken capillaries around the nose and cheeks, and stubborn red or brown spots are some of the most common concerns our Millburn and Short Hills patients want to address. Concealer can hide them for a few hours, but it does nothing about what you are actually seeing in the mirror.</p>
 
       <figure>
         <img
           src={facialVeinsImg.src}
-          alt="How to Get Rid of Spider Veins with Laser Treatment"
+          alt="Laser treatment for facial spider veins and broken capillaries at Menon Medispa in Millburn, NJ"
           width="454"
           height="341"
           loading="lazy"
@@ -81,23 +110,27 @@ const jsonld = buildServiceSchema({
         />
       </figure>
 
-      <p>Spider veins on the face are small, dilated blood vessels that appear close to the skin surface. Laser treatment targets and destroys these vessels safely and effectively.</p>
+      <p class="svc-eyebrow">Concerns We Treat</p>
 
-      <ul class="svc-checks">
-        <li>Facial Spider Veins</li>
-        <li>Hemangioma</li>
-        <li>Port wine stains</li>
-        <li>Telangiectasia for face</li>
-      </ul>
+      <div class="svc-accent">
+        <h3>Facial Spider Veins &amp; Broken Capillaries</h3>
+        <p>These are small, dilated blood vessels that sit close to the surface of the skin, often appearing across the cheeks, around the nose, and on the chin. They can look like fine red threads or tiny web-like clusters, and they tend to become more noticeable over time.</p>
+      </div>
+      <div class="svc-accent">
+        <h3>Rosacea &amp; Persistent Facial Redness</h3>
+        <p>Rosacea shows up as flushing, diffuse redness, and visible vessels that do not fade on their own. Because rosacea behaves differently from person to person, treatment is tailored to your individual pattern rather than a single fixed approach.</p>
+      </div>
+      <div class="svc-accent">
+        <h3>Hemangiomas, Port Wine Stains &amp; Telangiectasia</h3>
+        <p>Targeted laser energy can also address other vascular marks, including small hemangiomas, port wine stains, and telangiectasia on the face. Each one is assessed individually so the treatment plan fits the specific concern.</p>
+      </div>
 
-      <p>Our precision laser treatments deliver targeted energy to close unwanted facial vessels while leaving surrounding skin undamaged.</p>
-
-      <p class="svc-eyebrow">Legs</p>
+      <p class="svc-eyebrow">On the Legs</p>
 
       <figure>
         <img
           src={legVeinsImg.src}
-          alt="Leg vein treatment"
+          alt="Laser treatment for small leg spider veins at Menon Medispa in Millburn, NJ"
           width="307"
           height="379"
           loading="lazy"
@@ -105,9 +138,37 @@ const jsonld = buildServiceSchema({
         />
       </figure>
 
-      <p><strong>Spider Veins</strong> are small, twisted blood vessels visible just beneath the skin surface. Laser treatment provides safe, effective clearance with minimal downtime.</p>
+      <p>Small surface spider veins on the legs, the fine red or purple threads visible just beneath the skin, can also be treated. These are cosmetic, surface vessels. Larger, bulging varicose veins are a different concern that this laser does not treat, and we are glad to point you in the right direction if that is what you are noticing.</p>
+    </div>
 
-      <p><strong>Varicose Veins</strong> are larger, bulging veins that can cause discomfort and cosmetic concerns. Our vascular treatments target these vessels to improve both appearance and comfort.</p>
+    <div class="svc-block">
+      <h2>How Dye-VL Laser Vein Treatment Works</h2>
+
+      <p class="svc-lead">Menon Medispa treats vascular and pigment concerns with the Dye-VL laser, a focused light therapy designed for exactly this kind of work.</p>
+
+      <p>During treatment, the laser delivers gentle pulses of light that are absorbed by the pigment inside the targeted vessel or spot. That energy heats the vessel just enough to close it, and over the following days and weeks your body naturally reabsorbs it. Because the light is drawn specifically to the vessel, the surrounding skin is left intact. Treatments are performed in our Millburn office under physician supervision.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Targeted &amp; Non-Invasive</h3>
+          <p>Light energy reaches the vessel without needles or incisions</p>
+        </li>
+        <li>
+          <h3>Minimal Downtime</h3>
+          <p>Most people return to their day right away, with brief redness for about 1 to 3 days</p>
+        </li>
+        <li>
+          <h3>Physician-Supervised</h3>
+          <p>Performed under the care of Dr. Menon, MD at Menon Medispa</p>
+        </li>
+        <li>
+          <h3>Builds Over a Short Series</h3>
+          <p>Results develop across a typical series of 2 to 4 treatments</p>
+        </li>
+      </ul>
+
+      <p class="svc-eyebrow">What to Expect</p>
+      <p>Sessions are brief and performed right in our office. Most concerns respond best to a short series of 2 to 4 treatments spaced a few weeks apart, and many people notice gradual improvement as the treated vessels fade. Afterward you may see mild redness or a temporary darkening of the vessels and spots that were treated, which usually settles within a few days. A complimentary consultation is the best place to start, so we can look at your skin and confirm the right plan for you.</p>
     </div>
 
     <!-- SIDEBAR -->
@@ -117,9 +178,10 @@ const jsonld = buildServiceSchema({
         reviewText="100+ 5 Star Reviews"
         items={[
           { label: 'Price', value: 'Starting at $89' },
-          { label: 'Conditions treated', value: 'Face & Legs' },
-          { label: 'Treatment type', value: 'Non-invasive laser' },
-          { label: 'Downtime', value: 'Minimal' },
+          { label: 'Concerns treated', value: 'Facial & leg veins, rosacea, spots' },
+          { label: 'Technology', value: 'Dye-VL pulsed-dye laser' },
+          { label: 'Sessions', value: 'Typically 2–4' },
+          { label: 'Downtime', value: 'Minimal (about 1–3 days)' },
           { label: 'Location', value: 'Millburn, NJ' },
         ]}
       />
@@ -130,10 +192,12 @@ const jsonld = buildServiceSchema({
 
   <Pricing />
 
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+
   <RelatedPosts posts={posts} layout="band" />
 
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
 
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Section 2 inlined as prose in main column. Section 3 (Pricing) kept as full-width band. No trust strip or sales/promo band present in original. No FAQ section existed. -->
+<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Body overhauled to a problem/solution arc (facial veins, rosacea/redness, hemangioma/port-wine/telangiectasia, small leg spider veins; varicose claim removed). Added 6-question FaqAccordion that also feeds FAQPage schema via buildServiceSchema. Section 3 (Pricing) kept as full-width band. -->

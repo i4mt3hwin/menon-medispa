@@ -19,6 +19,8 @@ const {
   sms_consent = false,
 } = Astro.props;
 
+const EMAIL_CONSENT_TEXT =
+  'I agree to receive appointment updates and occasional offers from Menon Medispa by email. I can unsubscribe anytime.';
 const SMS_CONSENT_TEXT =
   'I agree to receive SMS messages from Menon Medispa through an automatic telephone dialing system. Message and data rates may apply. Reply STOP to opt out.';
 ---
@@ -55,6 +57,13 @@ const SMS_CONSENT_TEXT =
         <label for="lf-message" style="font-family: var(--font-body); font-size: var(--text-sm);">Message</label>
         <textarea id="lf-message" name="message" rows="4"></textarea>
       </div>
+    )}
+    {fields.includes('email') && (
+      <label class="lead-form__consent" style="display:flex;gap:8px;align-items:flex-start;font-family:var(--font-body);font-size:var(--text-xs);line-height:1.4;opacity:0.85;">
+        <input type="checkbox" name="consent_email" value="on" checked style="margin-top:3px;flex:none;" />
+        <span>{EMAIL_CONSENT_TEXT}</span>
+      </label>
+      <input type="hidden" name="consent_email_text" value={EMAIL_CONSENT_TEXT} />
     )}
     {sms_consent && (
       <label class="lead-form__consent" style="display:flex;gap:8px;align-items:flex-start;font-family:var(--font-body);font-size:var(--text-xs);line-height:1.4;opacity:0.85;">

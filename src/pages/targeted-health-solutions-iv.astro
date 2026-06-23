@@ -22,7 +22,7 @@ import IVNote from '@/pages/_sections/targeted-health-solutions-iv__section_7.as
 import FinalCta from '@/pages/_sections/targeted-health-solutions-iv__section_9.astro';
 import LeadForm from '@/components/LeadForm.astro';
 
-import heroImg from '@/assets/images/f3af55f56cac.png';
+import heroImg from '@/assets/images/f3af55f56cac.webp';
 
 const slug = 'targeted-health-solutions-iv';
 const posts = getRelatedPosts(slug);
@@ -34,7 +34,7 @@ const faqItems: { question: string; answer_html: string }[] = [];
 const jsonld = buildServiceSchema({
   name: 'Targeted Health Solutions IV Therapy in Millburn, NJ',
   description:
-    'Proactive nutritional support for your specific health journey. Specialized IV drips for pain management, heart health, prenatal care, and gut health. Book at Menon Medispa in Millburn, NJ.',
+    'Specialized IV drips in Millburn, NJ for targeted health needs, from heart and gut health to prenatal support. Book at Menon Medispa.',
   url: '/targeted-health-solutions-iv',
   image: heroImg.src,
   type: 'Service',
@@ -49,8 +49,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Targeted Health Solutions IV Therapy in Millburn NJ | Menon Medispa"
-  description="Proactive nutritional support for your specific health journey. Specialized IV drips for pain management, heart health, prenatal care, and gut health. Book at Menon Medispa in Millburn, NJ."
+  title="Targeted Health IV Therapy in Millburn, NJ | Menon Medispa"
+  description="Specialized IV drips in Millburn, NJ for targeted health needs, from heart and gut health to prenatal support. Book at Menon Medispa."
   canonical="https://www.menonmedispa.com/targeted-health-solutions-iv"
   jsonld={jsonld}
 >
