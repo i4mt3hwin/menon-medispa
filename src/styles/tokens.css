@@ -36,31 +36,39 @@
   --font-accent: "didot-w01-italic", serif;
   --font-cta: poppins-v2, sans-serif;
 
-  /* ── Type scale (viewport-invariant) ── */
-  --text-display-xl: 60px;   /* large stat/number callouts */
-  --text-display: 48px;      /* major section H2 headings */
-  --text-h1: 44px;           /* page H1 / hero sub-display */
-  --text-hero: 38px;         /* hero main heading (P used as display) */
-  --text-h2: 36px;           /* sub-H2 headings */
-  --text-h3: 30px;           /* tertiary headings */
-  --text-accent: 31px;       /* decorative italic (didot) */
-  --text-subheading: 24px;   /* card headings, subheadings */
-  --text-lg: 22px;           /* lead/intro text */
-  --text-base: 20px;         /* body paragraphs (dominant) */
-  --text-sm: 18px;           /* eyebrow / H1 superheading */
-  --text-xs: 16px;           /* fine print / captions */
+  /* ── Global UI scale knob ──
+     One dial for overall site "density". 1 = captured size; 0.95 = 5% smaller.
+     Every type + spacing token below (and --section-py / buttons in base.css)
+     is multiplied by this, so nudging this value re-scales body text, section
+     rhythm, cards and buttons site-wide in one place. Set to 1 to revert.
+     Hero heights are vh/clamp-based and intentionally excluded. */
+  --ui-scale: 0.95;
+
+  /* ── Type scale (viewport-invariant, ×--ui-scale) ── */
+  --text-display-xl: calc(60px * var(--ui-scale));   /* large stat/number callouts */
+  --text-display: calc(48px * var(--ui-scale));      /* major section H2 headings */
+  --text-h1: calc(44px * var(--ui-scale));           /* page H1 / hero sub-display */
+  --text-hero: calc(38px * var(--ui-scale));         /* hero main heading (P used as display) */
+  --text-h2: calc(36px * var(--ui-scale));           /* sub-H2 headings */
+  --text-h3: calc(30px * var(--ui-scale));           /* tertiary headings */
+  --text-accent: calc(31px * var(--ui-scale));       /* decorative italic (didot) */
+  --text-subheading: calc(24px * var(--ui-scale));   /* card headings, subheadings */
+  --text-lg: calc(22px * var(--ui-scale));           /* lead/intro text */
+  --text-base: calc(20px * var(--ui-scale));         /* body paragraphs (dominant) */
+  --text-sm: calc(18px * var(--ui-scale));           /* eyebrow / H1 superheading */
+  --text-xs: calc(16px * var(--ui-scale));           /* fine print / captions */
 
   /* ── Weights ── */
   --weight-regular: 400;
   --weight-bold: 700;
 
-  /* ── Spacing (rebuild convention, Wix uses fixed-height sections) ── */
-  --space-xs: 8px;
-  --space-sm: 16px;
-  --space-md: 32px;
-  --space-lg: 60px;
-  --space-xl: 96px;
-  --space-2xl: 128px;
+  /* ── Spacing (rebuild convention, Wix uses fixed-height sections, ×--ui-scale) ── */
+  --space-xs: calc(8px * var(--ui-scale));
+  --space-sm: calc(16px * var(--ui-scale));
+  --space-md: calc(32px * var(--ui-scale));
+  --space-lg: calc(60px * var(--ui-scale));
+  --space-xl: calc(96px * var(--ui-scale));
+  --space-2xl: calc(128px * var(--ui-scale));
 
   /* ── Radii ── */
   --radius-sm: 5px;   /* CTA buttons (captured: border-radius: 5px) */
@@ -77,7 +85,7 @@
 @media (max-width: 980px) {
   :root {
     /* Spacing: tighten section padding on mobile */
-    --space-xl: 60px;
-    --space-2xl: 80px;
+    --space-xl: calc(60px * var(--ui-scale));
+    --space-2xl: calc(80px * var(--ui-scale));
   }
 }

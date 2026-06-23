@@ -12,6 +12,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import Pricing from '@/pages/_sections/vascular-treatments__section_3.astro';
 
 import heroImg from '@/assets/images/8f23c1351be4.jpg';
@@ -124,6 +125,8 @@ const jsonld = buildServiceSchema({
       />
     </Fragment>
   </ServiceLayout>
+
+  <ServiceTestimonial slug="vascular-treatments" />
 
   <Pricing />
 

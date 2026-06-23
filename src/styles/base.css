@@ -12,11 +12,11 @@
   --container-narrow: 760px;   /* article / prose width */
   --container-wide: 1320px;    /* full-bleed-ish galleries */
   --container-pad: 24px;       /* gutter */
-  --section-py: 84px;          /* vertical rhythm between sections */
+  --section-py: calc(84px * var(--ui-scale));          /* vertical rhythm between sections (×--ui-scale) */
 
-  /* ── Button scale ── */
-  --btn-py: 14px;
-  --btn-px: 28px;
+  /* ── Button scale (×--ui-scale) ── */
+  --btn-py: calc(14px * var(--ui-scale));
+  --btn-px: calc(28px * var(--ui-scale));
   --btn-fs: var(--text-sm);
 
   /* ── Media overlay (fresh Refined scrim) ── */
@@ -41,28 +41,28 @@
    small screens. Scale the display sizes down at tablet/phone. */
 @media (max-width: 1024px) {
   :root {
-    --text-display-xl: 48px;
-    --text-display: 40px;
-    --text-h1: 36px;
-    --text-hero: 32px;
-    --text-h2: 30px;
-    --text-h3: 26px;
-    --section-py: 60px;
+    --text-display-xl: calc(48px * var(--ui-scale));
+    --text-display: calc(40px * var(--ui-scale));
+    --text-h1: calc(36px * var(--ui-scale));
+    --text-hero: calc(32px * var(--ui-scale));
+    --text-h2: calc(30px * var(--ui-scale));
+    --text-h3: calc(26px * var(--ui-scale));
+    --section-py: calc(60px * var(--ui-scale));
   }
 }
 @media (max-width: 600px) {
   :root {
-    --text-display-xl: 36px;
-    --text-display: 31px;
-    --text-h1: 29px;
-    --text-hero: 27px;
-    --text-h2: 25px;
-    --text-h3: 22px;
-    --text-subheading: 21px;
-    --text-lg: 19px;
-    --text-base: 18px;
-    --text-sm: 16px;
-    --section-py: 46px;
+    --text-display-xl: calc(36px * var(--ui-scale));
+    --text-display: calc(31px * var(--ui-scale));
+    --text-h1: calc(29px * var(--ui-scale));
+    --text-hero: calc(27px * var(--ui-scale));
+    --text-h2: calc(25px * var(--ui-scale));
+    --text-h3: calc(22px * var(--ui-scale));
+    --text-subheading: calc(21px * var(--ui-scale));
+    --text-lg: calc(19px * var(--ui-scale));
+    --text-base: calc(18px * var(--ui-scale));
+    --text-sm: calc(16px * var(--ui-scale));
+    --section-py: calc(46px * var(--ui-scale));
     --container-pad: 18px;
   }
 }

@@ -149,8 +149,8 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
       </ul>
     </nav>
 
-    <!-- Right cluster: social icons + Call Now CTA -->
-    <div class="header-right">
+    <!-- Right cluster: social icons + Call / Book CTAs -->
+    <div class="header-actions">
       <ul class="social-icons" role="list" aria-label="Social media links">
         <li>
           <a href="https://www.instagram.com/menonmedispa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -169,12 +169,18 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
         </li>
       </ul>
 
-      <a href="tel:+19734948431" class="header-cta" aria-label="Call (973) 494-8431">
-        <svg class="header-cta__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="currentColor"/>
-        </svg>
-        <span>(973) 494-8431</span>
-      </a>
+      <div class="header-cta-group">
+        <a href="tel:+19734948431" class="header-cta header-cta--call" aria-label="Call (973) 494-8431">
+          <svg class="header-cta__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="currentColor"/>
+          </svg>
+          <span class="header-cta__label-desktop">(973) 494-8431</span>
+          <span class="header-cta__label-mobile">Call Today</span>
+        </a>
+        <a href="/online-booking" class="header-cta header-cta--book">
+          <span>Book Now</span>
+        </a>
+      </div>
     </div>
 
     <!-- Mobile hamburger (hidden on desktop) -->
@@ -315,7 +321,10 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
       <li><a href="/sale">SALES</a></li>
 
       <li class="mobile-cta-item">
-        <a href="tel:+19734948431" class="mobile-cta-phone">
+        <a href="/online-booking" class="mobile-cta mobile-cta--book">
+          Book Now
+        </a>
+        <a href="tel:+19734948431" class="mobile-cta mobile-cta--call">
           Call Now: (973) 494-8431
         </a>
       </li>
@@ -344,7 +353,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
    Animate `top` (not transform) so the header doesn't become a containing block
    for the fixed .mobile-nav drawer it contains (which would cause overflow). */
 .site-header--hidden {
-  top: -110px;
+  top: -160px;
 }
 
 .header-inner {
@@ -396,6 +405,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 
 .nav-link {
   display: block;
+  position: relative;
   padding: 8px 14px;
   font-family: var(--font-ui);
   font-size: clamp(15px, 1.1vw, 17px);
@@ -409,13 +419,24 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 }
 
 .nav-link:hover, .nav-link:focus-visible {
-  color: var(--color-brand-plum);
+  color: var(--color-cta-alt);
   outline: none;
 }
 
-/* Active / current page nav item */
+/* Active / current section — gold text + gold underline */
 .nav-link[aria-current="page"] {
-  color: var(--color-header-active);
+  color: var(--color-cta-alt);
+}
+
+.nav-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 1px;
+  height: 2px;
+  background: var(--color-cta-alt);
+  border-radius: 2px;
 }
 
 /* ── Dropdown Menus (CSS hover) ── */
@@ -498,10 +519,17 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 }
 
 /* ── Right Cluster ── */
-.header-right {
+.header-actions {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
+}
+
+.header-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   flex-shrink: 0;
 }
 
@@ -532,14 +560,13 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   object-fit: contain;
 }
 
-/* Call Now CTA, solid gold pill, dark text + phone icon (brand-matched) */
+/* Header CTA pills, shared shape; colour set by --call / --book modifiers */
 .header-cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
   padding: 13px 24px;
-  background-color: var(--color-cta-alt);
-  color: var(--color-text);
   font-family: var(--font-cta);
   font-size: 16px;
   font-weight: 600;
@@ -547,12 +574,37 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   white-space: nowrap;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-btn-alt);
   letter-spacing: 0.02em;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
-.header-cta:hover, .header-cta:focus-visible {
+/* Call, plain text + gold phone icon, NO box (desktop). Mobile re-pills it below. */
+.header-cta--call {
+  background-color: transparent;
+  color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 10px 8px;
+}
+
+.header-cta--call .header-cta__icon {
+  color: var(--color-cta-alt);
+}
+
+.header-cta--call:hover, .header-cta--call:focus-visible {
+  color: var(--color-cta-alt);
+  outline: none;
+}
+
+/* Book Now, gold primary — shown in the mobile header + drawer only */
+.header-cta--book {
+  display: none;
+  background-color: var(--color-cta-alt);
+  color: var(--color-text);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+.header-cta--book:hover, .header-cta--book:focus-visible {
   background-color: #BD9A64;
   outline: none;
 }
@@ -561,6 +613,16 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   width: 21px;
   height: 21px;
   flex-shrink: 0;
+}
+
+/* The "Call Today" label shows on mobile only; desktop shows the number */
+.header-cta__label-mobile {
+  display: none;
+}
+
+/* Desktop phone number, a touch larger for prominence */
+.header-cta--call .header-cta__label-desktop {
+  font-size: 18px;
 }
 
 /* ── Hamburger (hidden on desktop) ── */
@@ -728,18 +790,19 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
 .mobile-cta-item {
   border-bottom: none !important;
   padding: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Full-width CTA pill. Selector is more specific than `.mobile-nav-list > li > a`
+/* Full-width CTA pills. Selector is more specific than `.mobile-nav-list > li > a`
    (0,2,0 vs 0,1,2) so it wins display/padding and the label can center. */
-.mobile-cta-item .mobile-cta-phone {
+.mobile-cta-item .mobile-cta {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 14px 20px;
-  background-color: var(--color-cta-alt);
-  color: var(--color-text);
   font-family: var(--font-cta);
   font-size: 15px;
   font-weight: 600;
@@ -748,25 +811,107 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
   letter-spacing: 0.02em;
 }
 
+.mobile-cta-item .mobile-cta--book {
+  background-color: var(--color-cta-alt);
+  color: var(--color-text);
+  border: 1px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+.mobile-cta-item .mobile-cta--call {
+  background-color: #FFFFFF;
+  color: var(--color-text);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
 /* ── Mobile breakpoint ── */
 @media (max-width: 1240px) {
+  /* Two-row Wix-style bar: [logo | socials] / [Call + Book | hamburger].
+     `.header-actions { display: contents }` promotes its children
+     (.social-icons, .header-cta-group) into this grid so they reach their areas. */
   .header-inner {
-    height: 64px;
-    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo  social"
+      "ctas  burger";
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 10px;
+    height: auto;
+    padding: 10px 16px;
+  }
+
+  .header-logo {
+    grid-area: logo;
   }
 
   .header-logo img {
-    width: 160px;
+    width: 150px;
     height: auto;
   }
 
-  .header-nav, .header-right {
+  .header-nav {
     display: none;
+  }
+
+  .header-actions {
+    display: contents;
+  }
+
+  .social-icons {
+    grid-area: social;
+    justify-self: end;
+    gap: 14px;
+  }
+
+  .header-cta-group {
+    grid-area: ctas;
+    justify-self: start;
   }
 
   .hamburger {
     display: flex;
-    margin-left: auto;
+    grid-area: burger;
+    justify-self: end;
+    margin-left: 0;
+  }
+
+  /* Book Now joins the mobile bar; match the Wix "Call Today" pill (white, no icon) */
+  .header-cta {
+    padding: 9px 16px;
+    font-size: 13.5px;
+  }
+
+  .header-cta--book {
+    display: inline-flex;
+  }
+
+  /* mobile: Call is the white "Call Today" pill again (desktop is plain text) */
+  .header-cta--call {
+    background-color: #FFFFFF;
+    color: var(--color-text);
+    border-color: rgba(0, 0, 0, 0.10);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 9px 16px;
+  }
+
+  .header-cta--call .header-cta__icon {
+    display: none;
+  }
+
+  .header-cta__label-desktop {
+    display: none;
+  }
+
+  .header-cta__label-mobile {
+    display: inline;
+  }
+
+  .social-icons img {
+    width: 30px;
+    height: 30px;
   }
 
   .mobile-nav {
@@ -855,5 +1000,22 @@ import ttImg   from '@/assets/images/de7ef3d7c470.png';
       }
     });
   });
+})();
+
+// ── Highlight the current section's nav item in gold ──
+(function () {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+  const here = location.pathname.replace(/\/+$/, '') || '/';
+  let match: Element | null = null;
+  header.querySelectorAll<HTMLAnchorElement>('.header-nav a[href]').forEach((a) => {
+    const href = (a.getAttribute('href') || '').replace(/\/+$/, '') || '/';
+    if (href === here) match = a;
+  });
+  if (!match) return;
+  const item = (match as Element).closest('.nav-item');
+  const topLink = item ? item.querySelector(':scope > .nav-link') : null;
+  const target = topLink || ((match as Element).classList.contains('nav-link') ? match : null);
+  if (target) (target as Element).setAttribute('aria-current', 'page');
 })();
 </script>

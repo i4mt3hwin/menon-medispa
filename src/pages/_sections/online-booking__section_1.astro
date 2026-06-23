@@ -14,13 +14,14 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.png';
     height="822"
   />
   <span class="media-bg__scrim media-bg__scrim--b"></span>
+  <canvas class="ob1-hero__particles" data-ob-hero-canvas aria-hidden="true"></canvas>
 
   <div class="media-bg__inner container on-media">
     <div class="ob1-hero__inner">
 
-      <h2 class="ob1-hero__heading">
+      <h1 class="ob1-hero__heading">
         How Would You Like to Book Your Treatment?
-      </h2>
+      </h1>
 
       <p class="ob1-hero__sub">
         Choose the option that works best for you
@@ -29,7 +30,7 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.png';
       <div class="ob1-hero__options">
 
         <div class="ob1-hero__option">
-          <a href="/book-online" class="btn btn--primary btn--lg btn--block">
+          <a href="/request-appointment" class="btn btn--primary btn--lg btn--block">
             I Know What I Want
           </a>
           <p class="ob1-hero__option-desc">Browse our full treatment menu and book directly</p>
@@ -48,9 +49,9 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.png';
 
       <div class="ob1-hero__social-proof">
         <div class="ob1-hero__social-icons">
-          <img src="https://static.wixstatic.com/media/2baa5c_5a17e71f666948a3b53ea0c203f1bcff~mv2.png" alt="Award" width="46" height="50" />
-          <img src="https://static.wixstatic.com/media/2baa5c_9e9f4b262eb94c559c286afada394168~mv2.png" alt="Award" width="52" height="50" />
-          <img src="https://static.wixstatic.com/media/2baa5c_e04a4d2ebc4741bc9f5af8f3ad92fd64~mv2.png" alt="Award" width="52" height="50" />
+          <img src="/media/wix/2baa5c_5a17e71f666948a3b53ea0c203f1bcff.png" alt="Award" width="46" height="50" />
+          <img src="/media/wix/2baa5c_9e9f4b262eb94c559c286afada394168.png" alt="Award" width="52" height="50" />
+          <img src="/media/wix/2baa5c_e04a4d2ebc4741bc9f5af8f3ad92fd64.png" alt="Award" width="52" height="50" />
         </div>
         <div class="ob1-hero__stars-block">
           <p class="ob1-hero__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
@@ -64,11 +65,16 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.png';
 
 <style>
   .ob1-hero {
-    min-height: 596px;
+    min-height: clamp(480px, 64vh, 560px);
+    display: flex;
+    align-items: center;
   }
 
-  .media-bg__inner.container {
-    padding-block: var(--section-py);
+  .ob1-hero__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .ob1-hero__inner {
@@ -176,4 +182,81 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.png';
       max-width: 100%;
     }
   }
+
+  /* ── Motion (only when allowed) ── */
+  @media (prefers-reduced-motion: no-preference) {
+    /* slow continuous Ken Burns on the photo */
+    .ob1-hero .media-bg__img { animation: ob-zoom 20s ease-in-out infinite alternate; }
+    @keyframes ob-zoom { from { transform: scale(1.04); } to { transform: scale(1.12); } }
+
+    /* staggered rise: heading, sub, options, social-proof */
+    .ob1-hero__inner > * { opacity: 0; transform: translateY(18px); animation: ob-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .ob1-hero__inner > *:nth-child(1) { animation-delay: 0.12s; }
+    .ob1-hero__inner > *:nth-child(2) { animation-delay: 0.22s; }
+    .ob1-hero__inner > *:nth-child(3) { animation-delay: 0.34s; }
+    .ob1-hero__inner > *:nth-child(4) { animation-delay: 0.46s; }
+    @keyframes ob-rise { to { opacity: 1; transform: none; } }
+  }
 </style>
+
+<script>
+  // Autonomous drifting light particles (no mouse, no parallax). Reduced-motion safe; idles offscreen.
+  (function () {
+    const hero = document.querySelector('.ob1-hero');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canvas = hero.querySelector('[data-ob-hero-canvas]');
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = 0, h = 0, dpr = 1, parts = [], raf = 0, running = false;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = hero.clientWidth; h = hero.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function spawn(init) {
+      return {
+        x: Math.random() * w,
+        y: init ? Math.random() * h : h + 14,
+        r: 0.5 + Math.random() * 1.1,
+        vy: 0.05 + Math.random() * 0.18,
+        vx: (Math.random() - 0.5) * 0.12,
+        a: 0.12 + Math.random() * 0.30,
+        white: Math.random() < 0.32,
+      };
+    }
+    function build() {
+      const n = Math.max(12, Math.min(30, Math.round((w * h) / 54000)));
+      parts = []; for (let i = 0; i < n; i++) parts.push(spawn(true));
+    }
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of parts) {
+        p.y -= p.vy; p.x += p.vx;
+        if (p.y < -14) Object.assign(p, spawn(false));
+        const rad = p.r * 7;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+        const c = p.white ? '245,239,228' : '226,186,120';
+        g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')');
+        g.addColorStop(0.5, 'rgba(' + c + ',' + (p.a * 0.35) + ')');
+        g.addColorStop(1, 'rgba(' + c + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 6.2832); ctx.fill();
+      }
+      raf = requestAnimationFrame(step);
+    }
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(step); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    size(); build();
+    let rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { size(); build(); }, 150); }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (en) { en.isIntersecting ? start() : stop(); }); }, { threshold: 0.01 }).observe(hero);
+    } else { start(); }
+  })();
+</script>

@@ -25,9 +25,16 @@
   --glow-shadow: 0 22px 60px -28px rgba(48, 36, 50, 0.5);
   --glow-shadow-soft: 0 10px 30px -18px rgba(48, 36, 50, 0.4);
   --glow-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --glow-shellbar-height: 64px;
 
   position: relative;
   isolation: isolate;
+  min-height: 100svh;
+  /* Flex column so the running quiz can center itself in the viewport (see
+     .glow-stage margin) — keeps tall/zoomed-out screens from dumping empty
+     background below the content and floating the nav. */
+  display: flex;
+  flex-direction: column;
   color: var(--glow-ink);
   background:
     radial-gradient(120% 80% at 50% -10%, rgb(196 164 132 / 0.16) 0%, rgb(196 164 132 / 0) 60%),
@@ -60,19 +67,75 @@
   margin: 0 0 var(--space-sm);
 }
 
+/* focused quiz chrome, replaces the global site nav on this route */
+.glow-shellbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: var(--glow-shellbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 10px var(--container-pad);
+  color: var(--glow-ink);
+  background: rgb(251 248 245 / 0.9);
+  border-bottom: 1px solid var(--glow-line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.glow-shellbar__brand {
+  color: var(--glow-ink);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 1;
+  text-decoration: none;
+}
+.glow-shellbar__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.glow-shellbar__link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid var(--glow-line);
+  border-radius: 999px;
+  color: var(--glow-ink);
+  background: rgb(255 255 255 / 0.72);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.glow-shellbar__link:hover,
+.glow-shellbar__link:focus-visible {
+  border-color: var(--glow-line-gold);
+  color: var(--glow-gold-deep);
+}
+
 /* ===========================================================================
    1. INTRO HERO
    =========================================================================== */
 .glow-hero {
   position: relative;
   isolation: isolate;
-  min-height: clamp(560px, 86vh, 860px);
+  /* Full-screen splash: shellbar + hero = one viewport, so nothing peeks below it. */
+  min-height: clamp(560px, calc(100svh - var(--glow-shellbar-height)), 980px);
   display: grid;
   place-items: center;
   text-align: center;
   overflow: hidden;
   color: #fff;
 }
+/* .glow-hero sets display:grid, which beats the UA [hidden] rule, so hiding the
+   splash when the quiz starts needs this explicit override (see .glow-nav[hidden]). */
+.glow-hero[hidden] { display: none; }
 .glow-hero__img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -150,16 +213,21 @@
 .glow-stage {
   position: relative;
   max-width: 880px;
-  margin-inline: auto;
-  padding: clamp(28px, 6vw, 72px) var(--container-pad) var(--space-2xl);
+  /* auto on all sides: centers horizontally AND vertically within the flex-column
+     quiz when there's spare height; collapses to 0 and scrolls normally (no clipping)
+     when the content is taller than the viewport. */
+  margin: auto;
+  /* modest block padding — the auto margins now provide the breathing room, so the
+     dense steps fit shorter laptop heights without scrolling. */
+  padding: clamp(20px, 3.2vw, 44px) var(--container-pad);
 }
 
 /* progress rail */
 .glow-progress {
   position: sticky;
-  top: 0;
+  top: var(--glow-shellbar-height);
   z-index: 6;
-  margin: 0 calc(-1 * var(--container-pad)) clamp(20px, 4vw, 40px);
+  margin: 0 calc(-1 * var(--container-pad)) clamp(16px, 2.5vw, 26px);
   padding: 14px var(--container-pad);
   background: rgb(251 248 245 / 0.82);
   backdrop-filter: blur(10px);
@@ -190,7 +258,7 @@
 .glow-step.is-active { display: block; animation: glow-step-in 0.55s var(--glow-ease) both; }
 .glow-step.is-leaving { animation: glow-step-out 0.32s var(--glow-ease) both; }
 
-.glow-step__head { text-align: center; max-width: 640px; margin: 0 auto clamp(24px, 4vw, 44px); }
+.glow-step__head { text-align: center; max-width: 640px; margin: 0 auto clamp(16px, 2.6vw, 30px); }
 .glow-step__kicker {
   font-family: var(--font-ui); font-size: var(--text-xs); letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--glow-gold-deep); margin: 0 0 12px;
@@ -210,6 +278,24 @@
 }
 .glow-options--wide { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .glow-options--tight { max-width: 540px; }
+
+/* The two concern steps carry 10 options — pack them denser so the whole step fits
+   one screen without scrolling. The icon + label read clearly on their own, so the
+   descriptor is dropped on these steps (kept everywhere else); the ≤768px block
+   compacts them further into a 2-column grid. */
+.glow-step[data-key="primary"] .glow-options,
+.glow-step[data-key="secondary"] .glow-options {
+  grid-template-columns: repeat(auto-fill, minmax(228px, 1fr));
+  gap: 12px;
+}
+.glow-step[data-key="primary"] .glow-option__sub,
+.glow-step[data-key="secondary"] .glow-option__sub {
+  display: none;
+}
+.glow-step[data-key="primary"] .glow-option,
+.glow-step[data-key="secondary"] .glow-option {
+  padding-block: 14px;
+}
 
 .glow-option {
   position: relative;
@@ -267,7 +353,7 @@
    =========================================================================== */
 .glow-nav {
   display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
-  max-width: 760px; margin: clamp(28px, 4vw, 44px) auto 0;
+  max-width: 760px; margin: clamp(18px, 2.6vw, 28px) auto 0;
 }
 .glow-nav__spacer { flex: 1; }
 .glow-nav[hidden] { display: none; }   /* class display:flex would otherwise defeat [hidden] */
@@ -544,13 +630,283 @@
    8. RESPONSIVE
    =========================================================================== */
 @media (max-width: 768px) {
-  .glow-options { grid-template-columns: 1fr; }
-  .glow-option { padding: 15px; }
-  .glow-tcard__actions { flex-direction: column; }
-  .glow-tcard__actions .btn { width: 100%; }
+  .glow-quiz {
+    --glow-shellbar-height: 58px;
+    overflow: visible;
+  }
+
+  .glow-quiz::before { height: 48vh; }
+
+  .glow-shellbar {
+    min-height: var(--glow-shellbar-height);
+    padding: 7px 16px;
+    padding-top: max(7px, env(safe-area-inset-top));
+  }
+  .glow-shellbar__brand { font-size: 20px; }
+  .glow-shellbar__actions { gap: 6px; }
+  .glow-shellbar__link {
+    min-height: 44px;
+    padding: 0 12px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .glow-hero {
+    /* Full-screen splash on phones too (no more auto-skip to a compact banner). */
+    min-height: calc(100svh - var(--glow-shellbar-height));
+    place-items: center stretch;
+    text-align: left;
+  }
+  .glow-hero__img {
+    object-position: 58% center;
+    transform: none;
+  }
+  .glow-hero__scrim {
+    background:
+      linear-gradient(90deg, rgb(30 24 41 / 0.78) 0%, rgb(30 24 41 / 0.62) 58%, rgb(30 24 41 / 0.48) 100%),
+      linear-gradient(180deg, rgb(30 24 41 / 0.42), rgb(30 24 41 / 0.72));
+  }
+  .glow-hero__bloom {
+    background: radial-gradient(54% 48% at 16% 35%, rgb(201 168 118 / 0.42) 0%, rgb(201 168 118 / 0) 70%);
+  }
+  .glow-hero__inner {
+    max-width: none;
+    padding: 22px 18px 24px;
+  }
+  .glow-hero .glow-eyebrow {
+    margin-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .glow-hero h1 {
+    max-width: 12ch;
+    margin-bottom: 10px;
+    font-size: clamp(34px, 11vw, 48px);
+    text-wrap: balance;
+  }
+  .glow-hero__sub {
+    max-width: 31rem;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .glow-hero__meta {
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .glow-stage {
+    max-width: none;
+    /* keep mobile top-aligned (the fixed bottom nav already anchors the buttons);
+       only desktop centers vertically. */
+    margin-block: 0;
+    padding: 18px 16px calc(104px + env(safe-area-inset-bottom));
+  }
+  .glow-progress {
+    top: var(--glow-shellbar-height);
+    z-index: 18;
+    margin: 0 -16px 18px;
+    padding: 12px 16px;
+    background: rgb(251 248 245 / 0.94);
+  }
+  .glow-progress__row { gap: 10px; }
+  .glow-progress__label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  #glow-step-name {
+    max-width: 48vw;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .glow-step__head {
+    max-width: none;
+    margin: 0 0 14px;
+    text-align: left;
+  }
+  .glow-step__kicker {
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .glow-step__q {
+    font-size: clamp(22px, 6.4vw, 30px);
+    line-height: 1.14;
+    text-wrap: balance;
+  }
+  .glow-step__hint {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .glow-options {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-width: none;
+  }
+  .glow-option {
+    min-height: 64px;
+    padding: 14px 46px 14px 14px;
+    border-radius: 10px;
+  }
+  .glow-option__icon {
+    width: 44px;
+    height: 44px;
+  }
+  .glow-option__label { font-size: 16px; }
+  .glow-option__sub {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .glow-option__check {
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+  }
+  .glow-option.is-selected .glow-option__check { transform: translateY(-50%) scale(1.08); }
+
+  /* Concern steps (10 options): compact 2-column grid so the step fits one screen
+     without scrolling. Drop the descriptor + check badge here — the gold border,
+     filled icon and tint already signal selection clearly. */
+  .glow-step[data-key="primary"] .glow-options,
+  .glow-step[data-key="secondary"] .glow-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .glow-step[data-key="primary"] .glow-option,
+  .glow-step[data-key="secondary"] .glow-option {
+    min-height: 0;
+    padding: 12px;
+    gap: 10px;
+  }
+  .glow-step[data-key="primary"] .glow-option__icon,
+  .glow-step[data-key="secondary"] .glow-option__icon {
+    width: 38px;
+    height: 38px;
+  }
+  .glow-step[data-key="primary"] .glow-option__sub,
+  .glow-step[data-key="secondary"] .glow-option__sub,
+  .glow-step[data-key="primary"] .glow-option__check,
+  .glow-step[data-key="secondary"] .glow-option__check {
+    display: none;
+  }
+
+  #glow-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 21;
+    max-width: none;
+    margin: 0;
+    padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+    background: rgb(251 248 245 / 0.95);
+    border-top: 1px solid var(--glow-line);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .glow-back {
+    min-height: 44px;
+    padding: 10px 8px;
+  }
+  .glow-next {
+    min-height: 48px;
+    min-width: 148px;
+  }
+
+  .glow-gate { max-width: none; }
+  .glow-gate__card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .glow-gate__seal {
+    width: 54px;
+    height: 54px;
+  }
+  .glow-field input {
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  .glow-consent { gap: 10px; }
+  .glow-consent input {
+    width: 20px;
+    height: 20px;
+  }
+  .glow-consent span {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .glow-gate__fine {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .glow-results__head,
+  .glow-section-title {
+    text-align: left;
+  }
+  .glow-results__head {
+    margin-bottom: 28px;
+  }
+  .glow-results__head h2 {
+    font-size: clamp(30px, 8vw, 40px);
+    text-wrap: balance;
+  }
+  .glow-results__head p,
+  .glow-cta p {
+    font-size: 16px;
+  }
+  .glow-profile {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .glow-treatments { grid-template-columns: 1fr; }
+  .glow-tcard__actions {
+    flex-direction: column;
+  }
+  .glow-tcard__actions .btn {
+    width: 100%;
+  }
+  .glow-weekly {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .glow-cta {
+    border-radius: 12px;
+    text-align: left;
+  }
+  .glow-cta h3 {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+  .glow-cta p {
+    margin-inline: 0;
+  }
+  .glow-cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .glow-cta__actions .btn {
+    width: 100%;
+  }
+}
+
+@media (hover: none) {
+  .glow-option:hover,
+  .glow-tcard:hover {
+    transform: none;
+  }
 }
 @media (max-width: 600px) {
-  .glow-hero { min-height: 78vh; }
+  .glow-hero { min-height: calc(100svh - var(--glow-shellbar-height)); }
   .glow-nav { gap: var(--space-sm); }
 }
 

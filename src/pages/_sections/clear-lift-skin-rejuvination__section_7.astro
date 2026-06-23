@@ -1,11 +1,13 @@
 ---
 import ServiceBookingCta from '@/components/ServiceBookingCta.astro';
+import clearliftImg from '@/assets/images/5533cf5a75a8.png';
 import serviceImg from '@/assets/images/400272488bed.jpg';
 import laserSpotImg from '@/assets/images/3be5824bfbc0.jpg';
 ---
 <ServiceBookingCta
   heading={`Price List`}
   cards={[
+    { image: clearliftImg, imageAlt: `ClearLift laser skin rejuvenation at Menon Medispa`, title: `ClearLift Skin Rejuvenation`, tagline: `Zero downtime collagen renewal, safe for all skin types`, price: `From $99`, duration: `30-60 min` },
     { image: serviceImg, imageAlt: `Hyperpigmentation and photorejuvenation treatment at Menon Medispa`, title: `Hyperpigmentation / Photorejuvenation`, tagline: `Even Skin Tone, Reduced Dark Spots, and Youthful Glow`, price: `From $200` },
     { image: laserSpotImg, imageAlt: `Laser spot treatment at Menon Medispa`, title: `Laser Spot Treatment`, price: `$99` },
   ]}

@@ -12,6 +12,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/targeted-health-solutions-iv__section_2.astro';
 import IVTypes from '@/pages/_sections/targeted-health-solutions-iv__section_3.astro';
 import Gallery from '@/pages/_sections/targeted-health-solutions-iv__section_4.astro';
@@ -128,6 +129,8 @@ const jsonld = buildServiceSchema({
   <Gallery />
 
   <Process />
+
+  <ServiceTestimonial slug="targeted-health-solutions-iv" />
 
   <Pricing />
 

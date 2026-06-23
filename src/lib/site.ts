@@ -80,9 +80,9 @@ export const site = {
   description:
     'Menon Medispa & Wellness offers advanced aesthetic and wellness treatments in Millburn, NJ, serving nearby towns with expert care and personalized service.',
   priceRange: '$$',
-  // Logo: original hotlinked wixstatic; rehost the captured local copy at build.
-  // TODO(03-build): point at the rehosted local logo under /images or /fonts assets.
-  logo: 'https://static.wixstatic.com/media/f61cce_718cc937e5cd45ac8470665eae97231d~mv2.png',
+  // Logo: rehosted locally (was hotlinked wixstatic). Absolute URL for JSON-LD publisher.logo.
+  // File: public/media/wix/f61cce_718cc937e5cd45ac8470665eae97231d.png (also the favicon source).
+  logo: 'https://www.menonmedispa.com/media/wix/f61cce_718cc937e5cd45ac8470665eae97231d.png',
   areaServed: [
     'Short Hills, NJ',
     'Summit, NJ',

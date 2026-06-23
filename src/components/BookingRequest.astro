@@ -13,9 +13,10 @@
  *   prefill   — pre-selected service_interest (e.g. a service name; the form
  *               also reads a ?service= query param to pre-select and lock it)
  */
-import services from '../data/services.json';
 import site from '../lib/site';
 import { allPackageServices } from '../lib/packages';
+import { serviceInterestOptions, interestLabel } from '../lib/services';
+import { CONSULT_NOTES } from '../lib/consult';
 
 interface Props {
   heading?: string;
@@ -43,15 +44,10 @@ const packageData = Object.fromEntries(
   ])
 );
 
-// Distinct service categories (data-driven — stays in sync with services.json).
-const categories = Array.from(
-  new Set((services as Array<{ category?: string }>).map((s) => s.category).filter(Boolean) as string[])
-).sort((a, b) => a.localeCompare(b));
-
-const baseOptions = ['General consultation', ...categories];
-const options = prefill && !baseOptions.includes(prefill) ? [prefill, ...baseOptions] : baseOptions;
-const selectedService = prefill && options.includes(prefill) ? prefill : 'General consultation';
-const labelFor = (opt: string) => (opt === 'General consultation' ? "I'm not sure yet — general consultation" : opt);
+// Interest dropdown options + default, shared with the /consultation form (lib/services)
+// so the two booking surfaces — and the consult-tier logic in lib/consult — never drift.
+const { options, selected: selectedService } = serviceInterestOptions(prefill);
+const labelFor = interestLabel;
 
 // Day-of-week (0=Sun … 6=Sat) -> {opens, closes}, derived from site.hours. Sunday absent = closed.
 const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -75,8 +71,14 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       <h2 class="bk__heading">{heading}</h2>
       <p class="bk__lead">Pick a day and a time that works for you. We will call or email to confirm.</p>
 
+      <ol class="bk__progress" data-progress aria-label="Booking progress">
+        <li class="bk__progress-item is-current" data-progress-step="1" aria-current="step"><span class="bk__progress-dot">1</span><span class="bk__progress-text">Date</span></li>
+        <li class="bk__progress-item" data-progress-step="2"><span class="bk__progress-dot">2</span><span class="bk__progress-text">Time</span></li>
+        <li class="bk__progress-item" data-progress-step="3"><span class="bk__progress-dot">3</span><span class="bk__progress-text">Details</span></li>
+      </ol>
+
       <!-- Step 1: date -->
-      <fieldset class="bk__step">
+      <fieldset class="bk__step" data-step="1">
         <legend class="bk__step-label"><span class="bk__step-num">1</span> Choose a date</legend>
         <div class="bk-cal" role="group" aria-label="Choose an appointment date">
           <div class="bk-cal__head">
@@ -92,16 +94,24 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         </div>
       </fieldset>
 
-      <!-- Time (revealed after a date is chosen) -->
-      <fieldset class="bk__step bk__times" data-times hidden>
-        <legend class="bk__step-label bk__step-label--sub"><span data-time-hint>Choose a time</span></legend>
+      <!-- Step 2: time (revealed after a date is chosen) -->
+      <fieldset class="bk__step bk__times" data-step="2" data-times hidden>
+        <div class="bk__step-bar">
+          <button type="button" class="bk__back" data-back-to="1"><span aria-hidden="true">&#8249;</span> Change date</button>
+        </div>
+        <h3 class="bk__chosen-date" data-time-hint tabindex="-1">Choose a time</h3>
         <div class="bk__slots" data-slots></div>
         <p class="bk__times-note">These are requested times — we will confirm by phone or email.</p>
+        <button type="button" class="bk__next" data-next-time disabled>Continue</button>
       </fieldset>
 
       <!-- Step 3: details -->
-      <fieldset class="bk__step">
-        <legend class="bk__step-label"><span class="bk__step-num">2</span> Your details</legend>
+      <fieldset class="bk__step" data-step="3" hidden>
+        <div class="bk__step-bar">
+          <button type="button" class="bk__back" data-back-to="2"><span aria-hidden="true">&#8249;</span> Back</button>
+          <h3 class="bk__chosen-summary" data-detail-summary tabindex="-1"></h3>
+        </div>
+        <legend class="bk__step-label"><span class="bk__step-num">3</span> Your details</legend>
 
         <div class="bk__field" data-service-field>
           <label for="bk-service">What are you interested in?</label>
@@ -146,7 +156,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         </div>
 
         <p class="bk__fee-note" data-fee-note hidden>
-          <strong>$50 consultation with Dr. Menon</strong>, applied toward your treatment. Injectables and physician-led procedures begin with a brief consult to plan your treatment safely.
+          <strong>{CONSULT_NOTES.medical.emphasis}</strong>{CONSULT_NOTES.medical.rest}
         </p>
 
         <div class="bk__row">
@@ -204,6 +214,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 <script>
   import { enhanceLeadForm } from '../lib/leadForm';
+  import { isMedicalConsult, withConsultTag } from '../lib/consult';
 
   const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const SLOT_MINUTES = 30; // request-grid granularity
@@ -236,11 +247,24 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const nextBtn = root.querySelector('[data-cal-next]') as HTMLButtonElement;
     const dateInput = root.querySelector('input[name="preferred_date"]') as HTMLInputElement;
     const timeInput = root.querySelector('input[name="preferred_window"]') as HTMLInputElement;
-    const timesWrap = root.querySelector('[data-times]') as HTMLElement;
     const slotsWrap = root.querySelector('[data-slots]') as HTMLElement;
     const timeHint = root.querySelector('[data-time-hint]') as HTMLElement | null;
+    const steps = Array.from(root.querySelectorAll('[data-step]')) as HTMLElement[];
+    const progressItems = Array.from(root.querySelectorAll('[data-progress-step]')) as HTMLElement[];
+    const nextTimeBtn = root.querySelector('[data-next-time]') as HTMLButtonElement | null;
+    const detailSummary = root.querySelector('[data-detail-summary]') as HTMLElement | null;
 
-    const today = new Date(); today.setHours(0, 0, 0, 0);
+    // "Today" pinned to the shop's timezone (America/New_York), not the visitor's,
+    // so an out-of-state visitor near midnight can't select a day that's already past
+    // (or miss one) relative to the clinic. Date-only, so day-of-week stays correct.
+    function shopToday() {
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
+      }).formatToParts(new Date());
+      const get = (t: string) => parseInt(parts.find((p) => p.type === t)?.value || '0', 10);
+      return new Date(get('year'), get('month') - 1, get('day'));
+    }
+    const today = shopToday(); today.setHours(0, 0, 0, 0);
     const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + horizon);
     let view = new Date(today.getFullYear(), today.getMonth(), 1);
     let selected: Date | null = null;
@@ -248,6 +272,44 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const closed = (d: Date) => !hours[String(d.getDay())];
     const past = (d: Date) => d < today;
     const beyond = (d: Date) => d > maxDate;
+
+    // ── Wizard step machine ── one [data-step] fieldset visible at a time.
+    // Reuses the .bk__step[hidden]{display:none} rule already in the styles.
+    function showStep(n: number, opts: { focus?: boolean; scroll?: boolean } = {}) {
+      const { focus = true, scroll = true } = opts;
+      steps.forEach((s) => { s.hidden = Number(s.dataset.step) !== n; });
+      progressItems.forEach((p) => {
+        const k = Number(p.dataset.progressStep);
+        p.classList.toggle('is-current', k === n);
+        p.classList.toggle('is-done', k < n);
+        if (k === n) p.setAttribute('aria-current', 'step');
+        else p.removeAttribute('aria-current');
+      });
+      // Scroll to the TOP of the wizard (not into the step) so the chosen-date
+      // header / highlighted day stays in view — fixes the old scrollIntoView bug.
+      if (scroll) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (focus) {
+        const el = steps.find((s) => Number(s.dataset.step) === n);
+        const target = el?.querySelector('[data-time-hint],[data-detail-summary],legend') as HTMLElement | null;
+        target?.focus({ preventScroll: true });
+      }
+    }
+
+    // Clearing the chosen time (and disabling Continue) whenever the date changes,
+    // so a stale time can never carry into a different day. Single choke point.
+    function resetTimeSelection() {
+      timeInput.value = '';
+      if (nextTimeBtn) nextTimeBtn.disabled = true;
+    }
+
+    function enterStep3() {
+      if (detailSummary) {
+        detailSummary.textContent = selected
+          ? `${selected.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} at ${timeInput.value}`
+          : '';
+      }
+      showStep(3);
+    }
 
     function renderSlots(d: Date) {
       slotsWrap.innerHTML = '';
@@ -279,6 +341,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             b.classList.add('is-selected');
             b.setAttribute('aria-pressed', 'true');
             timeInput.value = b.textContent || '';
+            if (nextTimeBtn) nextTimeBtn.disabled = false;
           });
           row.appendChild(b);
         });
@@ -324,16 +387,23 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       selected = d;
       dateInput.value = iso(d);
       renderMonth();
+      resetTimeSelection();
       renderSlots(d);
-      timesWrap.hidden = false;
-      if (timeHint) timeHint.textContent = `Choose a time on ${d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}`;
-      timesWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (timeHint) timeHint.textContent = `Times for ${d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}`;
+      showStep(2);
     }
 
     prevBtn.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
     nextBtn.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
 
     renderMonth();
+
+    // Wizard navigation: Back/Change-date links go to their target step; the step-2
+    // Continue button advances to details (filling the date+time recap first).
+    root.querySelectorAll('[data-back-to]').forEach((b) =>
+      b.addEventListener('click', () => showStep(Number((b as HTMLElement).dataset.backTo))));
+    nextTimeBtn?.addEventListener('click', enterStep3);
+    showStep(1, { focus: false, scroll: false }); // normalize state without yanking scroll/focus on load
 
     // Service lock: pre-select + lock the service when it comes from the URL (?service=)
     // or the SSR `prefill` (per-service booking-calendar pages) — so we don't ask again.
@@ -355,12 +425,13 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       changeBtn?.addEventListener('click', () => { lockedWrap.hidden = true; fieldWrap.hidden = false; });
     }
 
-    // Show the "$50 with Dr. Menon" notice when the chosen service is physician-led
-    // (injectables: Botox / Juvéderm / fillers, and Semaglutide). Updates on dropdown change.
+    // Show the "$50 with Dr. Menon" notice when the chosen service is physician-led.
+    // The set (injectables / Semaglutide / microneedling) lives in lib/consult so this
+    // form and the /consultation form agree on which treatments need the medical consult.
     const feeNote = root.querySelector('[data-fee-note]') as HTMLElement | null;
     function updateFeeNote() {
       if (!feeNote || !select) return;
-      feeNote.hidden = !/botox|juv|filler|semaglutide/.test((select.value || '').toLowerCase());
+      feeNote.hidden = !isMedicalConsult(select.value);
     }
     updateFeeNote();
 
@@ -463,10 +534,11 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     enhanceLeadForm(form, {
       validate: (data) => {
-        if (!data.preferred_date) return 'Please pick a date on the calendar.';
-        if (!data.preferred_window) return 'Please choose a time.';
-        // Fold the chosen package/area into service_interest so the front desk sees it.
-        data.service_interest = composeServiceInterest(data.service_interest || '');
+        if (!data.preferred_date) { showStep(1); return 'Please pick a date on the calendar.'; }
+        if (!data.preferred_window) { showStep(2); return 'Please choose a time.'; }
+        // Fold the chosen package/area into service_interest so the front desk sees it,
+        // then tag physician-led picks so they're booked as the $50 Dr. Menon consult.
+        data.service_interest = withConsultTag(composeServiceInterest(data.service_interest || ''));
         return null;
       },
     });
@@ -505,26 +577,58 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     font-size: 13px; font-weight: 700; flex: none;
   }
 
+  /* Progress indicator (Date · Time · Details) */
+  .bk__progress { display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .bk__progress-item { display: flex; align-items: center; gap: 8px; flex: 1; font-family: var(--font-ui); font-size: var(--text-xs); opacity: 0.5; }
+  .bk__progress-item.is-current { opacity: 1; font-weight: 700; }
+  .bk__progress-item.is-done { opacity: 0.85; }
+  .bk__progress-dot {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--color-cta);
+    color: var(--color-cta); font-size: 13px; font-weight: 700;
+  }
+  .bk__progress-item.is-current .bk__progress-dot,
+  .bk__progress-item.is-done .bk__progress-dot { background: var(--color-cta); color: var(--color-surface); }
+  .bk__progress-item:not(:last-child)::after { content: ""; flex: 1; height: 2px; background: rgba(0,0,0,0.12); }
+  .bk__progress-item.is-done::after { background: var(--color-cta); }
+
+  /* Step bar: back link + chosen-date / recap header */
+  .bk__step-bar { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .bk__back {
+    display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 4px;
+    background: none; border: none; cursor: pointer; color: var(--color-cta);
+    font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600;
+  }
+  .bk__chosen-date, .bk__chosen-summary { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; margin: 0; }
+  .bk__chosen-date:focus, .bk__chosen-summary:focus { outline: none; }
+  .bk__next {
+    align-self: flex-start; min-height: 48px; padding: 12px 24px; border: none; border-radius: var(--radius-sm);
+    background: var(--color-cta); color: var(--color-surface); box-shadow: var(--shadow-btn);
+    font-family: var(--font-cta); font-size: var(--text-base); font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+  }
+  .bk__next:hover:not(:disabled) { opacity: 0.9; }
+  .bk__next:disabled { opacity: 0.5; cursor: not-allowed; }
+
   /* Calendar */
   .bk-cal { border: 1px solid rgba(0,0,0,0.12); border-radius: var(--radius-sm); padding: var(--space-sm); background: #fff; }
   .bk-cal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-xs); }
   .bk-cal__month { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; }
   .bk-cal__nav {
-    width: 36px; height: 36px; border: 1px solid rgba(0,0,0,0.15); background: #fff;
+    width: 44px; height: 44px; border: 1px solid rgba(0,0,0,0.15); background: #fff;
     border-radius: var(--radius-sm); cursor: pointer; font-size: 20px; line-height: 1; color: var(--color-text);
   }
   .bk-cal__nav:hover:not(:disabled) { border-color: var(--color-cta); color: var(--color-cta); }
   .bk-cal__nav:disabled { opacity: 0.3; cursor: not-allowed; }
-  .bk-cal__weekdays, .bk-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .bk-cal__weekdays, .bk-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
   .bk-cal__weekday { text-align: center; font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.6; padding: 4px 0; }
   .bk-cal__cell--empty { aspect-ratio: 1; }
   .bk-cal__day {
-    aspect-ratio: 1; width: 100%; border: 1px solid transparent; background: rgba(0,0,0,0.03);
-    border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-body); font-size: var(--text-sm);
+    aspect-ratio: 1; min-height: 44px; width: 100%; border: 1px solid transparent; background: rgba(0,0,0,0.03);
+    border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-body); font-size: var(--text-base); font-weight: 600;
     color: var(--color-text); transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
   .bk-cal__day:hover:not(.is-disabled) { border-color: var(--color-cta); }
-  .bk-cal__day.is-selected { background: var(--color-cta); color: var(--color-surface); border-color: var(--color-cta); font-weight: 700; }
+  .bk-cal__day.is-selected { background: var(--color-cta); color: var(--color-surface); border-color: var(--color-cta); font-weight: 700; box-shadow: 0 0 0 2px var(--color-cta), 0 2px 6px rgb(196 164 132 / 0.5); }
   .bk-cal__day.is-disabled { opacity: 0.32; cursor: not-allowed; text-decoration: line-through; }
   .bk-cal__note { font-family: var(--font-body); font-size: var(--text-xs); opacity: 0.6; margin: var(--space-xs) 0 0; }
 
@@ -534,10 +638,10 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__slots { display: flex; flex-direction: column; gap: var(--space-sm); }
   .bk__slot-group { display: flex; flex-direction: column; gap: 6px; }
   .bk__slot-group-label { font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700; opacity: 0.55; text-transform: uppercase; letter-spacing: 0.05em; }
-  .bk__slot-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bk__slot-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
   .bk__slot {
-    padding: 8px 14px; border: 1px solid rgba(0,0,0,0.18); background: #fff; border-radius: var(--radius-sm);
-    cursor: pointer; font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-text);
+    min-height: 48px; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.18); background: #fff; border-radius: var(--radius-sm);
+    cursor: pointer; font-family: var(--font-ui); font-size: var(--text-base); color: var(--color-text);
     transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
   .bk__slot:hover { border-color: var(--color-cta); }
@@ -564,8 +668,8 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__pkg-session-label { font-family: var(--font-body); font-size: var(--text-xs); font-weight: var(--weight-bold); }
   .bk__pkg-toggle { display: flex; gap: 8px; flex-wrap: wrap; }
   .bk__pkg-opt {
-    display: flex; align-items: center; gap: 8px; cursor: pointer;
-    padding: 9px 14px; border: 1px solid rgba(0,0,0,0.18); border-radius: var(--radius-sm); background: #fff;
+    display: flex; align-items: center; gap: 8px; cursor: pointer; min-height: 44px;
+    padding: 12px 16px; border: 1px solid rgba(0,0,0,0.18); border-radius: var(--radius-sm); background: #fff;
     font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-text);
     transition: border-color 0.15s, background 0.15s;
   }
@@ -587,7 +691,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   .bk__field label span[aria-hidden] { color: var(--color-cta); }
   .bk__optional { font-weight: 400; opacity: 0.6; }
   .bk__field input, .bk__field select, .bk__field textarea {
-    padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-sm);
+    padding: 12px 14px; border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-sm);
     font-family: var(--font-body); font-size: var(--text-base); width: 100%; box-sizing: border-box; background: #fff; color: var(--color-text);
   }
   .bk__field input:focus, .bk__field select:focus, .bk__field textarea:focus { outline: none; border-color: var(--color-cta); }
@@ -623,5 +727,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   @media (max-width: 520px) {
     .bk__row { flex-direction: column; }
+    /* Compact progress on phones: dots + connectors only, hide the text labels. */
+    .bk__progress-text { position: absolute; left: -9999px; }
   }
 </style>

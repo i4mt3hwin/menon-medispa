@@ -112,7 +112,7 @@
       "options": [
         { "value": "pregnancy",      "label": "Pregnant or breastfeeding",            "sub": "We'll keep everything pregnancy-conscious", "icon": "heart" },
         { "value": "isotretinoin",   "label": "On / recently on isotretinoin",        "sub": "Accutane within the last 6 months",         "icon": "pill" },
-        { "value": "activeInfection","label": "Active breakout, cold sore or rash",   "sub": "Anything inflamed or broken right now",     "icon": "alert" },
+        { "value": "activeInfection","label": "Cold sore, rash or open irritation",   "sub": "Anything broken, actively irritated or not fully healed", "icon": "alert" },
         { "value": "keloid",         "label": "Prone to raised or keloid scars",      "sub": "Scars that thicken or spread",              "icon": "alert" }
       ]
     },

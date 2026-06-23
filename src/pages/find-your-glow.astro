@@ -34,7 +34,7 @@ const pageDesc =
   'Take the 2-minute Find Your Glow quiz for personalized treatment recommendations and an at-home skincare routine, tailored to your skin by Menon Medispa in Millburn, NJ.';
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} canonical={`${site.url}/find-your-glow`} ogImage={heroImg.src}>
+<BaseLayout title={pageTitle} description={pageDesc} canonical={`${site.url}/find-your-glow`} ogImage={heroImg.src} minimalShell={true}>
   <main
     class="glow-quiz"
     id="glow-quiz"
@@ -42,8 +42,16 @@ const pageDesc =
     data-consent-sms-text={consentSmsText}
     data-booking-url={site.calcomUrl}
   >
-    <!-- ============================ INTRO HERO ============================ -->
-    <section class="glow-hero">
+    <header class="glow-shellbar" aria-label="Find Your Glow navigation">
+      <a class="glow-shellbar__brand" href="/" aria-label="Menon Medispa home">Menon Medispa</a>
+      <nav class="glow-shellbar__actions" aria-label="Quiz actions">
+        <a class="glow-shellbar__link" href="tel:+19734948431">Call</a>
+        <a class="glow-shellbar__link" href="/">Exit</a>
+      </nav>
+    </header>
+
+    <!-- ============================ INTRO HERO (splash) ============================ -->
+    <section class="glow-hero" id="glow-hero">
       <img class="glow-hero__img" src={heroImg.src} alt="" aria-hidden="true" />
       <span class="glow-hero__scrim"></span>
       <span class="glow-hero__bloom"></span>
@@ -51,7 +59,7 @@ const pageDesc =
         <p class="glow-eyebrow">Menon Medispa · Skin Studio</p>
         <h1>Find Your <span class="glow-accent">Glow</span></h1>
         <p class="glow-hero__sub">
-          Answer a few questions about your skin and we’ll craft a personalized plan, the treatments
+          Answer a few questions about your skin and we’ll craft a cosmetic, skin-focused plan, the treatments
           matched to you, plus a simple routine to glow at home.
         </p>
         <button class="btn btn--primary btn--lg" id="glow-begin" type="button">
@@ -198,6 +206,7 @@ const pageDesc =
     const backBtn = document.getElementById('glow-back') as HTMLButtonElement;
     const nextBtn = document.getElementById('glow-next') as HTMLButtonElement;
     const beginBtn = document.getElementById('glow-begin');
+    const hero = document.getElementById('glow-hero');
     const loader = document.getElementById('glow-loader')!;
     const results = document.getElementById('glow-results')!;
     const form = document.getElementById('glow-lead-form') as HTMLFormElement;
@@ -216,8 +225,20 @@ const pageDesc =
       Array.from(el.querySelectorAll<HTMLElement>('.glow-option.is-selected')).map((b) => b.dataset.value!);
 
     function scrollStage() {
-      const y = stage.getBoundingClientRect().top + window.scrollY - 84;
+      const shellbar = root.querySelector<HTMLElement>('.glow-shellbar');
+      const offset = (shellbar?.getBoundingClientRect().height || 64) + 18;
+      const y = stage.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+    }
+
+    function startQuiz(shouldScroll = true) {
+      // Hide the splash so the questions take the top of the screen, no scroll-past.
+      if (hero) hero.hidden = true;
+      stage.hidden = false;
+      if (current < 0) setStep(0);
+      // With the hero gone, the stage sits under the sticky shellbar, so this just
+      // snaps to the top (clamps to ~0) rather than scrolling the user downward.
+      if (shouldScroll) scrollStage();
     }
 
     function updateChrome() {
@@ -290,7 +311,7 @@ const pageDesc =
       });
     });
 
-    beginBtn?.addEventListener('click', () => { stage.hidden = false; setStep(0); scrollStage(); });
+    beginBtn?.addEventListener('click', () => startQuiz(true));
     nextBtn?.addEventListener('click', goNext);
     backBtn?.addEventListener('click', goBack);
     gateBack?.addEventListener('click', goBack);
@@ -323,6 +344,33 @@ const pageDesc =
       } catch (_) { /* never block the results on a network error */ }
     }
 
+    // Stash the FULL quiz profile in THIS browser only (never sent from here). It is NOT transmitted by
+    // the email-capture above; it rides along ONLY if the visitor later submits a real booking
+    // (leadForm.ts attaches it as glow_summary), so the front desk can see what was recommended and why.
+    // Still never persisted in our DB, never forwarded to the lead manager, never to an ad/tracking pixel.
+    function saveGlowProfile(result: any) {
+      try {
+        const p = result?.profile || {};
+        const SKINMAP: Record<string, string> = { oily: 'Oily skin', combination: 'Combination skin', dry: 'Dry skin', normal: 'Normal skin' };
+        const SENSMAP: Record<string, string> = { low: 'Resilient', mid: 'Balanced sensitivity', high: 'Sensitive skin' };
+        const steps = (arr: any[]) => (arr || []).map((s) => ({ name: s.name, note: s.note || '' }));
+        const out = {
+          savedAt: Date.now(),
+          profile: {
+            primary: p.primary ? p.primary.label : null,
+            concerns: (p.concerns || []).map((c: any) => c.label),
+            skinType: p.skinType ? (SKINMAP[p.skinType] || p.skinType) : null,
+            sensitivity: p.sensitivity ? (SENSMAP[p.sensitivity] || p.sensitivity) : null,
+            pregnancy: !!p.pregnancy,
+          },
+          treatments: (result?.treatments || []).slice(0, 6).map((t: any) => ({ name: t.name, match: t.match, why: t.why })),
+          routine: { am: steps(result?.routine?.am), pm: steps(result?.routine?.pm), weekly: steps(result?.routine?.weekly) },
+          safetyNote: result?.safetyNote || null,
+        };
+        localStorage.setItem('menonGlow', JSON.stringify(out));
+      } catch (_) { /* localStorage may be unavailable; non-critical */ }
+    }
+
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
       const val = (id: string) => (form.querySelector('#' + id) as HTMLInputElement).value.trim();
@@ -339,6 +387,7 @@ const pageDesc =
 
       const answers = collectAnswers();
       const result = recommend(answers);
+      saveGlowProfile(result);
 
       els[current].classList.remove('is-active');
       nav.hidden = true; progress.hidden = true;

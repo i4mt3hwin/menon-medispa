@@ -5,7 +5,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
@@ -23,9 +23,35 @@ import heroImg from '@/assets/images/8ec275b96db1.jpeg';
 const slug = 'juvedermfillers';
 const posts = getRelatedPosts(slug);
 
-// FAQ: section_6 questions exist but all answers are blank/placeholder — no faqItems rendered.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'How painful are Juvéderm injections?',
+    answer:
+      'Most clients find Juvéderm injections very tolerable. Juvéderm formulas contain lidocaine to numb the area as the filler is placed, and we apply a topical numbing cream beforehand for added comfort. Most people describe only a brief pinch or mild pressure during treatment.',
+  },
+  {
+    question: 'How long do Juvéderm results last and when will I see them?',
+    answer:
+      'You will notice added volume and smoother lines right after your appointment, with final results settling over about two weeks as the filler integrates. Depending on the formula and the area treated, results typically last between 12 and 24 months.',
+  },
+  {
+    question: "What's the downtime and what side effects should I expect?",
+    answer:
+      'Most clients return to normal activities right away. Mild swelling, redness, tenderness, or small bruises at the injection sites are common and usually fade within a few days. We provide aftercare guidance to help you heal comfortably and protect your results.',
+  },
+  {
+    question: "Who shouldn't get Juvéderm injections?",
+    answer:
+      'Juvéderm is not recommended if you are pregnant or breastfeeding, have an active skin infection in the treatment area, or have a known allergy to its ingredients. During your consultation, we review your health history to confirm that treatment is appropriate and safe for you.',
+  },
+  {
+    question: 'How much does Juvéderm cost and how many syringes will I need?',
+    answer:
+      'Juvéderm at Menon Medispa starts at $750, and the number of syringes depends on the areas you want to treat and your goals. Some concerns can be addressed with a single syringe, while fuller or multiple-area enhancements may call for more. We will give you a clear estimate during your consultation.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Expert Juvéderm Fillers in Millburn, NJ',
@@ -138,6 +164,8 @@ const jsonld = buildServiceSchema({
   <ServiceTestimonial slug="juvedermfillers" />
 
   <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

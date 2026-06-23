@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Picture from '@/components/Picture.astro';
+import site from '@/lib/site';
+import { Image } from 'astro:assets';
 import imgb048429488e3 from '@/assets/images/b048429488e3.jpg';
+import igImg from '@/assets/images/d85622e84ef0.png';
+import fbImg from '@/assets/images/482f7439ea47.png';
+import ttImg from '@/assets/images/de7ef3d7c470.png';
 ---
 <BaseLayout
   title="Keravive HydraFacial Appointment Request Received | Menon Medispa"
@@ -26,14 +31,14 @@ import imgb048429488e3 from '@/assets/images/b048429488e3.jpg';
       <p class="thanks-hero__body">In the meantime, follow us on social media to always stay up to date on our services and specials.</p>
 
       <div class="thanks-hero__social" role="list">
-        <a href="https://www.instagram.com/menonmedispa" aria-label="Instagram" target="_blank" rel="noopener" role="listitem">
-          <img src="https://static.wixstatic.com/media/01c3aff52f2a4dffa526d7a9843d46ea.png" alt="Instagram" width="25" height="25" />
+        <a href={site.social.instagram} aria-label="Instagram" target="_blank" rel="noopener" role="listitem">
+          <Image src={igImg} alt="Instagram" width={25} height={25} loading="lazy" />
         </a>
-        <a href="https://www.facebook.com/menonmedispa" aria-label="Facebook" target="_blank" rel="noopener" role="listitem">
-          <img src="https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png" alt="Facebook" width="25" height="25" />
+        <a href={site.social.facebook} aria-label="Facebook" target="_blank" rel="noopener" role="listitem">
+          <Image src={fbImg} alt="Facebook" width={25} height={25} loading="lazy" />
         </a>
-        <a href="https://www.tiktok.com/@menonmedispa" aria-label="TikTok" target="_blank" rel="noopener" role="listitem">
-          <img src="https://static.wixstatic.com/media/11062b_6e7994bdd94b41178720ff1641a0f323~mv2.png" alt="TikTok" width="25" height="25" />
+        <a href={site.social.tiktok} aria-label="TikTok" target="_blank" rel="noopener" role="listitem">
+          <Image src={ttImg} alt="TikTok" width={25} height={25} loading="lazy" />
         </a>
       </div>
 

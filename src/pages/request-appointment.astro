@@ -25,4 +25,10 @@ import BookingRequest from '@/components/BookingRequest.astro';
   .ra__intro { max-width: 680px; margin: 0 auto var(--space-lg); text-align: center; }
   .ra__title { font-family: var(--font-display); font-size: var(--text-h1); margin: 8px 0; line-height: 1.15; }
   .ra__sub { font-family: var(--font-body); font-size: var(--text-base); opacity: 0.85; margin: 0; }
+
+  @media (max-width: 600px) {
+    .ra { padding-top: 28px; }          /* was var(--space-xl) = 60px */
+    .ra__intro { margin-bottom: 28px; } /* was var(--space-lg) = 60px */
+    .ra__title { margin: 4px 0; }       /* was 8px 0 */
+  }
 </style>

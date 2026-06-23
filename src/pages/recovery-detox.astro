@@ -13,6 +13,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/recovery-detox__section_2.astro';
 import FormulaChooser from '@/pages/_sections/recovery-detox__section_3.astro';
 import Gallery from '@/pages/_sections/recovery-detox__section_4.astro';
@@ -21,7 +22,7 @@ import Pricing from '@/pages/_sections/recovery-detox__section_6.astro';
 import InfoBar from '@/pages/_sections/recovery-detox__section_7.astro';
 import FinalCta from '@/pages/_sections/recovery-detox__section_9.astro';
 
-import heroImg from '@/assets/images/651c7c197b52.png';
+import heroImg from '@/assets/images/2e5d1e68225a.jpg';
 
 const slug = 'recovery-detox';
 const posts = getRelatedPosts(slug);
@@ -149,6 +150,8 @@ const jsonld = buildServiceSchema({
   <Gallery />
 
   <Process />
+
+  <ServiceTestimonial slug="recovery-detox" />
 
   <Pricing />
 

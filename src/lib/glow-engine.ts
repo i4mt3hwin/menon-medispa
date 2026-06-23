@@ -203,7 +203,7 @@ function cautionLine(flag: string): string {
   switch (flag) {
     case 'pregnancy': return 'Often adjusted or deferred during pregnancy, your provider will confirm.';
     case 'isotretinoin': return 'Usually spaced from recent isotretinoin, your provider will confirm timing.';
-    case 'activeInfection': return 'Best once any active breakout or irritation has settled.';
+    case 'activeInfection': return 'Best once any cold sore, rash, open skin or active irritation has settled.';
     case 'keloid': return 'Your provider will tailor this if you scar easily.';
     default: return 'Your provider will confirm this is right for you.';
   }

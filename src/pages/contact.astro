@@ -82,11 +82,8 @@ const mapsUrl = 'https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+N
             fields={['name', 'email', 'phone', 'service', 'message']}
             submit_label="Send My Message"
             success_url="/thank-you"
+            sms_consent={true}
           />
-          <label class="contact-form-sec__sms-consent">
-            <input type="checkbox" name="sms_consent" />
-            <span>By checking this box, I agree to receive SMS messages from Menon Medi-Spa through an automatic telephone dialing system</span>
-          </label>
         </div>
 
         <aside class="contact-form-sec__aside">

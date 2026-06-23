@@ -5,7 +5,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -13,6 +13,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/laser-facials__section_1.astro';
 import Gallery from '@/pages/_sections/laser-facials__section_3.astro';
 import WhyChoose from '@/pages/_sections/laser-facials__section_4.astro';
@@ -24,9 +25,35 @@ import heroImg from '@/assets/images/3be5824bfbc0.jpg';
 const slug = 'laser-facials';
 const posts = getRelatedPosts(slug);
 
-// No FAQ content found in the original page; arrays left empty.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What do laser facials treat?',
+    answer:
+      'Laser facials can help improve a range of concerns, including fine lines and wrinkles, uneven skin tone, sun damage, age spots, enlarged pores, and overall skin texture. They are gentle enough for delicate areas such as the face, neck, and décolleté.',
+  },
+  {
+    question: 'Is there any downtime after a laser facial?',
+    answer:
+      'Our laser facials are designed to be non-invasive with little to no downtime. Most clients return to their normal routine right after their appointment. You may notice mild redness or warmth that typically settles within a short time.',
+  },
+  {
+    question: 'How many sessions will I need?',
+    answer:
+      'The number of sessions depends on your skin and your goals. Many clients see improvement after a single treatment, while a series of sessions is often recommended for more noticeable, longer-lasting results. We will outline a realistic plan during your consultation.',
+  },
+  {
+    question: 'Is a laser facial safe for all skin types?',
+    answer:
+      'Our laser treatments are suitable for all skin types and tones. During your consultation we assess your skin and tailor the treatment settings to your needs, so the procedure is both comfortable and appropriate for you.',
+  },
+  {
+    question: 'Does a laser facial hurt?',
+    answer:
+      'Most clients find laser facials comfortable and describe the sensation as a mild warmth or light snapping feeling. Because the treatment is gentle and non-surgical, discomfort is typically minimal, and we take steps to keep you at ease throughout.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Laser Facials in Millburn, NJ',
@@ -98,7 +125,11 @@ const jsonld = buildServiceSchema({
 
   <WhyChoose />
 
+  <ServiceTestimonial slug="laser-facials" />
+
   <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

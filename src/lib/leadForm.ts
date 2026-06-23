@@ -39,12 +39,53 @@ const ERROR_COPY: Record<string, string> = {
   db_unbound: `We could not save that. Please call us at ${PHONE_DISPLAY}.`,
 };
 
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
+
+/** First-touch UTMs stashed on landing (see BaseLayout) so a booking made on a
+ *  later, UTM-less page still carries the original campaign. */
+function firstTouchUtms(): Record<string, string> {
+  try {
+    return JSON.parse(localStorage.getItem('menonUtm') || '{}') || {};
+  } catch {
+    return {};
+  }
+}
+
 function readForm(form: HTMLFormElement): Record<string, string> {
   const data: Record<string, string> = {};
   new FormData(form).forEach((value, key) => {
     data[key] = typeof value === 'string' ? value : '';
   });
-  if (!data.source_page) data.source_page = location.pathname;
+
+  // Attribution: prefer UTMs on the current URL, else fall back to the first-touch
+  // values captured when the visitor first landed. The /api/lead INSERT already has
+  // columns for all five; without this they were always NULL.
+  const params = new URLSearchParams(location.search);
+  const stored = firstTouchUtms();
+  for (const k of UTM_KEYS) {
+    const v = params.get(k) || stored[k];
+    if (v && !data[k]) data[k] = v;
+  }
+
+  if (!data.source_page) data.source_page = location.pathname + location.search;
+
+  // Find Your Glow: if the visitor completed the quiz earlier in this browser, attach the saved
+  // profile so the STAFF notification can show what was recommended and why. lead.js renders it for
+  // staff only — it is never stored in our DB or forwarded. Fresh for 30 days. (The quiz's own
+  // email-capture posts via a separate fetch and never carries this, so the profile rides along
+  // ONLY when the visitor makes a real booking/inquiry afterward.)
+  try {
+    const rawGlow = localStorage.getItem('menonGlow');
+    if (rawGlow && !data.glow_summary) {
+      const g = JSON.parse(rawGlow);
+      if (g && typeof g.savedAt === 'number' && Date.now() - g.savedAt < 30 * 24 * 60 * 60 * 1000) {
+        data.glow_summary = rawGlow;
+      }
+    }
+  } catch {
+    /* localStorage unavailable or bad JSON; skip the attachment */
+  }
+
   return data;
 }
 

@@ -1,4 +1,26 @@
 ---
+const faqs = [
+  {
+    question: 'How painful are Juvéderm injections?',
+    answer_html: "<p>Most clients find Juvéderm injections very tolerable. Juvéderm formulas contain lidocaine to numb the area as the filler is placed, and we apply a topical numbing cream beforehand for added comfort. Most people describe only a brief pinch or mild pressure during treatment.</p>",
+  },
+  {
+    question: 'How long do Juvéderm results last and when will I see them?',
+    answer_html: "<p>You will notice added volume and smoother lines right after your appointment, with final results settling over about two weeks as the filler integrates. Depending on the formula and the area treated, results typically last between 12 and 24 months.</p>",
+  },
+  {
+    question: "What's the downtime and what side effects should I expect?",
+    answer_html: "<p>Most clients return to normal activities right away. Mild swelling, redness, tenderness, or small bruises at the injection sites are common and usually fade within a few days. We provide aftercare guidance to help you heal comfortably and protect your results.</p>",
+  },
+  {
+    question: "Who shouldn't get Juvéderm injections?",
+    answer_html: "<p>Juvéderm is not recommended if you are pregnant or breastfeeding, have an active skin infection in the treatment area, or have a known allergy to its ingredients. During your consultation, we review your health history to confirm that treatment is appropriate and safe for you.</p>",
+  },
+  {
+    question: 'How much does Juvéderm cost and how many syringes will I need?',
+    answer_html: "<p>Juvéderm at Menon Medispa starts at $750, and the number of syringes depends on the areas you want to treat and your goals. Some concerns can be addressed with a single syringe, while fuller or multiple-area enhancements may call for more. We will give you a clear estimate during your consultation.</p>",
+  },
+];
 ---
 
 <section class="section section--tint s6-faq">
@@ -8,30 +30,12 @@
 
     <div class="s6-faq__list">
 
-      <details class="s6-faq__item">
-        <summary class="s6-faq__question">How painful are Juvéderm injections?</summary>
-        <div class="s6-faq__answer"></div>
-      </details>
-
-      <details class="s6-faq__item">
-        <summary class="s6-faq__question">How long do Juvéderm results last and when will I see them?</summary>
-        <div class="s6-faq__answer"></div>
-      </details>
-
-      <details class="s6-faq__item">
-        <summary class="s6-faq__question">What's the downtime and what side effects should I expect?</summary>
-        <div class="s6-faq__answer"></div>
-      </details>
-
-      <details class="s6-faq__item">
-        <summary class="s6-faq__question">Who shouldn't get Juvéderm injections?</summary>
-        <div class="s6-faq__answer"></div>
-      </details>
-
-      <details class="s6-faq__item">
-        <summary class="s6-faq__question">How much does Juvéderm cost and how many syringes will I need?</summary>
-        <div class="s6-faq__answer"></div>
-      </details>
+      {faqs.map((faq) => (
+        <details class="s6-faq__item">
+          <summary class="s6-faq__question">{faq.question}</summary>
+          <div class="s6-faq__answer" set:html={faq.answer_html} />
+        </details>
+      ))}
 
     </div>
 

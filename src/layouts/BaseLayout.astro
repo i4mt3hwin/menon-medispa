@@ -42,16 +42,22 @@ export interface Props {
    * node(s) built per page (03-build). If omitted, nothing is emitted here.
    */
   jsonld?: Record<string, unknown> | Record<string, unknown>[];
+  /** Render only the page content and required scripts, without global site chrome. */
+  minimalShell?: boolean;
 }
 
 const {
   title,
   description = site.description,
   canonical,
-  ogImage,
+  // Default social-share image so every page gets an og:image / twitter:image.
+  // Pages may override with a treatment-specific image. TODO(operator): swap for a
+  // purpose-built 1200x630 brand card; the horizontal logo is a safe interim default.
+  ogImage = '/images/medispa-logo-horizontal.png',
   ogType = 'website',
   noindex = false,
   jsonld,
+  minimalShell = false,
 } = Astro.props;
 
 const pageTitle = title ?? `${site.legalName} | Millburn, NJ`;
@@ -79,13 +85,34 @@ const book = resolveBooking(Astro.url.pathname);
     <!-- Enable scroll-reveal hidden states only when JS runs (graceful + SEO-safe) -->
     <script is:inline>document.documentElement.classList.add('reveal-ready');</script>
 
+    <!-- First-touch attribution: stash any utm_* on the landing URL so a lead booked
+         later on a UTM-less page (e.g. /request-appointment) still carries the campaign.
+         Read back in lib/leadForm.ts. First touch wins (never overwritten). -->
+    <script is:inline>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+          var has = keys.some(function (k) { return p.get(k); });
+          if (has && !localStorage.getItem('menonUtm')) {
+            var o = {};
+            keys.forEach(function (k) { var v = p.get(k); if (v) o[k] = v; });
+            localStorage.setItem('menonUtm', JSON.stringify(o));
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Icons, TODO(03-build): replace with the captured Menon favicon set. -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Brand favicon set (generated from the Menon logo). -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Fonts: self-hosted via tokens.css → fonts.css @font-face.
          Preload LCP-critical faces:
@@ -118,14 +145,14 @@ const book = resolveBooking(Astro.url.pathname);
     <slot name="head" />
   </head>
   <body data-book-mode={book.mode} data-book-service={book.service} data-book-anchor={book.anchor}>
-    <SiteHeader />
+    {!minimalShell && <SiteHeader />}
     <slot />
-    <SiteFooter />
+    {!minimalShell && <SiteFooter />}
 
     <slot name="end-of-body" />
 
-    <ChatAssistant />
-    <SocialProofToast />
+    {!minimalShell && <ChatAssistant />}
+    {!minimalShell && <SocialProofToast />}
     <ThirdPartyScripts />
 
     <!-- Scroll reveal: fade + rise top-level sections (and [data-reveal] elements) as they enter view -->

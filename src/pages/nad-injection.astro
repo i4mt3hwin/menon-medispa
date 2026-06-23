@@ -5,7 +5,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -13,19 +13,40 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/nad-injection__section_2.astro';
 import Pricing from '@/pages/_sections/nad-injection__section_5.astro';
 import FinalCta from '@/pages/_sections/nad-injection__section_7.astro';
 
-import heroImg from '@/assets/images/651c7c197b52.png';
+import heroImg from '@/assets/images/f5915ad94d9a.png';
 
 const slug = 'nad-injection';
 const posts = getRelatedPosts(slug);
 
-// FAQ answers were blank/placeholder in the original section_6 — skipping FaqColumn.
-// Flag: FAQ questions present but no authored answers; do not fabricate.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What is a NAD+ injection and what does it do?',
+    answer:
+      'A NAD+ injection delivers Nicotinamide Adenine Dinucleotide, a coenzyme your cells use for energy production and repair, directly into the body. Many clients use it to support steady energy, mental clarity, and overall cellular wellness, and NAD+ levels naturally decline as we age.',
+  },
+  {
+    question: 'How is a NAD+ injection different from a NAD+ IV drip?',
+    answer:
+      'A NAD+ injection takes just a few minutes and is ideal for busy schedules, while a NAD+ IV drip delivers a larger dose over a longer session. The injection is a convenient way to support your NAD+ levels between drips or when you are short on time.',
+  },
+  {
+    question: 'How quickly will I feel the effects, and is there any downtime?',
+    answer:
+      'There is no downtime, so you can return to your day right away. Many clients begin to notice more energy and sharper focus within hours of their injection, though individual responses vary.',
+  },
+  {
+    question: 'How often should I get a NAD+ injection?',
+    answer:
+      'Frequency depends on your goals. Many clients come in weekly or every couple of weeks for ongoing support, while others use injections as needed for an energy and focus boost. During your visit we can help you build a schedule that fits your lifestyle.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'NAD+ Injection in Millburn, NJ',
@@ -126,7 +147,11 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
+  <ServiceTestimonial slug="nad-injection" />
+
   <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

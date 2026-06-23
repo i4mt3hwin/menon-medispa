@@ -13,7 +13,22 @@ export default defineConfig({
   // Canonical/sitemap base. Update to the production custom domain at P06 cutover.
   site: 'https://www.menonmedispa.com',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Keep noindex / redirect-stub routes out of the sitemap so we never submit
+      // URLs we tell Google not to index. Mirrors the noindex={true} pages in src/pages.
+      filter: (page) => {
+        const NOINDEX = [
+          '/book-online',
+          '/coming-soon',
+          '/thank-you',
+          '/hydrafacial-appointment-request-thanks',
+          '/keravive-hydrafacial-appointment-request-thanks',
+        ];
+        return !NOINDEX.some((p) => page.replace(/\/$/, '').endsWith(p));
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

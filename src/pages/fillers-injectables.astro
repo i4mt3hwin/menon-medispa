@@ -4,6 +4,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -11,6 +12,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/fillers-injectables__section_2.astro';
 import JuvedermBand from '@/pages/_sections/fillers-injectables__section_4.astro';
 import Pricing from '@/pages/_sections/fillers-injectables__section_5.astro';
@@ -21,9 +23,35 @@ import heroImg from '@/assets/images/db8d4e94db1e.jpg';
 const slug = 'fillers-injectables';
 const posts = getRelatedPosts(slug);
 
-// No FAQ section existed in the original page; arrays kept empty.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: 'What is the difference between Botox and dermal fillers?',
+    answer:
+      'Botox is a neuromodulator that relaxes the muscles responsible for expression lines, such as crow\'s feet and forehead creases. Dermal fillers like Juvéderm add volume beneath the skin to smooth folds, restore lost fullness, and enhance features such as the lips and cheeks. Many clients combine both for a balanced, refreshed result.',
+  },
+  {
+    question: 'How long do filler and injectable results last?',
+    answer:
+      'It depends on the treatment. Botox results typically last about 3 to 4 months, while Juvéderm dermal fillers can last between 12 and 24 months depending on the formula and area treated. We will review what to expect for your specific plan during your consultation.',
+  },
+  {
+    question: 'Is there any downtime after treatment?',
+    answer:
+      'Most clients return to their normal activities right away. You may notice mild redness, swelling, tenderness, or small bruises at the injection sites, which usually fade within a few days. We provide aftercare guidance to support comfortable healing.',
+  },
+  {
+    question: 'Does getting fillers or injectables hurt?',
+    answer:
+      'Most clients find these treatments very tolerable. Juvéderm fillers contain lidocaine to numb the area, and we can apply a topical numbing cream for added comfort. Botox injections involve only a quick pinch and are generally well tolerated.',
+  },
+  {
+    question: 'Who performs the injectable treatments at Menon Medispa?',
+    answer:
+      'Our injectable treatments are physician-led by Dr. Aditi Menon, MD, who brings medical training and an aesthetic eye to every plan. Treatments are administered by qualified medical professionals so your care is precise, safe, and tailored to your goals.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Fillers & Injectables in Millburn, NJ',
@@ -115,7 +143,11 @@ const jsonld = buildServiceSchema({
 
   <JuvedermBand />
 
+  <ServiceTestimonial slug="fillers-injectables" />
+
   <Pricing />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <FinalCta />
 

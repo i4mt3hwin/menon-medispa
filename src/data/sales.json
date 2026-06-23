@@ -1,0 +1,53 @@
+{
+  "window": {
+    "eyebrow": "DO NOT MISS THIS!",
+    "heading": "June Summer Specials",
+    "subtitle": "Valid from June 1 - June 30 2026"
+  },
+  "gridHeading": "Explore Our Current Specials",
+  "popupHeading": "This Month's Specials",
+  "offers": [
+    {
+      "name": "Summer Glow HydraFacial",
+      "price": "$225",
+      "image": "86072f9cbd9c.jpg",
+      "imageAlt": "Summer Glow HydraFacial special at Menon Medispa",
+      "description": "Glow now, thank yourself later.",
+      "popupOffer": "$285 value for $225",
+      "bookingLabel": "Summer Glow HydraFacial - $225 June Special",
+      "includes": [
+        "Vitamin C Booster +",
+        "Discount Dermaplaning $25",
+        "($285 Value for $225)"
+      ]
+    },
+    {
+      "name": "Custom Hydrating IV",
+      "price": "$99",
+      "image": "dd355e57f3dd.jpg",
+      "imageAlt": "Custom hydrating IV drip special at Menon Medispa",
+      "description": "Rehydrate, recharge, and build your own blend. Pick any 2 vitamins and make it yours.",
+      "popupOffer": "$99, any two vitamins",
+      "bookingLabel": "Custom Hydrating IV - $99 (any 2 vitamins)",
+      "includes": [
+        "$99 Special Price",
+        "Includes any two vitamins",
+        "Hydrate, recharge, glow"
+      ]
+    },
+    {
+      "name": "BRO-Tox Father's Day Special",
+      "price": "$12 Per Unit",
+      "image": "56a3e3ac1335.jpg",
+      "imageAlt": "BRO-Tox Father's Day Botox special at Menon Medispa",
+      "description": "This Father's Day, give Dad something better than another tie he'll never wear.",
+      "popupOffer": "Botox $12 / unit",
+      "bookingLabel": "BRO-Tox Father's Day Special - $12/unit",
+      "includes": [
+        "Botox $12 Per Unit",
+        "Smooths forehead, frown lines & crow's feet",
+        "Personalized Treatment Plan with Dr. Menon"
+      ]
+    }
+  ]
+}

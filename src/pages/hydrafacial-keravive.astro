@@ -14,6 +14,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/hydrafacial-keravive__section_2.astro';
 import Process from '@/pages/_sections/hydrafacial-keravive__section_3.astro';
 import Results from '@/pages/_sections/hydrafacial-keravive__section_4.astro';
@@ -164,6 +165,8 @@ const jsonld = buildServiceSchema({
   <Process />
 
   <Results />
+
+  <ServiceTestimonial slug="hydrafacial-keravive" />
 
   <Pricing />
 

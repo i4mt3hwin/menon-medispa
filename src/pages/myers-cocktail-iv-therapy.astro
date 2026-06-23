@@ -5,7 +5,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 import LeadForm from '@/components/LeadForm.astro';
@@ -14,6 +14,7 @@ import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import TrustBar from '@/pages/_sections/myers-cocktail-iv-therapy__section_2.astro';
 import Gallery from '@/pages/_sections/myers-cocktail-iv-therapy__section_4.astro';
 import Pricing from '@/pages/_sections/myers-cocktail-iv-therapy__section_6.astro';
@@ -25,9 +26,35 @@ import heroImg from '@/assets/images/76295e9a95ba.avif';
 const slug = 'myers-cocktail-iv-therapy';
 const posts = getRelatedPosts(slug);
 
-// FAQ answers are blank/placeholder in the source sections -- skipping FAQ to avoid fabrication.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+const faqs = [
+  {
+    question: "Why is it called the \"Myers' Cocktail\"?",
+    answer:
+      "The treatment is named after Dr. John Myers, the physician who developed this original IV vitamin formula in the 1960s. It has since become one of the most widely used and time-tested IV drips, which is why it is often called the gold standard of IV therapy.",
+  },
+  {
+    question: "Who can benefit most from a Myers' Cocktail?",
+    answer:
+      "The Myers' Cocktail is a versatile, foundational blend that can support most healthy adults looking to boost energy, support immunity, ease fatigue, or simply maintain overall wellness. Our registered nurses review your health during a brief consultation to confirm the drip is appropriate for you.",
+  },
+  {
+    question: "How often should I get a Myers' Cocktail?",
+    answer:
+      "Many clients enjoy a session every two to four weeks for ongoing wellness support, while others come in as needed when they are feeling run-down or before a busy stretch. Our team can help you build a cadence that fits your goals and lifestyle.",
+  },
+  {
+    question: 'What should I expect to feel after the treatment?',
+    answer:
+      "Many clients report a refreshed, revitalized feeling and improved mental clarity after their session. Because the nutrients are delivered directly into your bloodstream, effects can be felt during or shortly after the drip and may continue to build over the following day or two.",
+  },
+  {
+    question: 'How is this different from a specific "Immunity" or "Energy" drip?',
+    answer:
+      "The Myers' Cocktail is a balanced, all-purpose foundation that supports several systems at once, while our targeted Immunity and Energy drips are formulated to emphasize one specific goal. If you are unsure which is right for you, our nurses can recommend the best option during your consultation.",
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: "Myers' Cocktail IV Therapy in Millburn, NJ",
@@ -133,9 +160,13 @@ const jsonld = buildServiceSchema({
 
   <Gallery />
 
+  <ServiceTestimonial slug="myers-cocktail-iv-therapy" />
+
   <Pricing />
 
   <UpgradeNotice />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
   <LeadForm />
 

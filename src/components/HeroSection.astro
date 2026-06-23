@@ -184,7 +184,8 @@ const hasDefaultSlot = Astro.slots.has('default');
     padding-block: var(--space-xl);
   }
 
-  /* Background media, fills section; subtle blur so foreground text pops */
+  /* Background media, fills section. A light blur + the dark scrim below keep the
+     foreground text readable while staying much sharper than the old 3px blur. */
   .hero__bg-video, .hero__bg-image {
     position: absolute;
     inset: 0;
@@ -193,8 +194,8 @@ const hasDefaultSlot = Astro.slots.has('default');
     object-fit: cover;
     object-position: 50% 50%;
     z-index: 0;
-    filter: blur(var(--media-blur));
-    transform: scale(1.06);   /* hides blurred edges */
+    filter: blur(2px);
+    transform: scale(1.04);   /* slight overscan hides the blurred edges + Ken Burns start */
   }
 
   /* Scrim for contrast, left-weighted (text sits left); centered layout uses an even scrim */
@@ -206,15 +207,15 @@ const hasDefaultSlot = Astro.slots.has('default');
     pointer-events: none;
     background: linear-gradient(
       to right,
-      rgb(var(--scrim-rgb) / 0.74) 0%,
-      rgb(var(--scrim-rgb) / 0.46) 50%,
-      rgb(var(--scrim-rgb) / 0.16) 100%
+      rgb(var(--scrim-rgb) / 0.84) 0%,
+      rgb(var(--scrim-rgb) / 0.58) 50%,
+      rgb(var(--scrim-rgb) / 0.30) 100%
     );
   }
   .hero--centered::after {
     background:
-      radial-gradient(135% 110% at 50% 38%, transparent 0%, rgb(var(--scrim-rgb) / 0.62) 100%),
-      linear-gradient(to top, rgb(var(--scrim-rgb) / 0.55) 0%, rgb(var(--scrim-rgb) / 0.16) 45%, rgb(var(--scrim-rgb) / 0.30) 100%);
+      radial-gradient(135% 110% at 50% 38%, rgb(var(--scrim-rgb) / 0.12) 0%, rgb(var(--scrim-rgb) / 0.70) 100%),
+      linear-gradient(to top, rgb(var(--scrim-rgb) / 0.62) 0%, rgb(var(--scrim-rgb) / 0.26) 45%, rgb(var(--scrim-rgb) / 0.42) 100%);
   }
 
   /* Content = page container; text aligned to the left gutter → no empty middle */
@@ -236,8 +237,8 @@ const hasDefaultSlot = Astro.slots.has('default');
   }
 
   .hero--centered {
-    min-height: 68vh;
-    padding-block: var(--space-lg);
+    min-height: 60vh;
+    padding-block: var(--space-md);
   }
   .hero--centered .hero__content {
     align-items: center;

@@ -1,20 +1,21 @@
 ---
 import SectionHeading from '@/components/SectionHeading.astro';
+import { saleWindow } from '@/lib/sales';
 ---
 
 <section class="section section--tint s-sale-intro">
   <div class="container--narrow s-sale-intro__inner">
-    <p class="eyebrow s-sale-intro__eyebrow">DO NOT MISS THIS!</p>
+    <p class="eyebrow s-sale-intro__eyebrow">{saleWindow.eyebrow}</p>
 
     <SectionHeading
-      text="June Summer Specials"
+      text={saleWindow.heading}
       tag="h1"
       align="center"
       font="display"
       size="xl"
     />
 
-    <h5 class="s-sale-intro__subtitle">Valid from June 1 - June 30 2026</h5>
+    <p class="s-sale-intro__subtitle">{saleWindow.subtitle}</p>
   </div>
 </section>
 

@@ -1,5 +1,6 @@
 ---
 import ContactBlock from '@/components/ContactBlock.astro';
+import site from '@/lib/site';
 ---
 
 <section class="section section--tint sh5-directions">
@@ -31,8 +32,8 @@ import ContactBlock from '@/components/ContactBlock.astro';
 
     <!-- Google Map embed replaced with ContactBlock per project rules -->
     <ContactBlock
-      address="19 Main Street, Millburn, NJ 07041"
-      phone="(973) 494-8431"
+      address={site.address.formatted}
+      phone={site.phone.display}
     />
 
   </div>

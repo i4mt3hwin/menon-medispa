@@ -11,12 +11,10 @@
  * Site-wide promo content (the current "specials"); update here when promos change.
  */
 import type { ImageMetadata } from 'astro';
+import { getSaleOffers, popupHeading } from '@/lib/sales';
 
-// Sale creatives, reused from the /sale page so the popup matches the specials page.
-import imgBrotox from '@/assets/images/56a3e3ac1335.jpg';
-import imgHydrafacial from '@/assets/images/86072f9cbd9c.jpg';
-import imgCustomIv from '@/assets/images/dd355e57f3dd.jpg';
-
+// Content comes from data/sales.json (same source as the /sale page) so the popup
+// and the specials page can never drift. Update sales.json to change promos.
 interface SaleItem { name: string; offer: string; image?: ImageMetadata; imageAlt?: string; }
 interface Props {
   heading?: string;
@@ -25,12 +23,13 @@ interface Props {
   delayMs?: number;
 }
 const {
-  heading = "This Month's Specials",
-  items = [
-    { name: 'BRO-tox Father’s Day Special', offer: 'Botox $12 / unit', image: imgBrotox, imageAlt: 'BRO-tox Father’s Day Botox special at Menon Medispa' },
-    { name: 'Summer Glow HydraFacial', offer: '$285 value for $225', image: imgHydrafacial, imageAlt: 'Summer Glow HydraFacial special at Menon Medispa' },
-    { name: 'Custom Hydrating IV', offer: '$99, any two vitamins', image: imgCustomIv, imageAlt: 'Custom hydrating IV drip special at Menon Medispa' },
-  ],
+  heading = popupHeading,
+  items = getSaleOffers().map((o) => ({
+    name: o.name,
+    offer: o.popupOffer,
+    image: o.image,
+    imageAlt: o.imageAlt,
+  })),
   ctaHref = '/sale',
   delayMs = 15000,
 } = Astro.props;

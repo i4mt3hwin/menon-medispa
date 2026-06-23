@@ -79,16 +79,10 @@ const feed = socialProof.map((e) => ({
     <button class="proof-toast__close" data-proof-close type="button" aria-label="Dismiss">&times;</button>
     <span class="proof-toast__media" aria-hidden="true">
       <img class="proof-toast__thumb" data-proof-img alt="" width="48" height="48" loading="lazy" decoding="async" />
-      <span class="proof-toast__badge">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
-          <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
     </span>
     <div class="proof-toast__body">
       <span class="proof-toast__line" data-proof-line></span>
       <span class="proof-toast__meta" data-proof-meta></span>
-      <span class="proof-toast__verified">Verified by Menon Medispa</span>
     </div>
   </div>
 
@@ -147,21 +141,6 @@ const feed = socialProof.map((e) => ({
     border-radius: var(--radius-sm);
     display: block;
   }
-  .proof-toast__badge {
-    position: absolute;
-    right: -4px;
-    bottom: -4px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    border-radius: 999px;
-    background: var(--color-cta);
-    color: #fff;
-    border: 2px solid var(--color-surface);
-  }
-
   .proof-toast__body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
   .proof-toast__line {
     font-family: var(--font-body);
@@ -176,18 +155,6 @@ const feed = socialProof.map((e) => ({
     color: color-mix(in srgb, var(--color-text) 85%, transparent);
     line-height: 1.35;
   }
-  .proof-toast__verified {
-    margin-top: 5px;
-    font-family: var(--font-body); /* raleway renders solid; --font-ui (lato-light) looks thin */
-    font-weight: var(--weight-bold);
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--color-text) 80%, transparent);
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
-  }
-
   /* Hidden on phones so it never collides with the MobileCtaBar pill. */
   @media (max-width: 900px) { .proof-toast { display: none; } }
 

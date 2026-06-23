@@ -7,14 +7,20 @@ interface Props {
   submit_label?: string;
   success_url?: string;
   background?: string;
+  /** Render an SMS opt-in checkbox inside the form (captured + consent-logged). */
+  sms_consent?: boolean;
 }
 const {
   heading = 'Request a Consultation',
   fields = ['name', 'email', 'phone', 'message'],
   submit_label = 'Send Message',
   success_url = '/thank-you',
-  background
+  background,
+  sms_consent = false,
 } = Astro.props;
+
+const SMS_CONSENT_TEXT =
+  'I agree to receive SMS messages from Menon Medispa through an automatic telephone dialing system. Message and data rates may apply. Reply STOP to opt out.';
 ---
 <section class="lead-form" style={background ? `background-color: ${background};` : ''}>
   {heading && <h2 style="font-family: var(--font-display); font-size: var(--text-h2);">{heading}</h2>}
@@ -41,7 +47,7 @@ const {
     {fields.includes('service') && (
       <div class="lead-form__field">
         <label for="lf-service" style="font-family: var(--font-body); font-size: var(--text-sm);">Service of Interest</label>
-        <input id="lf-service" name="service" type="text" />
+        <input id="lf-service" name="service_interest" type="text" />
       </div>
     )}
     {fields.includes('message') && (
@@ -50,9 +56,35 @@ const {
         <textarea id="lf-message" name="message" rows="4"></textarea>
       </div>
     )}
+    {sms_consent && (
+      <label class="lead-form__consent" style="display:flex;gap:8px;align-items:flex-start;font-family:var(--font-body);font-size:var(--text-xs);line-height:1.4;opacity:0.85;">
+        <input type="checkbox" name="consent_sms" value="on" style="margin-top:3px;flex:none;" />
+        <span>{SMS_CONSENT_TEXT}</span>
+      </label>
+      <input type="hidden" name="consent_sms_text" value={SMS_CONSENT_TEXT} />
+      <input type="hidden" name="consent_version" value="1" />
+    )}
+    <input type="hidden" name="type" value="contact" />
+    <input type="hidden" name="send_confirmation" value="on" />
+    <!-- Honeypot: real people leave this empty. -->
+    <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+    <p class="lead-form__error" data-form-error hidden style="color:#b00020;font-family:var(--font-body);font-size:var(--text-sm);margin:0;"></p>
     <button type="submit" style="background-color: var(--color-cta); color: var(--color-text); border: none; border-radius: var(--radius-sm); box-shadow: var(--shadow-btn); padding: 10px 24px; font-family: var(--font-cta); font-size: var(--text-base); cursor: pointer;">{submit_label}</button>
   </form>
 </section>
+
+<script>
+  // Progressive enhancement: without this, the native POST navigates to the raw
+  // JSON returned by /api/lead. Wire every LeadForm to the shared submit helper,
+  // redirecting to its success_url on success. (BookingRequest + the consultation
+  // request form enhance their own forms separately.)
+  import { enhanceLeadForm } from '@/lib/leadForm';
+  document.querySelectorAll('form.lead-form__form').forEach((form) => {
+    enhanceLeadForm(form as HTMLFormElement, {
+      successUrl: form.getAttribute('data-success-url') || '/thank-you',
+    });
+  });
+</script>
 <style>
   .lead-form { padding: var(--space-xl) var(--space-md); }
   /* center the form column instead of pinning it to the far left of the full-width band */

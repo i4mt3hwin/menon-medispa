@@ -7,10 +7,12 @@ import Button from '@/components/Button.astro';
 import ServicesGrid from '@/components/ServicesGrid.astro';
 import BlogList from '@/components/BlogList.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
+import FeatureList from '@/components/FeatureList.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import site from '@/lib/site';
 import { getReview } from '@/lib/reviews';
 import { getAllPosts, formatDate } from '@/lib/blog';
+import { getSaleOffers } from '@/lib/sales';
 
 // Homepage testimonial, pulled from the curated provider-safe reviews pool.
 const homeReview = getReview('general');
@@ -27,9 +29,6 @@ const recentPosts = getAllPosts().slice(0, 3).map((p) => ({
 }));
 
 import posterImg from '@/assets/images/f2a8f8988125.jpg';
-import hydrafacialImg from '@/assets/images/86072f9cbd9c.jpg';
-import ivImg from '@/assets/images/dd355e57f3dd.jpg';
-import brotoxImg from '@/assets/images/56a3e3ac1335.jpg';
 import botoxImg from '@/assets/services/botox-injectables-card.webp';
 import juvedermImg from '@/assets/services/juvederm-fillers-card.webp';
 import keraviveImg from '@/assets/services/hydrafacial-keravive-card.webp';
@@ -44,33 +43,26 @@ import skinFirstBg from '@/assets/home/your-skin-comes-first-bg.webp';
 import videoPosterImg from '@/assets/home/exceptional-experience-video-poster.webp';
 import staffImg from '@/assets/images/b1a819f35921.webp';
 
-// Monthly specials, content carried over verbatim from the former static section.
-const specials = [
-  {
-    title: 'Summer Glow Hydrafacial',
-    price: '$225',
-    img: hydrafacialImg.src,
-    alt: 'Hydrafacial.jpg',
-    book: '/request-appointment?service=Summer%20Glow%20Hydrafacial',
-    more: '/request-appointment?service=Summer%20Glow%20Hydrafacial',
-  },
-  {
-    title: 'Custom Hydrating IV',
-    price: '$99',
-    img: ivImg.src,
-    alt: 'shutterstock_2578361641.jpg',
-    book: '/request-appointment?service=Custom%20Hydrating%20IV',
-    more: '/request-appointment?service=Custom%20Hydrating%20IV',
-  },
-  {
-    title: "BRO-Tox Father's Day Special",
-    price: '$12 Per Unit',
-    img: brotoxImg.src,
-    alt: 'shutterstock_2193199469.jpg',
-    book: '/request-appointment?service=BRO-Tox%20Father%27s%20Day%20Special',
-    more: '/request-appointment?service=BRO-Tox%20Father%27s%20Day%20Special',
-  },
+// Service columns (FACE / BODY / HAIR). Each tile is a simple image + category
+// label that links to the pillar page.
+const serviceColumns = [
+  { label: 'FACE', href: '/face', img: faceTreatmentsImg, alt: 'Face treatments at Menon Medispa' },
+  { label: 'BODY', href: '/body', img: naturalBeautyImg, alt: 'Body treatments at Menon Medispa' },
+  { label: 'HAIR', href: '/hair', img: modelCurlyHairImg, alt: 'Hair restoration at Menon Medispa' },
 ];
+
+// Monthly specials + the June SALES dialog both read from data/sales.json (ONE
+// source of truth — edit that file to change every sale surface on the site).
+const saleOffers = getSaleOffers();
+const specials = saleOffers.map((o) => ({
+  title: o.name,
+  price: o.price,
+  img: o.image?.src,
+  alt: o.imageAlt,
+  book: o.href,
+  more: o.href,
+  includes: o.includes,
+}));
 
 // FAQ, single source for both the on-page accordion and the FAQPage schema (verbatim copy).
 const faqs = [
@@ -135,7 +127,7 @@ const faqPage = {
     eyebrow="Millburn NJ's Premier Medispa & Wellness Center"
     heading="Give Yourself the Glow Up You Deserve"
     body="Advanced Botox, facials, and body treatments delivered by medical experts. Discover why Millburn residents choose us for their aesthetic goals."
-    bg_video_url="https://video.wixstatic.com/video/2baa5c_feca9a60fac643698798ede1260cd291/1080p/mp4/file.mp4"
+    bg_video_url="/videos/wix/2baa5c_feca9a60fac643698798ede1260cd291.mp4"
     bg_image_url={posterImg.src}
     bg_image_alt=""
     ctas={[
@@ -281,27 +273,15 @@ const faqPage = {
       <SectionHeading text="Our Services" tag="h2" align="center" font="display" size="lg" />
 
       <div class="service-tiles">
-        <a class="service-tile" href="/face" aria-label="Face treatments">
-          <div class="service-tile__media">
-            <img src={faceTreatmentsImg.src} alt="Face Treatments Menon Medispa" class="service-tile__img" width="385" height="675" loading="lazy" decoding="async" />
-            <span class="service-tile__overlay" aria-hidden="true"></span>
-          </div>
-          <span class="service-tile__label">FACE</span>
-        </a>
-        <a class="service-tile" href="/body" aria-label="Body treatments">
-          <div class="service-tile__media">
-            <img src={naturalBeautyImg.src} alt="Natural Beauty" class="service-tile__img" width="402" height="675" loading="lazy" decoding="async" />
-            <span class="service-tile__overlay" aria-hidden="true"></span>
-          </div>
-          <span class="service-tile__label">BODY</span>
-        </a>
-        <a class="service-tile" href="/hair" aria-label="Hair treatments">
-          <div class="service-tile__media">
-            <img src={modelCurlyHairImg.src} alt="Model with Curly Hair" class="service-tile__img" width="402" height="675" loading="lazy" decoding="async" />
-            <span class="service-tile__overlay" aria-hidden="true"></span>
-          </div>
-          <span class="service-tile__label">HAIR</span>
-        </a>
+        {serviceColumns.map((col) => (
+          <a class="service-tile" href={col.href} aria-label={`${col.label} treatments`}>
+            <div class="service-tile__media">
+              <img src={col.img.src} alt={col.alt} class="service-tile__img" width="402" height="675" loading="lazy" decoding="async" />
+              <span class="service-tile__overlay" aria-hidden="true"></span>
+            </div>
+            <span class="service-tile__label">{col.label}</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -314,58 +294,40 @@ const faqPage = {
       display: block;
       border-radius: var(--radius-md);
       overflow: hidden;
-      text-decoration: none;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+      text-decoration: none;
     }
-    .service-tile__media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
+    .service-tile__media { position: relative; aspect-ratio: 2 / 3; overflow: hidden; }
     .service-tile__img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
     .service-tile__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(30, 24, 41, 0.55) 0%, rgba(30, 24, 41, 0.10) 45%, rgba(30, 24, 41, 0) 100%);
-      transition: background 0.4s ease;
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(30, 24, 41, 0.60) 0%, rgba(30, 24, 41, 0.22) 55%, rgba(30, 24, 41, 0.14) 100%);
+      transition: background 0.45s ease;
     }
     .service-tile__label {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      padding: var(--space-md) var(--space-sm) var(--space-md);
-      font-family: var(--font-display);
-      font-size: var(--text-display);
-      line-height: 1;
-      color: #fff;
-      text-align: center;
-      letter-spacing: 0.04em;
-      transition: transform 0.35s ease;
-      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: var(--text-display); line-height: 1;
+      color: #fff; letter-spacing: 0.04em; text-align: center;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
     }
-    .service-tile__label::after {
-      content: "";
-      display: block;
-      width: 0;
-      height: 2px;
-      margin: 10px auto 0;
-      background: var(--color-cta);
-      transition: width 0.35s ease;
+
+    /* Hover-capable devices: subtle image zoom + lighter scrim on hover/focus */
+    @media (hover: hover) {
+      .service-tile:hover .service-tile__img, .service-tile:focus-visible .service-tile__img { transform: scale(1.06); }
+      .service-tile:hover .service-tile__overlay, .service-tile:focus-visible .service-tile__overlay {
+        background: linear-gradient(to top, rgba(30, 24, 41, 0.50) 0%, rgba(30, 24, 41, 0.18) 60%, rgba(30, 24, 41, 0.10) 100%);
+      }
     }
-    .service-tile:hover .service-tile__img, .service-tile:focus-visible .service-tile__img { transform: scale(1.07); }
-    .service-tile:hover .service-tile__overlay, .service-tile:focus-visible .service-tile__overlay {
-      background: linear-gradient(to top, rgba(48, 36, 50, 0.78) 0%, rgba(48, 36, 50, 0.32) 60%, rgba(48, 36, 50, 0.05) 100%);
-    }
-    .service-tile:hover .service-tile__label, .service-tile:focus-visible .service-tile__label { transform: translateY(-6px); }
-    .service-tile:hover .service-tile__label::after, .service-tile:focus-visible .service-tile__label::after { width: 56px; }
     .service-tile:focus-visible { outline: 3px solid var(--color-cta); outline-offset: 2px; }
-    @media (prefers-reduced-motion: reduce) { .service-tile__img { transition: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .service-tile__img { transition: none; }
+    }
     @media (max-width: 768px) {
-      .service-tiles { grid-template-columns: 1fr; gap: var(--space-sm); max-width: 420px; margin-inline: auto; }
+      .service-tiles { grid-template-columns: 1fr; gap: var(--space-md); max-width: 460px; margin-inline: auto; }
       .service-tile__label { font-size: var(--text-h1); }
     }
   </style>
@@ -455,7 +417,10 @@ const faqPage = {
     }
     @media (max-width: 600px) {
       .glow-teaser__text .btn { align-self: stretch; text-align: center; }
-      .glow-teaser__badge { flex: 1; }
+      /* Let the pills size to their text and wrap as tidy tags, instead of being
+         crushed into equal-width columns (which broke the long "Personalized to you"). */
+      .glow-teaser__badges { gap: 8px; }
+      .glow-teaser__badge { flex: 0 0 auto; padding: 8px 16px; }
     }
   </style>
 
@@ -525,7 +490,7 @@ const faqPage = {
       </div>
       <div class="home-section-9__right">
         <RichText html="<p>Menon Medispa &amp; Wellness Brings Together Beauty &amp; Wellness.</p>" />
-        <RichText html="<p>Our physicians and staff specialize in a wide range of facial and body treatments using the latest technology in lasers, fillers, and top rated facials. Whatever your skin type or concern, Menon MediSpa will ensure you have the best experience possible.</p>" />
+        <RichText html="<p>Our physicians and staff specialize in a wide range of facial and body treatments using the latest technology in lasers, fillers, and top rated facials. Whatever your skin type or concern, Menon Medispa will ensure you have the best experience possible.</p>" />
         <RichText html="<p>The health, rejuvenation and body confidence that patients get from their treatments are at the heart of what we do. We want them to feel and look their best, inside and out.&#8203;</p>" />
       </div>
     </div>
@@ -579,7 +544,7 @@ const faqPage = {
       <div class="home-section-10__media">
         <video
           class="home-section-10__video"
-          src="https://video.wixstatic.com/video/f61cce_b930b3f48aa04baa8c7f669d63cdaebd/480p/mp4/file.mp4"
+          src="/videos/wix/f61cce_b930b3f48aa04baa8c7f669d63cdaebd.mp4"
           autoplay
           loop
           muted
@@ -644,9 +609,11 @@ const faqPage = {
                 <a href={s.more} class="special-card__title">{s.title}</a>
                 <p class="special-card__price">{s.price}</p>
               </div>
+              {s.includes.length > 0 && (
+                <FeatureList items={s.includes} icon="check" font_size="var(--text-sm)" />
+              )}
               <div class="special-card__links">
                 <a href={s.book} class="btn btn--primary btn--sm">Book Now</a>
-                <a href={s.more} class="special-card__more">Read More</a>
               </div>
             </div>
           </article>
@@ -735,19 +702,10 @@ const faqPage = {
     .special-card__links {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: var(--space-sm);
       margin-top: auto;
     }
-    .special-card__more {
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      color: var(--color-text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      white-space: nowrap;
-    }
-    .special-card__more:hover { color: var(--color-brand-plum); }
     @media (max-width: 1024px) {
       .specials-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -768,7 +726,6 @@ const faqPage = {
       .special-card__body { padding: var(--space-md); }
       .special-card__links { align-items: stretch; flex-direction: column; }
       .special-card__links .btn { width: 100%; }
-      .special-card__more { text-align: center; }
     }
     @media (prefers-reduced-motion: reduce) {
       .special-card__img { transition: none; }
@@ -979,155 +936,6 @@ const faqPage = {
     @media (max-width: 600px) {
       .contact-card { padding: var(--space-md); }
       .contact-card :global(.lead-form__form) { grid-template-columns: 1fr; }
-    }
-  </style>
-
-  {/* ════════ Flash-Sale dialog (hidden, no homepage trigger) ════════ */}
-  <dialog id="june-sales-dialog" class="june-sales-dialog" aria-label="June SALES">
-    <div class="june-sales-dialog__inner">
-
-      <button
-        class="june-sales-dialog__close"
-        aria-label="Close"
-        onclick="document.getElementById('june-sales-dialog').close()"
-      >
-        &#x2715;
-      </button>
-
-      <SectionHeading text="June SALES" tag="h2" align="center" font="display" />
-
-      <div class="june-sales-dialog__grid">
-
-        <div class="june-sales-card">
-          <div class="june-sales-card__img-wrap">
-            <img src={brotoxImg.src} alt="BRO-tox Fathers Day Special" class="june-sales-card__img" loading="lazy" decoding="async" width="300" />
-          </div>
-          <div class="june-sales-card__body">
-            <h3 class="june-sales-card__title">BRO-tox Fathers Day Special</h3>
-            <ul class="june-sales-card__features">
-              <li>Botox $12 Per Unit</li>
-              <li>Smooths forehead frown lines &amp; crow&#39;s feet</li>
-              <li>Personalized Treatment Plan with Dr. Menon</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="june-sales-card">
-          <div class="june-sales-card__img-wrap">
-            <img src={hydrafacialImg.src} alt="Summer Glow HydraFacial" class="june-sales-card__img" loading="lazy" decoding="async" width="300" />
-          </div>
-          <div class="june-sales-card__body">
-            <h3 class="june-sales-card__title">Summer Glow HydraFacial</h3>
-            <ul class="june-sales-card__features">
-              <li>Vitamin C Booster +</li>
-              <li>Discount Dermaplaning $25</li>
-              <li>($285 Value for $225)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="june-sales-card">
-          <div class="june-sales-card__img-wrap">
-            <img src={ivImg.src} alt="Custom Hydrating IV" class="june-sales-card__img" loading="lazy" decoding="async" width="300" />
-          </div>
-          <div class="june-sales-card__body">
-            <h3 class="june-sales-card__title">Custom Hydrating IV</h3>
-            <ul class="june-sales-card__features">
-              <li>$99 Special Price</li>
-              <li>Includes any two vitamins</li>
-              <li>Hydrate recharge glow</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="june-sales-dialog__cta">
-        <Button text="Explore all sales" href="/sale" variant="primary" />
-      </div>
-
-    </div>
-  </dialog>
-
-  <style>
-    .june-sales-dialog {
-      position: fixed;
-      inset: 0;
-      margin: auto;
-      width: min(92vw, 960px);
-      max-height: 90vh;
-      overflow-y: auto;
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 0;
-      background: var(--color-surface);
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.24);
-    }
-    .june-sales-dialog::backdrop { background: rgba(0, 0, 0, 0.55); }
-    .june-sales-dialog__inner {
-      position: relative;
-      padding: var(--space-lg) var(--space-md);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-md);
-    }
-    .june-sales-dialog__close {
-      position: absolute;
-      top: var(--space-sm);
-      right: var(--space-sm);
-      background: transparent;
-      border: none;
-      font-size: 20px;
-      line-height: 1;
-      cursor: pointer;
-      color: var(--color-text);
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-    }
-    .june-sales-dialog__close:hover { background: rgba(0, 0, 0, 0.06); }
-    .june-sales-dialog__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); width: 100%; }
-    .june-sales-card {
-      display: flex;
-      flex-direction: column;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.10);
-      background: var(--color-surface);
-    }
-    .june-sales-card__img-wrap { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; }
-    .june-sales-card__img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-    .june-sales-card__body { padding: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs); flex: 1; }
-    .june-sales-card__title {
-      font-family: var(--font-display);
-      font-size: var(--text-h3);
-      font-weight: var(--weight-bold);
-      color: var(--color-text);
-      margin: 0;
-      line-height: 1.25;
-    }
-    .june-sales-card__features { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-    .june-sales-card__features li {
-      font-family: var(--font-body);
-      font-size: var(--text-xs);
-      color: var(--color-text);
-      line-height: 1.5;
-      padding-left: 16px;
-      position: relative;
-    }
-    .june-sales-card__features li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--color-cta);
-      font-size: 0.85em;
-    }
-    .june-sales-dialog__cta { margin-top: var(--space-xs); }
-    .june-sales-dialog__cta :global(.btn--primary) { background-color: var(--color-accent); }
-    @media (max-width: 600px) {
-      .june-sales-dialog { width: 95vw; max-height: 92vh; }
-      .june-sales-dialog__inner { padding: var(--space-md) var(--space-sm); }
-      .june-sales-dialog__grid { grid-template-columns: 1fr; }
     }
   </style>
 
