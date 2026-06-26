@@ -1,7 +1,6 @@
 ---
-import baImg1 from '@/assets/images/db796bb4e548.jpg';
-import baImg2 from '@/assets/images/6027f67c9460.jpg';
-import baImg3 from '@/assets/images/127c64f86be6.jpg';
+import baImg1 from '@/assets/images/botox-ba-1.jpg';
+import baImg2 from '@/assets/images/botox-ba-2.jpg';
 ---
 
 <section class="section s6-gallery">
@@ -18,36 +17,24 @@ import baImg3 from '@/assets/images/127c64f86be6.jpg';
       <div class="s6-gallery__item">
         <img
           src={baImg1.src}
-          alt="Botox before and after results at Menon Medispa Millburn NJ"
+          alt="Botox before and after at Menon Medispa in Millburn, NJ: deep frown lines softened to a smooth, relaxed result"
           class="s6-gallery__img"
           loading="lazy"
           decoding="async"
-          width="600"
-          height="594"
+          width="906"
+          height="686"
         />
       </div>
 
       <div class="s6-gallery__item">
         <img
           src={baImg2.src}
-          alt="Botox before and after results at Menon Medispa Millburn NJ"
+          alt="Botox before and after at Menon Medispa in Millburn, NJ: a refreshed, natural-looking result"
           class="s6-gallery__img"
           loading="lazy"
           decoding="async"
-          width="600"
-          height="600"
-        />
-      </div>
-
-      <div class="s6-gallery__item">
-        <img
-          src={baImg3.src}
-          alt="Botox before and after results at Menon Medispa Millburn NJ"
-          class="s6-gallery__img"
-          loading="lazy"
-          decoding="async"
-          width="600"
-          height="595"
+          width="906"
+          height="686"
         />
       </div>
 
@@ -82,9 +69,11 @@ import baImg3 from '@/assets/images/127c64f86be6.jpg';
 
   .s6-gallery__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-sm);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
     width: 100%;
+    max-width: 1000px;
+    margin-inline: auto;
   }
 
   .s6-gallery__item {

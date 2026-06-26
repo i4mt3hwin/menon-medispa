@@ -1,25 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import site from '@/lib/site';
 import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 
 import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
-import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
-
 import TrustBar from '@/pages/_sections/chemical-peel-facial__section_2.astro';
 import Process from '@/pages/_sections/chemical-peel-facial__section_5.astro';
 import ServiceCard from '@/pages/_sections/chemical-peel-facial__section_6.astro';
 import AddOns from '@/pages/_sections/chemical-peel-facial__section_7.astro';
-import FaqForm from '@/pages/_sections/chemical-peel-facial__section_8.astro';
 import FinalCta from '@/pages/_sections/chemical-peel-facial__section_9.astro';
 
 import heroImg from '@/assets/images/444eec26c889.jpg';
@@ -27,14 +25,63 @@ import heroImg from '@/assets/images/444eec26c889.jpg';
 const slug = 'chemical-peel-facial';
 const posts = getRelatedPosts(slug);
 
-// FAQ answers in section_8 are blank/placeholder -- skipping FaqColumn; flagged below.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema. Migrated the 4 hedged
+// FAQs from the old section_8 + added PAA-driven ones (cost, hyperpigmentation/melasma, how-long-
+// results-last, retinoid prep, worth-it) from live "chemical peel near me"/"cost" People-Also-Ask.
+// Grounded only: real $150/45-min price, real add-ons (section_7), standard hedged prep/candidacy.
+const faqs = [
+  {
+    question: "How much does a chemical peel cost at Menon Medispa?",
+    answer:
+      "A professional chemical peel facial at our Millburn medical spa is $150 and takes about 45 minutes. That includes your consultation, the customized peel, soothing aftercare, and detailed healing instructions. If you would like to enhance your results, optional add-ons such as LED light therapy or a hydrating mask are available at your visit.",
+  },
+  {
+    question: "Will a chemical peel hurt?",
+    answer:
+      "Most clients feel only a mild tingling or warm sensation during the peel, which fades quickly. The intensity depends on the peel strength, and your provider monitors your skin throughout to keep you comfortable. We explain exactly what to expect before we begin.",
+  },
+  {
+    question: "Can a chemical peel help with dark spots, hyperpigmentation, or melasma?",
+    answer:
+      "Yes. Chemical peels are one of the most common treatments for sun spots, post-acne marks, and uneven tone because they accelerate the turnover of pigmented surface cells. Melasma is more complex and can sometimes worsen with the wrong approach, so we assess your skin carefully and tailor both the peel and your at-home routine at your consultation rather than using a one-size-fits-all peel.",
+  },
+  {
+    question: "How long do chemical peel results last?",
+    answer:
+      "You will typically see smoother, brighter skin in the days after your peel, with continued improvement over the following weeks. How long it lasts depends on the peel strength, your skin, and your sun protection and skincare, so many clients keep up their results with a peel every few months. We recommend a rhythm that fits your goals.",
+  },
+  {
+    question: "How often can I get a chemical peel?",
+    answer:
+      "For ongoing results, lighter peels are often repeated every few weeks, while stronger peels are spaced further apart to let your skin recover fully. We recommend a schedule based on your skin type and goals at your consultation.",
+  },
+  {
+    question: "Can I get a chemical peel if I use a retinoid like tretinoin or adapalene?",
+    answer:
+      "Often yes, but retinoids such as Retin-A, tretinoin, and adapalene, along with some other active ingredients, can make your skin more sensitive, so we usually ask you to pause them for a few days before your peel. Tell us about every product and medication you use during your consultation and we will give you simple prep instructions.",
+  },
+  {
+    question: "Who should not get a chemical peel?",
+    answer:
+      "A chemical peel may not be appropriate if you are pregnant or breastfeeding, have an active skin infection or open wound in the treatment area, or are using certain medications. During your consultation we review your skin and health history to confirm a peel is a safe, suitable option for you.",
+  },
+  {
+    question: "How is a professional peel different from an at-home peel?",
+    answer:
+      "Professional peels use medical-grade formulas at carefully controlled strengths, applied and monitored by trained, licensed providers. That allows for more targeted results than most at-home products, while keeping the treatment safe and tailored to your skin type and concerns.",
+  },
+  {
+    question: "Is a chemical peel worth it?",
+    answer:
+      "For most people looking to improve tone, texture, mild scarring, and dull or sun-damaged skin, a peel or a short series of peels is one of the more cost-effective ways to see a real difference. At your consultation we will tell you honestly whether a peel, or a different treatment, is the best fit for your specific concern.",
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Chemical Peel Facial in Millburn, NJ',
   description:
-    'Professional chemical peels in Millburn NJ at Menon Medispa. Reduce acne scars, fine lines, and dark spots with minimal downtime. Book today.',
+    'Professional chemical peels in Millburn NJ at Menon Medispa, from $150. Improve dark spots, hyperpigmentation, sun damage, fine lines, and uneven texture with minimal downtime.',
   url: '/chemical-peel-facial',
   image: heroImg.src,
   type: 'Service',
@@ -49,16 +96,16 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Expert Chemical Peel Facials in Millburn NJ | Menon Medispa"
-  description="Professional chemical peels in Millburn NJ at Menon Medispa. Reduce acne scars, fine lines, and dark spots with minimal downtime. Book today."
+  title="Chemical Peels in Millburn NJ | Menon Medispa"
+  description="Professional chemical peels in Millburn NJ at Menon Medispa, from $150. Improve dark spots, hyperpigmentation, sun damage, fine lines, and uneven texture with minimal downtime."
   canonical="https://www.menonmedispa.com/chemical-peel-facial"
   jsonld={jsonld}
 >
 
   <ServiceHero
     eyebrow="CHEMICAL PEEL · MILLBURN, NJ"
-    h1="Expert Chemical Peel Facials in Millburn, NJ"
-    subhead="Reveal fresh, radiant skin and erase years of sun damage in one treatment, with minimal downtime."
+    h1="Professional Chemical Peels in Millburn, NJ"
+    subhead="Reveal fresh, brighter skin and improve sun damage, dark spots, and uneven texture, with minimal downtime."
     image={heroImg}
     imageAlt="Chemical peel facial treatment at Menon Medispa Millburn NJ"
     price="Starting at $150"
@@ -68,29 +115,32 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="chemical-peel-facial" />
+
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
-      <h2>Why Chemical Peels Deliver The Most Dramatic Skin Transformation</h2>
+      <h2>What a Professional Chemical Peel Does for Your Skin</h2>
 
-      <p class="svc-lead">Our professional chemical peels safely remove damaged skin layers to reveal smoother, brighter skin underneath. Perfect for reducing acne scars, fine lines, dark spots, and uneven skin tone with minimal downtime.</p>
+      <p class="svc-lead">A professional chemical peel gently removes damaged surface skin to reveal the smoother, brighter, more even skin underneath. It is one of the most versatile treatments we offer for dullness, sun damage, dark spots, uneven texture, fine lines, and post-acne marks, with minimal downtime.</p>
 
       <ul class="svc-features">
         <li>
-          <h3>Immediate and Long-Term Results</h3>
-          <p>You'll see smoother, brighter skin within days of your treatment, with continued improvement for weeks. Chemical peels reduce fine lines by up to 60%, fade dark spots significantly, and improve overall skin texture better than any other single treatment. Most clients see results that last 3–6 months.</p>
+          <h3>Smoother, Brighter Skin</h3>
+          <p>By lifting away dead, damaged surface cells, a peel reveals fresher skin in the days that follow, with continued improvement over the next few weeks as cell turnover increases. Many clients keep up their results with a peel every few months.</p>
         </li>
         <li>
-          <h3>Scientifically Proven Anti-Aging Benefits</h3>
-          <p>Chemical peels stimulate natural collagen production and accelerate cell turnover, giving you the skin renewal that typically takes months in just one treatment. This process not only improves current skin issues but helps prevent future aging by resetting your skin's natural regeneration cycle.</p>
+          <h3>Targets Dark Spots and Uneven Tone</h3>
+          <p>Chemical peels are a go-to treatment for sun spots, post-acne marks, and uneven tone because they speed the turnover of pigmented surface cells. For more complex pigment such as melasma, we tailor the peel and your routine carefully at your consultation.</p>
         </li>
         <li>
-          <h3>Customizable for Every Skin Concern</h3>
-          <p>We offer light, medium, and deep peels tailored to your specific skin issues and tolerance level. Whether you're dealing with acne scars, sun damage, melasma, or just want an overall refresh, we'll select the perfect peel strength and formula to give you optimal results safely.</p>
+          <h3>Customized to Your Skin</h3>
+          <p>We match the peel strength and formula to your skin and your tolerance, from a gentle refreshing peel to a stronger resurfacing peel for texture and scarring. Your provider selects the right peel for your goals at your consultation.</p>
         </li>
         <li>
-          <h3>Safe and Professional Application</h3>
-          <p>Our licensed estheticians are expertly trained in chemical peel application and will monitor your skin throughout the entire process. We use only medical-grade peels and follow strict safety protocols to ensure you get maximum results with minimal risk of complications or uneven healing.</p>
+          <h3>Medical-Grade and Monitored</h3>
+          <p>Your peel is performed by a trained, licensed provider using medical-grade formulas under our medical spa's protocols, with your skin watched throughout and the peel neutralized at the right moment for your skin type.</p>
         </li>
       </ul>
     </div>
@@ -103,16 +153,24 @@ const jsonld = buildServiceSchema({
         items={[
           { label: 'Price', value: '$150' },
           { label: 'Appointment', value: '45 minutes' },
-          { label: 'Results', value: 'Visible within days' },
-          { label: 'Results last', value: '3–6 months' },
-          { label: 'Skin concerns', value: 'Customized' },
+          { label: 'Downtime', value: 'Minimal' },
+          { label: 'Treats', value: 'Dark spots, texture, dullness' },
+          { label: 'Skin types', value: 'Customized at consult' },
           { label: 'Location', value: 'Millburn, NJ' },
         ]}
       />
     </Fragment>
   </ServiceLayout>
 
-  <ServiceTestimonial slug="chemical-peel-facial" />
+  <!-- Mid-scroll CTA (research: repeat the same Book CTA after the persuasion content;
+       below-fold CTAs convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready for brighter, smoother skin?</h2>
+      <p>Book a consultation and we'll match you to the right peel for your skin and the results you want.</p>
+      <a href="/request-appointment?service=Chemical%20Peel%20Facial" class="btn btn--primary">Book Your Consultation</a>
+    </div>
+  </section>
 
   <Process />
 
@@ -120,7 +178,10 @@ const jsonld = buildServiceSchema({
 
   <AddOns />
 
-  <FaqForm />
+  <!-- Deeper social proof: more real 5-star reviews for this service -->
+  <ServiceReviews slug="chemical-peel-facial" excludeFirst heading="More 5-star reviews from our clients" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -129,5 +190,38 @@ const jsonld = buildServiceSchema({
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
 
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
+
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/5/6/7/8/9 reused verbatim. Section 3 (benefits) inlined as svc-features. Section 4 (testimonial) swapped to ServiceTestimonial (provider-safe curated reviews). Section 11 (June SALES promo) removed -- replaced by SalePopup. FAQ skipped: section_8 answers are blank/placeholder. -->
+<!-- redesign v2 (CRO+SEO reference pattern, matches botox/microneedling). title/H1 already lead with the head
+     term "chemical peel" (60.5k) + "near me" (22.2k) so no retarget; tightened H1 to "Professional Chemical Peels".
+     Stripped the old body's unsubstantiated efficacy/superlative claims (a fine-line percentage, a single-treatment
+     superlative, an unhedged dark-spot promise, a "scientifically proven" label, and a light/medium/deep peel menu)
+     since the spa offers one customized $150 peel, not phenol deep peels. Two reused bands carried the same class of
+     overclaim and were softened too (the section_9 final-CTA outcome promise and the section_7 add-ons efficacy line). FAQ consolidated
+     into the page frontmatter (was on-page only via section_8, schema empty) + expanded with PAA (cost,
+     hyperpigmentation/melasma, how-long-lasts, retinoid prep, worth-it) so the FAQPage schema is now populated;
+     on-page FaqForm (section_8) replaced by FaqAccordion. Pulled the testimonial high, added a mid-scroll Book CTA +
+     a 3-up ServiceReviews strip; wove in the dark-spots/hyperpigmentation cluster (4.4k+2.4k+1.6k). Kept the real
+     Process + ServiceCard + AddOns bands (grounded prices). OPEN (see medispa-questions.md): which specific peels or
+     brands are offered (VI Peel 27k, TCA 14.8k, glycolic 12.1k, Perfect Derma, Jessner) are NOT claimed without
+     confirmation; real before/after photos (14.8k, LOW comp). -->
