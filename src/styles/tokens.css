@@ -33,11 +33,11 @@
   --color-footer-text-muted: rgba(255,255,255,0.65); /* Muted footer text */
 
   /* ── Typography, font stacks ── */
-  --font-display: "playfair display", "playfairdisplay-bold", serif;
+  --font-display: "playfairdisplay-bold", "playfair display", serif;
   --font-body: raleway-v2, sans-serif;
   --font-ui: "lato-light", lato, sans-serif;
   --font-accent: "didot-w01-italic", serif;
-  --font-cta: poppins-v2, sans-serif;
+  --font-cta: "raleway-v2", raleway, sans-serif;
 
   /* ── Global UI scale knob ──
      One dial for overall site "density". 1 = captured size; 0.95 = 5% smaller.

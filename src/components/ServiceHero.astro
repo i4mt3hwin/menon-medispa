@@ -89,10 +89,10 @@ const Headline = eyebrow ? 'p' : 'h1';
       {subhead && <p class="service-hero__subhead">{subhead}</p>}
 
       {trust && (trust.stars || trust.reviewText) && (
-        <div class="service-hero__trust">
+        <a class="service-hero__trust" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
           {trust.stars && <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>}
           {trust.reviewText && <span class="service-hero__trust-text">{trust.reviewText}</span>}
-        </div>
+        </a>
       )}
 
       {price && <p class="service-hero__price">{price}</p>}
@@ -181,7 +181,12 @@ const Headline = eyebrow ? 'p' : 'h1';
     border-radius: 999px;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
+    /* Anchor reset: the badge links to the Google reviews profile */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
   }
+  .service-hero__trust:hover { background: rgb(255 255 255 / 0.16); }
   /* re-assert gold on the stars, .on-media forces white on spans, which would override .stars */
   .service-hero__trust .stars { color: var(--color-star); font-size: 1.05em; letter-spacing: 2px; }
   .service-hero__trust-text { font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600; color: #fff; }

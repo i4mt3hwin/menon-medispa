@@ -929,7 +929,7 @@
    9. REDUCED MOTION, disable all decorative animation, keep state changes
    =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .glow-quiz::before, .glow-hero__img.glow-hero__bloom, .glow-hero__inner > *.glow-hero__cue, .glow-gate__seal.glow-progress__fill, .glow-step.is-active, .glow-step.is-leaving { animation: none !important; }
+  .glow-quiz::before, .glow-hero__img, .glow-hero__bloom, .glow-hero__cue, .glow-gate__seal, .glow-progress__fill, .glow-step.is-active, .glow-step.is-leaving { animation: none !important; }
   .glow-tcard { opacity: 1; transform: none; }
   .glow-tcard.is-in { animation: none; }
   .glow-quiz * { transition-duration: 0.001ms !important; }

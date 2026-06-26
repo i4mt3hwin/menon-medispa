@@ -267,9 +267,9 @@ body {
   padding: 0;
 }
 
-/* Headings default to Playfair Display */
+/* Headings default to the Latin-capable Playfair face. */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "playfair display", "playfairdisplay-bold", serif;
+  font-family: "playfairdisplay-bold", "playfair display", serif;
   font-weight: 400;
   margin: 0 0 0.5em;
   line-height: 1.2;

@@ -10,7 +10,7 @@ import Section5 from '@/pages/_sections/body__section_5.astro';
 import Section6 from '@/pages/_sections/body__section_6.astro';
 import Section7 from '@/pages/_sections/body__section_7.astro';
 
-const pageUrl = `${site.url}/body`;
+const pageUrl = `${site.url}/body/`;
 const pageDescription = 'Explore physician-led body treatments in Millburn, NJ at Menon Medispa, including laser hair removal, IV therapy, semaglutide, and vascular treatments.';
 const jsonld = [
   {
@@ -32,7 +32,7 @@ const jsonld = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
       { '@type': 'ListItem', position: 2, name: 'Body', item: pageUrl },
     ],
   },
@@ -40,7 +40,7 @@ const jsonld = [
 ---
 
 <BaseLayout
-  title="Body Treatments in Millburn NJ | Menon Medispa"
+  title="Body Treatments & Wellness in Millburn NJ | Menon Medispa"
   description={pageDescription}
   canonical={pageUrl}
   jsonld={jsonld}

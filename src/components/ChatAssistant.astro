@@ -217,9 +217,11 @@ import site from '../lib/site';
       }
 
       switch (opt.action) {
-        case 'book':
-          window.open(calcomUrl, '_blank', 'noopener,noreferrer');
+        case 'book': {
+          var svc = document.body.getAttribute('data-book-service');
+          window.location.href = calcomUrl + (svc ? '?service=' + encodeURIComponent(svc) : '');
           break;
+        }
         case 'call':
           window.location.href = 'tel:' + phoneTel;
           break;

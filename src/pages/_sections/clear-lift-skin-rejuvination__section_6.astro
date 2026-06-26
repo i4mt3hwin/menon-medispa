@@ -60,16 +60,18 @@ import videoPosterImg from '@/assets/images/bf60da9a2083.jpg';
       <div class="s6-benefits__bonus-media">
         <video
           class="s6-benefits__video"
+          data-lazy-video
           autoplay
           loop
           muted
           playsinline
+          preload="none"
           poster={videoPosterImg.src}
           width="480"
           height="270"
         >
           <source
-            src="/videos/wix/2baa5c_a1e2e08938534d2a8f421b35a9a4de05.mp4"
+            data-src="/videos/wix/2baa5c_a1e2e08938534d2a8f421b35a9a4de05.mp4"
             type="video/mp4"
           />
           <track kind="descriptions" />

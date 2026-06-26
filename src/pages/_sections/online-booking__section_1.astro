@@ -1,4 +1,5 @@
 ---
+import site from '@/lib/site';
 import img651c7c197b52 from '@/assets/images/651c7c197b52.webp';
 ---
 
@@ -41,13 +42,13 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.webp';
             I Need Some Help
           </a>
           <p class="ob1-hero__option-desc">
-            Schedule a consultation to discuss your skin goals. Consultations with the esthetician are FREE. Consultations with Dr. Menon are $50 (Goes towards Treatment)
+            Schedule a consultation to discuss your skin goals. Consultations with the esthetician are FREE. Consultations with Dr. Menon are $50 (may be applied towards your treatment)
           </p>
         </div>
 
       </div>
 
-      <div class="ob1-hero__social-proof">
+      <a class="ob1-hero__social-proof" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
         <div class="ob1-hero__social-icons">
           <img src="/media/wix/2baa5c_5a17e71f666948a3b53ea0c203f1bcff.png" alt="Award" width="46" height="50" />
           <img src="/media/wix/2baa5c_9e9f4b262eb94c559c286afada394168.png" alt="Award" width="52" height="50" />
@@ -57,7 +58,7 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.webp';
           <p class="ob1-hero__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
           <p class="ob1-hero__review-count">100+ 5 Star Reviews</p>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
@@ -127,7 +128,13 @@ import img651c7c197b52 from '@/assets/images/651c7c197b52.webp';
     align-items: center;
     gap: var(--space-sm);
     margin-top: var(--space-xs);
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    width: fit-content;
+    transition: opacity 0.2s ease;
   }
+  .ob1-hero__social-proof:hover { opacity: 0.85; }
 
   .ob1-hero__social-icons {
     display: flex;

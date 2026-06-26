@@ -1,0 +1,20 @@
+# Block organic search crawlers from these paid-traffic landing pages
+User-agent: *
+Disallow: /
+
+# Allow Google Ads crawlers (AdsBot ignores the global * rule, but explicit is safer)
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: AdsBot-Google-Mobile-Apps
+Allow: /
+
+# Allow Meta/Facebook ad crawlers (in case you run Meta ads to these pages)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /

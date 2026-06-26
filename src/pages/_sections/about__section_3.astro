@@ -11,17 +11,19 @@ import videoPosterImg from '@/assets/images/2ef11e239ab9.jpg';
         {/* Video, autoplay, loop, muted. Hidden on mobile via CSS. */}
         <video
           class="about-s3__video"
+          data-lazy-video
           autoplay
           loop
           muted
           playsinline
+          preload="none"
           aria-hidden="true"
           poster={videoPosterImg.src}
           width="846"
           height="458"
         >
           <source
-            src="/videos/wix/f61cce_b930b3f48aa04baa8c7f669d63cdaebd.mp4"
+            data-src="/videos/wix/f61cce_b930b3f48aa04baa8c7f669d63cdaebd.mp4"
             type="video/mp4"
           />
         </video>

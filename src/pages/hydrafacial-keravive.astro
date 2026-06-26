@@ -8,13 +8,13 @@ import RelatedPosts from '@/components/RelatedPosts.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
-import LeadForm from '@/components/LeadForm.astro';
 
 import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
 import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 import TrustBar from '@/pages/_sections/hydrafacial-keravive__section_2.astro';
 import Process from '@/pages/_sections/hydrafacial-keravive__section_3.astro';
 import Results from '@/pages/_sections/hydrafacial-keravive__section_4.astro';
@@ -53,11 +53,16 @@ const faqs = [
     answer:
       'Yes, HydraFacial Keravive works excellently as a complement to PRP (platelet-rich plasma) injections, laser hair therapy, and other hair restoration treatments. By optimizing the scalp environment, Keravive can enhance the effectiveness of these additional therapies.',
   },
+  {
+    question: 'How much does HydraFacial Keravive cost at Menon Medispa?',
+    answer:
+      'HydraFacial Keravive is $500 per session, or $1,295 for a recommended series of three treatments. We will confirm the right plan for your scalp at your free consultation.',
+  },
 ];
 const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
-  name: 'HydraFacial Keravive in Millburn, NJ',
+  name: 'HydraFacial Keravive Scalp Treatment in Millburn, NJ',
   description:
     'HydraFacial Keravive scalp health treatment at Menon Medispa in Millburn, NJ. A revolutionary three-step program that cleanses, stimulates, nourishes, and hydrates the scalp for fuller, healthier-looking hair.',
   url: '/hydrafacial-keravive',
@@ -74,14 +79,14 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="HydraFacial™ Keravive™ in Millburn NJ | Menon Medispa"
-  description="HydraFacial Keravive scalp treatment in Millburn, NJ. Cleanses, stimulates, and nourishes the scalp for fuller, healthier-looking hair. Book at Menon Medispa."
+  title="HydraFacial Keravive Scalp Treatment in Millburn NJ | Menon Medispa"
+  description="HydraFacial Keravive scalp treatment in Millburn, NJ: a deep scalp cleanse and detox that exfoliates buildup and hydrates the scalp for fuller, healthier-looking hair."
   canonical="https://www.menonmedispa.com/hydrafacial-keravive"
   jsonld={jsonld}
 >
 
   <ServiceHero
-    eyebrow="HYDRAFACIAL KERAVIVE · MILLBURN, NJ"
+    eyebrow="KERAVIVE SCALP TREATMENT · MILLBURN, NJ"
     h1="Healthier Scalp, Fuller-Looking Hair with HydraFacial Keravive in Millburn, NJ"
     subhead="A revolutionary three-step scalp health program that cleanses, nourishes, and hydrates your scalp for visibly fuller, healthier hair, with no downtime."
     image={heroImg}
@@ -93,11 +98,16 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="hydrafacial-keravive" />
+
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
       <h2>Rejuvenate Your Scalp to Reveal Fuller, Healthier-Looking Hair</h2>
       <p class="svc-lead">Experience the innovative HydraFacial Keravive treatment at Menon Medispa in Millburn, NJ, a revolutionary three-step scalp health program designed to cleanse, stimulate, nourish, and hydrate the scalp for fuller, healthier-looking hair.</p>
+
+      <p>Think of it as a deep-cleansing facial for your scalp. HydraFacial Keravive detoxifies and exfoliates buildup, then nourishes and hydrates the scalp to create a healthier environment for fuller, healthier hair.</p>
 
       <p>HydraFacial Keravive is the first-of-its-kind scalp health treatment that cleanses, stimulates, nourishes, and hydrates the scalp using HydraFacial technology. The treatment targets the scalp and hair follicles, removing follicle-clogging debris and delivering a powerful blend of growth factors and skin proteins directly to the scalp.</p>
 
@@ -162,17 +172,26 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
+  <!-- Mid-scroll CTA (repeat the Book CTA after the persuasion content; below-fold CTAs
+       convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready for a healthier scalp?</h2>
+      <p>Book your HydraFacial Keravive, or start with a free scalp consultation, and we'll build a plan for fuller, healthier-looking hair.</p>
+      <a href="/request-appointment?service=HydraFacial%20Keravive" class="btn btn--primary">Book Your Keravive</a>
+    </div>
+  </section>
+
   <Process />
 
   <Results />
 
-  <ServiceTestimonial slug="hydrafacial-keravive" />
-
   <Pricing />
 
-  <LeadForm />
+  <!-- Deeper social proof: more real 5-star reviews from our clients -->
+  <ServiceReviews slug="hydrafacial-keravive" excludeFirst heading="More 5-star reviews from our clients" />
 
-  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -180,6 +199,27 @@ const jsonld = buildServiceSchema({
 
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
+
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
 
 </BaseLayout>
 <!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/3/4/5/7 reused verbatim; section_6 FAQ lifted into FaqColumn; section_9 promo removed (replaced by SalePopup); prose from sections 1+3+4 re-flowed into main column. LeadForm (dropped during conversion) restored from section_6, placed before FinalCta. -->

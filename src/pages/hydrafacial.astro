@@ -6,7 +6,7 @@ import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import LeadForm from '@/components/LeadForm.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -95,30 +95,11 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="hydrafacial" />
+
   <ServiceLayout>
-    <!-- MAIN COLUMN -->
-    <div class="svc-block">
-      <h2>HydraFacial Near Me in Millburn: A Better Way to Refresh Skin</h2>
-
-      <p class="svc-lead">Dealing with skin problems can be frustrating and confidence-draining.</p>
-
-      <p>Environmental factors and aging leave skin looking dull, uneven, and congested despite your best efforts.</p>
-
-      <p>When searching for a hydrafacial near me, you deserve a treatment that is customized to your skin instead of a one-size-fits-all facial.</p>
-
-      <ul class="svc-checks">
-        <li>Conventional products rarely penetrate deep enough to address the root causes of skin concerns</li>
-        <li>Seasonal changes and stress constantly challenge skin's balance</li>
-        <li>Different facial areas have completely different needs</li>
-      </ul>
-
-      <p>Traditional facial treatments offer only temporary relief without addressing underlying skin health.</p>
-
-      <p>With diverse skin types, standard facials frequently disappoint and leave clients searching for something more effective.</p>
-
-      <p>Thankfully we found the answer.</p>
-    </div>
-
+    <!-- MAIN COLUMN — lead with the solution + how it works; the problem/context trimmed below -->
     <div class="svc-block">
       <h2>The HydraFacial&#8482; Solution: Advanced Skincare Technology</h2>
 
@@ -152,6 +133,24 @@ const jsonld = buildServiceSchema({
       </ul>
     </div>
 
+    <div class="svc-block">
+      <h2>A Better Way to Refresh Your Skin</h2>
+
+      <p class="svc-lead">Dealing with skin problems can be frustrating and confidence-draining.</p>
+
+      <p>Environmental factors and aging leave skin looking dull, uneven, and congested despite your best efforts.</p>
+
+      <p>When searching for a hydrafacial near me, you deserve a treatment that is customized to your skin instead of a one-size-fits-all facial.</p>
+
+      <ul class="svc-checks">
+        <li>Conventional products rarely penetrate deep enough to address the root causes of skin concerns</li>
+        <li>Seasonal changes and stress constantly challenge skin's balance</li>
+        <li>Different facial areas have completely different needs</li>
+      </ul>
+
+      <p>Traditional facial treatments offer only temporary relief without addressing underlying skin health, and with diverse skin types, standard facials frequently disappoint and leave clients searching for something more effective.</p>
+    </div>
+
     <!-- SIDEBAR -->
     <Fragment slot="aside">
       <QuickFacts
@@ -169,19 +168,27 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
-  <ServiceTestimonial slug="hydrafacial" />
-
-  <Gallery />
+  <!-- Mid-scroll CTA (research: repeat the Book CTA after the persuasion content) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready to book your HydraFacial?</h2>
+      <p>Book your visit and our team will match you to the right HydraFacial for your skin and goals.</p>
+      <a href="/request-appointment?service=HydraFacial" class="btn btn--primary">Book Your HydraFacial</a>
+    </div>
+  </section>
 
   <VideoShowcase />
+
+  <RightForYou />
+
+  <Gallery />
 
   <Pricing />
 
   <AddOns />
 
-  <RightForYou />
-
-  <LeadForm />
+  <!-- Deeper social proof: more real 5-star reviews for this service -->
+  <ServiceReviews slug="hydrafacial" excludeFirst heading="More 5-star reviews from our clients" bg_color="rgb(196 164 132 / 0.14)" />
 
   <FaqAccordion heading="Frequently asked questions" items={faqItems} />
 
@@ -192,5 +199,31 @@ const jsonld = buildServiceSchema({
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
 
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
+
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/7/8/9/10/11/13 reused verbatim. Sections 3+5 re-flowed into svc-blocks. Section 12 FAQ lifted into faqItems/FaqColumn. Section 6 (empty) and Section 15 (June SALES promo) removed; SalePopup replaces the promo. LeadForm (dropped from section 12 during conversion) restored at band level immediately before FinalCta. Section 4 (hardcoded testimonial) swapped to <ServiceTestimonial slug="hydrafacial" /> for provider-safe reviews. -->
+<!-- redesign v2 (CRO+SEO reference pattern, structure-only): testimonial pulled high, body leads with the
+     solution + 3-step process (problem/context trimmed below), mid-scroll Book CTA, a 3-up real-reviews strip
+     (ServiceReviews), and bands resequenced for clean background alternation (Video/RightForYou/Gallery/Pricing/
+     AddOns → white/dark/white/tint/white). Removed the standalone contact LeadForm in favor of the booking CTAs
+     (matches the laser reference). Copy unchanged except a reframed problem heading + a trimmed transition line;
+     keyword copy (before/after, melasma/tretinoin FAQ) deferred until the medispa confirms facts. -->

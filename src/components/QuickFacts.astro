@@ -51,10 +51,10 @@ const isExternal = ctaHref.startsWith('http');
         >{ctaLabel}</a>
         <a href={site.phone.tel} class="quick-facts__phone">or call <strong>{site.phone.display}</strong></a>
         {reviewText && (
-          <div class="quick-facts__trust">
+          <a class="quick-facts__trust" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
             <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             <span class="quick-facts__trust-text">{reviewText}</span>
-          </div>
+          </a>
         )}
       </div>
     )}
@@ -125,7 +125,11 @@ const isExternal = ctaHref.startsWith('http');
     align-items: center;
     justify-content: center;
     gap: 7px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
   }
+  .quick-facts__trust:hover .quick-facts__trust-text { opacity: 1; }
   .quick-facts__trust .stars { color: var(--color-star); font-size: 1em; letter-spacing: 1px; }
   .quick-facts__trust-text { font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text); opacity: 0.75; }
 

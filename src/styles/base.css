@@ -37,6 +37,25 @@
   display: inline-block;
 }
 
+/* ── Skip-to-content link (a11y) ── */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -48px;
+  z-index: 1000;
+  background: var(--color-bg, #fff);
+  color: var(--color-accent-ink, #94632E);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-cta);
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 8px;
+  outline: 2px solid currentColor;
+}
+
 /* Responsive type, the captured scale is viewport-invariant and too large on
    small screens. Scale the display sizes down at tablet/phone. */
 @media (max-width: 1024px) {
@@ -93,7 +112,7 @@
 /* ── Section rhythm ── */
 .section { padding-block: var(--section-py); }
 .section--tight { padding-block: calc(var(--section-py) * 0.62); }
-.section--tint  { background-color: rgb(196 164 132 / 0.07); }   /* warm sand */
+.section--tint  { background-color: rgb(196 164 132 / 0.14); }   /* warm sand (deepened from 0.07 so tinted bands read as distinct against white) */
 .section--mauve { background-color: var(--color-header-bg); color: #fff; }
 .section--dark  { background-color: var(--color-surface-dark); color: #fff; }
 

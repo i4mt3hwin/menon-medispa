@@ -32,8 +32,9 @@ import ttImg   from '@/assets/images/de7ef3d7c470.webp';
       <Image
         src={logoImg}
         alt="Menon Medispa"
-        width={500}
-        height={130}
+        width={212}
+        height={55}
+        densities={[1, 1.5, 2]}
         loading="eager"
         decoding="async"
       />
@@ -177,7 +178,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.webp';
           <span class="header-cta__label-desktop">(973) 494-8431</span>
           <span class="header-cta__label-mobile">Call Today</span>
         </a>
-        <a href="/online-booking" class="header-cta header-cta--book">
+        <a href="/request-appointment" class="header-cta header-cta--book">
           <span>Book Now</span>
         </a>
       </div>
@@ -321,7 +322,7 @@ import ttImg   from '@/assets/images/de7ef3d7c470.webp';
       <li><a href="/sale">SALES</a></li>
 
       <li class="mobile-cta-item">
-        <a href="/online-booking" class="mobile-cta mobile-cta--book">
+        <a href="/request-appointment" class="mobile-cta mobile-cta--book">
           Book Now
         </a>
         <a href="tel:+19734948431" class="mobile-cta mobile-cta--call">
@@ -958,6 +959,9 @@ import ttImg   from '@/assets/images/de7ef3d7c470.webp';
     nav.removeAttribute('inert');
     btn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    // Move focus into the drawer so keyboard users can immediately navigate it
+    const firstFocusable = closeBtn || nav.querySelector<HTMLElement>('a[href], button');
+    firstFocusable?.focus();
   };
 
   const close = () => {
@@ -965,6 +969,8 @@ import ttImg   from '@/assets/images/de7ef3d7c470.webp';
     nav.setAttribute('inert', '');
     btn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    // Return focus to the hamburger button that opened the drawer
+    btn.focus();
   };
 
   btn.addEventListener('click', () => {

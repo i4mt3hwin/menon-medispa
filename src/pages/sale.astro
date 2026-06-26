@@ -2,11 +2,14 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Section1 from './_sections/sale__section_1.astro';
 import Section2 from './_sections/sale__section_2.astro';
+import { saleWindow, getSaleOffers } from '@/lib/sales';
+
+const saleDesc = `${saleWindow.heading} at Menon Medispa in Millburn, NJ. ${getSaleOffers().slice(0, 3).map(o => o.name).join(', ')}. ${saleWindow.subtitle}.`;
 ---
 
 <BaseLayout
   title="Monthly Specials & Sales | Menon Medispa, Millburn NJ"
-  description="Don&#39;t miss our June Summer Specials at Menon Medispa in Millburn, NJ. Limited-time offers on Hydrafacial, Custom IV Therapy, and BRO-Tox. Valid June 1-30, 2026."
+  description={saleDesc}
 >
   <Section1 />
   <Section2 />

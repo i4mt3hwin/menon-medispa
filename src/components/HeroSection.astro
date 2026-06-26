@@ -1,11 +1,19 @@
 ---
+import { Image } from 'astro:assets';
+import site from '@/lib/site';
+import proofAvatar1 from '@/assets/images/90411e0041df.webp';
+import proofAvatar2 from '@/assets/images/305afeda5f9a.webp';
+import proofAvatar3 from '@/assets/images/b95880091b44.webp';
+
 interface Props {
   heading?: string;
   eyebrow?: string;
   subheading?: string;  // alias for eyebrow
   body?: string;
-  ctas?: Array<{ text: string; href: string; variant?: 'primary' | 'secondary' }>;
+  ctas?: Array<{ text: string; href: string; variant?: 'primary' | 'secondary'; book?: 'request' | 'consultation' }>;
   bg_video_url?: string;
+  /** Optional smaller video for phones/data-saver; falls back to bg_video_url. */
+  bg_video_url_mobile?: string;
   bg_image_url?: string;
   bg_image_alt?: string;
   backgroundImage?: string | { src: string };  // alias for bg_image_url, accepts import objects
@@ -16,6 +24,12 @@ interface Props {
   review_count_text?: string;
   height?: string;
   layout?: 'left-overlay' | 'centered' | 'split';
+  /** HTML tag for the eyebrow kicker (default 'p'). Set to 'h1' to make the
+   *  keyword/location line the page H1 while keeping its kicker styling. */
+  eyebrowTag?: string;
+  /** HTML tag for the main heading (default 'h1'). Set to 'h2' when the eyebrow
+   *  carries the H1, so the big display line is a subordinate heading. */
+  headingTag?: string;
 }
 
 const {
@@ -25,6 +39,7 @@ const {
   body,
   ctas = [],
   bg_video_url,
+  bg_video_url_mobile,
   bg_image_url,
   bg_image_alt,
   backgroundImage,
@@ -34,7 +49,15 @@ const {
   review_count_text,
   height = '599px',
   layout = 'left-overlay',
+  eyebrowTag = 'p',
+  headingTag = 'h1',
 } = Astro.props;
+
+// Dynamic heading tags: a capitalised variable holding a tag name renders as
+// that element in Astro. Lets the home page promote the eyebrow to the H1 and
+// demote the display heading to an H2 without changing the visual styling.
+const EyebrowTag = eyebrowTag as any;
+const HeadingTag = headingTag as any;
 
 // Normalise background image: backgroundImage prop aliases bg_image_url, handles import objects
 const rawBgImg = bg_image_url ?? backgroundImage;
@@ -42,6 +65,11 @@ const resolvedBgImageUrl = rawBgImg
   ? (typeof rawBgImg === 'object' ? (rawBgImg as { src: string }).src : rawBgImg)
   : undefined;
 const resolvedBgImageAlt = bg_image_alt ?? backgroundAlt ?? '';
+const proofAvatarMap = {
+  '90411e0041df': proofAvatar1,
+  '305afeda5f9a': proofAvatar2,
+  'b95880091b44': proofAvatar3,
+};
 
 // Resolve heading/eyebrow: prop wins, slot fallback used in template
 const resolvedHeading = heading;
@@ -64,18 +92,31 @@ const hasDefaultSlot = Astro.slots.has('default');
   aria-label="Hero"
 >
   {/* Background layer */}
+  {bg_video_url && resolvedBgImageUrl && (
+    <img
+      class="hero__bg-image hero__bg-poster"
+      src={resolvedBgImageUrl}
+      alt={resolvedBgImageAlt}
+      aria-hidden={resolvedBgImageAlt === '' ? 'true' : undefined}
+      loading="eager"
+      decoding="sync"
+      fetchpriority="high"
+    />
+  )}
   {bg_video_url && (
     <video
-      class="hero__bg-video"
+      class={`hero__bg-video${resolvedBgImageUrl ? ' hero__bg-video--with-poster' : ''}`}
       autoplay
       loop
       muted
       playsinline
+      preload="none"
       aria-hidden="true"
       poster={resolvedBgImageUrl ?? undefined}
-    >
-      <source src={bg_video_url} type="video/mp4" />
-    </video>
+      data-hero-video
+      data-src-desktop={bg_video_url}
+      data-src-mobile={bg_video_url_mobile ?? bg_video_url}
+    ></video>
   )}
   {!bg_video_url && resolvedBgImageUrl && (
     <img
@@ -84,6 +125,8 @@ const hasDefaultSlot = Astro.slots.has('default');
       alt={resolvedBgImageAlt}
       aria-hidden={resolvedBgImageAlt === '' ? 'true' : undefined}
       loading="eager"
+      decoding="sync"
+      fetchpriority="high"
     />
   )}
 
@@ -95,18 +138,18 @@ const hasDefaultSlot = Astro.slots.has('default');
     </div>
   ) : (
     <div class="hero__content">
-      {/* Eyebrow */}
+      {/* Eyebrow (tag defaults to <p>; the home page sets it to <h1>) */}
       {hasSlotEyebrow ? (
-        <p class="hero__eyebrow"><slot name="eyebrow" /></p>
+        <EyebrowTag class="hero__eyebrow"><slot name="eyebrow" /></EyebrowTag>
       ) : resolvedEyebrow ? (
-        <p class="hero__eyebrow">{resolvedEyebrow}</p>
+        <EyebrowTag class="hero__eyebrow">{resolvedEyebrow}</EyebrowTag>
       ) : null}
 
-      {/* Heading, h1 */}
+      {/* Heading (tag defaults to <h1>; the home page sets it to <h2>) */}
       {hasSlotHeading ? (
-        <h1 class="hero__heading"><slot name="heading" /></h1>
+        <HeadingTag class="hero__heading"><slot name="heading" /></HeadingTag>
       ) : resolvedHeading ? (
-        <h1 class="hero__heading">{resolvedHeading}</h1>
+        <HeadingTag class="hero__heading">{resolvedHeading}</HeadingTag>
       ) : null}
 
       {/* Body */}
@@ -125,6 +168,7 @@ const hasDefaultSlot = Astro.slots.has('default');
             <a
               href={cta.href}
               class={`hero__cta hero__cta--${cta.variant ?? 'primary'}`}
+              data-book={cta.book}
             >
               {cta.text}
             </a>
@@ -132,30 +176,45 @@ const hasDefaultSlot = Astro.slots.has('default');
         </div>
       ) : null}
 
-      {/* Social proof, slot or props */}
+      {/* Social proof, slot or props — links to the Google reviews profile */}
       {hasSlotSocialProof ? (
-        <div class="hero__social-proof"><slot name="social-proof" /></div>
+        <a class="hero__social-proof" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google"><slot name="social-proof" /></a>
       ) : (social_proof.length > 0 || stars_text || review_count_text) ? (
-        <div class="hero__social-proof">
+        <a class="hero__social-proof" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
           {social_proof.length > 0 && (
             <div class="hero__proof-avatars">
-              {social_proof.map((item) => (
-                <img
-                  class="hero__proof-avatar"
-                  src={`/images/${item.image_key}.webp`}
-                  alt={item.alt}
-                  width="50"
-                  height="50"
-                  loading="lazy"
-                />
-              ))}
+              {social_proof.map((item) => {
+                const avatar = proofAvatarMap[item.image_key as keyof typeof proofAvatarMap];
+                return avatar ? (
+                  <Image
+                    class="hero__proof-avatar"
+                    src={avatar}
+                    alt={item.alt}
+                    width={50}
+                    height={50}
+                    densities={[1, 1.5, 2]}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <img
+                    class="hero__proof-avatar"
+                    src={`/images/${item.image_key}.webp`}
+                    alt={item.alt}
+                    width="50"
+                    height="50"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                );
+              })}
             </div>
           )}
           <div class="hero__proof-text">
             {stars_text && <p class="hero__stars">{stars_text}</p>}
             {review_count_text && <p class="hero__review-count">{review_count_text}</p>}
           </div>
-        </div>
+        </a>
       ) : null}
 
       {/* Default slot content (e.g. Button + social proof passed as direct children alongside heading prop) */}
@@ -196,6 +255,12 @@ const hasDefaultSlot = Astro.slots.has('default');
     z-index: 0;
     filter: blur(2px);
     transform: scale(1.04);   /* slight overscan hides the blurred edges + Ken Burns start */
+  }
+  .hero__bg-poster {
+    z-index: 0;
+  }
+  .hero__bg-video--with-poster {
+    opacity: 1;
   }
 
   /* Scrim for contrast, left-weighted (text sits left); centered layout uses an even scrim */
@@ -341,7 +406,14 @@ const hasDefaultSlot = Astro.slots.has('default');
     align-items: center;
     gap: var(--space-sm);
     margin-top: var(--space-sm);
+    /* Anchor reset: the whole social-proof row is a link to Google reviews */
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    width: fit-content;
+    transition: opacity 0.2s ease;
   }
+  .hero__social-proof:hover { opacity: 0.85; }
 
   .hero__proof-avatars {
     display: flex;

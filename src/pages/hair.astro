@@ -9,20 +9,20 @@ import Section5 from './_sections/hair__section_5.astro';
 import Section6 from './_sections/hair__section_6.astro';
 import Section7 from './_sections/hair__section_7.astro';
 
-const pageUrl = `${site.url}/hair`;
-const pageDescription = 'Advanced hair restoration and scalp treatments in Millburn, NJ at Menon Medispa, including HydraFacial Keravive and PRP hair therapy.';
+const pageUrl = `${site.url}/hair/`;
+const pageDescription = 'Hair loss treatment and restoration in Millburn, NJ at Menon Medispa: PRP hair therapy and HydraFacial Keravive for thinning hair and scalp health.';
 const jsonld = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': `${pageUrl}#collection`,
     url: pageUrl,
-    name: 'Hair Restoration',
+    name: 'Hair Loss Treatment and Restoration',
     description: pageDescription,
     isPartOf: { '@id': site.schemaId },
     about: {
       '@type': 'Service',
-      name: 'Hair restoration and scalp treatments',
+      name: 'Hair loss treatment, restoration, and scalp treatments',
       provider: { '@id': site.schemaId },
       areaServed: site.areaServed,
     },
@@ -31,14 +31,14 @@ const jsonld = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
       { '@type': 'ListItem', position: 2, name: 'Hair', item: pageUrl },
     ],
   },
 ];
 ---
 <BaseLayout
-  title="Hair Restoration in Millburn, NJ | Menon Medispa"
+  title="Hair Loss Treatment & Restoration in Millburn NJ | Menon Medispa"
   description={pageDescription}
   canonical={pageUrl}
   jsonld={jsonld}

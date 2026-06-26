@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import HeroSection from '@/components/HeroSection.astro';
 import RichText from '@/components/RichText.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
@@ -61,13 +62,13 @@ const specials = saleOffers.map((o) => ({
   img: o.image?.src,
   alt: o.imageAlt,
   book: o.href,
-  more: o.href,
+  more: '/sale',
   includes: o.includes,
 }));
 
 // FAQ, single source for both the on-page accordion and the FAQPage schema (verbatim copy).
 const faqs = [
-  { question: 'What services does Menon Medispa offer?', answer: 'Please contact us or visit our services pages to learn about our full range of aesthetic and wellness treatments.' },
+  { question: 'What services does Menon Medispa offer?', answer: 'We offer HydraFacial and medical facials, Botox and dermal fillers, laser hair removal and laser skin resurfacing, IV therapy and vitamin injections, microneedling, and medical weight loss, all under the care of Dr. Aditi Menon, MD.' },
   { question: 'What areas do you serve?', answer: 'Menon Medispa is located in Millburn, NJ and serves surrounding communities including Short Hills, Summit, Maplewood, Livingston, Springfield, Vauxhall, and West Orange.' },
   { question: 'How do I schedule?', answer: 'You can schedule a consultation or treatment online through our booking system, or call us at (973) 494-8431.' },
   { question: 'What makes Menon Medispa different?', answer: 'We combine medical excellence, cutting-edge technology, and personalized care led by Dr. Aditi Menon, MD, delivering superior aesthetic results in a warm, discreet environment.' },
@@ -98,14 +99,17 @@ const faqPage = {
 
   {/* ════════ 1 · HERO ════════ */}
   <HeroSection
-    eyebrow="Millburn NJ's Premier Medispa & Wellness Center"
+    eyebrow="Millburn NJ's Premier Medical Spa & Wellness Center"
+    eyebrowTag="h1"
     heading="Give Yourself the Glow Up You Deserve"
+    headingTag="h2"
     body="Advanced Botox, facials, and body treatments delivered by medical experts. Discover why Millburn residents choose us for their aesthetic goals."
-    bg_video_url="/videos/wix/2baa5c_feca9a60fac643698798ede1260cd291.mp4"
+    bg_video_url="/videos/wix/2baa5c_feca9a60fac643698798ede1260cd291-720.mp4"
+    bg_video_url_mobile="/videos/wix/2baa5c_feca9a60fac643698798ede1260cd291-480.mp4"
     bg_image_url={posterImg.src}
     bg_image_alt=""
     ctas={[
-      { text: "Schedule An Appointment", href: site.calcomUrl, variant: "primary" }
+      { text: "Schedule An Appointment", href: site.calcomUrl, variant: "primary", book: "request" }
     ]}
     social_proof={[
       { image_key: "90411e0041df", alt: "" },
@@ -125,7 +129,7 @@ const faqPage = {
         <RichText html="Same-Week Appointments" font="var(--font-body)" size="var(--text-sm)" color="#FFFFFF" />
       </div>
       <div class="trust-bar__item">
-        <RichText html="Medical-Grade Expertise" font="var(--font-body)" size="var(--text-sm)" color="#FFFFFF" />
+        <RichText html="Led by Dr. Aditi Menon, MD" font="var(--font-body)" size="var(--text-sm)" color="#FFFFFF" />
       </div>
       <div class="trust-bar__item">
         <RichText html="State of the Art Equipment" font="var(--font-body)" size="var(--text-sm)" color="#FFFFFF" />
@@ -162,13 +166,11 @@ const faqPage = {
         <p class="intro-band__eyebrow">Welcome To</p>
         <h2 class="intro-band__title">Menon Medispa &amp; Wellness</h2>
         <div class="intro-band__lede">
-          <p>If you're ever unsure which service is right for you, we're here to help!</p>
-          <p>Schedule a complimentary consultation with one of our experts to discuss your goals and find the perfect treatment.</p>
-          <p>Click below to book your session and start your journey to looking and feeling your best.</p>
+          <p>Not sure which treatment is right for you? Schedule a complimentary consultation with one of our experts to talk through your goals and build a plan that fits.</p>
         </div>
         <h2 class="intro-band__subhead">Expert Medispa and Skin Care Clinic in Millburn, NJ</h2>
         <p class="intro-band__about">Menon Medispa has been at the forefront of medical aesthetics and anti-aging innovations since 2019. Our team of esteemed medical experts is committed to providing outstanding care and achieving lasting outcomes that not only improve your looks but also boost your overall wellness. We are proud to care for patients across Millburn, NJ and the surrounding communities.</p>
-        <a href="/consultation" class="btn btn--primary">Schedule Consultation</a>
+        <a href="/consultation" class="btn btn--primary">Schedule a Consultation</a>
       </div>
     </div>
   </section>
@@ -250,7 +252,15 @@ const faqPage = {
         {serviceColumns.map((col) => (
           <a class="service-tile" href={col.href} aria-label={`${col.label} treatments`}>
             <div class="service-tile__media">
-              <img src={col.img.src} alt={col.alt} class="service-tile__img" width="402" height="675" loading="lazy" decoding="async" />
+              <Image
+                src={col.img}
+                alt={col.alt}
+                class="service-tile__img"
+                widths={[360, 520, 670, 800]}
+                sizes="(max-width: 768px) 335px, 33vw"
+                loading="lazy"
+                decoding="async"
+              />
               <span class="service-tile__overlay" aria-hidden="true"></span>
             </div>
             <span class="service-tile__label">{col.label}</span>
@@ -412,7 +422,7 @@ const faqPage = {
           {
             title: "BOTOX® Injectables",
             href: `/request-appointment?service=${encodeURIComponent("BOTOX® Injectables")}`,
-            image_src: botoxImg.src,
+            image_src: botoxImg,
             image_alt: "BOTOX® Injectables at Menon Medispa",
             description_html: "<p>$14 per unit</p>",
             cta_text: "Request to Book",
@@ -420,7 +430,7 @@ const faqPage = {
           {
             title: "Juvéderm Fillers",
             href: `/request-appointment?service=${encodeURIComponent("Juvéderm Fillers")}`,
-            image_src: juvedermImg.src,
+            image_src: juvedermImg,
             image_alt: "Juvéderm dermal filler treatment at Menon Medispa",
             description_html: "<p>From $750</p>",
             cta_text: "Request to Book",
@@ -428,7 +438,7 @@ const faqPage = {
           {
             title: "HydraFacial™ Keravive™",
             href: `/request-appointment?service=${encodeURIComponent("HydraFacial™ Keravive™")}`,
-            image_src: keraviveImg.src,
+            image_src: keraviveImg,
             image_alt: "HydraFacial Keravive scalp treatment at Menon Medispa",
             description_html: "<p>$500</p>",
             cta_text: "Request to Book",
@@ -455,6 +465,10 @@ const faqPage = {
       src={skinFirstBg.src}
       alt=""
       aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      width={skinFirstBg.width}
+      height={skinFirstBg.height}
     />
     <span class="media-bg__scrim media-bg__scrim--brand"></span>
     <div class="media-bg__inner container on-media home-section-9__inner">
@@ -518,11 +532,13 @@ const faqPage = {
       <div class="home-section-10__media">
         <video
           class="home-section-10__video"
-          src="/videos/wix/f61cce_b930b3f48aa04baa8c7f669d63cdaebd.mp4"
+          data-lazy-video
+          data-src="/videos/wix/f61cce_b930b3f48aa04baa8c7f669d63cdaebd.mp4"
           autoplay
           loop
           muted
           playsinline
+          preload="none"
           poster={videoPosterImg.src}
           aria-hidden="true"
         ></video>
@@ -576,7 +592,7 @@ const faqPage = {
         {specials.map((s) => (
           <article class="special-card">
             <a href={s.more} class="special-card__media" aria-label={`Learn more about ${s.title}`}>
-              <img src={s.img} alt={s.alt} class="special-card__img" loading="lazy" decoding="async" width="420" height="320" />
+              {s.img && <img src={s.img} alt={s.alt} class="special-card__img" loading="lazy" decoding="async" width="420" height="320" />}
             </a>
             <div class="special-card__body">
               <div class="special-card__copy">
@@ -715,6 +731,8 @@ const faqPage = {
       src={testimonialsBg.src}
       alt=""
       aria-hidden="true"
+      loading="lazy"
+      decoding="async"
       width="1440"
       height="626"
     />
@@ -732,7 +750,7 @@ const faqPage = {
         </figure>
       )}
 
-      <div class="home-section-7__social-proof">
+      <a class="home-section-7__social-proof" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
         <div class="home-section-7__avatars">
           <img src={avatar1.src} alt="" class="home-section-7__avatar" loading="lazy" decoding="async" width="46" height="50" />
           <img src={avatar2.src} alt="" class="home-section-7__avatar" loading="lazy" decoding="async" width="52" height="50" />
@@ -742,7 +760,7 @@ const faqPage = {
           <p class="home-section-7__stars stars">★★★★★</p>
           <p class="home-section-7__review-count">100+ 5 Star Reviews</p>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -780,7 +798,8 @@ const faqPage = {
     }
     .review-card__quote p { margin: 0; }
     .review-card__author { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 700; color: var(--color-text); }
-    .home-section-7__social-proof { display: flex; align-items: center; gap: var(--space-md); justify-content: center; }
+    .home-section-7__social-proof { display: flex; align-items: center; gap: var(--space-md); justify-content: center; color: inherit; text-decoration: none; cursor: pointer; width: fit-content; transition: opacity 0.2s ease; }
+    .home-section-7__social-proof:hover { opacity: 0.85; }
     .home-section-7__avatars { display: flex; align-items: center; }
     .home-section-7__avatar {
       width: 48px;
@@ -810,7 +829,7 @@ const faqPage = {
   </style>
 
   {/* ════════ 10 · FAQ ════════ */}
-  <section class="home-faq section">
+  <section class="home-faq section section--tint">
     <div class="container container--narrow">
       <SectionHeading text="Frequently asked questions" tag="h2" align="center" font="display" />
       <FaqAccordion items={faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }))} />
@@ -852,7 +871,7 @@ const faqPage = {
         <RichText html="<p>Menon Medispa Millburn NJ</p>" font="var(--font-body)" size="var(--text-sm)" color="var(--color-text)" />
         <RichText html="<p>Ready to experience the benefits of Menon Medispa? Take the first step toward Perfect Skin and Hair  by scheduling your personal consultation at Menon Medispa in Millburn, NJ.</p>" font="var(--font-body)" size="var(--text-sm)" color="var(--color-text)" />
         <div class="home-cta-contact__cta">
-          <Button text="Schedule Your Consultation!" href={site.calcomUrl} variant="primary" />
+          <Button text="Schedule a Consultation" href={site.calcomUrl} variant="primary" />
         </div>
       </div>
 

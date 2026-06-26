@@ -13,6 +13,9 @@ export default defineConfig({
   // Canonical/sitemap base. Update to the production custom domain at P06 cutover.
   site: 'https://www.menonmedispa.com',
   output: 'static',
+  build: {
+    inlineStylesheets: 'always',
+  },
   // Trailing slash always: pages build/serve as /path/ and the sitemap emits /path/,
   // so the canonical (normalized to a trailing slash in BaseLayout) now agrees with
   // both. Fixes the canonical-vs-sitemap split-signal flagged in the SEO audit.

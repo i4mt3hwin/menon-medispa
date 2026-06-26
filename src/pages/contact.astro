@@ -15,7 +15,7 @@ const mapsUrl = 'https://maps.google.com/maps?q=45+Essex+St+Suite+202+Millburn+N
 // SEO (2026-06-22 audit): the contact page is the most important place for LocalBusiness
 // schema (full NAP + hours + geo) and previously shipped none. Reuse the homepage node
 // (same @id so Google merges them) and wrap it in a ContactPage.
-const localBusiness = buildLocalBusiness({ image: officeStaffImg.src });
+const localBusiness = buildLocalBusiness();
 const contactPage = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',

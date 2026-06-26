@@ -42,14 +42,12 @@ import reviewIcon3 from '@/assets/images/b95880091b44.webp';
           <a
             href={site.calcomUrl}
             class="btn btn--primary btn--lg"
-            target="_blank"
-            rel="noopener noreferrer"
           >
-            Request My Consultation
+            Schedule a Consultation
           </a>
         </div>
 
-        <div class="s1-body__social-proof">
+        <a class="s1-body__social-proof" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
           <div class="s1-body__social-icons">
             <img
               src={reviewIcon1.src}
@@ -83,7 +81,7 @@ import reviewIcon3 from '@/assets/images/b95880091b44.webp';
             <p class="s1-body__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
             <p class="s1-body__review-count">100+ 5 Star Reviews</p>
           </div>
-        </div>
+        </a>
 
       </div>
 
@@ -173,6 +171,10 @@ import reviewIcon3 from '@/assets/images/b95880091b44.webp';
   }
 
   .s1-body__social-proof {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
     display: inline-flex;
     align-items: center;
     gap: 14px;
@@ -185,6 +187,7 @@ import reviewIcon3 from '@/assets/images/b95880091b44.webp';
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
+  .s1-body__social-proof:hover { background: rgb(255 255 255 / 0.16); }
 
   .s1-body__social-icons {
     display: flex;

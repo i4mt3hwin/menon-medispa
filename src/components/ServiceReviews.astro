@@ -1,0 +1,42 @@
+---
+/**
+ * ServiceReviews.astro, a "more reviews" band for service pages.
+ *
+ * Surfaces several real, provider-safe reviews for a service (vs the single lead
+ * <ServiceTestimonial>). Pulls from the curated reviews.json via getReviews(slug, n)
+ * — service-tagged first, topped up from the 'general' pool — and renders them as a
+ * <TestimonialStrip> grid. Picks the meatiest quotes for quality, and can skip the
+ * first (the one the lead <ServiceTestimonial> already shows) to avoid a duplicate.
+ *
+ *   <ServiceReviews slug="laser-hair-removal" excludeFirst count={3} />
+ */
+import TestimonialStrip from './TestimonialStrip.astro';
+import { getReviews } from '@/lib/reviews';
+
+interface Props {
+  slug: string;
+  count?: number;
+  heading?: string;
+  /** drop the first match (already shown by the lead ServiceTestimonial) */
+  excludeFirst?: boolean;
+  bg_color?: string;
+}
+
+const { slug, count = 3, heading = 'What our clients say', excludeFirst = false, bg_color } = Astro.props;
+
+// Pull a generous pool so there's something to curate from, then pick the longest
+// (most substantive) quotes. Deterministic — no Math.random, stable builds.
+const pool = getReviews(slug, Math.max(count + (excludeFirst ? 1 : 0), 6));
+const avail = excludeFirst ? pool.slice(1) : pool;
+const chosen = [...avail].sort((a, b) => b.quote.length - a.quote.length).slice(0, count);
+
+const items = chosen.map((r) => ({
+  quote: r.quote,
+  author: r.author,
+  rating: '★★★★★',
+}));
+---
+
+{items.length > 0 && (
+  <TestimonialStrip heading={heading} testimonials={items} layout="grid" bg_color={bg_color} />
+)}

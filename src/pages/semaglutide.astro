@@ -16,6 +16,7 @@ import { buildServiceSchema } from '@/lib/serviceSchema';
 import TrustBar from '@/pages/_sections/semaglutide__section_2.astro';
 import Pricing from '@/pages/_sections/semaglutide__section_7.astro';
 import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 import FinalCta from '@/pages/_sections/semaglutide__section_9.astro';
 
 import heroImg from '@/assets/images/ede51808b502.webp';
@@ -55,6 +56,26 @@ const faqs = [
     answer:
       'Common side effects of Semaglutide may include nausea (most common, especially when starting treatment), diarrhea, vomiting, constipation, abdominal pain, and headache. Most side effects are mild to moderate and tend to decrease over time. Dr. Menon employs a gradual dose escalation strategy to minimize these effects and will work with you to manage any discomfort.',
   },
+  {
+    question: 'Who is a candidate for Semaglutide or Tirzepatide, and who should not take it?',
+    answer:
+      'Semaglutide and Tirzepatide are intended for adults working toward meaningful, medically supervised weight loss, and Dr. Menon reviews your full medical history to confirm they are appropriate for you. They are generally not recommended during pregnancy or breastfeeding, or for people with a personal or family history of medullary thyroid carcinoma or MEN 2 (multiple endocrine neoplasia type 2). Your consultation and medical review determine whether the program is the right fit.',
+  },
+  {
+    question: 'How much does Semaglutide cost at Menon Medispa?',
+    answer:
+      'Our physician-directed Semaglutide program starts at $100. Your exact cost depends on your dose and the length of your plan, which Dr. Menon confirms at your consultation. The program includes medical review, monitoring, and lifestyle guidance.',
+  },
+  {
+    question: 'How much does Tirzepatide cost at Menon Medispa?',
+    answer:
+      'Tirzepatide is priced per injection by dose: 2.5 mg is $150, 5 mg is $175, 7.5 mg is $200, and 10 mg is $225. Dr. Menon will recommend the right starting dose at your consultation and adjust it over time based on your response.',
+  },
+  {
+    question: 'Semaglutide vs Tirzepatide: which is right for me?',
+    answer:
+      'Both are once-weekly injections that reduce appetite and support weight loss. Tirzepatide activates two gut-hormone pathways (GIP and GLP-1) while Semaglutide activates one (GLP-1), and in studies Tirzepatide has produced greater average weight loss for many patients. The best choice depends on your health history, goals, budget, and how you respond, and Dr. Menon will help you decide.',
+  },
 ];
 const faqItems = [
   {
@@ -87,12 +108,32 @@ const faqItems = [
     answer_html:
       '<p>Common side effects of Semaglutide may include:</p><ul><li>Nausea (most common, especially when starting treatment)</li><li>Diarrhea</li><li>Vomiting</li><li>Constipation</li><li>Abdominal pain</li><li>Headache</li></ul><p>Most side effects are mild to moderate and tend to decrease over time. Dr. Menon employs a gradual dose escalation strategy to minimize these effects and will work with you to manage any discomfort.</p>',
   },
+  {
+    question: 'Who is a candidate for Semaglutide or Tirzepatide, and who should not take it?',
+    answer_html:
+      '<p>Semaglutide and Tirzepatide are intended for adults working toward meaningful, medically supervised weight loss, and Dr. Menon reviews your full medical history to confirm they are appropriate for you. They are generally not recommended during pregnancy or breastfeeding, or for people with a personal or family history of medullary thyroid carcinoma or MEN 2 (multiple endocrine neoplasia type 2). Your consultation and medical review determine whether the program is the right fit.</p>',
+  },
+  {
+    question: 'How much does Semaglutide cost at Menon Medispa?',
+    answer_html:
+      '<p>Our physician-directed Semaglutide program starts at $100. Your exact cost depends on your dose and the length of your plan, which Dr. Menon confirms at your consultation. The program includes medical review, monitoring, and lifestyle guidance.</p>',
+  },
+  {
+    question: 'How much does Tirzepatide cost at Menon Medispa?',
+    answer_html:
+      '<p>Tirzepatide is priced per injection by dose: 2.5 mg is $150, 5 mg is $175, 7.5 mg is $200, and 10 mg is $225. Dr. Menon will recommend the right starting dose at your consultation and adjust it over time based on your response.</p>',
+  },
+  {
+    question: 'Semaglutide vs Tirzepatide: which is right for me?',
+    answer_html:
+      '<p>Both are once-weekly injections that reduce appetite and support weight loss. Tirzepatide activates two gut-hormone pathways (GIP and GLP-1) while Semaglutide activates one (GLP-1), and in studies Tirzepatide has produced greater average weight loss for many patients. The best choice depends on your health history, goals, budget, and how you respond, and Dr. Menon will help you decide.</p>',
+  },
 ];
 
 const jsonld = buildServiceSchema({
-  name: 'Semaglutide Medical Weight Loss in Millburn, NJ',
+  name: 'Semaglutide & Tirzepatide Medical Weight Loss in Millburn, NJ',
   description:
-    'Physician-directed Semaglutide weight loss in Millburn NJ with weekly injections, nutrition guidance, lab review, and monitoring from Dr. Aditi Menon.',
+    'Physician-directed Semaglutide and Tirzepatide medical weight loss in Millburn NJ, with weekly injections, lab review, and monitoring from Dr. Aditi Menon, MD.',
   url: '/semaglutide',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -107,15 +148,15 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Semaglutide Weight Loss in Millburn NJ | Menon Medispa"
-  description="Physician-directed Semaglutide weight loss in Millburn NJ with weekly injections, nutrition guidance, lab review, and monitoring from Dr. Aditi Menon."
+  title="Semaglutide & Tirzepatide Weight Loss in Millburn NJ | Menon Medispa"
+  description="Physician-directed Semaglutide and Tirzepatide medical weight loss in Millburn NJ, with weekly injections, lab review, and monitoring from Dr. Aditi Menon, MD."
   canonical="https://www.menonmedispa.com/semaglutide"
   jsonld={jsonld}
 >
 
   <ServiceHero
-    eyebrow="SEMAGLUTIDE · MILLBURN, NJ"
-    h1="Medical Weight Loss with Semaglutide in Millburn, NJ"
+    eyebrow="SEMAGLUTIDE & TIRZEPATIDE · MILLBURN, NJ"
+    h1="Medical Weight Loss with Semaglutide and Tirzepatide in Millburn, NJ"
     subhead="Physician-directed weight loss that targets your biology, not just your willpower, for sustainable, lasting results."
     image={heroImg}
     imageAlt="Semaglutide medical weight loss treatment at Menon Medispa in Millburn, NJ"
@@ -126,34 +167,15 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="semaglutide" />
+
   <ServiceLayout>
-    <!-- MAIN COLUMN -->
-    <div class="svc-block">
-      <h2>The Challenge of Sustainable Weight Loss</h2>
-
-      <p class="svc-lead">Losing weight can be one of life's most frustrating struggles. Despite countless diets, exercise programs, and willpower, many people find themselves trapped in a cycle of initial success followed by disappointing regain.</p>
-
-      <ul class="svc-checks">
-        <li>Traditional diets often fail because they don't address the biological factors driving hunger</li>
-        <li>Exercise alone rarely produces significant weight loss for those with metabolic challenges</li>
-        <li>Over-the-counter supplements promise results but deliver minimal, temporary changes</li>
-      </ul>
-
-      <p>The reality is that weight management isn't simply about willpower. Your body actively fights weight loss through powerful hormonal signals that increase hunger and slow metabolism. This biological resistance makes sustainable weight reduction nearly impossible for many people, especially those with insulin resistance, hormonal imbalances, or genetic predispositions.</p>
-
-      <p>For those who have struggled with their weight for years, each failed attempt chips away at confidence and motivation, leading many to believe that significant, lasting weight loss may be out of reach without medical intervention.</p>
-
-      <div class="svc-accent">
-        <p>But there is a better way forward, one based on medical science rather than willpower alone!</p>
-      </div>
-    </div>
-
+    <!-- MAIN COLUMN — solution/credibility first (front-load value), the problem context below -->
     <div class="svc-block">
       <h2>Semaglutide Weight Loss Injections in Millburn, NJ</h2>
 
-      <p>We understand the frustration of failed weight loss attempts.</p>
-
-      <p>Our medically supervised Semaglutide program offers a science-based approach that addresses the biological factors that make sustainable weight loss so challenging.</p>
+      <p class="svc-lead">Our medically supervised Semaglutide program offers a science-based approach to the biological factors that make sustainable weight loss so challenging, guided by Dr. Aditi Menon, MD.</p>
 
       <p>For NJ patients searching for Semaglutide weight loss or weight loss injections near Millburn, care begins with a medical review so Dr. Menon can determine whether this treatment is appropriate for your health history and goals.</p>
 
@@ -179,8 +201,41 @@ const jsonld = buildServiceSchema({
       <p class="svc-eyebrow">Beyond Weight Loss: Total Health Benefits</p>
 
       <p>Unlike traditional diets that leave you constantly hungry and fighting cravings, Semaglutide helps you feel satisfied with smaller portions. This allows for sustainable lifestyle changes that lead to not just weight loss, but also improvements in blood pressure, cholesterol levels, and overall cardiovascular health.</p>
+    </div>
 
-      <p>Don't let another day pass struggling with ineffective diets and disappointing results. The science-backed solution you've been searching for is just one appointment away. Our Semaglutide program has helped countless patients achieve what they once thought impossible.</p>
+    <div class="svc-block">
+      <h2>Tirzepatide Weight Loss Injections in Millburn, NJ</h2>
+
+      <p class="svc-lead">We also offer Tirzepatide, a once-weekly weight loss injection, as an alternative to Semaglutide for the right candidates.</p>
+
+      <p>Tirzepatide activates two of your body's appetite-regulating gut hormone pathways (GIP and GLP-1), while Semaglutide works on one (GLP-1). In clinical studies, Tirzepatide has produced greater average weight loss for many patients. The right option depends on your health history, goals, budget, and how you respond, and Dr. Menon will help you decide at your consultation.</p>
+
+      <p class="svc-eyebrow">Tirzepatide Pricing (per injection)</p>
+
+      <ul class="svc-checks">
+        <li>2.5 mg, $150</li>
+        <li>5 mg, $175</li>
+        <li>7.5 mg, $200</li>
+        <li>10 mg, $225</li>
+      </ul>
+    </div>
+
+    <div class="svc-block">
+      <h2>The Challenge of Sustainable Weight Loss</h2>
+
+      <p class="svc-lead">Losing weight can be one of life's most frustrating struggles. Despite countless diets, exercise programs, and willpower, many people find themselves trapped in a cycle of initial success followed by disappointing regain.</p>
+
+      <ul class="svc-checks">
+        <li>Traditional diets often fail because they don't address the biological factors driving hunger</li>
+        <li>Exercise alone rarely produces significant weight loss for those with metabolic challenges</li>
+        <li>Over-the-counter supplements promise results but deliver minimal, temporary changes</li>
+      </ul>
+
+      <p>The reality is that weight management isn't simply about willpower. Your body actively fights weight loss through powerful hormonal signals that increase hunger and slow metabolism. This biological resistance makes sustainable weight reduction nearly impossible for many people, especially those with insulin resistance, hormonal imbalances, or genetic predispositions.</p>
+
+      <div class="svc-accent">
+        <p>That is exactly the biology a medically supervised Semaglutide program is designed to address, rather than relying on willpower alone.</p>
+      </div>
     </div>
 
     <!-- SIDEBAR -->
@@ -189,9 +244,9 @@ const jsonld = buildServiceSchema({
         cta
         reviewText="100+ 5 Star Reviews"
         items={[
-          { label: 'Price', value: 'From $100' },
+          { label: 'Options', value: 'Semaglutide or Tirzepatide' },
+          { label: 'Price', value: 'Semaglutide from $100, Tirzepatide from $150' },
           { label: 'Frequency', value: 'Once-weekly injection' },
-          { label: 'Results', value: 'Varies by patient' },
           { label: 'Performed by', value: 'Dr. Aditi Menon, MD' },
           { label: 'Location', value: 'Millburn, NJ' },
         ]}
@@ -199,11 +254,22 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
-  <ServiceTestimonial slug="semaglutide" />
+  <!-- Mid-scroll CTA (repeat the Book CTA after the persuasion content; below-fold CTAs
+       convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready to start medical weight loss with Semaglutide or Tirzepatide?</h2>
+      <p>Book a consultation with Dr. Menon for a medical review and a plan built around your health history and goals.</p>
+      <a href="/request-appointment?service=Medical%20Weight%20Loss" class="btn btn--primary">Book Your Consultation</a>
+    </div>
+  </section>
 
   <Pricing />
 
-  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+  <!-- Deeper social proof: more real 5-star reviews from our clients -->
+  <ServiceReviews slug="semaglutide" excludeFirst heading="More 5-star reviews from our clients" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -211,6 +277,27 @@ const jsonld = buildServiceSchema({
 
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
+
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
 
 </BaseLayout>
 <!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_7 (Pricing), section_9 (FinalCta). Inlined: section_3 (problem prose), section_5 (difference prose), section_6 (mid-page CTA copy folded into section_5 block). FAQ lifted: section_8 to FaqColumn. Hero section_1 extracted to ServiceHero. No promo band found. section_4 (Testimonial) swapped to <ServiceTestimonial slug="semaglutide" /> (original scraped quote named departed staff; replaced by the provider-safe reviews DB). -->

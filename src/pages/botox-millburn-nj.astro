@@ -8,20 +8,21 @@ import RelatedPosts from '@/components/RelatedPosts.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 
 import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
 
 // Kept full-width experiential bands (reused verbatim from the original build)
 import TrustBar from '@/pages/_sections/botox-millburn-nj__section_2.astro';
-import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import Gallery from '@/pages/_sections/botox-millburn-nj__section_6.astro';
 import Pricing from '@/pages/_sections/botox-millburn-nj__section_7.astro';
 import FinalCta from '@/pages/_sections/botox-millburn-nj__section_9.astro';
 
 import heroImg from '@/assets/images/f6d70f706248.jpg';
 import problemImg from '@/assets/images/9c00e61600b0.jpg';
-import differenceImg from '@/assets/images/2ea069e3f116.jpg';
+import botoxReelPoster from '@/assets/images/botox-reel-poster.jpg';
 
 const slug = 'botox-millburn-nj';
 const posts = getRelatedPosts(slug);
@@ -34,6 +35,16 @@ const faqs = [
       'Botox is an FDA-approved injectable neuromodulator derived from botulinum toxin type A. When injected into targeted facial muscles, it temporarily blocks the nerve signals that cause those muscles to contract. This relaxes the muscles responsible for expression lines, smoothing the overlying skin and reducing the appearance of wrinkles. Results typically last 3 to 4 months.',
   },
   {
+    question: 'What areas can Botox treat?',
+    answer:
+      'Botox is most commonly used to soften the horizontal lines across the forehead, the frown lines between the brows (often called the 11s), and the crow\'s feet around the eyes. It can also create a subtle lip flip that gives the upper lip a fuller look. At your consultation, Dr. Menon evaluates how your face moves and tailors a plan to the areas that will give you the most natural, refreshed result.',
+  },
+  {
+    question: 'Do you offer a Botox lip flip?',
+    answer:
+      'Yes. A Botox lip flip places a few small units along the upper lip line so the edge of the lip gently rolls outward, making the upper lip look fuller and showing less gum when you smile. It uses far fewer units than dermal lip filler and gives a subtle, natural result. Dr. Menon can advise whether a lip flip, lip filler, or a combination best fits your goals.',
+  },
+  {
     question: 'What makes Botox at Menon Medispa different?',
     answer:
       'All Botox injections at Menon Medispa are administered by Dr. Menon herself. This physician-level expertise means your treatment is guided by a medical doctor with specialized training in facial anatomy and aesthetic medicine. Dr. Menon personally evaluates your facial dynamics and creates a customized treatment plan to achieve natural-looking results specific to your goals.',
@@ -42,6 +53,11 @@ const faqs = [
     question: 'Will I look "frozen" or unnatural?',
     answer:
       'No. The goal of Botox at Menon Medispa is to create a refreshed, natural appearance that preserves your expressive range. Dr. Menon uses a conservative, targeted approach that relaxes the specific muscles causing lines while allowing the surrounding muscles to move normally. The result is subtle, natural-looking improvement that enhances rather than alters your appearance.',
+  },
+  {
+    question: 'How long does Botox last?',
+    answer:
+      'Botox results typically last about 3 to 4 months. Many patients find that with regular treatments the effects last longer over time, as the treated muscles gradually weaken from less use. When you notice movement starting to return, it is time to plan your next visit.',
   },
   {
     question: 'How long does a Botox appointment take?',
@@ -54,9 +70,9 @@ const faqs = [
       'Arrive with clean skin if possible and be ready to review medications, supplements, allergies, and health history. Your provider may recommend avoiding alcohol and certain blood-thinning supplements before treatment to help reduce bruising risk.',
   },
   {
-    question: 'How much does Botox cost and how often will I need it?',
+    question: 'How much does Botox cost and how many units will I need?',
     answer:
-      'Botox at Menon Medispa is priced at $14 per unit. The number of units needed varies by the areas treated and your individual muscle strength, but most patients require between 20 to 50 units per session. Results typically last 3 to 4 months. Many patients find that with regular treatments, the effects last longer over time as muscles gradually weaken from less use.',
+      'Botox at Menon Medispa is priced at $14 per unit. The number of units needed varies by the areas treated and your individual muscle strength, but most patients require between 20 to 50 units per session. Dr. Menon reviews the right number of units for your goals at your consultation, so your pricing is clear before treatment.',
   },
 ];
 const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
@@ -98,50 +114,38 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="botox-millburn-nj" />
+
   <ServiceLayout>
-    <!-- MAIN COLUMN -->
-    <div class="svc-block">
-      <h2>Why Most Anti-Aging Treatments Fail</h2>
-      <p class="svc-lead">Discover why traditional skincare leaves Millburn and Short Hills residents searching for real solutions.</p>
-      <figure>
-        <img src={problemImg.src} alt="Anti-aging skin concerns addressed at Menon Medispa Millburn NJ" width="488" height="428" loading="lazy" decoding="async" />
-      </figure>
-
-      <p class="svc-eyebrow">The Hidden Truth About Aging Skin</p>
-
-      <div class="svc-accent">
-        <h3>Creams Miss the Mark</h3>
-        <p>Traditional skincare products can't reach the underlying muscle contractions that cause expression lines. No matter how expensive, topical creams work only on the surface, leaving the real cause of wrinkles completely unaddressed.</p>
-      </div>
-      <div class="svc-accent">
-        <h3>At-Home Treatments Fall Short</h3>
-        <p>Facial exercises and DIY remedies rarely deliver significant results. Without addressing the muscular activity that creates lines over time, these approaches cannot produce the smooth, refreshed appearance that patients want.</p>
-      </div>
-      <div class="svc-accent">
-        <h3>Over-the-Counter Promises</h3>
-        <p>Anti-aging products offer temporary improvements but fail to address the root cause of dynamic wrinkles. The result is a cycle of purchasing products that deliver short-term hydration but no lasting change.</p>
-      </div>
-
-      <p class="svc-eyebrow">The Real Problem</p>
-      <p>Dynamic wrinkles form when facial muscles repeatedly contract during expressions like smiling, squinting, and frowning. Over time, these repeated movements create permanent creases in the overlying skin. This is a muscular issue, not a topical one.</p>
-      <p>As we age, our skin also loses collagen and elastin, making it less able to bounce back after muscle movements. The combination of weakened skin structure and constant muscular activity accelerates the formation of lines and wrinkles that cannot be reversed by surface-level treatments.</p>
-      <p>Understanding the true cause of aging skin makes it clear why so many anti-aging solutions fail to deliver lasting results.</p>
-
-      <p class="svc-eyebrow">The Better Way Forward</p>
-      <p>Botox at Menon Medispa directly addresses the muscular cause of expression lines. By temporarily relaxing the specific muscles responsible for wrinkle formation, Botox allows the overlying skin to smooth and recover, delivering visible results that no topical product can match.</p>
-      <p>Under the care of Dr. Menon, your Botox treatment is precisely calibrated to preserve your natural expressions while softening the lines that age you. The result is a refreshed, rested appearance that looks completely natural.</p>
-    </div>
-
+    <!-- MAIN COLUMN — solution/credibility first (front-load value), the problem context below -->
     <div class="svc-block">
       <h2>The Menon Medispa Botox Difference in Millburn, NJ</h2>
-      <h3>We understand the frustration of failed anti-aging attempts.</h3>
-      <figure>
-        <img src={differenceImg.src} alt="Botox treatment at Menon Medispa Millburn NJ" width="476" height="316" loading="lazy" decoding="async" />
-      </figure>
-      <p>That is why Dr. Menon has developed a physician-administered Botox program in Millburn, NJ that delivers natural-looking results tailored to your facial anatomy and aesthetic goals. Unlike discount injection services, every treatment at Menon Medispa is performed with the precision of a medical doctor.</p>
+      <p class="svc-lead">Dr. Menon has built a physician-administered Botox program that delivers natural-looking results tailored to your facial anatomy and goals. Unlike discount injection services, every treatment is performed with the precision of a medical doctor.</p>
 
       <p class="svc-eyebrow">How It Works</p>
-      <p>Botox is an FDA-approved neuromodulator that temporarily blocks the nerve signals responsible for muscle contractions. When injected into targeted facial muscles, it relaxes those muscles, preventing the repeated movements that cause expression lines. The surrounding skin smooths as the muscle tension releases, revealing a refreshed, more youthful appearance.</p>
+      <p>Botox is an FDA-approved neuromodulator that temporarily blocks the nerve signals behind muscle contractions. Injected into targeted facial muscles, it relaxes them so the overlying skin can smooth, for a refreshed, more youthful look.</p>
+      <p>It is most commonly used to soften forehead lines, the frown lines between the brows (the 11s), and the crow's feet around the eyes. Dr. Menon also offers a Botox lip flip for a subtly fuller upper lip, and tailors the areas treated to the way your face moves.</p>
+
+      <p class="svc-eyebrow">See Botox at Menon Medispa</p>
+      <figure>
+        <video
+          data-lazy-video
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          aria-hidden="true"
+          poster={botoxReelPoster.src}
+          width="720"
+          height="1280"
+          style="display:block;width:100%;max-width:340px;height:auto;border-radius:var(--radius-sm);object-fit:cover;"
+        >
+          <source data-src="/videos/botox-reel.mp4" type="video/mp4" />
+        </video>
+        <figcaption>A real Botox treatment at our Millburn, NJ medispa, performed by Dr. Menon.</figcaption>
+      </figure>
 
       <ul class="svc-features">
         <li>
@@ -161,10 +165,30 @@ const jsonld = buildServiceSchema({
           <p>Performed by Dr. Menon with personalized treatment planning</p>
         </li>
       </ul>
+    </div>
 
-      <p class="svc-eyebrow">The Doctor's Difference</p>
-      <p>At Menon Medispa, all Botox injections are administered by Dr. Menon herself. This physician-level expertise means your treatment is guided by a comprehensive understanding of facial anatomy, muscle dynamics, and aesthetic medicine principles.</p>
-      <p>Dr. Menon takes the time to understand your individual concerns and goals before creating a treatment plan that targets specific areas while preserving the natural movement that makes your expressions uniquely yours.</p>
+    <div class="svc-block">
+      <h2>Why Most Anti-Aging Treatments Fail</h2>
+      <p class="svc-lead">Traditional skincare leaves so many Millburn and Short Hills residents still searching for real results.</p>
+      <figure>
+        <img src={problemImg.src} alt="Anti-aging skin concerns addressed at Menon Medispa Millburn NJ" width="488" height="428" loading="lazy" decoding="async" />
+      </figure>
+
+      <div class="svc-accent">
+        <h3>Creams Miss the Mark</h3>
+        <p>Topical creams only work on the surface, so they never reach the muscle contractions that cause expression lines.</p>
+      </div>
+      <div class="svc-accent">
+        <h3>At-Home Treatments Fall Short</h3>
+        <p>Facial exercises and DIY remedies don't address the muscle activity that creates lines over time.</p>
+      </div>
+      <div class="svc-accent">
+        <h3>Over-the-Counter Promises</h3>
+        <p>Drugstore anti-aging products offer short-term hydration, not a lasting change to dynamic wrinkles.</p>
+      </div>
+
+      <p class="svc-eyebrow">The Real Problem</p>
+      <p>Dynamic wrinkles form when facial muscles contract during expressions like smiling, squinting, and frowning. Over time those repeated movements crease the skin, and as we lose collagen it bounces back less easily. It is a muscular issue, not a surface one, which is exactly what Botox is designed to address.</p>
     </div>
 
     <!-- SIDEBAR -->
@@ -176,6 +200,7 @@ const jsonld = buildServiceSchema({
           { label: 'Price', value: '$14 per unit' },
           { label: 'Appointment', value: 'About 15 minutes' },
           { label: 'Results', value: 'Visible in 3–7 days' },
+          { label: 'Lasts', value: '3–4 months' },
           { label: 'Performed by', value: 'Dr. Menon, MD' },
           { label: 'Location', value: 'Millburn, NJ' },
         ]}
@@ -183,14 +208,25 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
-  <ServiceTestimonial slug="botox-millburn-nj" />
+  <!-- Mid-scroll CTA (research: repeat the same Book CTA after the persuasion content;
+       below-fold CTAs convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready to book your Botox consultation?</h2>
+      <p>Book a consultation with Dr. Menon and we'll tailor a plan to the way your face moves and the results you want.</p>
+      <a href="/request-appointment?service=Botox" class="btn btn--primary">Book Your Consultation</a>
+    </div>
+  </section>
 
   <div id="before-after"></div>
   <Gallery />
 
   <Pricing />
 
-  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+  <!-- Deeper social proof: more real 5-star reviews for this service -->
+  <ServiceReviews slug="botox-millburn-nj" excludeFirst heading="More 5-star reviews from our clients" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -199,5 +235,31 @@ const jsonld = buildServiceSchema({
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
 
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
+
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 2/4/6/7/9/11 reused verbatim. -->
+<!-- redesign v2 (CRO+SEO reference pattern, matches laser-hair-removal): social proof pulled high
+     (ServiceTestimonial after the trust bar), benefits/credibility-first body with the problem context
+     below, a mid-scroll Book CTA, a 3-up real-reviews strip (ServiceReviews), and a tinted FAQ for band
+     alternation. Copy preserved verbatim from the prior build; keyword additions use known/standard facts
+     only (common treatment areas + "how long does Botox last" + areas FAQ). Lip flip, masseter/jaw, and
+     aftercare specifics are flagged in medispa-questions.md (not added until confirmed). -->

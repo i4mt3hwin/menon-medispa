@@ -24,7 +24,7 @@ export const site = {
   affiliatedName: 'Menon Regenerative Institute',
 
   /* --- URLs --- */
-  url: 'https://www.menonmedispa.com', // current production (Wix). Update at P06 cutover.
+  url: 'https://www.menonmedispa.com', // production (live on Cloudflare Pages, www is primary). Drives canonical + og:url.
   schemaId: 'https://www.menonmedispa.com/#localbusiness', // keep stable @id from original
 
   /* --- Address (consistent across all sources, no conflict) --- */
@@ -107,6 +107,11 @@ export const site = {
      (Cal.com was evaluated and dropped — too costly for HIPAA, and unnecessary
      for a NON-PHI request flow. See booking plan + project changelog.) */
   calcomUrl: '/request-appointment',
+
+  /* --- Google reviews ---
+     The "100+ 5 Star Reviews" social-proof widgets across the site link here
+     (the clinic's Google Maps profile). One value so all widgets stay in sync. */
+  reviewsUrl: 'https://maps.app.goo.gl/3nXz9R63dVZXWCZh8',
 
   /* --- Convenience helpers (used by ChatAssistant + LeadForm + CTAs) --- */
   contact: {

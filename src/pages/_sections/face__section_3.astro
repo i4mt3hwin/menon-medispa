@@ -71,7 +71,7 @@ const treatments = [
     <div class="face-grid__sub-cta">
       <h3 class="face-grid__sub-heading">Don&rsquo;t Know Which Treatment is Best For You?</h3>
       <p class="face-grid__sub-body">
-        Book a Consultation! Get 30 minutes with the esthetician for FREE or 30 minutes with Dr. Menon for $50 (applied towards treatment!)
+        Book a Consultation! Get 30 minutes with the esthetician for FREE or 30 minutes with Dr. Menon for $50 (may be applied towards your treatment)
       </p>
       <a href="/consultation" class="btn btn--primary btn--lg">Book a Consultation</a>
     </div>
@@ -160,15 +160,18 @@ const treatments = [
   }
 
   @media (max-width: 600px) {
+    /* 2-up on phones so the cards are compact (was 1-up at 360px = oversized + long scroll).
+       minmax(0,1fr) is required: the cards are aspect-ratio boxes with all-absolute content
+       (0 intrinsic width), so a bare 1fr track collapses them to 0 width. */
     .face-grid__cards {
-      grid-template-columns: 1fr;
-      /* explicit width: the cards are aspect-ratio boxes with all-absolute content (0 intrinsic
-         width), and `margin:0 auto` cancels flex-stretch in the column — without this the grid
-         collapses to 0 width and the cards vanish on mobile. */
-      width: 100%;
-      max-width: 360px;
-      margin: 0 auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
     }
+    /* tighten the overlay text so the smaller 2-up cards don't feel cramped */
+    .face-grid__cards :global(.tcard__body) { padding: var(--space-sm); gap: 3px; }
+    .face-grid__cards :global(.tcard__name) { font-size: var(--text-base); line-height: 1.1; }
+    .face-grid__cards :global(.tcard__desc) { font-size: var(--text-xs); line-height: 1.3; }
+    .face-grid__cards :global(.tcard__cue) { display: none; }
 
     .face-grid__sub-cta {
       padding: var(--space-md) var(--space-sm);

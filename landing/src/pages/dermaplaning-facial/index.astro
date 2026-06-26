@@ -1,0 +1,399 @@
+---
+import LandingPage from '../../layouts/LandingPage.astro';
+
+const BOOKING_URL = "https://www.menonmedispa.com/request-appointment?service=Dermaplaning%20Facial";
+const PHONE = "(973) 494-8431";
+const PHONE_LINK = "tel:9734948431";
+---
+
+<LandingPage
+  title="Dermaplaning Facial Millburn NJ | Menon MediSpa & Wellness"
+  description="Professional dermaplaning facial in Millburn, NJ. Remove dead skin and peach fuzz for instantly smoother, brighter skin. 60-minute treatment with no downtime. Book today."
+  ogTitle="Dermaplaning Facial | Menon MediSpa & Wellness"
+  ogDescription="Instantly smoother, brighter skin. Professional dermaplaning facial at Millburn's top-rated MediSpa. No downtime."
+  ogUrl="https://get.menonmedispa.com/dermaplaning-facial"
+  offerName="Dermaplaning Facial"
+  offerPrice="0"
+  bookingUrl={BOOKING_URL}
+>
+  <Fragment slot="mobile-cta">Book Your Dermaplaning Facial</Fragment>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-section relative overflow-hidden bg-navy pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-navy"></div>
+      <img src="/images/dermaplaning-result.png" alt="" class="absolute right-0 top-0 h-full w-full object-cover object-center sm:w-3/4 lg:w-2/3" style="filter: brightness(0.85); mask-image: linear-gradient(to right, transparent 0%, black 40%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);" loading="eager" />
+      <div class="absolute inset-0 bg-navy/50 sm:bg-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-navy/40"></div>
+    </div>
+    <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-lavender/5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl lg:max-w-xl">
+        <div class="text-center lg:text-left">
+          <!-- Reviews badge -->
+          <div class="mb-6 inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
+            <div class="flex text-gold">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <span class="text-xs font-semibold tracking-wide text-gold sm:text-sm">100+ 5 Star Reviews</span>
+          </div>
+
+          <h1 class="font-display text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
+            Instantly Smoother,<br />
+            <span class="italic text-gold">Brighter Skin.</span>
+          </h1>
+
+          <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/70 lg:mx-0 lg:text-xl">
+            Professional dermaplaning removes dead skin and peach fuzz in one 60-minute session — no downtime, just a <strong class="text-white">healthy, radiant glow</strong>.
+          </p>
+
+          <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+            <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gold px-5 py-3.5 text-sm font-bold text-black shadow-lg sm:px-8 sm:py-4 sm:text-lg">
+              Book Your Dermaplaning Facial
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </a>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-white/50 lg:justify-start sm:text-sm">
+            <span>60-minute session</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>No downtime</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>All skin types</span>
+          </div>
+
+          <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-sm sm:px-4 sm:py-2">
+            <svg class="h-4 w-4 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+            <span class="text-xs font-semibold text-white sm:text-sm">Physician-Supervised &middot; Medical-Grade Skincare</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST BAR (Purple) ========== -->
+  <section class="bg-purple py-3.5">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium text-white sm:text-base">
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Same-Week Appointments
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Medical-Grade Expertise
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          State of the Art Equipment
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHAT IS DERMAPLANING ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <img src="/images/dermaplaning-hero.png" alt="Dermaplaning facial treatment in progress" class="h-auto w-full object-cover" width="376" height="440" loading="lazy" />
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">The Treatment</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            What Is Dermaplaning?
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            Dermaplaning is a safe, painless exfoliation treatment that uses a sterile surgical blade to gently remove <strong class="text-navy">weeks of dead skin buildup and fine facial hair (peach fuzz)</strong> in a single session — revealing smoother, brighter skin underneath.
+          </p>
+          <p class="mt-4 text-base leading-relaxed text-text-muted">
+            The result? Your skin feels like silk, glows with a natural radiance, and your skincare products penetrate up to <strong class="text-navy">5x deeper</strong> — maximizing the effectiveness of every serum and moisturizer you use.
+          </p>
+          <div class="mt-6">
+            <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-base font-bold text-black shadow-md">
+              Book Now
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BENEFITS ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        Why Patients Love Dermaplaning
+      </h2>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2">
+        {[
+          { title: "Instantly smoother skin", desc: "Remove dead skin and peach fuzz in one session — your skin feels like silk the moment you leave." },
+          { title: "Brighter, more even complexion", desc: "Reveal the fresh, healthy skin hiding underneath dull buildup. Your natural glow comes through immediately." },
+          { title: "Better product absorption", desc: "After dermaplaning, serums and moisturizers penetrate up to 5x deeper — making your entire skincare routine more effective." },
+          { title: "Flawless makeup application", desc: "Without peach fuzz and dead skin, foundation goes on smoother and looks more natural than ever." },
+        ].map((item) => (
+          <div class="rounded-xl border border-cream-dark bg-cream p-6 text-left shadow-sm">
+            <h3 class="font-display text-lg font-semibold text-navy">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VIDEO ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        See Dermaplaning in Action
+      </h2>
+      <p class="mt-3 text-lg text-text-muted">Watch a real treatment session at Menon MediSpa.</p>
+      <div class="mt-8 overflow-hidden rounded-2xl shadow-lg">
+        <video autoplay muted loop playsinline class="h-auto w-full" poster="/images/dermaplaning-hero.png">
+          <source src="/images/dermaplaning-demo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        Your 60-Minute Glow-Up
+      </h2>
+
+      <div class="mt-12 grid gap-8 sm:grid-cols-3">
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+            <span class="font-display text-2xl font-bold text-gold">1</span>
+          </div>
+          <h3 class="mt-4 font-display text-lg font-semibold text-navy">Consultation</h3>
+          <p class="mt-2 text-sm text-text-muted">Your esthetician evaluates your skin's texture, tone, and sensitivity to customize the treatment to your goals.</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+            <span class="font-display text-2xl font-bold text-gold">2</span>
+          </div>
+          <h3 class="mt-4 font-display text-lg font-semibold text-navy">Dermaplaning</h3>
+          <p class="mt-2 text-sm text-text-muted">Using a sterile surgical blade, dead skin and peach fuzz are gently removed. Pain-free and relaxing.</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+            <span class="font-display text-2xl font-bold text-gold">3</span>
+          </div>
+          <h3 class="mt-4 font-display text-lg font-semibold text-navy">Finishing</h3>
+          <p class="mt-2 text-sm text-text-muted">Premium serums and moisturizer are applied to your freshly exfoliated skin, plus SPF for protection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          What Our Facial Patients Are Saying
+        </h2>
+        <p class="mt-3 text-lg text-text-muted">Real reviews from real patients.</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {[
+          {
+            quote: "I received a HydraFacial paired with dermaplaning, and the results were amazing. Cindy was incredibly knowledgeable, gentle, and professional throughout the entire process.",
+            name: "Kathi Albanese",
+          },
+          {
+            quote: "Sarah was amazing for my facial! She explained everything she was doing in the easiest terms to understand and also told me exactly what I was doing wrong and how to correct it. 10/10!",
+            name: "Kristin Kabous",
+          },
+          {
+            quote: "Absolutely loved getting a facial here!! Sarah is an amazing esthetician!! She made me comfortable and answered any of the questions I had. Would 100% recommend.",
+            name: "Heidi S",
+          },
+        ].map((item) => (
+          <div class="rounded-xl border border-cream-dark bg-white p-6 shadow-sm">
+            <div class="flex text-gold mb-3">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-sm leading-relaxed italic text-text-muted">"{item.quote}"</p>
+            <div class="mt-4 text-sm font-semibold text-navy">— {item.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ADD-ONS ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        Enhance Your Results
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        Maximize your glow with these powerful add-ons designed to extend your benefits.
+      </p>
+
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {[
+          { img: "/images/addon-mask.png", name: "Customized Hydrogel Mask", price: "$25" },
+          { img: "/images/addon-eye-treatment.png", name: "Eye Treatment", price: "$10" },
+          { img: "/images/addon-lymph-drainage.png", name: "Manual Lymph Drainage", price: "$50" },
+          { img: "/images/addon-led-light.png", name: "LED Light Therapy", price: "$35" },
+          { img: "/images/addon-lip-perk.png", name: "Hydrafacial Lip Perk", price: "$30" },
+          { img: "/images/addon-eye-perk.png", name: "Hydrafacial Eye Perk", price: "$40" },
+        ].map((item) => (
+          <div class="flex flex-col items-center gap-2 rounded-xl bg-cream p-4">
+            <img src={item.img} alt={item.name} class="h-16 w-16 object-contain" width="220" height="215" loading="lazy" />
+            <span class="text-xs font-semibold text-navy text-center leading-tight">{item.name}</span>
+            <span class="text-xs text-text-muted">{item.price}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DOCTOR ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <img src="/images/dr-menon-portrait.png" alt="Dr. Aditi Menon, MD at Menon Regenerative Institute" class="h-auto w-full object-cover" width="1954" height="778" loading="lazy" />
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Why Menon MediSpa</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            Physician-Supervised<br />Skincare Experts.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            Every facial treatment at Menon MediSpa is performed by experienced, trained estheticians under the supervision of <strong class="text-navy">Dr. Aditi Menon, MD</strong>. We use only premium, medical-grade products including Corthe Dermo formulations for the best possible results.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {[
+              "Board-Certified physician supervision",
+              "Experienced, trained estheticians",
+              "Premium Corthe Dermo skincare products",
+              "Top-rated MediSpa in Millburn since 2019",
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-text-muted">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          Questions? We've Got Answers.
+        </h2>
+      </div>
+
+      <div class="mt-10 space-y-4">
+        {[
+          {
+            q: "Does dermaplaning hurt?",
+            a: "Not at all! Dermaplaning is completely painless. Most patients describe it as a gentle scraping sensation — many find it relaxing. There's no redness, irritation, or downtime afterward."
+          },
+          {
+            q: "Will my hair grow back thicker?",
+            a: "No — this is a common myth. Dermaplaning removes vellus hair (peach fuzz), which always grows back at the same thickness and texture. It will not cause thicker or darker regrowth."
+          },
+          {
+            q: "How long does the treatment take?",
+            a: "A dermaplaning facial takes about 60 minutes, including consultation, cleansing, the dermaplaning itself, and finishing with premium serums and moisturizer."
+          },
+          {
+            q: "Is it safe for sensitive skin?",
+            a: "Yes! Dermaplaning is suitable for all skin types, including sensitive skin. Your esthetician will customize the treatment based on your skin's specific needs during the consultation."
+          },
+          {
+            q: "How often should I get dermaplaning?",
+            a: "Most patients get dermaplaning every 3-4 weeks, which aligns with your skin's natural cell turnover cycle. Your esthetician can recommend the ideal frequency for your skin."
+          },
+          {
+            q: "Can I wear makeup after?",
+            a: "We recommend waiting at least 24 hours before applying makeup to let your freshly exfoliated skin breathe. When you do apply makeup, you'll notice it goes on smoother and looks more natural."
+          },
+        ].map((item) => (
+          <details class="group rounded-xl border border-cream-dark bg-cream shadow-sm">
+            <summary class="flex items-center justify-between p-5">
+              <span class="text-base font-semibold text-navy pr-4">{item.q}</span>
+              <svg class="faq-chevron h-5 w-5 shrink-0 text-text-muted" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed text-text-muted">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL CTA ========== -->
+  <section class="relative overflow-hidden bg-navy py-16 sm:py-20">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy via-navy-light/40 to-navy-dark"></div>
+    <div class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+        Ready for Your<br />
+        <span class="italic text-gold">Smoothest Skin Ever?</span>
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-white/70">
+        Book your dermaplaning facial today and walk out glowing. No downtime, no irritation — just instantly brighter, smoother skin.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center gap-2 rounded-full bg-gold px-8 py-4 text-lg font-bold text-black shadow-lg">
+          Book Your Dermaplaning Facial
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </a>
+      </div>
+
+      <div class="mt-3 text-sm text-white/50">
+        Or Call <a href={PHONE_LINK} class="font-semibold text-gold underline">{PHONE}</a>
+      </div>
+
+      <div class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+        <div class="grid gap-4 text-sm text-white/70 sm:grid-cols-3">
+          <div>
+            <div class="font-semibold text-white">Location</div>
+            <div>45 Essex St., Suite 202, Millburn, NJ 07041</div>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Phone</div>
+            <a href={PHONE_LINK} class="hover:text-gold">{PHONE}</a>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Hours</div>
+            <div>Tue–Fri: 9:30am–6pm</div>
+            <div>Sat: 9:30am–2pm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</LandingPage>

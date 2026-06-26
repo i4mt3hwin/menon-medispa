@@ -9,8 +9,8 @@ import Section5 from './_sections/face__section_5.astro';
 import Section6 from './_sections/face__section_6.astro';
 import Section7 from './_sections/face__section_7.astro';
 
-const pageUrl = `${site.url}/face`;
-const pageDescription = 'Explore facial treatments and medical aesthetics in Millburn, NJ at Menon Medispa, including HydraFacial, laser treatments, fillers, injectables, and facials.';
+const pageUrl = `${site.url}/face/`;
+const pageDescription = 'Face treatments and medical aesthetics in Millburn, NJ at Menon Medispa: facials, HydraFacial, laser treatments, fillers, injectables, and microneedling. Personalized plans for brighter, smoother skin.';
 const jsonld = [
   {
     '@context': 'https://schema.org',
@@ -31,7 +31,7 @@ const jsonld = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
       { '@type': 'ListItem', position: 2, name: 'Face', item: pageUrl },
     ],
   },
@@ -39,7 +39,7 @@ const jsonld = [
 ---
 
 <BaseLayout
-  title="Face & Aesthetic Treatments in Millburn, NJ | Menon Medispa"
+  title="Face Treatments & Medical Aesthetics in Millburn, NJ | Menon Medispa"
   description={pageDescription}
   canonical={pageUrl}
   jsonld={jsonld}

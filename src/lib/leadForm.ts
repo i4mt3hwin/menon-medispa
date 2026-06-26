@@ -40,6 +40,9 @@ const ERROR_COPY: Record<string, string> = {
 };
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
+// Google Ads click ids. gclid is what lets WhatConverts attribute the lead to Google Ads (CPC) and
+// upload it back as an offline conversion; gbraid/wbraid cover some iOS traffic.
+const CLICK_ID_KEYS = ['gclid', 'gbraid', 'wbraid'] as const;
 
 /** First-touch UTMs stashed on landing (see BaseLayout) so a booking made on a
  *  later, UTM-less page still carries the original campaign. */
@@ -51,11 +54,28 @@ function firstTouchUtms(): Record<string, string> {
   }
 }
 
+/** First-touch Google Ads click ids stashed on landing (see BaseLayout), so a booking made later on a
+ *  clean URL still carries the gclid that ties it back to the ad click. */
+function firstTouchClickIds(): Record<string, string> {
+  try {
+    return JSON.parse(localStorage.getItem('menonClickIds') || '{}') || {};
+  } catch {
+    return {};
+  }
+}
+
 function readForm(form: HTMLFormElement): Record<string, string> {
   const data: Record<string, string> = {};
   new FormData(form).forEach((value, key) => {
     data[key] = typeof value === 'string' ? value : '';
   });
+
+  // Safety net: if a split-name form's `name` sync did not run (e.g. submit fired before the input
+  // listener populated the hidden field), rebuild it from first/last so the endpoint's name check
+  // never rejects an otherwise-complete submission.
+  if (!data.name && (data.first_name || data.last_name)) {
+    data.name = [data.first_name, data.last_name].filter(Boolean).join(' ').trim();
+  }
 
   // Attribution: prefer UTMs on the current URL, else fall back to the first-touch
   // values captured when the visitor first landed. The /api/lead INSERT already has
@@ -64,6 +84,13 @@ function readForm(form: HTMLFormElement): Record<string, string> {
   const stored = firstTouchUtms();
   for (const k of UTM_KEYS) {
     const v = params.get(k) || stored[k];
+    if (v && !data[k]) data[k] = v;
+  }
+
+  // Same first-touch rule for the Google Ads click ids, so /api/lead can hand WhatConverts the gclid.
+  const storedClicks = firstTouchClickIds();
+  for (const k of CLICK_ID_KEYS) {
+    const v = params.get(k) || storedClicks[k];
     if (v && !data[k]) data[k] = v;
   }
 
@@ -145,6 +172,16 @@ export function enhanceLeadForm(form: HTMLFormElement, opts: EnhanceOptions = {}
         // Google Ads conversion trigger in GTM-MSMM2PHT at this custom event.
         try { (window as any).dataLayer = (window as any).dataLayer || []; (window as any).dataLayer.push({ event: 'lead_submit', form_type: data.type || 'lead' }); } catch { /* no-op */ }
         if (opts.successUrl) {
+          // Stash a short booking summary so the thank-you page can echo what was requested.
+          try {
+            if (data.type === 'appointment_request') {
+              sessionStorage.setItem('menonBooked', JSON.stringify({
+                service: data.service_interest || '',
+                date: data.preferred_date || '',
+                window: data.preferred_window || '',
+              }));
+            }
+          } catch { /* no-op */ }
           location.href = opts.successUrl;
           return;
         }
@@ -174,7 +211,7 @@ export function enhanceLeadForm(form: HTMLFormElement, opts: EnhanceOptions = {}
  * Resend audience. On success it hides the form and reveals the sibling [data-newsletter-msg] note.
  * Separate from enhanceLeadForm because that one requires a name; a newsletter signup is email-only.
  */
-export function enhanceNewsletterForm(form: HTMLFormElement): void {
+export function enhanceNewsletterForm(form: HTMLFormElement, opts: { onSuccess?: () => void } = {}): void {
   const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
   const btn = form.querySelector('[type="submit"]') as HTMLButtonElement | null;
   const msg = form.parentElement?.querySelector('[data-newsletter-msg]') as HTMLElement | null;
@@ -218,6 +255,7 @@ export function enhanceNewsletterForm(form: HTMLFormElement): void {
         try { (window as any).dataLayer = (window as any).dataLayer || []; (window as any).dataLayer.push({ event: 'newsletter_signup' }); } catch { /* no-op */ }
         form.hidden = true;
         show("You're on the list. Watch your inbox for offers and skincare tips.", true);
+        try { opts.onSuccess?.(); } catch { /* no-op */ }
         return;
       }
       show(ERROR_COPY[json.error || 'bad_request'] || ERROR_COPY.bad_request, false);

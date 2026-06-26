@@ -327,7 +327,7 @@ const pageDesc =
       return a;
     }
 
-    function sendLead(d: any) {
+    async function sendLead(d: any) {
       // EMAIL-LIST capture ONLY: name/email/phone/consent. The quiz answers,
       // concerns, skin type and recommendations are NEVER sent or stored — nothing
       // health-related is persisted or linked to booking (HIPAA). Also never pushed
@@ -340,9 +340,21 @@ const pageDesc =
         company_website: d.hp || '',
       };
       if (d.consentSms && d.phone) { payload.consent_sms = 'on'; payload.consent_sms_text = root.dataset.consentSmsText || ''; }
+      // Inspect the response so a misconfigured DB (db_unbound / 422 / 500) does not silently lose the
+      // email. We surface a soft note in the gate error element + console.warn for launch QA, but never
+      // block the results reveal on the network (the caller does not await this).
       try {
-        fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});
-      } catch (_) { /* never block the results on a network error */ }
+        const res = await fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), keepalive: true });
+        if (!res.ok) {
+          console.warn('Find Your Glow lead capture failed:', res.status);
+          gateError.textContent = 'We could not save your email. Please call (973) 494-8431 or try again.';
+          gateError.classList.add('is-shown');
+        }
+      } catch (err) {
+        console.warn('Find Your Glow lead capture failed:', err);
+        gateError.textContent = 'We could not save your email. Please call (973) 494-8431 or try again.';
+        gateError.classList.add('is-shown');
+      }
     }
 
     // Stash the FULL quiz profile in THIS browser only (never sent from here). It is NOT transmitted by
@@ -395,7 +407,9 @@ const pageDesc =
       loader.hidden = false;
       scrollStage();
 
-      sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp') });
+      // Fire the email capture but do NOT await it here — the results reveal below stays on its own
+      // timer so the network never blocks the UX. sendLead surfaces its own soft error on failure.
+      void sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp') });
 
       window.setTimeout(() => { loader.hidden = true; renderResults(result, name.split(/\s+/)[0]); }, reduced ? 200 : 1500);
     });

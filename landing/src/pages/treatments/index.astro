@@ -1,0 +1,386 @@
+---
+import LandingPage from '../../layouts/LandingPage.astro';
+
+const PHONE = "(973) 494-8431";
+const PHONE_LINK = "tel:9734948431";
+
+// General medispa remarketing page. Deliberately features only non-restricted
+// services (facials, HydraFacial, laser hair removal, microneedling, IV wellness).
+// Does NOT mention or link to Botox / semaglutide / weight-loss pages — those
+// terms trip Google's RESTRICTED_DRUG_TERMS policy and were what killed Display
+// remarketing serving when the ad pointed at the homepage.
+const SERVICES = [
+  {
+    img: "/images/hydra-treatment.png",
+    name: "HydraFacial",
+    blurb: "Deep cleanse, extraction, and hydration in one treatment. Instantly radiant skin with no downtime.",
+  },
+  {
+    img: "/images/acne-treatment.png",
+    name: "Clarifying & Acne Facials",
+    blurb: "Customized facials that calm breakouts and restore a clear, healthy complexion.",
+  },
+  {
+    img: "/images/dermaplaning-hero.png",
+    name: "Dermaplaning",
+    blurb: "Gentle resurfacing for smoother, brighter skin and a flawless makeup canvas.",
+  },
+  {
+    img: "/images/chemical-peel.png",
+    name: "Chemical Peels",
+    blurb: "Target tone, texture, and fine lines with a peel tailored to your skin.",
+  },
+  {
+    img: "/images/laser-smooth-skin.png",
+    name: "Laser Hair Removal",
+    blurb: "Smooth, confident skin with medical-grade laser technology. Say goodbye to shaving.",
+  },
+  {
+    img: "/images/before-after-1.png",
+    name: "Microneedling & Skin Rejuvenation",
+    blurb: "Stimulate collagen to soften scars, pores, and fine lines for firmer, fresher skin.",
+  },
+];
+
+const REVIEWS = [
+  { quote: "The best medspa in New Jersey!!! I started with customized IVs and now I'm hooked on the facials.", name: "NF" },
+  { quote: "Dr. Menon is very knowledgeable and takes the time to understand my skin's needs, ensuring the best treatments every time.", name: "Juhi Mallik" },
+  { quote: "I had a wonderful skincare experience at Menon! Cindy was incredibly knowledgeable, gentle, and professional. The results were amazing.", name: "Kathi Albanese" },
+  { quote: "Wonderful experience! Cindy was kind, knowledgeable, and recommended some great products that have gotten me the results I was looking for.", name: "LFGA" },
+  { quote: "If you're looking for a treatment that delivers instant gratification, this is basically the gold standard. Well worth it.", name: "Anna Marie Graziano" },
+  { quote: "The spa was clean and impeccable. Booked my next appointment before I even left.", name: "Kosh Palmer" },
+];
+
+const FAQS = [
+  {
+    q: "Where are you located?",
+    a: "45 Essex St., Suite 202, Millburn, NJ 07041 — convenient to Short Hills, Maplewood, South Orange, Summit, and all of Essex County.",
+  },
+  {
+    q: "How soon can I get an appointment?",
+    a: "We regularly offer same-week appointments. Submit the form or call (973) 494-8431 and we'll find a time that works for you.",
+  },
+  {
+    q: "Who performs the treatments?",
+    a: "Every treatment is performed by experienced, licensed estheticians under the supervision of Dr. Aditi Menon, MD. Your plan is customized to your skin, never one-size-fits-all.",
+  },
+  {
+    q: "I'm not sure which treatment is right for me. Can you help?",
+    a: "Absolutely. Tell us your goals on the form and our team will recommend the right starting point when we follow up — no pressure, just guidance.",
+  },
+];
+---
+
+<LandingPage
+  title="Menon MediSpa & Wellness | Millburn, NJ | Facials, Laser & Skin"
+  description="Millburn's top-rated MediSpa. HydraFacial, facials, laser hair removal, microneedling, and IV wellness, performed by licensed estheticians under physician supervision. Book your visit."
+  ogTitle="Menon MediSpa & Wellness — Millburn, NJ"
+  ogDescription="Millburn's top-rated MediSpa. Facials, laser, skin rejuvenation, and wellness, physician-supervised. Book your visit today."
+  ogUrl="https://get.menonmedispa.com/treatments"
+  offerName="Menon MediSpa Visit"
+  offerPrice="0"
+  bookingUrl="#request"
+>
+  <Fragment slot="mobile-cta">Book Your Visit</Fragment>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-section relative overflow-hidden bg-navy pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-navy"></div>
+      <img src="/images/hydra-hero-new.png" alt="" class="absolute right-0 top-0 h-full w-full object-cover object-center sm:w-3/4 lg:w-2/3" style="filter: brightness(0.85); mask-image: linear-gradient(to right, transparent 0%, black 40%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);" loading="eager" />
+      <div class="absolute inset-0 bg-navy/50 sm:bg-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-navy/40"></div>
+    </div>
+    <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-lavender/5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl lg:max-w-xl">
+        <div class="text-center lg:text-left">
+          <div class="mb-6 inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
+            <div class="flex text-gold">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <span class="text-xs font-semibold tracking-wide text-gold sm:text-sm">100+ 5 Star Reviews</span>
+          </div>
+
+          <h1 class="font-display text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
+            Millburn's Top-Rated<br />
+            <span class="italic text-gold">MediSpa & Wellness.</span>
+          </h1>
+
+          <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/70 lg:mx-0 lg:text-xl">
+            Facials, laser, skin rejuvenation, and wellness — <strong class="text-white">customized to you</strong> by licensed estheticians under physician supervision. Right here in Millburn, NJ.
+          </p>
+
+          <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+            <a href="#request" data-lp-cta class="btn-primary inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gold px-5 py-3.5 text-sm font-bold text-black shadow-lg sm:px-8 sm:py-4 sm:text-lg">
+              Book Your Visit
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+            </a>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-white/50 lg:justify-start sm:text-sm">
+            <span>Same-week appointments</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>Physician-supervised</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>Customized to your skin</span>
+          </div>
+
+          <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-sm sm:px-4 sm:py-2">
+            <svg class="h-4 w-4 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+            <span class="text-xs font-semibold text-white sm:text-sm">Physician-Supervised &middot; Licensed Estheticians</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST BAR ========== -->
+  <section class="bg-purple py-3.5">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium text-white sm:text-base">
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Same-Week Appointments
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Medical-Grade Expertise
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          State of the Art Equipment
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold">What We Offer</span>
+        <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+          Treatments Tailored to You
+        </h2>
+        <p class="mx-auto mt-3 max-w-2xl text-lg text-text-muted">
+          From a quick glow-up to a full skin reset, every visit is customized to your goals. Not sure where to start? We'll help you choose.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.map((s) => (
+          <div class="flex flex-col overflow-hidden rounded-2xl border border-cream-dark bg-cream shadow-sm">
+            <img src={s.img} alt={s.name} class="h-48 w-full object-cover" loading="lazy" />
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="font-display text-xl font-bold text-navy">{s.name}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-text-muted">{s.blurb}</p>
+              <a href="#request" data-lp-cta class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-purple hover:text-navy">
+                Ask about it
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-8 text-center text-sm text-text-muted">
+        We also offer IV therapy and wellness drips. Ask us what's right for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== WALL OF LOVE ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          Our Patients Can't Stop Raving
+        </h2>
+        <p class="mt-3 text-lg text-text-muted">100+ five-star reviews from across Essex County.</p>
+      </div>
+
+      <div class="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
+        {REVIEWS.map((item) => (
+          <div class="mb-4 break-inside-avoid rounded-xl border border-cream-dark bg-white p-5 shadow-sm">
+            <div class="flex text-gold mb-2">
+              <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-sm leading-relaxed text-text-muted">"{item.quote}"</p>
+            <div class="mt-3 text-xs font-semibold text-navy">— {item.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DOCTOR ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <img src="/images/dr-menon-portrait.png" alt="Dr. Aditi Menon, MD" class="h-auto w-full object-cover" width="1954" height="778" loading="lazy" />
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Why Menon MediSpa</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            Expert Hands.<br />Personalized Care.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            Every treatment at Menon MediSpa is performed by experienced, licensed estheticians under the supervision of <strong class="text-navy">Dr. Aditi Menon, MD</strong>. Your plan is built around your unique skin and goals, never a one-size-fits-all routine.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {[
+              "Board-Certified physician supervision",
+              "Experienced, licensed estheticians",
+              "Customized to your unique skin needs",
+              "Top-rated MediSpa in Millburn since 2019",
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-text-muted">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TEAM ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <span class="text-xs font-bold uppercase tracking-widest text-gold">Our Team</span>
+      <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+        Welcoming Faces. Expert Hands.
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        From your first visit to your follow-up, our team is here to make you feel comfortable, confident, and cared for.
+      </p>
+      <div class="mt-10 overflow-hidden rounded-2xl shadow-lg">
+        <img src="/images/team-photo.png" alt="The Menon MediSpa & Wellness team" class="h-auto w-full object-cover" width="1080" height="560" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          Questions? We've Got Answers.
+        </h2>
+      </div>
+
+      <div class="mt-10 space-y-4">
+        {FAQS.map((item) => (
+          <details class="group rounded-xl border border-cream-dark bg-cream shadow-sm">
+            <summary class="flex items-center justify-between p-5">
+              <span class="text-base font-semibold text-navy pr-4">{item.q}</span>
+              <svg class="faq-chevron h-5 w-5 shrink-0 text-text-muted" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed text-text-muted">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL CTA + LEAD FORM ========== -->
+  <section id="request" class="relative overflow-hidden bg-navy py-16 sm:py-20">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy via-navy-light/40 to-navy-dark"></div>
+    <div class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+          Ready to Treat Yourself?<br />
+          <span class="italic text-gold">Book Your Visit.</span>
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-white/70">
+          Drop your info below and we'll reach out to help you choose the right treatment and find a time that works. Prefer to talk now? Call <a href={PHONE_LINK} class="font-semibold text-gold underline">{PHONE}</a>.
+        </p>
+      </div>
+
+      <!-- FORM -> main site /api/lead (D1 + Resend + welcome + WhatConverts + lead manager). Handler in LandingPage.astro. -->
+      <form data-lead-form data-lead-name="general_medispa_lead" data-lead-content="general_medispa_inquiry" class="mx-auto mt-10 max-w-md space-y-4">
+        <!-- Honeypot: real people leave this empty. -->
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+        <input type="hidden" name="type" value="appointment_request" />
+        <input type="hidden" name="service_interest" value="General MediSpa Inquiry" />
+
+        <div>
+          <input type="text" name="name" placeholder="Your Name *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <input type="email" name="email" placeholder="Email Address *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <input type="tel" name="phone" placeholder="Phone Number *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <textarea name="message" placeholder="What are you interested in, or preferred times? (optional)" rows="3"
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"></textarea>
+        </div>
+
+        <label class="flex items-start gap-2 text-left text-xs leading-relaxed text-white/60">
+          <input type="checkbox" name="consent_email" value="on" class="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 text-gold focus:ring-gold focus:ring-offset-0" />
+          <span>Yes, email me about offers and skincare tips. We never share your info, and you can unsubscribe anytime.</span>
+        </label>
+
+        <button type="submit"
+          class="btn-primary w-full rounded-full bg-gold py-4 text-lg font-bold text-black shadow-lg">
+          Book Your Visit
+        </button>
+
+        <p data-form-error hidden class="text-center text-sm font-semibold text-red-300"></p>
+
+        <p class="text-center text-xs text-white/40">
+          We'll only use your info to follow up about your visit.
+        </p>
+      </form>
+
+      <!-- Success message (sibling of the form so it stays visible after the form hides) -->
+      <div data-form-success hidden class="mx-auto mt-10 max-w-md rounded-xl bg-green-500/20 p-8 text-center">
+        <div class="text-4xl mb-3">&#10003;</div>
+        <div class="text-xl font-bold text-green-300">Thank you — we'll be in touch.</div>
+        <p class="mt-3 text-base text-green-200/80">Our team will reach out during business hours to help you choose the right treatment and get you on the calendar. Prefer to reach us first? Call <a href="tel:9734948431" class="font-semibold text-green-200 underline">(973) 494-8431</a>.</p>
+      </div>
+
+      <!-- Contact details -->
+      <div class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+        <div class="grid gap-4 text-sm text-white/70 sm:grid-cols-3">
+          <div>
+            <div class="font-semibold text-white">Location</div>
+            <div>45 Essex St., Suite 202, Millburn, NJ 07041</div>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Phone</div>
+            <a href={PHONE_LINK} class="hover:text-gold">{PHONE}</a>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Hours</div>
+            <div>Tue–Fri: 9:30am–6pm</div>
+            <div>Sat: 9:30am–2pm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</LandingPage>

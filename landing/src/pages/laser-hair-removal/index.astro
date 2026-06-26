@@ -1,0 +1,600 @@
+---
+import LandingPage from '../../layouts/LandingPage.astro';
+
+const BOOKING_URL = "#claim-offer";
+const PHONE = "(973) 494-8431";
+const PHONE_LINK = "tel:9734948431";
+---
+
+<LandingPage
+  title="Summer Laser Hair Removal Special | Menon MediSpa & Wellness | Millburn, NJ"
+  description="Get Ready for Summer! 6-session Brazilian laser hair removal package ($800) + FREE underarms ($390 value). New clients only. Menon MediSpa, Millburn NJ."
+  ogTitle="Summer Laser Hair Removal Special | Menon MediSpa"
+  ogDescription="Brazilian + FREE Underarms. A $1,190 value for just $800. 6-session packages. New clients only."
+  ogUrl="https://get.menonmedispa.com/laser-hair-removal"
+  offerName="Summer Laser Hair Removal - Brazilian + Free Underarms"
+  offerPrice="800"
+  bookingUrl={BOOKING_URL}
+>
+  <Fragment slot="mobile-cta">Claim &middot; Save $390</Fragment>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-section relative overflow-hidden bg-navy pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-navy"></div>
+      <picture>
+        <source srcset="/images/laser-hero.avif" type="image/avif" />
+        <source srcset="/images/laser-hero.webp" type="image/webp" />
+        <img
+          src="/images/laser-hero.png"
+          alt=""
+          class="absolute right-0 top-0 h-full w-full object-cover object-center sm:w-3/4 lg:w-2/3"
+          style="filter: brightness(0.85); mask-image: linear-gradient(to right, transparent 0%, black 40%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="2000"
+          height="1091"
+        />
+      </picture>
+      <div class="absolute inset-0 bg-navy/50 sm:bg-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-navy/40"></div>
+    </div>
+    <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-lavender/5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl lg:max-w-xl">
+        <div class="text-center lg:text-left">
+          <!-- Reviews badge -->
+          <div class="mb-6 inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
+            <div class="flex text-gold">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <span class="text-xs font-semibold tracking-wide text-gold sm:text-sm">100+ 5&#9733; Google Reviews</span>
+          </div>
+
+          <h1 class="font-display text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
+            Get Summer-Ready.<br />
+            <span class="italic text-gold">Ditch the Razor Forever.</span>
+          </h1>
+
+          <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/70 lg:mx-0 lg:text-xl">
+            6-session Brazilian + <strong class="text-white">FREE underarms</strong>. <span class="text-white">A $1,190+ value for just <strong>$800</strong>.</span>
+          </p>
+          <p class="mx-auto mt-3 max-w-xl text-sm text-white/60 lg:mx-0">
+            Led by <strong class="font-semibold text-white/80">Dr. Aditi Menon, MD</strong>, board-certified physician. Serving <strong class="font-semibold text-white/80">Millburn, NJ</strong> since 2019.
+          </p>
+
+          <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+            <a href="#claim-offer" data-lp-cta class="btn-primary inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gold px-5 py-3.5 text-sm font-bold text-black shadow-lg sm:px-8 sm:py-4 sm:text-lg">
+              Claim $800 Summer Package &middot; Save $390
+              <svg class="hidden h-5 w-5 sm:block" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+            </a>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-white/50 lg:justify-start sm:text-sm">
+            <span>New clients only</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>6 sessions included</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>Long-lasting smooth skin</span>
+          </div>
+
+          <!-- Board certified badge -->
+          <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-sm sm:px-4 sm:py-2">
+            <svg class="h-4 w-4 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+            <span class="text-xs font-semibold text-white sm:text-sm">Board-Certified &middot; Medical-Grade Lasers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST BAR (Purple) ========== -->
+  <section class="bg-purple py-3.5">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium text-white sm:text-base">
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Same-Week Appointments
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Medical-Grade Expertise
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          State of the Art Equipment
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PAIN POINTS ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        Tired of the Endless<br class="hidden sm:inline" /> Shaving Cycle?
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        You're not alone. These are the frustrations that bring patients to our door.
+      </p>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2">
+        {[
+          { title: "Razor burn and ingrown hairs", desc: "Red bumps, irritation, and painful ingrowns, no matter how careful you are with your razor." },
+          { title: "Waxing that dreads every appointment", desc: "The pain, the regrowth, the awkward scheduling. And you have to let it grow out first." },
+          { title: "Stubble that shows up the next day", desc: "You just shaved this morning and it's already coming back. It never ends." },
+          { title: "Missing out on spontaneous plans", desc: "Beach invite? Pool party? You're always thinking about when you last shaved." },
+        ].map((item) => (
+          <div class="rounded-xl border border-cream-dark bg-white p-6 text-left shadow-sm">
+            <h3 class="font-display text-lg font-semibold text-navy">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="mx-auto mt-10 max-w-2xl text-base leading-relaxed text-text-muted">
+        What if you could stop shaving, stop waxing, and feel <strong class="text-navy">confident in your skin all summer long?</strong> That's exactly what laser hair removal delivers, and right now, you can get started at an unbeatable price.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== THE OFFER ========== -->
+  <section class="animate-on-scroll relative overflow-hidden bg-navy py-16 sm:py-20">
+    <div class="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy to-navy-light/80"></div>
+    <div class="absolute top-10 right-10 h-64 w-64 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <picture>
+            <source srcset="/images/laser-treatment-client.avif" type="image/avif" />
+            <source srcset="/images/laser-treatment-client.webp" type="image/webp" />
+            <img src="/images/laser-treatment-client.jpg" alt="Patient receiving professional laser hair removal at Menon MediSpa" class="h-auto w-full object-cover" width="1000" height="1000" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Summer Special</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">
+            Brazilian + FREE Underarms.
+            <span class="block italic text-gold">$1,190 Value. Just $800.</span>
+          </h2>
+
+          <div class="mt-6 space-y-4">
+            <div class="flex items-start gap-3">
+              <svg class="mt-0.5 h-6 w-6 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              <div>
+                <div class="font-semibold text-white">6-Session Brazilian Package &middot; $800</div>
+                <div class="text-sm text-white/60">Full treatment series for lasting results</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="mt-0.5 h-6 w-6 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              <div>
+                <div class="font-semibold text-white">6-Session Underarms &middot; <span class="line-through text-white/40">$390</span> <span class="text-gold">FREE</span></div>
+                <div class="text-sm text-white/60">Included at no extra charge with your Brazilian package</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="mt-0.5 h-6 w-6 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              <div>
+                <div class="font-semibold text-white">Complimentary Skin Health Analysis &middot; <span class="text-gold">FREE</span></div>
+                <div class="text-sm text-white/60">A full assessment of your skin's texture, tone, and needs during your patch test visit</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="mt-0.5 h-6 w-6 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              <div>
+                <div class="font-semibold text-white">Significant Permanent Hair Reduction</div>
+                <div class="text-sm text-white/60">Most patients see noticeable results after just 2-3 sessions</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 flex items-start gap-2.5 rounded-lg border border-gold/20 bg-gold/5 px-4 py-3">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.061 1.06l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+            <p class="text-sm leading-relaxed text-white/80"><strong class="text-white">Just $50 down to hold your spot.</strong> The remaining $750 is only due after your patch test confirms you're a candidate. Not cleared? Your deposit is refunded.</p>
+          </div>
+          <p class="mt-3 text-xs text-white/40">New clients only · $50 deposit holds your spot · Balance ($750) due only after patch test clears you · Deposit refunded if you're not a candidate</p>
+
+          <div class="mt-8">
+            <a href="#claim-offer" data-lp-cta class="btn-primary inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 text-base font-bold text-black shadow-lg">
+              Claim This Deal &middot; Save $390
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        How Laser Hair Removal Works
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        Advanced laser technology targets hair at the root, destroying the follicle while leaving surrounding skin undamaged.
+      </p>
+
+      <div class="mt-12 grid gap-8 sm:grid-cols-3">
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+            <span class="font-display text-2xl font-bold text-gold">1</span>
+          </div>
+          <h3 class="mt-4 font-display text-lg font-semibold text-navy">Patch Test + Skin Analysis</h3>
+          <p class="mt-2 text-sm text-text-muted">We test your skin's response to the laser and perform a complimentary skin health analysis, assessing texture, tone, hydration, and more.</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+            <span class="font-display text-2xl font-bold text-gold">2</span>
+          </div>
+          <h3 class="mt-4 font-display text-lg font-semibold text-navy">Treatment</h3>
+          <p class="mt-2 text-sm text-text-muted">Quick, comfortable sessions every 4-6 weeks. Most areas take 15-30 minutes.</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+            <span class="font-display text-2xl font-bold text-gold">3</span>
+          </div>
+          <h3 class="mt-4 font-display text-lg font-semibold text-navy">Results</h3>
+          <p class="mt-2 text-sm text-text-muted">After 6 sessions, enjoy lasting smooth skin. No more shaving.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          What Our Laser Patients Are Saying
+        </h2>
+        <p class="mt-3 text-lg text-text-muted">Real reviews from real patients.</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {[
+          {
+            quote: "Jennifer is an amazing person to get laser hair removal from. She was very careful with it. Jennifer made it feel like nothing.",
+            name: "Love Brooks",
+          },
+          {
+            quote: "I tried laser hair removal at another medspa and did not have any results. Their machine here does wonders. Amazing staff, so nice and professional.",
+            name: "Natalia Klobus",
+          },
+          {
+            quote: "Cindy was amazing during my laser hair removal session, the whole staff is friendly and the office is nice and clean! I'm looking forward to my sessions.",
+            name: "Christina Carr",
+          },
+        ].map((item) => (
+          <div class="rounded-xl border border-cream-dark bg-cream p-6 shadow-sm">
+            <div class="flex text-gold mb-3">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-sm leading-relaxed italic text-text-muted">"{item.quote}"</p>
+            <div class="mt-4 text-sm font-semibold text-navy">{item.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VIDEO ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        See Laser Hair Removal in Action
+      </h2>
+      <p class="mt-3 text-lg text-text-muted">Watch a real treatment session at Menon MediSpa.</p>
+      <div class="mt-8 overflow-hidden rounded-2xl shadow-lg">
+        <video muted loop playsinline preload="none" class="h-auto w-full lazy-video" poster="/images/laser-treatment-1.webp" data-lazy-src="/images/laser-demo.mp4">
+          <source data-lazy-src="/images/laser-demo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUE PROP: Doctor ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <picture>
+            <source srcset="/images/dr-menon-portrait.avif" type="image/avif" />
+            <source srcset="/images/dr-menon-portrait.webp" type="image/webp" />
+            <img src="/images/dr-menon-portrait.png" alt="Dr. Aditi Menon, MD at Menon Regenerative Institute" class="h-auto w-full object-cover" width="1954" height="778" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Why Menon MediSpa</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            Medical-Grade Lasers.<br />Physician-Led Care.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            At Menon MediSpa, laser treatments are performed by experienced providers under the direction of <strong class="text-navy">Dr. Aditi Menon, MD</strong>, a Board-Certified physician. We use the <strong class="text-navy">Alma Soprano ICE</strong>, a gold-standard, medical-grade laser known for virtually painless treatments and superior results across all skin types.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {[
+              "Physician-led practice - Board-Certified MD",
+              "Alma Soprano ICE: virtually painless laser technology",
+              "Customized to your skin type and hair color",
+              "Top-rated MediSpa in Millburn since 2019",
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-text-muted">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUE PROP: Freedom ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Freedom</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            Imagine Never Shaving Again.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            No more razor burn. No more ingrown hairs. No more last-minute shaving before the beach. Laser hair removal gives you the freedom to <strong class="text-navy">feel confident in your skin, every single day.</strong>
+          </p>
+          <blockquote class="mt-6 border-l-4 border-gold pl-4 italic text-text-muted">
+            "Jennifer is an amazing person to get laser hair removal from. She was very careful with it. Jennifer made it feel like nothing. I used to be so nervous but now I love it!"
+            <footer class="mt-1 text-sm font-semibold not-italic text-navy">Love Brooks</footer>
+          </blockquote>
+        </div>
+        <div class="order-1 aspect-[4/5] overflow-hidden rounded-2xl shadow-lg lg:order-2 lg:aspect-[3/4]">
+          <picture>
+            <source srcset="/images/laser-in-action.avif" type="image/avif" />
+            <source srcset="/images/laser-in-action.webp" type="image/webp" />
+            <img src="/images/laser-in-action.jpg" alt="Medical-grade laser hair removal treatment" class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MID-PAGE CTA BANNER ========== -->
+  <section class="relative overflow-hidden bg-navy py-12 sm:py-14">
+    <div class="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy to-navy-light/60"></div>
+    <div class="absolute top-4 right-8 h-48 w-48 rounded-full bg-gold/5 blur-3xl"></div>
+    <div class="absolute bottom-4 left-8 h-32 w-32 rounded-full bg-lavender/5 blur-3xl"></div>
+    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+        Ready to ditch the razor for good?
+      </h2>
+      <p class="mx-auto mt-3 max-w-xl text-base text-white/70 sm:text-lg">
+        6 sessions Brazilian + FREE underarms. $800 total — just $50 down today. Balance only after your patch test clears you.
+      </p>
+      <div class="mt-6">
+        <a href="#claim-offer" data-lp-cta class="btn-primary inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-base font-bold text-black shadow-lg sm:text-lg">
+          Claim $800 Summer Package &middot; Save $390
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TEAM ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <span class="text-xs font-bold uppercase tracking-widest text-gold">Our Team</span>
+      <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+        Welcoming Faces. Expert Hands.
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        From your first consultation to your final session, our team is here to make you feel comfortable, confident, and cared for.
+      </p>
+      <div class="mt-10 overflow-hidden rounded-2xl shadow-lg">
+        <picture>
+          <source srcset="/images/team-photo.avif" type="image/avif" />
+          <source srcset="/images/team-photo.webp" type="image/webp" />
+          <img src="/images/team-photo.png" alt="The Menon MediSpa & Wellness team" class="h-auto w-full object-cover" width="1080" height="560" loading="lazy" decoding="async" />
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          Questions? We've Got Answers.
+        </h2>
+      </div>
+
+      <div class="mt-10 space-y-4">
+        {[
+          {
+            q: "Does laser hair removal hurt?",
+            a: "Most patients describe it as a warm snap or rubber band sensation. It's far more comfortable than waxing. Our advanced laser technology includes a built-in cooling system to minimize any discomfort."
+          },
+          {
+            q: "How many sessions do I need?",
+            a: "This package includes 6 sessions, which is what most patients need for optimal results (significant permanent hair reduction). Sessions are spaced 4-6 weeks apart to target hair in different growth cycles."
+          },
+          {
+            q: "What's included in this deal?",
+            a: "You get a 6-session Brazilian laser hair removal package ($800) plus a 6-session underarm package completely free (normally $390). That's a $1,190 value for $800. A $50 deposit holds your spot when our team calls you back, and the remaining $750 is only paid after your patch test confirms you're a candidate. New clients only."
+          },
+          {
+            q: "What if I'm not a candidate for laser based on the patch test?",
+            a: "Your $50 deposit is refunded in full, no questions. The patch test is required for every new client because it's how we confirm you're a safe candidate for laser hair removal. The remaining $750 isn't charged until after your patch test, so if you're not cleared, we don't proceed and you don't pay for sessions you can't safely receive."
+          },
+          {
+            q: "How long does each session take?",
+            a: "Brazilian treatments take about 15-20 minutes. Underarms are even quicker, about 10 minutes. You can easily fit a session into your lunch break."
+          },
+          {
+            q: "Is it safe for all skin types?",
+            a: "Our medical-grade lasers can be adjusted for different skin types and hair colors. During your consultation, we'll assess your skin and create a customized treatment plan for the best possible results."
+          },
+          {
+            q: "What's included in the free skin health analysis?",
+            a: "During your patch test visit, our esthetician will do a full assessment of your skin, evaluating texture, tone, pigmentation, hydration, pore size, and any areas of concern. You'll receive personalized recommendations based on your skin's unique needs. It's our way of making sure we're taking care of your whole skin, not just hair removal."
+          },
+          {
+            q: "When should I start to be summer-ready?",
+            a: "To be truly summer-ready, start by the end of May. Sessions are spaced 4-6 weeks apart, so starting now gives you time to complete 3-4 sessions before peak beach weeks, enough for noticeably smoother skin when it matters. Start later and you'll still love the results, you'll just finish the series in fall instead."
+          },
+        ].map((item) => (
+          <details class="group rounded-xl border border-cream-dark bg-white shadow-sm">
+            <summary class="flex items-center justify-between p-5">
+              <span class="text-base font-semibold text-navy pr-4">{item.q}</span>
+              <svg class="faq-chevron h-5 w-5 shrink-0 text-text-muted" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed text-text-muted">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FORM CTA ========== -->
+  <section id="claim-offer" class="relative overflow-hidden bg-navy py-16 sm:py-20">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy via-navy-light/40 to-navy-dark"></div>
+    <div class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+          Claim Your Summer Special.<br />
+          <span class="italic text-gold">Save $390 Today.</span>
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-white/70">
+          Drop your info below and we'll call you back the same day to walk you through the package and get your patch test scheduled. New clients only.
+        </p>
+      </div>
+
+      <!-- How it works: compact 4-step strip -->
+      <ol class="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <li class="flex items-start gap-3 text-left">
+          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/30">
+            <span class="text-xs font-bold text-gold">1</span>
+          </div>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold text-white">Submit the form</div>
+            <p class="text-xs leading-relaxed text-white/50">Or call (973) 494-8431.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-3 text-left">
+          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/30">
+            <span class="text-xs font-bold text-gold">2</span>
+          </div>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold text-white">We call you back</div>
+            <p class="text-xs leading-relaxed text-white/50">Same-day. Just <strong class="text-gold">$50 deposit</strong> to hold your spot.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-3 text-left">
+          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/30">
+            <span class="text-xs font-bold text-gold">3</span>
+          </div>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold text-white">Patch test</div>
+            <p class="text-xs leading-relaxed text-white/50">Confirms the laser is safe for your skin. Balance ($750) due only if cleared — deposit refunded if not.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-3 text-left">
+          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/30">
+            <span class="text-xs font-bold text-gold">4</span>
+          </div>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold text-white">First session</div>
+            <p class="text-xs leading-relaxed text-white/50">Begin your 6-session journey to smooth, confident skin.</p>
+          </div>
+        </li>
+      </ol>
+
+      <!-- FORM -> main site /api/lead (D1 + Resend + welcome + WhatConverts + lead manager). Handler in LandingPage.astro. -->
+      <form data-lead-form data-lead-name="laser_hair_removal_lead" data-lead-content="laser_hair_removal_brazilian" data-lead-value="800" class="mx-auto mt-10 max-w-md space-y-4">
+        <!-- Honeypot: real people leave this empty. -->
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+        <input type="hidden" name="type" value="appointment_request" />
+        <input type="hidden" name="service_interest" value="Laser Hair Removal - Brazilian + Free Underarms ($800)" />
+
+        <div>
+          <input type="text" name="name" placeholder="Your Name *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <input type="email" name="email" placeholder="Email Address *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <input type="tel" name="phone" placeholder="Phone Number *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <textarea name="message" placeholder="Any questions or preferred times? (optional)" rows="3"
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"></textarea>
+        </div>
+
+        <label class="flex items-start gap-2 text-left text-xs leading-relaxed text-white/60">
+          <input type="checkbox" name="consent_email" value="on" class="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 text-gold focus:ring-gold focus:ring-offset-0" />
+          <span>Yes, email me about offers and skincare tips. We never share your info, and you can unsubscribe anytime.</span>
+        </label>
+
+        <button type="submit"
+          class="btn-primary w-full rounded-full bg-gold py-4 text-lg font-bold text-black shadow-lg">
+          Claim My Summer Special · Save $390
+        </button>
+
+        <p data-form-error hidden class="text-center text-sm font-semibold text-red-300"></p>
+
+        <p class="text-center text-xs text-white/40">
+          New clients only &middot; $50 deposit at booking &middot; Balance only after patch test clears you &middot; Deposit refunded if not a candidate
+        </p>
+
+      </form>
+
+      <!-- Success message (sibling of the form so it stays visible after the form hides) -->
+      <div data-form-success hidden class="mx-auto mt-10 max-w-md rounded-xl bg-green-500/20 p-8 text-center">
+        <div class="text-4xl mb-3">&#10003;</div>
+        <div class="text-xl font-bold text-green-300">You're on the way to smooth, confident skin.</div>
+        <p class="mt-3 text-base text-green-200/80">We'll call you back today (during business hours) to walk you through the package and get your patch test on the calendar. If you'd rather reach us first, call <a href="tel:9734948431" class="font-semibold text-green-200 underline">(973) 494-8431</a>.</p>
+      </div>
+
+      <!-- Contact details -->
+      <div class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+        <div class="grid gap-4 text-sm text-white/70 sm:grid-cols-3">
+          <div>
+            <div class="font-semibold text-white">Location</div>
+            <div>45 Essex St., Suite 202, Millburn, NJ 07041</div>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Phone</div>
+            <a href={PHONE_LINK} class="hover:text-gold">{PHONE}</a>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Hours</div>
+            <div>Tue–Fri: 9:30am–6pm</div>
+            <div>Sat: 9:30am–2pm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</LandingPage>

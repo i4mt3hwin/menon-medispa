@@ -59,7 +59,7 @@ const year = new Date().getFullYear();
           <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
           <button type="submit" class="footer-newsletter__btn">Submit</button>
         </form>
-        <p class="footer-newsletter__msg" data-newsletter-msg hidden></p>
+        <p class="footer-newsletter__msg" data-newsletter-msg role="alert" hidden></p>
         <!-- Social icons in newsletter band -->
         <ul class="footer-newsletter__social" role="list" aria-label="Follow us">
           <li>
@@ -195,7 +195,10 @@ const year = new Date().getFullYear();
   // Wire the "Are you on the list?" newsletter sign-up to /api/lead (email-only -> Resend audience).
   import { enhanceNewsletterForm } from '@/lib/leadForm';
   const f = document.querySelector('.footer-newsletter__form');
-  if (f) enhanceNewsletterForm(f as HTMLFormElement);
+  // Mark this browser as subscribed so the site popup stops asking them to join.
+  if (f) enhanceNewsletterForm(f as HTMLFormElement, {
+    onSuccess: () => { try { localStorage.setItem('menonSubscribed', '1'); } catch (e) {} },
+  });
 </script>
 
 <style>

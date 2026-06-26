@@ -4,7 +4,7 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 
@@ -18,6 +18,7 @@ import IvCategories from '@/pages/_sections/iv-therapy-millburn-nj__section_3.as
 import DripsMenuHeading from '@/pages/_sections/iv-therapy-millburn-nj__section_6.astro';
 import DripsMenu from '@/pages/_sections/iv-therapy-millburn-nj__section_7.astro';
 import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 import FinalCta from '@/pages/_sections/iv-therapy-millburn-nj__section_9.astro';
 
 import heroImg from '@/assets/images/fc3ca8a7bdf0.jpg';
@@ -25,14 +26,66 @@ import heroImg from '@/assets/images/fc3ca8a7bdf0.jpg';
 const slug = 'iv-therapy-millburn-nj';
 const posts = getRelatedPosts(slug);
 
-// FAQ: no real Q&A section exists on this page; arrays left empty.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ: built from the on-page drip menu/pricing + common IV-therapy search questions.
+const faqs = [
+  {
+    question: 'How much does IV therapy cost at Menon Medispa?',
+    answer:
+      'Our signature 500ml IV drips start at $200, with deluxe and targeted blends at $250. NAD+ IV therapy ranges from $500 to $850 depending on the dose (250mg, 500mg, or 750mg). Dr. Menon’s team will help you choose the right drip for your goals at your visit.',
+  },
+  {
+    question: 'What types of IV drips do you offer?',
+    answer:
+      'We offer a full IV drip menu, including Immune Support, Energy & Performance, Anti-Aging & Beauty, Recovery & Detox, NAD+ therapy, the classic Myers’ Cocktail, and targeted health blends for specific concerns. Each formula supports a different goal, and we can help you choose the right one.',
+  },
+  {
+    question: 'What is NAD+ IV therapy?',
+    answer:
+      'NAD+ (nicotinamide adenine dinucleotide) is a coenzyme found in every cell that supports energy production and cellular repair. Our NAD+ IV therapy delivers it directly into the bloodstream and is offered in 250mg, 500mg, and 750mg doses. Many clients choose it for energy, focus, and anti-aging support.',
+  },
+  {
+    question: 'Who administers IV therapy, and is it safe?',
+    answer:
+      'All IV therapy at Menon Medispa is provided in our Millburn, NJ medical office under the direction of Dr. Aditi Menon, MD. Your drip is selected based on your goals and health history for a safe, comfortable experience.',
+  },
+  {
+    question: 'Does insurance cover IV therapy?',
+    answer:
+      'IV vitamin and wellness therapy is an elective service and is generally not covered by insurance. We provide clear, upfront pricing so you know exactly what to expect before your treatment.',
+  },
+];
+const faqItems = [
+  {
+    question: 'How much does IV therapy cost at Menon Medispa?',
+    answer_html:
+      '<p>Our signature 500ml IV drips start at $200, with deluxe and targeted blends at $250. NAD+ IV therapy ranges from $500 to $850 depending on the dose (250mg, 500mg, or 750mg). Dr. Menon&rsquo;s team will help you choose the right drip for your goals at your visit.</p>',
+  },
+  {
+    question: 'What types of IV drips do you offer?',
+    answer_html:
+      '<p>We offer a full IV drip menu, including:</p><ul><li>Immune Support</li><li>Energy &amp; Performance</li><li>Anti-Aging &amp; Beauty</li><li>Recovery &amp; Detox</li><li>NAD+ therapy</li><li>The classic Myers&rsquo; Cocktail</li><li>Targeted health blends for specific concerns</li></ul><p>Each formula supports a different goal, and we can help you choose the right one.</p>',
+  },
+  {
+    question: 'What is NAD+ IV therapy?',
+    answer_html:
+      '<p>NAD+ (nicotinamide adenine dinucleotide) is a coenzyme found in every cell that supports energy production and cellular repair. Our NAD+ IV therapy delivers it directly into the bloodstream and is offered in 250mg, 500mg, and 750mg doses. Many clients choose it for energy, focus, and anti-aging support.</p>',
+  },
+  {
+    question: 'Who administers IV therapy, and is it safe?',
+    answer_html:
+      '<p>All IV therapy at Menon Medispa is provided in our Millburn, NJ medical office under the direction of Dr. Aditi Menon, MD. Your drip is selected based on your goals and health history for a safe, comfortable experience.</p>',
+  },
+  {
+    question: 'Does insurance cover IV therapy?',
+    answer_html:
+      '<p>IV vitamin and wellness therapy is an elective service and is generally not covered by insurance. We provide clear, upfront pricing so you know exactly what to expect before your treatment.</p>',
+  },
+];
 
 const jsonld = buildServiceSchema({
-  name: 'IV Therapy in Millburn, NJ',
+  name: 'IV Therapy & Hydration in Millburn, NJ',
   description:
-    'IV therapy at Menon Medispa in Millburn, NJ. Customized infusions for immunity, energy, recovery, and anti-aging. Call (973) 494-8431 to book.',
+    'IV therapy and hydration in Millburn, NJ at Menon Medispa: customized vitamin infusions for immunity, energy, recovery, hydration, and NAD+. Call (973) 494-8431 to book.',
   url: '/iv-therapy-millburn-nj',
   image: heroImg.src,
   type: 'Service',
@@ -47,14 +100,14 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="IV Therapy in Millburn, NJ | Energy, Immunity & Hydration"
-  description="IV therapy at Menon Medispa in Millburn, NJ. Customized infusions for immunity, energy, recovery, and anti-aging. Call (973) 494-8431 to book."
+  title="IV Therapy & Hydration in Millburn NJ | Menon Medispa"
+  description="IV therapy and hydration in Millburn, NJ at Menon Medispa: customized vitamin infusions for immunity, energy, recovery, hydration, and NAD+. Call (973) 494-8431 to book."
   canonical="https://www.menonmedispa.com/iv-therapy-millburn-nj"
   jsonld={jsonld}
 >
 
   <ServiceHero
-    eyebrow="IV THERAPY · MILLBURN, NJ"
+    eyebrow="IV THERAPY & HYDRATION · MILLBURN, NJ"
     h1="Boost Your Energy and Wellness with IV Therapy in Millburn, NJ"
     subhead="Customized infusions that deliver essential nutrients directly to your bloodstream, whether you're recovering from fatigue, stress, or simply want to feel your best every day."
     image={heroImg}
@@ -66,8 +119,31 @@ const jsonld = buildServiceSchema({
 
   <PromoBanner />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="iv-therapy-millburn-nj" />
+
   <ServiceLayout>
-    <!-- MAIN COLUMN -->
+    <!-- MAIN COLUMN — benefits/solution first (front-load value), the problem context below -->
+    <div class="svc-block">
+      <h2>Transform Your Health with IV Therapy</h2>
+      <p class="svc-lead">Experience rapid nutrient absorption and immediate energy restoration through our advanced IV vitamin therapy treatments.</p>
+
+      <ul class="svc-features">
+        <li>
+          <h3>Instant Energy and Mental Clarity</h3>
+          <p>Our IV energy therapy delivers B vitamins and nutrients directly to your bloodstream, bypassing digestive absorption issues for immediate focus and productivity enhancement.</p>
+        </li>
+        <li>
+          <h3>100% Bioavailable Nutrients</h3>
+          <p>Unlike oral supplements, IV nutrient therapy ensures complete absorption of essential vitamins, minerals, and antioxidants your body desperately needs.</p>
+        </li>
+        <li>
+          <h3>Optimal Hydration &amp; Recovery</h3>
+          <p>Our IV hydration therapy rapidly replenishes fluids and electrolytes while supporting faster recovery from stress, workouts, illness, and travel fatigue.</p>
+        </li>
+      </ul>
+    </div>
+
     <div class="svc-block">
       <h2>Stop Struggling with Low Energy and Nutrient Deficiency</h2>
       <p class="svc-lead">Feeling constantly tired, foggy, or run down can make it hard to enjoy daily life.</p>
@@ -88,29 +164,6 @@ const jsonld = buildServiceSchema({
       <p>IV Therapy at Menon Medispa bypasses the digestive system entirely, delivering vitamins, minerals, and nutrients directly into your bloodstream for immediate, complete absorption. Join countless clients in Millburn and Short Hills who trust Menon Medispa's IV Therapy to revitalize their body from the inside out.</p>
     </div>
 
-    <div class="svc-block">
-      <h2>Transform Your Health with IV Therapy</h2>
-      <p class="svc-lead">Experience rapid nutrient absorption and immediate energy restoration through our advanced IV vitamin therapy treatments.</p>
-
-      <ul class="svc-features">
-        <li>
-          <h3>Instant Energy and Mental Clarity</h3>
-          <p>Our IV energy therapy delivers B vitamins and nutrients directly to your bloodstream, bypassing digestive absorption issues for immediate focus and productivity enhancement.</p>
-        </li>
-        <li>
-          <h3>100% Bioavailable Nutrients</h3>
-          <p>Unlike oral supplements, IV nutrient therapy ensures complete absorption of essential vitamins, minerals, and antioxidants your body desperately needs.</p>
-        </li>
-        <li>
-          <h3>Optimal Hydration &amp; Recovery</h3>
-          <p>Our IV hydration therapy rapidly replenishes fluids and electrolytes while supporting faster recovery from stress, workouts, illness, and travel fatigue.</p>
-        </li>
-      </ul>
-
-      <p class="svc-eyebrow">Ready to Feel Your Best?</p>
-      <p>Stop struggling with low energy and nutrient deficiency. Experience the power of IV vitamin therapy today. Pick an option below or call for a free consultation.</p>
-    </div>
-
     <!-- SIDEBAR -->
     <Fragment slot="aside">
       <QuickFacts
@@ -126,6 +179,16 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
+  <!-- Mid-scroll CTA (repeat the Book CTA after the persuasion content; below-fold CTAs
+       convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready to feel your best?</h2>
+      <p>Book your IV therapy visit, or call us for a free consultation, and we'll match you to the right drip for your goals.</p>
+      <a href="/request-appointment?service=IV%20Therapy" class="btn btn--primary">Book Your IV Therapy</a>
+    </div>
+  </section>
+
   <Gallery />
 
   <IvCategories />
@@ -133,7 +196,10 @@ const jsonld = buildServiceSchema({
   <DripsMenuHeading />
   <DripsMenu />
 
-  <ServiceTestimonial slug="iv-therapy-millburn-nj" />
+  <!-- Deeper social proof: more real 5-star reviews from our clients -->
+  <ServiceReviews slug="iv-therapy-millburn-nj" excludeFirst heading="More 5-star reviews from our clients" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -141,6 +207,27 @@ const jsonld = buildServiceSchema({
 
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
+
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
 
 </BaseLayout>
 <!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands 1/2/3/6/7/9 kept verbatim. Sections 4+5 re-flowed into main column prose. Section 10 (June SALES promo) removed; replaced by SalePopup. Section 8 (testimonial) swapped to <ServiceTestimonial slug="iv-therapy-millburn-nj" /> (provider-safe curated reviews). -->

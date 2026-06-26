@@ -28,8 +28,6 @@ import videoPosterImg from '@/assets/images/7627e3d6ea08.jpg';
           <a
             href={site.calcomUrl}
             class="btn btn--primary btn--lg"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             Book Your Laser Hair Removal Consultation
           </a>
@@ -45,17 +43,19 @@ import videoPosterImg from '@/assets/images/7627e3d6ea08.jpg';
 
         <video
           class="lhr-s5__video"
+          data-lazy-video
           autoplay
           loop
           muted
           playsinline
+          preload="none"
           aria-hidden="true"
           poster={videoPosterImg.src}
           width="366"
           height="585"
         >
           <source
-            src="/videos/wix/2baa5c_627beb6d372449c5998c4994c539eeb9.mp4"
+            data-src="/videos/wix/2baa5c_627beb6d372449c5998c4994c539eeb9.mp4"
             type="video/mp4"
           />
         </video>

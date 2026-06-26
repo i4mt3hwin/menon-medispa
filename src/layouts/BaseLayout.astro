@@ -99,10 +99,33 @@ const gtmId = site.integrations.analytics.gtmId;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {/* Google Tag Manager — owns all Google tags (Ads AW-10822588412 + 9 conversions). */}
+    {/* Google Tag Manager owns Google tags, but waits for idle/interaction so it does not compete with first paint. */}
     {gtmId && (
       <script define:vars={{ gtmId }}>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',gtmId);
+        (function(w,d,s,l,i){
+          w[l]=w[l]||[];
+          var loaded=false;
+          function loadGtm(){
+            if(loaded) return;
+            loaded=true;
+            w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;
+            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+          }
+          function schedule(){
+            w.setTimeout(function(){
+              if('requestIdleCallback' in w) w.requestIdleCallback(loadGtm,{timeout:1500});
+              else loadGtm();
+            },2500);
+          }
+          ['pointerdown','keydown','scroll','touchstart'].forEach(function(ev){
+            w.addEventListener(ev,loadGtm,{once:true,passive:true});
+          });
+          if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',schedule,{once:true});
+          else schedule();
+        })(window,document,'script','dataLayer',gtmId);
       </script>
     )}
     <meta name="generator" content={Astro.generator} />
@@ -110,9 +133,10 @@ const gtmId = site.integrations.analytics.gtmId;
     <!-- Enable scroll-reveal hidden states only when JS runs (graceful + SEO-safe) -->
     <script is:inline>document.documentElement.classList.add('reveal-ready');</script>
 
-    <!-- First-touch attribution: stash any utm_* on the landing URL so a lead booked
-         later on a UTM-less page (e.g. /request-appointment) still carries the campaign.
-         Read back in lib/leadForm.ts. First touch wins (never overwritten). -->
+    <!-- First-touch attribution: stash any utm_* AND the Google Ads click ids on the landing URL so a
+         lead booked later on a clean URL (e.g. /request-appointment) still carries the campaign + the
+         gclid. The gclid is what lets WhatConverts report the lead back to Google Ads as a CPC
+         conversion. Read back in lib/leadForm.ts. First touch wins (never overwritten). -->
     <script is:inline>
       (function () {
         try {
@@ -123,6 +147,18 @@ const gtmId = site.integrations.analytics.gtmId;
             var o = {};
             keys.forEach(function (k) { var v = p.get(k); if (v) o[k] = v; });
             localStorage.setItem('menonUtm', JSON.stringify(o));
+          }
+          // Google Ads click ids (auto-tagging puts gclid in the URL on the ad click; gbraid/wbraid
+          // cover some iOS traffic). Fall back to Google's _gcl_aw cookie if the URL param was stripped.
+          var clickKeys = ['gclid','gbraid','wbraid'];
+          var c = {};
+          clickKeys.forEach(function (k) { var v = p.get(k); if (v) c[k] = v; });
+          if (!c.gclid) {
+            var m = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+            if (m) { var seg = m[1].split('.'); if (seg.length >= 3) c.gclid = seg.slice(2).join('.'); }
+          }
+          if (Object.keys(c).length && !localStorage.getItem('menonClickIds')) {
+            localStorage.setItem('menonClickIds', JSON.stringify(c));
           }
         } catch (e) {}
       })();
@@ -139,14 +175,14 @@ const gtmId = site.integrations.analytics.gtmId;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Fonts: self-hosted via tokens.css → fonts.css @font-face.
+    <!-- Fonts: self-hosted via tokens.css -> fonts.css @font-face.
          Preload LCP-critical faces:
            Raleway-v2 400 latin primary block → d42b96c5612a.woff2 (body, dominant 3867+ uses)
-           Playfair Display 400 latin primary block → 973711d84225.woff2 (headings)
-           Lato 400 latin primary block → 3f18028a04b3.woff2 (UI/eyebrow) -->
+           Playfair display legacy latin face → a220c9588ea3.woff2 (headings)
+           Lato-light 400 → f8144e0c7432.woff2 (UI/eyebrow) -->
     <link rel="preload" href="/fonts/d42b96c5612a.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/973711d84225.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/3f18028a04b3.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/a220c9588ea3.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/f8144e0c7432.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
@@ -174,6 +210,7 @@ const gtmId = site.integrations.analytics.gtmId;
     {gtmId && (
       <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />
     )}
+    {!minimalShell && <a href="#main" class="skip-link">Skip to content</a>}
     {!minimalShell && <SiteHeader />}
     {/* Single page-level <main> landmark (SEO/a11y). minimalShell pages (e.g. find-your-glow)
         provide their own <main>, so skip the wrapper there to avoid a nested/duplicate main. */}
@@ -185,6 +222,78 @@ const gtmId = site.integrations.analytics.gtmId;
     {!minimalShell && <ChatAssistant />}
     {!minimalShell && <SocialProofToast />}
     <ThirdPartyScripts />
+
+    <!-- Hero background video: pick the resolution for this viewport (phones / data-saver
+         get a smaller file) and attach the source AFTER load, so the poster image stays the
+         LCP element (the poster is a frame of the video, so the swap is seamless). The
+         <source media> attribute is unreliable in Chrome, so selection happens here in JS. -->
+    <script is:inline>
+      (function () {
+        var v = document.querySelector('video[data-hero-video]');
+        if (!v) return;
+        function attach() {
+          if (v.dataset.heroLoaded) return;
+          v.dataset.heroLoaded = '1';
+          var small = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+          var saveData = navigator.connection && navigator.connection.saveData;
+          var src = (small || saveData)
+            ? (v.getAttribute('data-src-mobile') || v.getAttribute('data-src-desktop'))
+            : v.getAttribute('data-src-desktop');
+          if (!src) return;
+          v.src = src;
+          v.load();
+          if (v.hasAttribute('autoplay')) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+        }
+        function schedule() {
+          if ('requestIdleCallback' in window) requestIdleCallback(attach, { timeout: 1500 });
+          else setTimeout(attach, 200);
+        }
+        if (document.readyState === 'complete') schedule();
+        else window.addEventListener('load', schedule, { once: true });
+      })();
+    </script>
+
+    <!-- Lazy-load non-hero videos when they approach the viewport. -->
+    <script is:inline>
+      (function () {
+        var videos = document.querySelectorAll('video[data-lazy-video]');
+        if (!videos.length) return;
+        function loadVideo(video) {
+          if (video.dataset.videoLoaded) return;
+          video.dataset.videoLoaded = 'true';
+          if (video.dataset.src) {
+            video.src = video.dataset.src;
+            video.removeAttribute('data-src');
+          }
+          var sources = video.querySelectorAll('source[data-src]');
+          for (var i = 0; i < sources.length; i++) {
+            sources[i].src = sources[i].dataset.src;
+            sources[i].removeAttribute('data-src');
+          }
+          video.load();
+          if (video.hasAttribute('autoplay')) {
+            var play = video.play();
+            if (play && play.catch) play.catch(function () {});
+          }
+        }
+        if (!('IntersectionObserver' in window)) {
+          for (var i = 0; i < videos.length; i++) loadVideo(videos[i]);
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              loadVideo(entry.target);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '600px 0px', threshold: 0.01 });
+        videos.forEach(function (video) { io.observe(video); });
+      })();
+    </script>
 
     <!-- Scroll reveal: fade + rise top-level sections (and [data-reveal] elements) as they enter view -->
     <script is:inline>
@@ -216,6 +325,7 @@ const gtmId = site.integrations.analytics.gtmId;
           var a = links[i];
           var href = a.getAttribute('href') || '';
           if (href.indexOf('service=') !== -1) continue; /* an explicit tier/service always wins */
+          if (a.getAttribute('data-book') === 'request') continue; /* opt-in: this CTA goes straight to the booking form, never rerouted to consultation */
           /* A CTA that says "consultation" (or opts in via data-book) always goes to the
              guided consultation — e.g. the bottom-of-page CTA on a specific treatment page.
              Land on #options (the free vs $50-with-Dr.-Menon choice), not the page top. */

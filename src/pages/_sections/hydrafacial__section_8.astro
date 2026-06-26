@@ -6,15 +6,17 @@ import posterImg from '@/assets/images/3c38afa74542.jpg';
   <div class="s8-video__inner">
     <video
       class="s8-video__vid"
+      data-lazy-video
       autoplay
       loop
       muted
       playsinline
+      preload="none"
       poster={posterImg.src}
       width="1440"
       height="810"
     >
-      <source src="/videos/wix/f61cce_80b794ca0618415886d9a9fdd2179d86.mp4" type="video/mp4" />
+      <source data-src="/videos/wix/f61cce_80b794ca0618415886d9a9fdd2179d86.mp4" type="video/mp4" />
       <track kind="descriptions" />
     </video>
   </div>

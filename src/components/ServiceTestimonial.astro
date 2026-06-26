@@ -10,6 +10,7 @@
  * Usage:  <ServiceTestimonial slug="botox-millburn-nj" />
  */
 import { getReview } from '@/lib/reviews';
+import site from '@/lib/site';
 import sectionBg from '@/assets/images/30cfb9e87c60.webp';
 import avatar1 from '@/assets/testimonials/reviewer-avatar-1.webp';
 import avatar2 from '@/assets/testimonials/reviewer-avatar-2.webp';
@@ -45,7 +46,7 @@ const review = getReview(slug);
           </footer>
         </blockquote>
 
-        <div class="svc-testimonial__proof">
+        <a class="svc-testimonial__proof" href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Read our reviews on Google">
           <div class="svc-testimonial__avatars">
             <img src={avatar1.src} alt="Menon Medispa client" class="svc-testimonial__avatar" loading="lazy" decoding="async" width="52" height="52" />
             <img src={avatar2.src} alt="Menon Medispa client" class="svc-testimonial__avatar" loading="lazy" decoding="async" width="52" height="52" />
@@ -55,7 +56,7 @@ const review = getReview(slug);
             <span class="svc-testimonial__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             <span class="svc-testimonial__count">100+ 5 Star Reviews</span>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
@@ -123,7 +124,14 @@ const review = getReview(slug);
     align-items: center;
     justify-content: center;
     gap: 14px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    width: fit-content;
+    margin-inline: auto;
+    transition: opacity 0.2s ease;
   }
+  .svc-testimonial__proof:hover { opacity: 0.85; }
   .svc-testimonial__avatars { display: flex; align-items: center; }
   .svc-testimonial__avatar {
     width: 52px;

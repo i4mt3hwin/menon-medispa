@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import site from '@/lib/site';
+import { Image } from 'astro:assets';
+import igImg from '@/assets/images/d85622e84ef0.webp';
+import fbImg from '@/assets/images/482f7439ea47.webp';
+import ttImg from '@/assets/images/de7ef3d7c470.webp';
 ---
 <BaseLayout
   title="Thank You | Menon Medispa"
@@ -11,11 +15,73 @@ import site from '@/lib/site';
     <div class="container ty__inner">
       <div class="ty__icon" aria-hidden="true">&#10003;</div>
       <h1 class="ty__title">Thank you</h1>
-      <p class="ty__text">We received your message and will be in touch shortly.</p>
+      <p class="ty__text" id="ty-msg">We received your message and will be in touch shortly.</p>
+      <div class="ty-sum" id="ty-summary" hidden></div>
       <p class="ty__text">Need us sooner? Call <a href={site.phone.tel}>{site.phone.display}</a>.</p>
       <a class="btn btn--primary btn--lg" href="/">Back to home</a>
+
+      <div class="ty-social">
+        <p class="ty-social__heading">See more of our work</p>
+        <p class="ty-social__text">Follow along for the latest treatments, tips and offers.</p>
+        <ul class="ty-social__list" role="list">
+          <li>
+            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Instagram">
+              <span class="ty-social__chip"><Image src={igImg} alt="" width={24} height={24} loading="lazy" /></span>
+              <span class="ty-social__name">Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on Facebook">
+              <span class="ty-social__chip"><Image src={fbImg} alt="" width={24} height={24} loading="lazy" /></span>
+              <span class="ty-social__name">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href={site.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="Menon Medispa on TikTok">
+              <span class="ty-social__chip"><Image src={ttImg} alt="" width={24} height={24} loading="lazy" /></span>
+              <span class="ty-social__name">TikTok</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
+
+  <script>
+    // A booking/consultation submit stashes a short summary in sessionStorage just before redirecting
+    // here; echo it, then clear it (so a refresh or a later plain visit shows the generic message).
+    // Values are rendered via textContent only -- never innerHTML -- so a service string can't inject.
+    try {
+      const raw = sessionStorage.getItem('menonBooked');
+      if (raw) {
+        sessionStorage.removeItem('menonBooked');
+        const b = JSON.parse(raw) || {};
+        const msg = document.getElementById('ty-msg');
+        const sum = document.getElementById('ty-summary');
+        if (msg) msg.textContent = "We've received your request. We'll reach out within 24 hours to confirm.";
+        const rows = [];
+        if (b.service) rows.push(['Service', String(b.service)]);
+        if (b.date) {
+          let d = String(b.date);
+          try {
+            const dt = new Date(d + 'T12:00:00');
+            if (!isNaN(dt.getTime())) d = dt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+          } catch (_) { /* keep raw */ }
+          rows.push(['Requested date', d]);
+        }
+        if (b.window) rows.push(['Requested time', String(b.window)]);
+        if (sum && rows.length) {
+          for (const pair of rows) {
+            const row = document.createElement('div'); row.className = 'ty-sum__row';
+            const ks = document.createElement('span'); ks.className = 'ty-sum__k'; ks.textContent = pair[0];
+            const vs = document.createElement('span'); vs.className = 'ty-sum__v'; vs.textContent = pair[1];
+            row.appendChild(ks); row.appendChild(vs); sum.appendChild(row);
+          }
+          sum.hidden = false;
+        }
+      }
+    } catch (_) { /* fall back to the generic message */ }
+  </script>
 </BaseLayout>
 
 <style>
@@ -29,4 +95,54 @@ import site from '@/lib/site';
   .ty__text { font-family: var(--font-body); font-size: var(--text-base); opacity: 0.85; margin: 0; }
   .ty__text a { color: var(--color-accent-ink); font-weight: 600; }
   .ty .btn { margin-top: var(--space-sm); }
+
+  /* Stacked label/value rows (not side-by-side): a long value like a full service
+     name can never collide with its label, and it reads cleanly on a narrow card.
+     Warm-sand tint + gold accents match the booking flow this page follows from. */
+  .ty-sum {
+    width: 100%; max-width: 400px; margin: var(--space-xs) auto var(--space-xs);
+    padding: 2px var(--space-md);
+    background: rgb(196 164 132 / 0.08);
+    border: 1px solid rgb(196 164 132 / 0.40);
+    border-radius: var(--radius-md);
+    text-align: left;
+  }
+  .ty-sum[hidden] { display: none; }
+  /* The rows are built at runtime (createElement from sessionStorage), so they miss
+     Astro's scoped cid attribute. Target them with :global or the scoped rules never
+     match — that mismatch is why label+value rendered jammed as inline spans. */
+  .ty-sum :global(.ty-sum__row) { display: flex; flex-direction: column; gap: 3px; padding: 14px 0; }
+  .ty-sum :global(.ty-sum__row + .ty-sum__row) { border-top: 1px solid rgb(196 164 132 / 0.30); }
+  .ty-sum :global(.ty-sum__k) {
+    font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent-ink);
+  }
+  .ty-sum :global(.ty-sum__v) {
+    font-family: var(--font-body); font-size: var(--text-base); font-weight: 600;
+    color: var(--color-text); line-height: 1.35;
+  }
+
+  /* "See more of our work" — a soft social invite below the booking actions, set off
+     by a hairline divider. White footer glyphs sit in gold chips (matching the page's
+     gold success icon) so they're visible on this light card. */
+  .ty-social {
+    width: 100%; max-width: 400px; margin: var(--space-sm) auto 0;
+    padding-top: var(--space-md); border-top: 1px solid rgb(196 164 132 / 0.30);
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .ty-social__heading { font-family: var(--font-display); font-size: var(--text-subheading); margin: 0; }
+  .ty-social__text { font-family: var(--font-body); font-size: var(--text-sm); opacity: 0.8; margin: 0 0 var(--space-xs); }
+  .ty-social__list { display: flex; justify-content: center; gap: var(--space-md); list-style: none; margin: 0; padding: 0; }
+  .ty-social__list a {
+    display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none;
+    font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 600; color: var(--color-accent-ink);
+  }
+  .ty-social__chip {
+    display: flex; align-items: center; justify-content: center; width: 52px; height: 52px;
+    border-radius: 50%; background: var(--color-cta); transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .ty-social__list a:hover .ty-social__chip,
+  .ty-social__list a:focus-visible .ty-social__chip {
+    transform: translateY(-2px); box-shadow: 0 4px 12px rgb(148 99 46 / 0.35);
+  }
 </style>

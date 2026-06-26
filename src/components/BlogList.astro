@@ -50,6 +50,8 @@ function truncate(str: string | undefined, max: number): string {
                   src={post.featured_image}
                   alt={post.title}
                   class="blog-list__img"
+                  width={400}
+                  height={200}
                   loading="lazy"
                   decoding="async"
                 />
@@ -71,7 +73,7 @@ function truncate(str: string | undefined, max: number): string {
                 <p class="blog-list__excerpt">{truncate(post.excerpt, 150)}</p>
               )}
               <a href={`/post/${post.slug}`} class="blog-list__readmore" aria-label={`Read more: ${post.title}`}>
-                Read More
+                Read {post.title}
               </a>
             </div>
           </article>

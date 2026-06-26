@@ -4,7 +4,7 @@
  *
  * Menon runs two consultation tiers:
  *   - esthetician : complimentary skin assessment with a licensed esthetician
- *   - medical     : $50 consult with Dr. Menon, MD, credited toward treatment
+ *   - medical     : $50 consult with Dr. Menon, MD, may be applied toward treatment
  *
  * The tier is decided BY THE TREATMENT, not by the visitor — injectables,
  * Semaglutide, and microneedling are physician-led and must be the medical
@@ -43,10 +43,10 @@ export function isMedicalConsult(value: string | null | undefined): boolean {
 
 /**
  * Tag folded into `service_interest` when a medical-consult service is requested,
- * so the front desk books Dr. Menon (and the $50/credit) without a schema change.
+ * so the front desk books Dr. Menon (and the $50 fee) without a schema change.
  * Mirrors the package-detail fold-in already used in BookingRequest.
  */
-export const MEDICAL_CONSULT_TAG = 'Dr. Menon medical consult ($50, credited)';
+export const MEDICAL_CONSULT_TAG = 'Dr. Menon medical consult ($50)';
 
 /** Append the medical tag to a service_interest string (idempotent). */
 export function withConsultTag(serviceInterest: string): string {
@@ -62,7 +62,7 @@ export function withConsultTag(serviceInterest: string): string {
 export const CONSULT_NOTES: Record<ConsultTier, { emphasis: string; rest: string }> = {
   medical: {
     emphasis: '$50 consultation with Dr. Menon',
-    rest: ', credited toward your treatment. Injectables, Semaglutide, and microneedling begin with a brief medical consult to plan your treatment safely.',
+    rest: ', which may be applied toward your treatment. Injectables, Semaglutide, and microneedling begin with a brief medical consult to plan your treatment safely.',
   },
   esthetician: {
     emphasis: 'Your consultation is complimentary',

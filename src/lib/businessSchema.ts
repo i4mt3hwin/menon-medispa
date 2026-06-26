@@ -7,21 +7,20 @@
  */
 import site from '@/lib/site';
 
-/** The MedicalBusiness/LocalBusiness entity node. Pass a page-specific `image`
- *  (path or absolute) to set the business image; otherwise the logo is used. */
+/** The MedicalBusiness/LocalBusiness entity node. `opts.image` is accepted for
+ *  backward compatibility but ignored: every page emits the SAME @id, so the node
+ *  must carry identical image/logo values everywhere (the business logo). */
 export function buildLocalBusiness(opts: { image?: string } = {}): Record<string, unknown> {
-  const image = opts.image
-    ? (opts.image.startsWith('http') ? opts.image : site.url + opts.image)
-    : site.logo;
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalBusiness',
     '@id': site.schemaId,
     name: site.legalName,
-    url: site.url,
+    url: `${site.url}/`,
     telephone: site.phone.schema,
     email: site.email,
-    image,
+    image: site.logo,
+    logo: { '@type': 'ImageObject', url: site.logo },
     priceRange: site.priceRange,
     description: site.description,
     founder: { '@type': 'Person', name: site.founder },

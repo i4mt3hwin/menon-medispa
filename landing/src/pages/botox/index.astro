@@ -1,0 +1,805 @@
+---
+import LpTracking from "../../components/LpTracking.astro";
+
+const PHONE = "(973) 494-8431";
+const PHONE_LINK = "tel:9734948431";
+// Ad LP: all "Book" CTAs scroll to the on-page lead form (#claim-offer) instead of the full scheduler —
+// lower friction for cold paid traffic. The form posts to the main site's /api/lead (see handler below).
+const BOOKING_URL = "#claim-offer";
+const ADDRESS = "45 Essex St., Suite 202, Millburn, NJ 07041";
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>$189 Botox Special | Menon MediSpa & Wellness | Millburn, NJ</title>
+  <meta name="description" content="Physician-administered Botox — first 20 units just $189 for new clients. Dr. Aditi Menon personally performs every injection at Millburn's top-rated MediSpa. Book your appointment today." />
+
+  <!-- OG Tags -->
+  <meta property="og:title" content="$189 Botox Special | Menon MediSpa & Wellness" />
+  <meta property="og:description" content="Physician-administered Botox — first 20 units just $189 for new clients. Board-certified Dr. Menon performs every injection." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.menonmedispa.com/botox-sale" />
+
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MSMM2PHT');</script>
+
+  <!-- WhatConverts -->
+  <script is:inline>var $wc_load=function(a){return JSON.parse(JSON.stringify(a))},$wc_leads=$wc_leads||{doc:{url:$wc_load(document.URL),ref:$wc_load(document.referrer),search:$wc_load(location.search),hash:$wc_load(location.hash)}};</script>
+  <script is:inline async src="//s.ksrndkehqnwntyxlhgto.com/159358.js"></script>
+
+  <!-- Meta Pixel Code -->
+  <script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1005972549954643');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {
+    content_name: '$189 Botox Special',
+    content_category: 'medspa_landing',
+    content_ids: ['/botox']
+  });
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1005972549954643&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Meta Pixel - Contact event on any tel: link click -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          fbq('track', 'Contact');
+        });
+      });
+    });
+  </script>
+
+  <!-- First-touch UTM + Google Ads click-id capture (mirrors the shared LandingPage layout; this page
+       is standalone). Read back by the lead-form handler below and forwarded to /api/lead. The gclid is
+       what lets WhatConverts attribute this $189 ad lead to Google Ads (CPC). -->
+  <script is:inline>
+    (function () {
+      try {
+        var p = new URLSearchParams(location.search);
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+        var has = keys.some(function (k) { return p.get(k); });
+        if (has && !localStorage.getItem('menonUtm')) {
+          var o = {};
+          keys.forEach(function (k) { var v = p.get(k); if (v) o[k] = v; });
+          localStorage.setItem('menonUtm', JSON.stringify(o));
+        }
+        var clickKeys = ['gclid','gbraid','wbraid'];
+        var c = {};
+        clickKeys.forEach(function (k) { var v = p.get(k); if (v) c[k] = v; });
+        if (!c.gclid) {
+          var m = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+          if (m) { var seg = m[1].split('.'); if (seg.length >= 3) c.gclid = seg.slice(2).join('.'); }
+        }
+        if (Object.keys(c).length && !localStorage.getItem('menonClickIds')) {
+          localStorage.setItem('menonClickIds', JSON.stringify(c));
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+  <link rel="shortcut icon" href="/favicon.png" />
+
+  <!-- LocalBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Menon MediSpa & Wellness",
+    "url": "https://www.menonmedispa.com",
+    "telephone": "+19734948431",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "45 Essex St., Suite 202",
+      "addressLocality": "Millburn",
+      "addressRegion": "NJ",
+      "postalCode": "07041"
+    },
+    "openingHours": ["Tu-Fr 09:30-18:00", "Sa 09:30-14:00"],
+    "priceRange": "$$",
+    "medicalSpecialty": "Dermatology",
+    "offers": {
+      "@type": "Offer",
+      "name": "Botox Special - First 20 Units",
+      "price": "189",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <style is:global>
+    @import "../../styles/global.css";
+  </style>
+</head>
+
+<body class="bg-cream font-body text-text-dark antialiased">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSMM2PHT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- ========== STICKY NAV (logo left, phone CTA right; hides on mobile scroll, see global.css) ========== -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm transition-all duration-300">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between gap-3">
+        <img src="/images/menon-logo.png" alt="Menon MediSpa & Wellness" class="h-10 w-auto sm:h-12" style="filter: brightness(0) saturate(100%) invert(18%) sepia(15%) saturate(1200%) hue-rotate(230deg) brightness(95%);" />
+        <a href={PHONE_LINK} class="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-text-dark transition hover:text-gold-dark sm:text-base">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>{PHONE}</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-section relative overflow-hidden bg-navy pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-navy"></div>
+      <img src="/images/injection-closeup.png" alt="" class="absolute right-0 top-0 h-full w-full object-cover object-center sm:w-3/4 lg:w-2/3" style="filter: brightness(0.85); mask-image: linear-gradient(to right, transparent 0%, black 40%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);" loading="eager" />
+      <div class="absolute inset-0 bg-navy/50 sm:bg-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-navy/40"></div>
+    </div>
+    <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-lavender/5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl lg:max-w-xl">
+        <div class="text-center lg:text-left">
+          <!-- Reviews badge -->
+          <div class="mb-6 inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
+            <div class="flex text-gold">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <span class="text-xs font-semibold tracking-wide text-gold sm:text-sm">100+ 5 Star Reviews</span>
+          </div>
+
+          <h1 class="font-display text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
+            Look Refreshed,<br />
+            <span class="italic text-gold">Not "Done."</span>
+          </h1>
+
+          <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/70 lg:mx-0 lg:text-xl">
+            Physician-administered Botox at Millburn's top-rated MediSpa. First 20 units — just <strong class="text-white">$189</strong>. New clients only.
+          </p>
+
+          <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
+            <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gold px-5 py-3.5 text-sm font-bold text-black shadow-lg sm:px-8 sm:py-4 sm:text-lg">
+              Book Your $189 Botox Appointment
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </a>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-white/50 lg:justify-start sm:text-sm">
+            <span>No obligation</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>10-minute treatment</span>
+            <span class="hidden sm:inline">&middot;</span>
+            <span>Natural results</span>
+          </div>
+
+          <!-- Board certified badge -->
+          <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-sm">
+            <svg class="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+            <span class="text-sm font-semibold text-white">Board-Certified Physician &middot; Every Injection by Dr. Menon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST BAR (Purple) ========== -->
+  <section class="bg-purple py-3.5">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium text-white sm:text-base">
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Same-Week Appointments
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Medical-Grade Expertise
+        </span>
+        <span class="flex items-center gap-2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          State of the Art Equipment
+        </span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== PAIN POINTS ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+        Tired of Seeing Someone Older<br class="hidden sm:inline" /> in the Mirror?
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        You're not alone. These are the frustrations that bring patients to Dr. Menon's door.
+      </p>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2">
+        {[
+          { title: "Forehead lines that won't quit", desc: "No amount of skincare can relax the muscles causing those stubborn creases." },
+          { title: "Crow's feet stealing your confidence", desc: "You notice them in every photo and video call — and you can't un-see them." },
+          { title: "Frown lines making you look angry", desc: "People ask if you're upset when you're perfectly fine. It's exhausting." },
+          { title: "Fear of looking \"done\"", desc: "You've seen bad Botox and you don't want that for yourself. We get it." },
+        ].map((item) => (
+          <div class="rounded-xl border border-cream-dark bg-white p-6 text-left shadow-sm">
+            <h3 class="font-display text-lg font-semibold text-navy">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="mx-auto mt-10 max-w-2xl text-base leading-relaxed text-text-muted">
+        That's exactly why Dr. Menon takes a different approach. As a Board-Certified physician who personally performs every injection, she combines <strong class="text-navy">medical precision with an artistic eye</strong> — so you look like yourself, just refreshed.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== BEFORE / AFTER ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          See the Difference Expert Hands Make
+        </h2>
+        <p class="mt-3 text-lg text-text-muted">Real patients. Real results. Every treatment performed by Dr. Menon.</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="ba-card overflow-hidden rounded-xl shadow-md">
+          <img src="/images/before-after-1.png" alt="Before and after Botox treatment - forehead lines" class="h-auto w-full object-cover" width="600" height="600" loading="lazy" />
+        </div>
+        <div class="ba-card overflow-hidden rounded-xl shadow-md">
+          <img src="/images/before-after-2.png" alt="Before and after Botox - Magic of Botox results" class="h-auto w-full object-cover" width="600" height="595" loading="lazy" />
+        </div>
+        <div class="ba-card overflow-hidden rounded-xl shadow-md">
+          <img src="/images/before-after-3.png" alt="Before and after Botox - forehead wrinkle reduction" class="h-auto w-full object-cover" width="600" height="593" loading="lazy" />
+        </div>
+      </div>
+
+      <p class="mt-6 text-center text-xs text-text-light italic">
+        *Results may vary. All photos are real Menon MediSpa patients shown with consent.
+      </p>
+
+      <div class="mt-8 text-center">
+        <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3 text-base font-bold text-black shadow-md">
+          Get Results Like These — Book Now
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUE PROP 1: Doctor ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <img src="/images/dr-menon-portrait.png" alt="Dr. Aditi Menon, MD at Menon Regenerative Institute" class="h-auto w-full object-cover" width="1954" height="778" loading="lazy" />
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Why Menon MediSpa</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            A Real Doctor.<br />Every Single Time.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            At most med spas, you'll be treated by a nurse or PA. At Menon MediSpa, <strong class="text-navy">Dr. Aditi Menon</strong> — a Board-Certified physician — personally performs every Botox injection. No hand-offs. No surprises. Just expert medical care from start to finish.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {[
+              "Board-Certified in Physical Medicine & Rehabilitation",
+              "Founder, Menon MediSpa & Wellness (est. 2019)",
+              "Expert in musculoskeletal & regenerative medicine",
+              "Customizes every treatment to your unique facial structure",
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm text-text-muted">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUE PROP 2: Natural Results ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Natural Results</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            You'll Look Refreshed.<br />Not Frozen.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            Dr. Menon combines her medical expertise with an artistic approach, customizing every treatment plan to your unique facial structure and aesthetic goals. The result? <strong class="text-navy">You look like you — just well-rested and glowing.</strong> People will notice. They won't know why.
+          </p>
+          <blockquote class="mt-6 border-l-4 border-gold pl-4 italic text-text-muted">
+            "The goal is for people to say you look great — but not be able to figure out why."
+            <footer class="mt-1 text-sm font-semibold not-italic text-navy">— Dr. Aditi Menon</footer>
+          </blockquote>
+        </div>
+        <div class="order-1 overflow-hidden rounded-2xl shadow-lg lg:order-2">
+          <img src="/images/smooth-skin-result.png" alt="Beautiful natural-looking skin after Botox treatment" class="h-auto w-full object-cover" width="469" height="297" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUE PROP 3: Price ========== -->
+  <section class="animate-on-scroll relative overflow-hidden bg-navy py-16 sm:py-20">
+    <div class="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy to-navy-light/80"></div>
+    <div class="absolute top-10 right-10 h-64 w-64 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+          <img src="/images/botox-injection.png" alt="Professional Botox injection treatment" class="h-auto w-full object-cover" width="368" height="430" loading="lazy" />
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">New Client Offer</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">
+            $189 for Your First 20 Units.
+            <span class="block italic text-gold">Yes, Really.</span>
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-white/70">
+            Most providers in the Millburn area charge <strong class="text-white line-through decoration-white/40">$300–$400+</strong> for the same treatment. Our new client special gives you physician-administered Botox at a fraction of the cost — because looking your best shouldn't require a luxury budget.
+          </p>
+
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 text-base font-bold text-black shadow-lg">
+              Claim Your $189 Special
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </a>
+            <a href={PHONE_LINK} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-base font-semibold text-white transition hover:bg-white/10">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+              Call {PHONE}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUE PROP 4: Quick & Easy ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold uppercase tracking-widest text-gold">Quick Treatment</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+            10 Minutes. Zero Downtime.<br />Stunning Results.
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-text-muted">
+            Walk in on your lunch break. Walk out looking refreshed. Botox treatments take just 10–15 minutes with no downtime. You'll start seeing results within days, with full effect in about two weeks.
+          </p>
+          <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+            <div class="rounded-xl bg-white p-4 shadow-sm">
+              <div class="font-display text-2xl font-bold text-navy">10</div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-text-muted">Minutes</div>
+            </div>
+            <div class="rounded-xl bg-white p-4 shadow-sm">
+              <div class="font-display text-2xl font-bold text-navy">0</div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-text-muted">Downtime</div>
+            </div>
+            <div class="rounded-xl bg-white p-4 shadow-sm">
+              <div class="font-display text-2xl font-bold text-navy">3-4</div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-text-muted">Months Results</div>
+            </div>
+          </div>
+        </div>
+        <div class="order-1 overflow-hidden rounded-2xl shadow-lg lg:order-2">
+          <img src="/images/wrinkle-closeup.png" alt="Close-up showing fine lines that Botox can treat" class="h-auto w-full object-cover" width="488" height="428" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MEET THE TEAM ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <span class="text-xs font-bold uppercase tracking-widest text-gold">Our Team</span>
+      <h2 class="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl">
+        Welcoming Faces. Expert Hands.
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+        From your first phone call to your follow-up appointment, our team is here to make you feel comfortable, confident, and cared for.
+      </p>
+      <div class="mt-10 overflow-hidden rounded-2xl shadow-lg">
+        <img src="/images/team-photo.png" alt="The Menon MediSpa & Wellness team" class="h-auto w-full object-cover" width="1080" height="560" loading="lazy" />
+      </div>
+
+      <div class="mt-8">
+        <a href={BOOKING_URL} data-lp-cta class="btn-primary inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3 text-base font-bold text-black shadow-md">
+          Book Your Consultation
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="animate-on-scroll bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          What Our Botox Patients Are Saying
+        </h2>
+        <p class="mt-3 text-lg text-text-muted">Real reviews from real patients.</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {[
+          {
+            quote: "Dr Menon is wonderful. Best results I've had with Botox injections.",
+            name: "Mary Williams",
+          },
+          {
+            quote: "I have been seeing Dr Menon for over a year. My shoulders and hips were so locked up. We then tried botox injection in my neck - OMG - its the first time in over a year I'm pain free. I literally cried tears of joy.",
+            name: "Laura Redding",
+          },
+          {
+            quote: "I had an amazing experience with my treatment today! The whole process was quick, comfortable and professional. Dr. Menon took the time to explain everything thoroughly and made me feel completely at ease. My results look so natural.",
+            name: "Mawunyo Fafa",
+          },
+        ].map((item) => (
+          <div class="rounded-xl border border-cream-dark bg-cream p-6 shadow-sm">
+            <div class="flex text-gold mb-3">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-sm leading-relaxed italic text-text-muted">"{item.quote}"</p>
+            <div class="mt-4 text-sm font-semibold text-navy">— {item.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="animate-on-scroll bg-cream py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl">
+          Questions? We've Got Answers.
+        </h2>
+      </div>
+
+      <div class="mt-10 space-y-4">
+        {[
+          {
+            q: "Will I look frozen or unnatural?",
+            a: "Absolutely not. Dr. Menon's approach prioritizes natural-looking results. She customizes every treatment to your unique facial structure so you can still make all your natural expressions — you'll just look more refreshed and youthful."
+          },
+          {
+            q: "How much does it cost?",
+            a: "Our new client special is $189 for your first 20 units of Botox — administered by Dr. Menon personally. This is significantly below the typical $300–$400+ charged by other providers in the area."
+          },
+          {
+            q: "Does it hurt?",
+            a: "Most patients describe the sensation as a brief pinch. The treatment takes just 10–15 minutes and requires no numbing or anesthesia. Many patients are surprised by how quick and comfortable it is."
+          },
+          {
+            q: "How long do results last?",
+            a: "Botox results typically last 3–4 months. Many patients schedule follow-up treatments to maintain their refreshed look year-round."
+          },
+          {
+            q: "Is Botox safe?",
+            a: "Botox has been FDA-approved since 2002 and has an extensive safety record with millions of treatments performed worldwide. At Menon MediSpa, every injection is administered by a Board-Certified physician for the highest standard of safety."
+          },
+        ].map((item) => (
+          <details class="group rounded-xl border border-cream-dark bg-white shadow-sm">
+            <summary class="flex items-center justify-between p-5">
+              <span class="text-base font-semibold text-navy pr-4">{item.q}</span>
+              <svg class="faq-chevron h-5 w-5 shrink-0 text-text-muted" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed text-text-muted">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL CTA / LEAD FORM ========== -->
+  <section id="claim-offer" class="relative overflow-hidden bg-navy py-16 scroll-mt-20 sm:py-20">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy via-navy-light/40 to-navy-dark"></div>
+    <div class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+        Ready to Look Refreshed?<br />
+        <span class="italic text-gold">Claim Your $189 Botox Offer.</span>
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-white/70">
+        Drop your info below and our team will reach out to confirm your new-client appointment with Dr. Menon. Physician-administered Botox at a price that makes saying yes easy.
+      </p>
+
+      <!-- FORM -> main site /api/lead (D1 + Resend + welcome + WhatConverts + lead manager). Handler script below. -->
+      <form data-lead-form data-lead-name="botox_lead" data-lead-content="botox_189" data-lead-value="189" class="mx-auto mt-8 max-w-md space-y-4 text-left">
+        <!-- Honeypot: real people leave this empty. -->
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+        <input type="hidden" name="type" value="appointment_request" />
+        <input type="hidden" name="service_interest" value="Botox $189 New Client Special" />
+
+        <div>
+          <input type="text" name="name" placeholder="Your Name *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <input type="email" name="email" placeholder="Email Address *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <input type="tel" name="phone" placeholder="Phone Number *" required
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold" />
+        </div>
+        <div>
+          <textarea name="message" placeholder="Any questions or preferred times? (optional)" rows="3"
+            class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 backdrop-blur-sm focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"></textarea>
+        </div>
+
+        <label class="flex items-start gap-2 text-left text-xs leading-relaxed text-white/60">
+          <input type="checkbox" name="consent_email" value="on" class="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 text-gold focus:ring-gold focus:ring-offset-0" />
+          <span>Yes, email me about offers and skincare tips. We never share your info, and you can unsubscribe anytime.</span>
+        </label>
+
+        <button type="submit"
+          class="btn-primary w-full rounded-full bg-gold py-4 text-lg font-bold text-black shadow-lg">
+          Claim My $189 Botox Offer
+        </button>
+
+        <p data-form-error hidden class="text-center text-sm font-semibold text-red-300"></p>
+
+        <p class="text-center text-xs text-white/40">
+          New clients only &middot; First 20 units &middot; Physician-administered by Dr. Menon
+        </p>
+      </form>
+
+      <!-- Success message (sibling of the form so it stays visible after the form hides) -->
+      <div data-form-success hidden class="mx-auto mt-8 max-w-md rounded-xl bg-green-500/20 p-8 text-center">
+        <div class="text-4xl mb-3">&#10003;</div>
+        <div class="text-xl font-bold text-green-300">You're one step away.</div>
+        <p class="mt-3 text-base text-green-200/80">We'll reach out during business hours to confirm your $189 new-client Botox appointment with Dr. Menon. Prefer to reach us first? Call <a href="tel:9734948431" class="font-semibold text-green-200 underline">(973) 494-8431</a>.</p>
+      </div>
+
+      <div class="mt-4 text-sm text-white/50">
+        Or Call <a href={PHONE_LINK} class="font-semibold text-gold underline">{PHONE}</a>
+      </div>
+
+      <div class="mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-white/40">
+        <span>No obligation</span>
+        <span>&middot;</span>
+        <span>Complimentary consultation</span>
+        <span>&middot;</span>
+        <span>Results in days</span>
+      </div>
+
+      <div class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+        <div class="grid gap-4 text-sm text-white/70 sm:grid-cols-3">
+          <div>
+            <div class="font-semibold text-white">Location</div>
+            <div>{ADDRESS}</div>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Phone</div>
+            <a href={PHONE_LINK} class="hover:text-gold">{PHONE}</a>
+          </div>
+          <div>
+            <div class="font-semibold text-white">Hours</div>
+            <div>Tue–Fri: 9:30am–6pm</div>
+            <div>Sat: 9:30am–2pm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-navy-dark py-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-between gap-4 text-xs text-white/30 sm:flex-row">
+        <div>&copy; 2026 Menon MediSpa & Wellness. All rights reserved.</div>
+        <div class="flex gap-4">
+          <a href="https://www.menonmedispa.com/privacy-policy" class="hover:text-white/60">Privacy Policy</a>
+          <a href="https://www.menonmedispa.com/terms" class="hover:text-white/60">Terms of Service</a>
+        </div>
+      </div>
+      <p class="mt-4 text-center text-[10px] text-white/20">
+        Results may vary. Botox&reg; is a registered trademark of Allergan, Inc. This site is not affiliated with Allergan.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========== MOBILE STICKY CTA (fades in once past the hero) ========== -->
+  <div id="mobile-cta-bar" class="fixed right-0 bottom-0 left-0 z-40 border-t border-cream-dark bg-white p-3 shadow-lg sm:hidden translate-y-full opacity-0 transition-all duration-300">
+    <a href={BOOKING_URL} data-lp-cta class="btn-primary flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 text-base font-bold text-black shadow-md">
+      Book Your $189 Botox Appointment
+    </a>
+  </div>
+
+  <!-- ========== SCROLL ANIMATIONS ========== -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+      observer.observe(el);
+    });
+
+    const nav = document.getElementById("main-nav");
+    const mobileCta = document.getElementById("mobile-cta-bar");
+    const SCROLL_THRESHOLD = 600;
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      // Shadow once scrolled. Past the hero, the header hides on MOBILE ONLY (CSS gates
+      // .nav-hidden to <640px) and the sticky bottom CTA slides in; desktop keeps its header.
+      if (scrollY > 10) {
+        nav?.classList.add("nav-scrolled");
+      } else {
+        nav?.classList.remove("nav-scrolled");
+      }
+
+      if (scrollY > SCROLL_THRESHOLD) {
+        nav?.classList.add("nav-hidden");
+        mobileCta?.classList.remove("translate-y-full", "opacity-0");
+      } else {
+        nav?.classList.remove("nav-hidden");
+        mobileCta?.classList.add("translate-y-full", "opacity-0");
+      }
+    });
+  </script>
+
+  <!-- Lead-form handler (this page is standalone; mirrors the one in LandingPage.astro). Posts
+       form[data-lead-form] to the main site's /api/lead (CORS-allowed) -> D1 + Resend + welcome +
+       WhatConverts + lead manager. Keeps the page's ad-conversion events. -->
+  <script is:inline>
+    (function () {
+      var ENDPOINT = "https://www.menonmedispa.com/api/lead";
+      var PHONE = "(973) 494-8431";
+      var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+      var CLICK_ID_KEYS = ['gclid','gbraid','wbraid'];
+      function firstTouchUtms() {
+        try { return JSON.parse(localStorage.getItem('menonUtm') || '{}') || {}; } catch (e) { return {}; }
+      }
+      function firstTouchClickIds() {
+        try { return JSON.parse(localStorage.getItem('menonClickIds') || '{}') || {}; } catch (e) { return {}; }
+      }
+      function collect(form) {
+        var data = {};
+        new FormData(form).forEach(function (v, k) { data[k] = typeof v === 'string' ? v : ''; });
+        var params = new URLSearchParams(location.search);
+        var stored = firstTouchUtms();
+        UTM_KEYS.forEach(function (k) {
+          var v = params.get(k) || stored[k];
+          if (v && !data[k]) data[k] = v;
+        });
+        // Google Ads click ids -> /api/lead -> WhatConverts gclid (cross-origin: body is the only path).
+        var clicks = firstTouchClickIds();
+        CLICK_ID_KEYS.forEach(function (k) {
+          var v = params.get(k) || clicks[k];
+          if (v && !data[k]) data[k] = v;
+        });
+        if (!data.source_page) data.source_page = location.pathname + location.search;
+        return data;
+      }
+      function val(form) { return form.dataset.leadValue ? Number(form.dataset.leadValue) : undefined; }
+      function track(form, data) {
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'lead_submit', form_type: data.type || 'lead' });
+          window.dataLayer.push({
+            event: 'form_submit',
+            form_name: form.dataset.leadName || 'lp_lead',
+            form_service: data.service_interest || '',
+            form_value: val(form),
+            form_currency: 'USD'
+          });
+        } catch (e) {}
+        try {
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'CompleteRegistration', { content_name: form.dataset.leadContent || 'lp_lead', status: 'submitted' });
+          }
+        } catch (e) {}
+        try {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'generate_lead', { currency: 'USD', value: val(form), service: form.dataset.leadContent || 'lp_lead' });
+          }
+        } catch (e) {}
+      }
+      function enhance(form) {
+        var root = form.closest('[data-leadform-root]') || form.parentElement;
+        var errorEl = form.querySelector('[data-form-error]');
+        var btn = form.querySelector('[type="submit"]');
+        form.setAttribute('novalidate', '');
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var data = collect(form);
+          var name = (data.name || '').trim();
+          var email = (data.email || '').trim();
+          var phone = (data.phone || '').trim();
+          var err = null;
+          if (!name) err = 'Please add your name.';
+          else if (!email && !phone) err = 'Please add an email or phone number so we can confirm.';
+          else if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) err = 'That email address does not look right.';
+          if (err) { if (errorEl) { errorEl.textContent = err; errorEl.hidden = false; } return; }
+          if (errorEl) { errorEl.textContent = ''; errorEl.hidden = true; }
+          if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent || ''; btn.textContent = 'Sending…'; }
+          try {
+            var res = await fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) });
+            var jsonResp = await res.json().catch(function () { return {}; });
+            if (res.ok && jsonResp.ok) {
+              track(form, data);
+              form.hidden = true;
+              var success = root && root.querySelector('[data-form-success]');
+              if (success) { success.hidden = false; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+              return;
+            }
+            if (errorEl) { errorEl.textContent = 'Something went wrong. Please call us at ' + PHONE + '.'; errorEl.hidden = false; }
+          } catch (e2) {
+            if (errorEl) { errorEl.textContent = 'Something went wrong. Please call us at ' + PHONE + '.'; errorEl.hidden = false; }
+          }
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Submit'; }
+        });
+      }
+      document.querySelectorAll('form[data-lead-form]').forEach(enhance);
+    })();
+  </script>
+
+  <!-- Regtek LP engagement tracking (GA4): scroll depth, CTA/phone/booking
+       clicks, form starts. GTM-MSMM2PHT has no GA4 tag, so this is the GA4
+       source for this page (sendPageView true). Only fires on the prod
+       host -- previews log to console.debug. -->
+  <LpTracking
+    measurementId="G-Q7BGS5BFLM"
+    prodHost="get.menonmedispa.com"
+    sendPageView={true}
+    bookingHosts={["www.menonmedispa.com"]}
+  />
+
+</body>
+</html>

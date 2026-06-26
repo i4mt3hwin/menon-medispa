@@ -1,6 +1,7 @@
 // functions/api/unsubscribe.js — one-click + link unsubscribe for marketing emails.
 // The email's footer link and List-Unsubscribe header carry ?e=<email>&t=<token>, where the token is
-// HMAC-SHA256(email, RESEND_API_KEY) — so a recipient can unsubscribe themselves but not others. We
+// HMAC-SHA256(email, UNSUB_SIGNING_KEY || RESEND_API_KEY) — so a recipient can unsubscribe themselves
+// but not others. We
 // verify the token, then mark the contact unsubscribed in the Resend audience. Handles GET (link
 // click, shows a page) and POST (RFC 8058 List-Unsubscribe-Post one-click). NON-PHI.
 
@@ -44,15 +45,46 @@ async function unsubscribeContact(email, env) {
   }).catch(() => {});
 }
 
+// Record the opt-out in D1 so the welcome scheduler (functions/api/lead.js -> maybeScheduleWelcome)
+// never schedules a NEW welcome for this address — Resend's audience "unsubscribed" flag only suppresses
+// Broadcasts, not the single scheduled sends the welcome uses, so we gate it ourselves. Also CANCEL any
+// welcome already queued during its 24-48h delay window (Resend POST /emails/{id}/cancel). Best-effort:
+// each step is independently guarded so a missing table or a sent/uncancellable email never errors the
+// unsubscribe page. NON-PHI.
+async function suppressMarketing(email, env) {
+  if (!env.DB) return;
+  const addr = String(email).toLowerCase();
+  try {
+    await env.DB.prepare(
+      'INSERT OR IGNORE INTO email_suppression (email, created_at, source) VALUES (?,?,?)'
+    ).bind(addr, new Date().toISOString(), 'unsubscribe_link').run();
+  } catch { /* table may not be migrated yet */ }
+  try {
+    const row = await env.DB.prepare('SELECT scheduled_email_id FROM welcome_log WHERE email = ?').bind(addr).first();
+    const id = row && row.scheduled_email_id;
+    if (id && env.RESEND_API_KEY) {
+      // Cancel the queued welcome. If it has already sent, Resend returns an error which we ignore.
+      await fetch(`https://api.resend.com/emails/${encodeURIComponent(id)}/cancel`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}` },
+      }).catch(() => {});
+    }
+  } catch { /* best-effort */ }
+}
+
 async function handle({ request, env }) {
   const url = new URL(request.url);
   const email = (url.searchParams.get('e') || '').trim().toLowerCase();
   const token = url.searchParams.get('t') || '';
   const invalid = 'This unsubscribe link is invalid or expired. Please call us at (973) 494-8431 to be removed.';
-  if (!email || !token || !env.RESEND_API_KEY) return page('Unsubscribe', invalid, 400);
-  const expected = await unsubToken(email, env.RESEND_API_KEY);
+  // Verify with the dedicated key when set, else fall back to RESEND_API_KEY (mirrors lead.js's
+  // signer) so rotating the Resend key does not break outstanding unsubscribe links.
+  const secret = env.UNSUB_SIGNING_KEY || env.RESEND_API_KEY;
+  if (!email || !token || !secret) return page('Unsubscribe', invalid, 400);
+  const expected = await unsubToken(email, secret);
   if (!timingSafeEqual(token, expected)) return page('Unsubscribe', invalid, 400);
   await unsubscribeContact(email, env);
+  await suppressMarketing(email, env);
   return page("You're unsubscribed", "You won't receive further marketing emails from Menon Medispa. You can rejoin anytime from our website.");
 }
 

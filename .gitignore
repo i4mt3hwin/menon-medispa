@@ -7,8 +7,38 @@ dist/
 .DS_Store
 *.log
 
+# Rendered email previews (regeneratable: node scripts/preview-emails.mjs)
+email-previews/
+
 # SEO/build scratch + caches (regeneratable; originals recoverable from git history)
 scripts/.seo-*
 scripts/.img-backup/
 scripts/.content-*
 scripts/.baseline-text/
+
+# Root-level dev scratch (screenshots, one-off diagnostics, image backup) — never shipped
+_img-backup/
+_optimize-images.mjs
+_shot*.mjs
+diagnose-*.js
+final-*.js
+fix-complete.js
+proper-fix.js
+visual-fix-test.js
+botox_tmp/
+build.log
+debug.log
+
+# one-off QA screenshots + inventory/analysis scratch (regeneratable, never shipped)
+_shots/
+_qa-popup.mjs
+analyze-detailed.mjs
+count-reviews.sh
+accurate_inventory.sh
+comprehensive_inventory.sh
+detailed_inventory.sh
+extract_inventory.sh
+final_detailed_inventory.sh
+final_inventory.sh
+inventory_output.txt
+FINAL_INVENTORY.txt

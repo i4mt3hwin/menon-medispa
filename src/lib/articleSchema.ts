@@ -22,8 +22,15 @@ export interface ArticleSchemaArgs {
 }
 
 const abs = (u: string): string => {
-  if (u.startsWith('http')) return u;
-  return `${site.url}${u.startsWith('/') ? '' : '/'}${u}`;
+  const full = u.startsWith('http') ? u : `${site.url}${u.startsWith('/') ? '' : '/'}${u}`;
+  try {
+    const x = new URL(full);
+    const last = x.pathname.split('/').pop() ?? '';
+    if (!x.pathname.endsWith('/') && !last.includes('.')) x.pathname += '/';
+    return x.href;
+  } catch {
+    return full;
+  }
 };
 
 export function buildArticleSchema(a: ArticleSchemaArgs): Record<string, unknown>[] {
@@ -38,6 +45,7 @@ export function buildArticleSchema(a: ArticleSchemaArgs): Record<string, unknown
     author: { '@type': 'Organization', name: site.legalName, url: site.url },
     publisher: {
       '@type': 'Organization',
+      '@id': site.schemaId,
       name: site.legalName,
       logo: { '@type': 'ImageObject', url: site.logo },
     },

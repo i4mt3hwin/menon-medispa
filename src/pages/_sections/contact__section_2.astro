@@ -16,12 +16,8 @@ import tiktokImg from '@/assets/social/icon-tiktok.webp';
         fields={['name', 'email', 'phone', 'service', 'message']}
         submit_label="Send My Message"
         success_url="/thank-you"
+        sms_consent={true}
       />
-      <!-- SMS consent checkbox (verbatim from Wix form widget) -->
-      <label class="contact-s2__sms-consent">
-        <input type="checkbox" name="sms_consent" />
-        <span>By checking this box, I agree to receive SMS messages from Menon Medispa through an automatic telephone dialing system </span>
-      </label>
     </div>
 
     <!-- Right column: office image + NAP info -->

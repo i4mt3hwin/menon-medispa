@@ -19,7 +19,7 @@ const founder = {
   url: `${site.url}/meet-the-team/`,
 };
 ---
-<BaseLayout title="Meet the Team | Menon Medispa Millburn NJ" description="Meet the dedicated team at Menon Medispa in Millburn, NJ. Dr. Aditi Menon and her expert staff provide personalized skincare and wellness treatments." jsonld={founder}>
+<BaseLayout title="Meet the Team | Menon Medispa Millburn NJ" description="Meet the dedicated team at Menon Medispa in Millburn, NJ. Dr. Aditi Menon and her expert staff provide personalized skincare and wellness treatments." jsonld={[founder, { '@context': 'https://schema.org', '@type': 'MedicalBusiness', '@id': site.schemaId, name: site.legalName }]}>
   <Section1 />
   <Section2 />
   <Section3 />

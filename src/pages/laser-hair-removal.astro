@@ -9,6 +9,7 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
 import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 
 import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
@@ -31,27 +32,47 @@ const faqs = [
   {
     question: 'Is laser hair removal effective for all treatment areas?',
     answer:
-      'Yes, laser hair removal is highly effective for virtually all treatment areas. Our advanced technology works on the face (including upper lip, chin, and sideburns), the bikini area and bikini line, underarms, legs, back, chest, and other areas with unwanted body hair. During your consultation, we will assess your specific treatment areas and create a personalized plan to address your unique hair and skin type.',
+      'Yes. We treat the face (upper lip, chin, sideburns), underarms, the bikini area and Brazilian, legs, back, chest, and other areas with unwanted hair. Session length depends on the size of the area, and we map out your areas and a personalized plan at your free consultation.',
   },
   {
-    question: 'How many treatments will I need?',
+    question: 'Does laser hair removal work on all hair colors?',
     answer:
-      'Our laser hair removal packages are a series of 6 sessions, which is what most clients need for optimal permanent hair reduction. Hair grows in cycles, and laser hair removal is most effective during the active growth phase. Because not all hairs are in the same growth stage simultaneously, multiple sessions are necessary to treat each follicle effectively. Sessions are spaced 4-6 weeks apart.',
+      'Laser only targets hair that contains pigment, so it works best on dark hair and does not work on gray, white, or red hair. If your hair has little or no pigment, we will let you know at your consultation and patch test.',
   },
   {
-    question: 'Is laser hair removal safe for light skin or darker skin tones?',
+    question: 'Is laser hair removal safe for all skin tones?',
     answer:
-      'Our advanced laser technology is safe and effective for a wide range of skin tones. We use technology specifically calibrated to work on various skin types, including both lighter and darker skin tones. During your initial consultation, our medical team will evaluate your skin tone and hair color to determine the ideal laser settings for safe and effective treatment. We take extra care with all skin types to ensure both safety and optimal results.',
+      'Yes, our laser is suitable for all skin types. Darker skin tones can be a little more sensitive, which is exactly why we always perform a patch test with your aesthetician first to make sure your skin responds well before starting a full session.',
   },
   {
-    question: "What's the difference between laser hair removal and other methods?",
+    question: 'How should I prepare for my laser hair removal session?',
     answer:
-      'Unlike temporary methods such as shaving, waxing, and threading that only remove hair at the surface or root, laser hair removal offers permanent hair reduction by targeting and destroying the hair follicle itself. This means treated hairs do not grow back, while traditional methods require constant maintenance. Compared to electrolysis, laser hair removal treats larger areas much more quickly. Compared to at-home laser devices, our medical-grade equipment provides stronger, more consistent energy levels for superior results under physician supervision.',
+      'Always shave the area beforehand. If you have waxed, wait about 4 weeks first so there is hair in the follicle for the laser to target. Avoid heavy sun exposure and self-tanner before your visit. Once you start laser hair removal you should only shave between sessions, never wax or pluck, because removing the hair from the follicle defeats the purpose of the treatment. Tell us about your skincare routine and any medications at your free consultation so we can tailor your prep.',
+  },
+  {
+    question: 'How many treatments will I need, and will I need maintenance?',
+    answer:
+      'Most clients do a series of 6 sessions spaced 4-6 weeks apart. About 6-8 weeks after your series we check how the hair is growing back. Some clients are happy after 6 sessions, while others choose a few maintenance sessions. It varies from person to person depending on your hair and how much grows back.',
+  },
+  {
+    question: 'Will my results be permanent?',
+    answer:
+      'Yes. Laser hair removal provides permanent hair reduction. Many clients see their unwanted hair stay gone for good, while others keep it dramatically reduced with occasional maintenance. Because everyone\'s hair grows on its own cycle, results vary from person to person, and your provider personalizes your plan.',
+  },
+  {
+    question: 'Who is not a good candidate for laser hair removal?',
+    answer:
+      'We do not perform laser hair removal during pregnancy, on gray, white, or red hair (which has no pigment to target), or right after waxing. It also tends to be less effective for clients with PCOS, and if your skin reacts to the patch test laser is not the right fit. Your free consultation and patch test confirm whether laser hair removal is right for you.',
   },
   {
     question: 'What aftercare is recommended following treatment?',
     answer:
-      'After each laser hair removal session, we recommend applying sunscreen with SPF 30 or higher to treated areas whenever going outdoors. Avoid tanning beds and direct sun exposure for at least two weeks following treatment. Do not wax, pluck, or use depilatory creams between sessions, shaving is acceptable. Some redness or mild sensitivity in the treated area is normal and typically resolves within 24-48 hours. Our team will provide you with a complete aftercare guide tailored to your treatment areas.',
+      'Wear SPF before and after your sessions and limit sun exposure, especially in the first 24-48 hours, and skip self-tanner. Mild redness or sensitivity is normal and usually settles within a day or two. Between sessions, shave only, never wax or pluck. We will give you complete aftercare guidance tailored to your treatment areas.',
+  },
+  {
+    question: "What's the difference between laser hair removal and other methods?",
+    answer:
+      'Unlike shaving, waxing, or threading that only remove hair temporarily, laser hair removal targets the follicle to reduce future growth for long-lasting results. Compared to electrolysis it treats larger areas much more quickly, and our medical-grade equipment delivers stronger, more consistent energy than at-home devices, under physician supervision.',
   },
 ];
 const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
@@ -59,7 +80,7 @@ const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.a
 const jsonld = buildServiceSchema({
   name: 'Laser Hair Removal in Millburn, NJ',
   description:
-    'Physician-supervised laser hair removal in Millburn NJ. Achieve permanently smooth skin in just 6 sessions at Menon Medispa. Book your consultation today.',
+    'Physician-supervised laser hair removal in Millburn NJ for permanent hair reduction and smoother skin. Suitable for all skin types, with a free consultation and patch test. Book today.',
   url: '/laser-hair-removal',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -75,15 +96,15 @@ const jsonld = buildServiceSchema({
 
 <BaseLayout
   title="Laser Hair Removal in Millburn, NJ | Menon Medispa"
-  description="Physician-supervised laser hair removal in Millburn NJ. Achieve permanently smooth skin in just 6 sessions at Menon Medispa. Book your consultation today."
+  description="Physician-supervised laser hair removal in Millburn NJ for permanent hair reduction and smoother skin. Suitable for all skin types, with a free consultation and patch test. Book today."
   canonical="https://www.menonmedispa.com/laser-hair-removal"
   jsonld={jsonld}
 >
 
   <ServiceHero
     eyebrow="LASER HAIR REMOVAL · MILLBURN, NJ"
-    h1="Permanently Smooth Skin with Laser Hair Removal in Millburn, NJ"
-    subhead="Never worry about unwanted hair again. Physician-supervised treatments that deliver lasting results for all skin tones in a series of 6 sessions."
+    h1="Lasting Smooth Skin with Laser Hair Removal in Millburn, NJ"
+    subhead="Physician-supervised laser hair removal for permanent hair reduction and smoother, lower-maintenance skin. Suitable for all skin tones, with a complimentary consultation and patch test."
     image={heroImg}
     imageAlt="Laser hair removal treatment on smooth skin at Menon Medispa Millburn NJ"
     imagePosition="center"
@@ -94,27 +115,11 @@ const jsonld = buildServiceSchema({
 
   <TrustBar />
 
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls) -->
+  <ServiceTestimonial slug="laser-hair-removal" />
+
   <ServiceLayout>
-    <!-- MAIN COLUMN -->
-    <div class="svc-block">
-      <h2>The Struggle with Unwanted Hair</h2>
-
-      <p class="svc-lead">Dealing with unwanted hair is a constant battle. Traditional hair removal methods only offer temporary relief while creating ongoing problems.</p>
-
-      <figure>
-        <img src={problemImg.src} alt="Woman frustrated with traditional hair removal methods" width="415" height="415" loading="lazy" decoding="async" />
-      </figure>
-
-      <ul class="svc-checks">
-        <li>Daily shaving leaves skin irritated and stubble returns within days</li>
-        <li>Painful waxing sessions for bikini areas and sensitive zones require regular maintenance</li>
-        <li>Ingrown hairs and skin tone irregularities develop from repeated treatments</li>
-        <li>At-home laser devices rarely deliver the permanent hair reduction results they promise</li>
-      </ul>
-
-      <p>Meanwhile, hair growth continues relentlessly, creating a frustrating cycle of time spent on temporary fixes that never deliver the smooth, lasting results you deserve.</p>
-    </div>
-
+    <!-- MAIN COLUMN — benefits first (front-load value), the problem trimmed below -->
     <div class="svc-block">
       <h2>End Your Hair Removal Struggle with Physician-Supervised Laser Treatment</h2>
 
@@ -126,7 +131,7 @@ const jsonld = buildServiceSchema({
         <li>Enjoy lasting results without ongoing expense</li>
       </ul>
 
-      <p>Our advanced laser hair removal technology targets hair at the root, destroying the follicle while leaving surrounding skin undamaged. Most patients experience a 70-95% reduction in unwanted body hair after completing their treatment series.</p>
+      <p>Our advanced laser targets the pigment in each hair, heating the follicle to reduce future growth while leaving the surrounding skin undamaged. After a full series most clients enjoy a dramatic, long-lasting reduction in unwanted hair, and for many it is permanent. Because everyone's hair grows on its own cycle, your provider tailors your plan for the best possible result.</p>
 
       <p>Our procedure works effectively on all major treatment areas including the bikini line, face, underarms, and legs. Unlike electrolysis, our technology treats larger areas quickly with minimal discomfort, making it the preferred choice for permanent hair reduction in Millburn, NJ.</p>
 
@@ -134,10 +139,12 @@ const jsonld = buildServiceSchema({
 
       <figure>
         <video
+          data-lazy-video
           autoplay
           loop
           muted
           playsinline
+          preload="none"
           aria-hidden="true"
           poster={videoPosterImg.src}
           width="366"
@@ -145,7 +152,7 @@ const jsonld = buildServiceSchema({
           style="display:block;width:100%;max-width:366px;height:auto;border-radius:var(--radius-sm);object-fit:cover;"
         >
           <source
-            src="/videos/wix/2baa5c_627beb6d372449c5998c4994c539eeb9.mp4"
+            data-src="/videos/wix/2baa5c_627beb6d372449c5998c4994c539eeb9.mp4"
             type="video/mp4"
           />
         </video>
@@ -166,10 +173,29 @@ const jsonld = buildServiceSchema({
           <p>Face, bikini line, underarms, legs, back, chest, and more</p>
         </li>
         <li>
-          <h3>Lasting Results</h3>
-          <p>Most patients experience 70-95% reduction in unwanted hair after their series</p>
+          <h3>Permanent Hair Reduction</h3>
+          <p>Dramatically less unwanted hair after your treatment series, with results that last</p>
         </li>
       </ul>
+    </div>
+
+    <div class="svc-block">
+      <h2>Why Traditional Hair Removal Falls Short</h2>
+
+      <p class="svc-lead">Dealing with unwanted hair is a constant battle. Traditional hair removal methods only offer temporary relief while creating ongoing problems.</p>
+
+      <ul class="svc-checks">
+        <li>Daily shaving leaves skin irritated and stubble returns within days</li>
+        <li>Painful waxing sessions for bikini areas and sensitive zones require regular maintenance</li>
+        <li>Ingrown hairs and skin tone irregularities develop from repeated treatments</li>
+        <li>At-home laser devices rarely deliver the permanent hair reduction results they promise</li>
+      </ul>
+
+      <figure>
+        <img src={problemImg.src} alt="Woman frustrated with traditional hair removal methods" width="415" height="415" loading="lazy" decoding="async" />
+      </figure>
+
+      <p>Meanwhile, hair growth continues relentlessly, creating a frustrating cycle of time spent on temporary fixes that never deliver the smooth, lasting results you deserve.</p>
     </div>
 
     <!-- SIDEBAR -->
@@ -181,7 +207,8 @@ const jsonld = buildServiceSchema({
           { label: 'Price', value: 'From $40/session · pkgs from $200' },
           { label: 'Sessions needed', value: '6 sessions' },
           { label: 'Session spacing', value: '4-6 weeks apart' },
-          { label: 'Results', value: '70-95% hair reduction' },
+          { label: 'Results', value: 'Permanent hair reduction' },
+          { label: 'Consultation', value: 'Free + patch test' },
           { label: 'Supervised by', value: 'Dr. Aditi Menon, MD' },
           { label: 'Location', value: 'Millburn, NJ' },
         ]}
@@ -189,13 +216,24 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
-  <ServiceTestimonial slug="laser-hair-removal" />
-
-  <Pricing />
+  <!-- Mid-scroll CTA (research: repeat the same Book CTA after the persuasion content;
+       below-fold CTAs convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready to book your laser hair removal?</h2>
+      <p>Book a consultation and our team will build a plan for your skin, your areas, and your goals.</p>
+      <a href="/request-appointment?service=Laser Hair Removal" class="btn btn--primary">Book Your Consultation</a>
+    </div>
+  </section>
 
   <Process />
 
-  <FaqAccordion heading="Frequently asked questions" items={faqItems} />
+  <Pricing />
+
+  <!-- Deeper social proof: more real 5-star reviews for this service -->
+  <ServiceReviews slug="laser-hair-removal" excludeFirst heading="More 5-star reviews from our clients" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -204,5 +242,29 @@ const jsonld = buildServiceSchema({
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
 
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
+
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Bands kept: section_2 (TrustBar), section_6 (BookingEmbed), section_7 (PkgHeading), section_8 (Pricing), section_9 (Process), section_11 (FinalCta). Prose inlined: section_3 (problem), section_5 (solution + video). FAQ lifted: section_10. No promo band present. Testimonial swapped: section_4 (hardcoded unsafe quotes) replaced with <ServiceTestimonial slug="laser-hair-removal" />. -->
+<!-- redesign v2 (CRO+SEO reference, structure-only): benefits-first body, social proof pulled high
+     (ServiceTestimonial) + a 3-up real-reviews strip (ServiceReviews) lower, a mid-scroll Book CTA,
+     and Process-before-Pricing. Copy is unchanged verbatim from the prior build; keyword-driven copy
+     (device, skin tones, cost FAQ, prep) is deferred until the medispa confirms facts. -->

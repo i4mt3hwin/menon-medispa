@@ -13,13 +13,15 @@ import videoPosterImg from '@/assets/images/3f92ba431eb3.jpg'
     <div class="s4-video__player">
       <video
         class="s4-video__el"
+        data-lazy-video
         controls
+        playsinline
         preload="none"
         poster={videoPosterImg.src}
-        width="712"
-        height="400"
+        width="720"
+        height="1280"
       >
-        <source src="/videos/wix/2baa5c_b2d7187d8a2c49e2b6095a2d1201724c.mp4" type="video/mp4" />
+        <source data-src="/videos/wix/2baa5c_b2d7187d8a2c49e2b6095a2d1201724c.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
@@ -55,10 +57,17 @@ import videoPosterImg from '@/assets/images/3f92ba431eb3.jpg'
     margin-inline: auto;
   }
 
+  /* Portrait reel (the file is 720x1280): cap it to a phone-sized player and
+     reserve the 9:16 box so there's no layout shift when the source loads. */
   .s4-video__el {
     width: 100%;
+    max-width: 360px;
+    aspect-ratio: 9 / 16;
     height: auto;
     display: block;
+    margin-inline: auto;
     border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: #000;
   }
 </style>

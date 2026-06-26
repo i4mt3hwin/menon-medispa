@@ -1,0 +1,415 @@
+---
+import LpTracking from "../components/LpTracking.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogUrl: string;
+  offerName: string;
+  offerPrice: string;
+  bookingUrl: string;
+}
+
+const PHONE = "(973) 494-8431";
+const PHONE_LINK = "tel:9734948431";
+const ADDRESS = "45 Essex St., Suite 202, Millburn, NJ 07041";
+
+const { title, description, ogTitle, ogDescription, ogUrl, offerName, offerPrice, bookingUrl } = Astro.props;
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={ogDescription} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={ogUrl} />
+
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MSMM2PHT');</script>
+
+  <!-- WhatConverts -->
+  <script is:inline>var $wc_load=function(a){return JSON.parse(JSON.stringify(a))},$wc_leads=$wc_leads||{doc:{url:$wc_load(document.URL),ref:$wc_load(document.referrer),search:$wc_load(location.search),hash:$wc_load(location.hash)}};</script>
+  <script is:inline async src="//s.ksrndkehqnwntyxlhgto.com/159358.js"></script>
+
+  <!-- Meta Pixel Code -->
+  <script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1005972549954643');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1005972549954643&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Meta Pixel — ViewContent on every LP load (high-volume signal for the algo) -->
+  <script is:inline>
+    fbq('track', 'ViewContent', {
+      content_name: document.title,
+      content_category: 'medspa_landing',
+      content_ids: [window.location.pathname]
+    });
+  </script>
+
+  <!-- Meta Pixel — Contact event on any tel: link click (delegated, runs after DOM ready) -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'Contact', {
+              content_name: 'phone_click'
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- First-touch UTM + Google Ads click-id capture (mirrors the main site's BaseLayout). Stores the
+       campaign + the gclid that brought the visitor in so a lead submitted later still carries them.
+       Read back by the form handler below and forwarded to /api/lead. The gclid is essential here:
+       these pages POST cross-origin to www, so their cookies never reach the server -- the body gclid
+       is the ONLY way WhatConverts can attribute the lead to Google Ads (CPC). First-touch only. -->
+  <script is:inline>
+    (function () {
+      try {
+        var p = new URLSearchParams(location.search);
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+        var has = keys.some(function (k) { return p.get(k); });
+        if (has && !localStorage.getItem('menonUtm')) {
+          var o = {};
+          keys.forEach(function (k) { var v = p.get(k); if (v) o[k] = v; });
+          localStorage.setItem('menonUtm', JSON.stringify(o));
+        }
+        var clickKeys = ['gclid','gbraid','wbraid'];
+        var c = {};
+        clickKeys.forEach(function (k) { var v = p.get(k); if (v) c[k] = v; });
+        if (!c.gclid) {
+          var m = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+          if (m) { var seg = m[1].split('.'); if (seg.length >= 3) c.gclid = seg.slice(2).join('.'); }
+        }
+        if (Object.keys(c).length && !localStorage.getItem('menonClickIds')) {
+          localStorage.setItem('menonClickIds', JSON.stringify(c));
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" />
+  </noscript>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+  <link rel="shortcut icon" href="/favicon.png" />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Menon MediSpa & Wellness",
+    "url": "https://www.menonmedispa.com",
+    "telephone": "+19734948431",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "45 Essex St., Suite 202",
+      "addressLocality": "Millburn",
+      "addressRegion": "NJ",
+      "postalCode": "07041"
+    },
+    "openingHours": ["Tu-Fr 09:30-18:00", "Sa 09:30-14:00"],
+    "priceRange": "$$",
+    "medicalSpecialty": "Dermatology",
+    "offers": {
+      "@type": "Offer",
+      "name": offerName,
+      "price": offerPrice,
+      "priceCurrency": "USD"
+    }
+  })} />
+
+  <style is:global>
+    @import "../styles/global.css";
+  </style>
+</head>
+
+<body class="bg-cream font-body text-text-dark antialiased">
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSMM2PHT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- ========== STICKY NAV (logo left, phone CTA right; hides on mobile scroll, see global.css) ========== -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm transition-all duration-300">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between gap-3">
+        <picture>
+          <source srcset="/images/menon-logo.avif" type="image/avif" />
+          <source srcset="/images/menon-logo.webp" type="image/webp" />
+          <img src="/images/menon-logo.png" alt="Menon MediSpa & Wellness" class="h-10 w-auto sm:h-12" style="filter: brightness(0) saturate(100%) invert(18%) sepia(15%) saturate(1200%) hue-rotate(230deg) brightness(95%);" />
+        </picture>
+        <a href={PHONE_LINK} class="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-text-dark transition hover:text-gold-dark sm:text-base">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>{PHONE}</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <slot />
+
+  <!-- ========== MAP ========== -->
+  <section class="bg-navy-dark">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2!2d-74.3094!3d40.7268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3ad0c6e2b4a1b%3A0x5c2e5e5c6b8d8b0a!2s45%20Essex%20St%2C%20Millburn%2C%20NJ%2007041!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+      class="w-full h-64 sm:h-80 border-0 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Menon MediSpa & Wellness - 45 Essex St, Millburn NJ">
+    </iframe>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-navy-dark py-8 pb-24 sm:pb-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-between gap-4 text-xs text-white/30 sm:flex-row">
+        <div>&copy; 2026 Menon MediSpa & Wellness. All rights reserved.</div>
+        <div class="flex gap-4">
+          <a href="https://www.menonmedispa.com/privacy-policy" class="hover:text-white/60">Privacy Policy</a>
+          <a href="https://www.menonmedispa.com/terms" class="hover:text-white/60">Terms of Service</a>
+        </div>
+      </div>
+      <p class="mt-4 text-center text-[10px] text-white/20">
+        Results may vary. Individual results depend on various factors.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========== MOBILE STICKY CTA (fades in on scroll) ========== -->
+  <div id="mobile-cta-bar" class="fixed right-0 bottom-0 left-0 z-40 border-t border-cream-dark bg-white p-3 shadow-lg sm:hidden translate-y-full opacity-0 transition-all duration-300">
+    <a href={bookingUrl} data-lp-cta class="btn-primary flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 text-base font-bold text-black shadow-md">
+      <slot name="mobile-cta">Book Now</slot>
+    </a>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Lazy-load videos: only fetch + play when within 200px of the viewport
+    const lazyVideos = document.querySelectorAll("video[data-lazy-src]");
+    if (lazyVideos.length > 0) {
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const video = entry.target;
+            video.querySelectorAll("source[data-lazy-src]").forEach((s) => {
+              s.src = s.dataset.lazySrc;
+            });
+            video.load();
+            video.play().catch(() => {});
+            videoObserver.unobserve(video);
+          });
+        },
+        { rootMargin: "200px" }
+      );
+      lazyVideos.forEach((v) => videoObserver.observe(v));
+    }
+
+    const nav = document.getElementById("main-nav");
+    const mobileCta = document.getElementById("mobile-cta-bar");
+    const SCROLL_THRESHOLD = 600;
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+
+      // Nav: shadow once scrolled. Past the hero, the header hides on MOBILE ONLY (CSS gates
+      // .nav-hidden to <640px) and the sticky bottom CTA slides in; desktop keeps its header.
+      if (scrollY > 10) {
+        nav?.classList.add("nav-scrolled");
+      } else {
+        nav?.classList.remove("nav-scrolled");
+      }
+
+      if (scrollY > SCROLL_THRESHOLD) {
+        nav?.classList.add("nav-hidden");
+        mobileCta?.classList.remove("translate-y-full", "opacity-0");
+      } else {
+        nav?.classList.remove("nav-hidden");
+        mobileCta?.classList.add("translate-y-full", "opacity-0");
+      }
+    });
+  </script>
+
+  <!-- Lead-form handler: posts any form[data-lead-form] to the main site's /api/lead (cross-origin,
+       CORS-allowed) so landing-page leads land in the SAME D1 + Resend + welcome + WhatConverts +
+       lead-manager pipeline as the rest of the site. Mirrors src/lib/leadForm.ts on the main app.
+       Keeps the pages' existing ad-conversion events (lead_submit/form_submit/Meta/GA4) so GTM/Meta/
+       Google Ads measurement is unchanged. WhatConverts now comes from the server (gclid-accurate);
+       if a GTM tag also creates a WhatConverts lead from form_submit, disable it to avoid duplicates. -->
+  <script is:inline>
+    (function () {
+      var ENDPOINT = "https://www.menonmedispa.com/api/lead";
+      var PHONE = "(973) 494-8431";
+      var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+      var CLICK_ID_KEYS = ['gclid','gbraid','wbraid'];
+      function firstTouchUtms() {
+        try { return JSON.parse(localStorage.getItem('menonUtm') || '{}') || {}; } catch (e) { return {}; }
+      }
+      function firstTouchClickIds() {
+        try { return JSON.parse(localStorage.getItem('menonClickIds') || '{}') || {}; } catch (e) { return {}; }
+      }
+      function collect(form) {
+        var data = {};
+        new FormData(form).forEach(function (v, k) { data[k] = typeof v === 'string' ? v : ''; });
+        var params = new URLSearchParams(location.search);
+        var stored = firstTouchUtms();
+        UTM_KEYS.forEach(function (k) {
+          var v = params.get(k) || stored[k];
+          if (v && !data[k]) data[k] = v;
+        });
+        // Google Ads click ids -> /api/lead -> WhatConverts gclid (cross-origin: body is the only path).
+        var clicks = firstTouchClickIds();
+        CLICK_ID_KEYS.forEach(function (k) {
+          var v = params.get(k) || clicks[k];
+          if (v && !data[k]) data[k] = v;
+        });
+        if (!data.source_page) data.source_page = location.pathname + location.search;
+        return data;
+      }
+      function val(form) { return form.dataset.leadValue ? Number(form.dataset.leadValue) : undefined; }
+      function track(form, data) {
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'lead_submit', form_type: data.type || 'lead' });
+          window.dataLayer.push({
+            event: 'form_submit',
+            form_name: form.dataset.leadName || 'lp_lead',
+            form_service: data.service_interest || '',
+            form_value: val(form),
+            form_currency: 'USD'
+          });
+        } catch (e) {}
+        try {
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'CompleteRegistration', { content_name: form.dataset.leadContent || 'lp_lead', status: 'submitted' });
+          }
+        } catch (e) {}
+        try {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'generate_lead', { currency: 'USD', value: val(form), service: form.dataset.leadContent || 'lp_lead' });
+          }
+        } catch (e) {}
+      }
+      function enhance(form) {
+        var root = form.closest('[data-leadform-root]') || form.parentElement;
+        var errorEl = form.querySelector('[data-form-error]');
+        var btn = form.querySelector('[type="submit"]');
+        form.setAttribute('novalidate', '');
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var data = collect(form);
+          var name = (data.name || '').trim();
+          var email = (data.email || '').trim();
+          var phone = (data.phone || '').trim();
+          var err = null;
+          if (!name) err = 'Please add your name.';
+          else if (!email && !phone) err = 'Please add an email or phone number so we can confirm.';
+          else if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) err = 'That email address does not look right.';
+          if (err) { if (errorEl) { errorEl.textContent = err; errorEl.hidden = false; } return; }
+          if (errorEl) { errorEl.textContent = ''; errorEl.hidden = true; }
+          if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent || ''; btn.textContent = 'Sending…'; }
+          try {
+            var res = await fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) });
+            var jsonResp = await res.json().catch(function () { return {}; });
+            if (res.ok && jsonResp.ok) {
+              track(form, data);
+              form.hidden = true;
+              var success = root && root.querySelector('[data-form-success]');
+              if (success) { success.hidden = false; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+              return;
+            }
+            if (errorEl) { errorEl.textContent = 'Something went wrong. Please call us at ' + PHONE + '.'; errorEl.hidden = false; }
+          } catch (e2) {
+            if (errorEl) { errorEl.textContent = 'Something went wrong. Please call us at ' + PHONE + '.'; errorEl.hidden = false; }
+          }
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Submit'; }
+        });
+      }
+      // Deep-link pages (botox/facials) hand the visitor off to the main booking site instead of a form
+      // here. localStorage/cookies do NOT cross the get. -> www. origin boundary, so append the captured
+      // click ids to every "Book" link pointing at the main booking site -> the gclid travels in the URL
+      // and the main site captures it on arrival. (Form pages use #request anchors, which never match.)
+      function rewriteBookingLinks() {
+        var params = new URLSearchParams(location.search);
+        var stored = firstTouchClickIds();
+        var clicks = {};
+        CLICK_ID_KEYS.forEach(function (k) { var v = params.get(k) || stored[k]; if (v) clicks[k] = v; });
+        var keys = Object.keys(clicks);
+        if (!keys.length) return;
+        document.querySelectorAll('a[href*="menonmedispa.com/request-appointment"], a[href*="menonmedispa.com/consultation"]').forEach(function (a) {
+          try {
+            var u = new URL(a.href);
+            keys.forEach(function (k) { if (!u.searchParams.has(k)) u.searchParams.set(k, clicks[k]); });
+            a.href = u.toString();
+          } catch (e) {}
+        });
+      }
+      rewriteBookingLinks();
+      document.querySelectorAll('form[data-lead-form]').forEach(enhance);
+    })();
+  </script>
+
+  <!-- Regtek LP engagement tracking (GA4): scroll depth, CTA/phone/booking
+       clicks, form starts. GTM-MSMM2PHT has no GA4 tag, so this is the GA4
+       source for these pages (sendPageView true). Only fires on the prod
+       host -- previews log to console.debug. -->
+  <LpTracking
+    measurementId="G-Q7BGS5BFLM"
+    prodHost="get.menonmedispa.com"
+    sendPageView={true}
+    bookingHosts={["www.menonmedispa.com"]}
+  />
+
+</body>
+</html>

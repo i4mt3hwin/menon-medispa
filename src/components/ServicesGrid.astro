@@ -4,11 +4,12 @@
 // and home/sections/05.json (Monthly Specials, 3 cards). Both use this component.
 
 import ServiceCard from './ServiceCard.astro';
+import type { ImageMetadata } from 'astro';
 
 interface ServiceItem {
   title: string;
   href: string;
-  image_src?: string;        // imported Astro asset src string
+  image_src?: string | ImageMetadata; // imported Astro asset or generated/public URL
   image_alt?: string;
   description_html?: string;
   features?: string[];       // icon-list items, render ALL

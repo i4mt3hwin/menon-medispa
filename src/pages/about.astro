@@ -21,7 +21,7 @@ const aboutPage = {
 <BaseLayout
   title="About | Menon Medispa & Wellness | Millburn, NJ"
   description="Learn about Menon Medispa & Wellness in Millburn, NJ, our approach, our team, and why Millburn residents trust us for their aesthetic goals."
-  jsonld={aboutPage}
+  jsonld={[aboutPage, { '@context': 'https://schema.org', '@type': 'MedicalBusiness', '@id': site.schemaId, name: site.legalName }]}
 >
   <AboutSection1 />
   <AboutSection2 />

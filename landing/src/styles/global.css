@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors — Gold & Purple */
+  --color-navy: #2c2438;
+  --color-navy-light: #3d3350;
+  --color-navy-dark: #1a1526;
+  --color-cream: #faf8f5;
+  --color-cream-dark: #f0ece6;
+  --color-gold: #c9a96e;
+  --color-gold-light: #dfc799;
+  --color-gold-dark: #b08c4a;
+  --color-purple: #7b6b8d;
+  --color-purple-light: #9d8fb0;
+  --color-purple-dark: #5c4e6b;
+  --color-lavender: #9b8bb4;
+  --color-lavender-light: #c4b8d6;
+  --color-white: #ffffff;
+  --color-text-dark: #1a1a2e;
+  --color-text-muted: #5a5a6e;
+  --color-text-light: #8a8a9e;
+
+  /* Fonts */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Sticky nav shadow on scroll */
+.nav-scrolled {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile only: once past the hero, the header slides away (the bottom sticky CTA takes over).
+   Desktop keeps the persistent logo + phone header, so the hide is gated to <640px. */
+@media (max-width: 639px) {
+  #main-nav.nav-hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+}
+
+/* FAQ accordion */
+details summary {
+  cursor: pointer;
+  list-style: none;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] summary .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-chevron {
+  transition: transform 0.3s ease;
+}
+
+/* Ultrawide: widen the image area so it doesn't over-crop */
+@media (min-width: 2000px) {
+  .hero-section img[loading="eager"] {
+    width: 80% !important;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Price highlight pulse */
+@keyframes subtlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Button hover glow */
+.btn-primary {
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.45);
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+/* Before/after image hover */
+.ba-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ba-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}

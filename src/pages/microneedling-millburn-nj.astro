@@ -4,9 +4,11 @@ import ServiceHero from '@/components/ServiceHero.astro';
 import ServiceLayout from '@/components/ServiceLayout.astro';
 import QuickFacts from '@/components/QuickFacts.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
-import FaqColumn from '@/components/FaqColumn.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import SalePopup from '@/components/SalePopup.astro';
+import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
+import ServiceReviews from '@/components/ServiceReviews.astro';
 
 import { getRelatedPosts } from '@/lib/relatedPosts';
 import { buildServiceSchema } from '@/lib/serviceSchema';
@@ -15,7 +17,6 @@ import { buildServiceSchema } from '@/lib/serviceSchema';
 import TrustBar from '@/pages/_sections/microneedling-millburn-nj__section_2.astro';
 import VideoGallery from '@/pages/_sections/microneedling-millburn-nj__section_4.astro';
 import Process from '@/pages/_sections/microneedling-millburn-nj__section_5.astro';
-import ServiceTestimonial from '@/components/ServiceTestimonial.astro';
 import Pricing from '@/pages/_sections/microneedling-millburn-nj__section_7.astro';
 import FinalCta from '@/pages/_sections/microneedling-millburn-nj__section_9.astro';
 
@@ -24,14 +25,59 @@ import heroImg from '@/assets/images/cebad624861f.jpg';
 const slug = 'microneedling-millburn-nj';
 const posts = getRelatedPosts(slug);
 
-// FAQ answers are blank/placeholder in the source section -- omitting to avoid fabrication.
-const faqs: { question: string; answer: string }[] = [];
-const faqItems: { question: string; answer_html: string }[] = [];
+// FAQ, single source for the on-page accordion AND the FAQPage schema.
+// Built from the live People-Also-Ask for "microneedling near me" / "microneedling cost"
+// (cost, sessions, how long results last, does it work, safety/age, who performs it).
+// Grounded only in known facts: real Menon pricing, the SkinPen device, all-skin-types,
+// physician oversight, and the reviewed clinical evidence in 04-research / glow data.
+const faqs = [
+  {
+    question: 'How much does microneedling cost at Menon Medispa?',
+    answer:
+      'A single microneedling session at our Millburn medical spa is $299. Because concerns like acne scarring and uneven texture respond best to a series, we also offer a 3-session package for $750, which saves you $147 compared with booking each session individually. Your provider confirms the right plan for your skin at your visit.',
+  },
+  {
+    question: 'How many microneedling sessions will I need?',
+    answer:
+      'Many clients notice smoother, more radiant skin after a single session, but building new collagen is a gradual process. For acne scars, enlarged pores, and uneven texture, a series of about three treatments spaced a few weeks apart typically gives the most noticeable, lasting results, which is why we offer a 3-session package. We tailor the number of sessions to your skin and your goals.',
+  },
+  {
+    question: 'How long do microneedling results last?',
+    answer:
+      'Microneedling works by prompting your skin to produce new collagen and elastin, so your results keep developing over the weeks after each treatment as that new collagen forms. Because your skin continues to age naturally, most clients maintain their results with periodic sessions. Your provider will recommend a maintenance rhythm that fits your skin.',
+  },
+  {
+    question: 'Does microneedling actually work?',
+    answer:
+      'Yes. Microneedling, also known as collagen induction therapy, is well studied. Reviewed clinical evidence supports it for fine lines, skin texture, photoaging, and skin laxity, and it is well regarded for improving the appearance of acne scarring. It is not a treatment for active acne breakouts. At your consultation we confirm whether microneedling is the right fit for your specific concerns.',
+  },
+  {
+    question: 'Is microneedling safe for all skin types?',
+    answer:
+      'Yes. Unlike some laser treatments, microneedling is generally safe for all skin types and tones because it does not rely on heat or light that can trigger hyperpigmentation in deeper skin tones. The most common after-effect is mild redness, similar to a light sunburn, for about 24 to 48 hours. We review your skin and history first so your treatment is both safe and effective.',
+  },
+  {
+    question: 'Am I a good candidate for microneedling?',
+    answer:
+      'Microneedling suits a wide range of ages and skin tones, and there is no upper age limit, your skin\'s condition matters more than the number. It is a popular choice for adults looking to soften acne scars, fine lines, enlarged pores, stretch marks, and uneven texture. It is not recommended during active breakouts or certain skin conditions, which we review at your consultation so we can confirm it is right for you.',
+  },
+  {
+    question: 'Who performs microneedling at Menon Medispa?',
+    answer:
+      'Your microneedling treatment is performed by an experienced, trained provider in our medical spa under the oversight of Dr. Aditi Menon, MD. Choosing a physician-led medical spa means you get both medical supervision and a provider who performs these treatments regularly, using the medical-grade SkinPen device rather than the at-home rollers that are far less effective and can be unsafe.',
+  },
+  {
+    question: 'Can microneedling be combined with other treatments?',
+    answer:
+      'Yes. Microneedling pairs well with treatments like a HydraFacial for added radiance, and many clients ask about adding a growth-factor boost to support the skin\'s healing response. We recommend the right combination for your goals at your visit.',
+  },
+];
+const faqItems = faqs.map((f) => ({ question: f.question, answer_html: `<p>${f.answer}</p>` }));
 
 const jsonld = buildServiceSchema({
   name: 'Microneedling in Millburn, NJ',
   description:
-    'Medical-grade SkinPen microneedling in Millburn NJ. Reduce acne scars, fine lines, and uneven texture. Safe for all skin types.',
+    'Medical-grade SkinPen microneedling (collagen induction therapy) in Millburn NJ from $299. Reduce acne scars, fine lines, enlarged pores, and uneven texture with physician-supervised care. Safe for all skin types.',
   url: '/microneedling-millburn-nj',
   image: heroImg.src,
   type: 'MedicalProcedure',
@@ -46,8 +92,8 @@ const jsonld = buildServiceSchema({
 ---
 
 <BaseLayout
-  title="Microneedling in Millburn NJ | Menon Medispa"
-  description="Medical-grade SkinPen microneedling in Millburn NJ. Reduce acne scars, fine lines, and uneven texture. Safe for all skin types."
+  title="Microneedling in Millburn NJ | SkinPen | Menon Medispa"
+  description="Medical-grade SkinPen microneedling (collagen induction therapy) in Millburn NJ from $299. Reduce acne scars, fine lines, and uneven texture with physician-supervised care. Safe for all skin types."
   canonical="https://www.menonmedispa.com/microneedling-millburn-nj"
   jsonld={jsonld}
 >
@@ -59,30 +105,40 @@ const jsonld = buildServiceSchema({
     image={heroImg}
     imageAlt="SkinPen microneedling patient at Menon Medispa Millburn NJ"
     price="Starting at $299"
+    note="Physician-supervised care. Safe for all skin types and tones."
     trust={{ stars: true, reviewText: '100+ 5 Star Reviews' }}
   />
 
   <TrustBar />
+
+  <!-- Social proof pulled high (research: ~81% of attention is in the first 3 screenfuls).
+       Featured by the "microneedling" tag (not the page slug) so the on-topic microneedling
+       review leads here; the 3-up strip below stays on the slug and tops up from facial reviews. -->
+  <ServiceTestimonial slug="microneedling" />
 
   <ServiceLayout>
     <!-- MAIN COLUMN -->
     <div class="svc-block">
       <h2>Why Microneedling Works When Other Treatments Haven't</h2>
 
-      <p class="svc-lead">Our medical-grade microneedling treatments use the SkinPen device to create controlled micro-injuries that trigger collagen and elastin production. Experience real, lasting results with minimal downtime.</p>
+      <p class="svc-lead">Microneedling, also called collagen induction therapy, uses the medical-grade SkinPen device to create controlled micro-channels that trigger your skin's own collagen and elastin production. The result is real, lasting improvement in tone and texture, with minimal downtime.</p>
 
       <ul class="svc-features">
         <li>
           <h3>Precision Technology</h3>
-          <p>The SkinPen creates micro-channels at precise depths to target your specific skin concerns, from acne scars to fine lines.</p>
+          <p>The SkinPen creates micro-channels at precise depths to target your specific concerns, from acne scars and enlarged pores to fine lines and stretch marks.</p>
         </li>
         <li>
           <h3>Natural Healing Response</h3>
-          <p>By triggering the skin's natural healing response, microneedling stimulates collagen and elastin production for results that improve over time.</p>
+          <p>By triggering the skin's natural healing response, microneedling stimulates collagen and elastin production for results that keep improving over the weeks that follow.</p>
         </li>
         <li>
           <h3>Universal Compatibility</h3>
-          <p>Unlike laser treatments, microneedling is safe for all skin types and tones with no risk of hyperpigmentation.</p>
+          <p>Unlike many laser treatments, microneedling is safe for all skin types and tones, with no heat-related risk of hyperpigmentation.</p>
+        </li>
+        <li>
+          <h3>Physician-Supervised Care</h3>
+          <p>Performed by an experienced provider under the oversight of Dr. Aditi Menon, MD, with the option to add a growth-factor boost for an extra lift.</p>
         </li>
       </ul>
     </div>
@@ -94,6 +150,7 @@ const jsonld = buildServiceSchema({
         reviewText="100+ 5 Star Reviews"
         items={[
           { label: 'Price', value: '$299 per session' },
+          { label: 'Package', value: '3 sessions for $750' },
           { label: 'Appointment', value: '1 hour' },
           { label: 'Device', value: 'SkinPen' },
           { label: 'Skin types', value: 'All skin types' },
@@ -103,13 +160,26 @@ const jsonld = buildServiceSchema({
     </Fragment>
   </ServiceLayout>
 
+  <!-- Mid-scroll CTA (research: repeat the same Book CTA after the persuasion content;
+       below-fold CTAs convert better for high-consideration treatments) -->
+  <section class="section section--tint">
+    <div class="container svc-midcta">
+      <h2>Ready to see smoother, firmer skin?</h2>
+      <p>Book a microneedling consultation and we'll build a plan around your skin's texture, scarring, and goals.</p>
+      <a href="/request-appointment?service=Microneedling" class="btn btn--primary">Book Your Consultation</a>
+    </div>
+  </section>
+
   <VideoGallery />
 
   <Process />
 
-  <ServiceTestimonial slug="microneedling-millburn-nj" />
-
   <Pricing />
+
+  <!-- Deeper social proof: more real 5-star reviews for this service -->
+  <ServiceReviews slug="microneedling-millburn-nj" excludeFirst heading="More 5-star reviews from our clients" />
+
+  <FaqAccordion heading="Frequently asked questions" items={faqItems} bg_color="rgb(196 164 132 / 0.14)" />
 
   <FinalCta />
 
@@ -118,5 +188,34 @@ const jsonld = buildServiceSchema({
   <MobileCtaBar ctaLabel="Book Online" />
   <SalePopup />
 
+  <style>
+    .svc-midcta { max-width: 680px; margin-inline: auto; text-align: center; }
+    .svc-midcta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-regular);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm);
+      text-wrap: balance;
+    }
+    .svc-midcta p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0 0 var(--space-md);
+      opacity: 0.9;
+    }
+  </style>
+
 </BaseLayout>
-<!-- redesign: service-page template (hero + 2-col body + sticky sidebar). Section 3 prose inlined into main column. Bands 2/4/5/7/9 reused verbatim. Section 6 testimonial swapped to ServiceTestimonial (provider-safe curated reviews). Section 8 FAQ skipped (all answers blank/placeholder -- not fabricated). Section 11 SALES promo removed (replaced by SalePopup). -->
+<!-- redesign v2 (CRO+SEO reference pattern, matches botox/laser-hair-removal): title/H1 already lead with
+     the head term "microneedling" (201k) + "skinpen" + "near me" (49.5k) so no retarget needed. Built the FAQ
+     FROM SCRATCH off live PAA (cost, sessions, results duration, does-it-work, safety/age, who-performs,
+     combinations) -- the section was previously blank/placeholder. Wove in the "collagen induction therapy"
+     synonym (14.8k, low comp). Pulled the testimonial high, added a mid-scroll Book CTA + a 3-up real-reviews
+     strip (ServiceReviews), and surfaced the $299 / $750-for-3 pricing in QuickFacts. Grounded in real facts
+     only (SkinPen device, $299/$750 pricing, all-skin-types, physician oversight, reviewed clinical evidence).
+     Growth-factor/exosome boost referenced softly (real client review + glow data) -- exact branding/pricing
+     flagged to medispa-questions.md. RF/Morpheus8 microneedling deliberately NOT claimed (SkinPen is mechanical). -->

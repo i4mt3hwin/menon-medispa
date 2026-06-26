@@ -26,8 +26,15 @@ export interface ServiceSchemaArgs {
 }
 
 const abs = (u: string): string => {
-  if (u.startsWith('http')) return u;
-  return `${site.url}${u.startsWith('/') ? '' : '/'}${u}`;
+  const full = u.startsWith('http') ? u : `${site.url}${u.startsWith('/') ? '' : '/'}${u}`;
+  try {
+    const x = new URL(full);
+    const last = x.pathname.split('/').pop() ?? '';
+    if (!x.pathname.endsWith('/') && !last.includes('.')) x.pathname += '/';
+    return x.href;
+  } catch {
+    return full;
+  }
 };
 
 export function buildServiceSchema(a: ServiceSchemaArgs): Record<string, unknown>[] {
@@ -35,6 +42,7 @@ export function buildServiceSchema(a: ServiceSchemaArgs): Record<string, unknown
 
   const main: Record<string, unknown> = {
     '@context': 'https://schema.org',
+    '@id': abs(a.url) + '#service',
     '@type': a.type ?? 'Service',
     name: a.name,
     description: a.description,

@@ -104,3 +104,16 @@
 #    post. Resolves the self-cannibalization flagged in the 2026-06-22 SEO audit.
 /post/the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite-1   /post/the-wonders-of-qwo-the-first-and-only-fda-approved-injectable-treatment-for-cellulite   301
 /post/the-many-benefits-of-lymphatic-drainage-massage-1                                         /post/the-many-benefits-of-lymphatic-drainage-massage                                         301
+
+# ── Dead links embedded in legacy blog post bodies (Wix slugs / removed shop pages).
+#    Each points at the closest live page so in-article CTAs stop 404ing. Query
+#    strings pass through to the destination automatically.
+/hair-restoration              /platelet-rich-plasma-hair-millburn   301
+/microneedling                 /microneedling-millburn-nj            301
+/massage                       /manual-lymph-facials                 301
+/qwo-cellulite                 /fillers-injectables                  301
+/obagi-blue-peel-radiance      /chemical-peel-facial                 301
+/shop-obagi                    /short-hills-medispa-treatments       301
+/event-details/chemical-peel-event   /chemical-peel-facial           301
+/product-page/*                /short-hills-medispa-treatments       301
+/coming-soon                   /                                     301

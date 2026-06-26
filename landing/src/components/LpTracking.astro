@@ -1,0 +1,187 @@
+---
+// LP_TRACKING_VERSION: 1.1.0 (2026-06-18)
+//
+// Canonical landing-page engagement tracker for Regtek-built Astro pages.
+// Source of truth lives at: Google Ads/.claude/skills/lp-tracking/assets/
+// — do NOT edit copies inside Website Builder projects; update the canonical
+// file and re-copy (the /lp-tracking skill does this).
+//
+// Sends GA4 events whose names carry ALL the information (no custom params,
+// so no GA4 custom dimensions are required to query them via the Data API):
+//   lp_scroll_25 / lp_scroll_50 / lp_scroll_75 / lp_scroll_90  (once per view)
+//   lp_cta_view      first time any data-lp-cta enters the viewport (once/view)
+//   lp_cta_click     click on any element with data-lp-cta
+//   lp_book_click    click on a link to a booking host, or data-lp-book
+//   lp_phone_click   click on any a[href^="tel:"]  (automatic)
+//   lp_form_start    first focus into a field of a <form> (once per form)
+//   lp_form_submit   <form> submit
+//   lp_form_abandon  a form was started but the page was hidden before any
+//                    submit (once per view) — form-friction signal
+//   lp_rage_click    3+ rapid clicks in one spot (frustration / dead element)
+//   lp_section_<name>_view  an element with data-lp-section="<name>" enters
+//                    the viewport (once each) — which sections people reach
+//
+// v1.0 -> v1.1 adds cta_view (denominator for CTA click-through), rage_click,
+// form_abandon, and named section views. All still encode everything in the
+// event name (lp_ prefix), so the warehouse pull (eventName BEGINS_WITH "lp_")
+// ingests them with no pipeline change.
+//
+// The lp_ prefix is load-bearing: the warehouse ingests eventName BEGINS_WITH
+// "lp_" (scripts/warehouse_ga4.py) and it avoids collisions with GA4 enhanced
+// measurement's own scroll/form_start events.
+//
+// Props:
+//   measurementId  GA4 web stream ID (G-XXXXXXX). Required.
+//   prodHost       Production hostname. Events only reach GA4 when
+//                  location.hostname matches; previews log to console.debug.
+//   sendPageView   Default true. Set false when a GTM container (or another
+//                  gtag config) on the page already sends page_view for the
+//                  same property — avoids double-counting sessions.
+//   bookingHosts   Hostnames whose links count as lp_book_click
+//                  (e.g. ["cal.com", "menonmedispa.com"]). Optional.
+//
+// Markup hooks (no props): add data-lp-cta to primary CTAs, data-lp-book to
+// booking links, and data-lp-section="pricing" (etc.) to key sections you want
+// view-through on. tel: links are tracked automatically.
+interface Props {
+  measurementId: string;
+  prodHost: string;
+  sendPageView?: boolean;
+  bookingHosts?: string[];
+}
+const { measurementId, prodHost, sendPageView = true, bookingHosts = [] } = Astro.props;
+const cfg = JSON.stringify({ id: measurementId, host: prodHost, pv: sendPageView, book: bookingHosts });
+---
+<script is:inline define:vars={{ cfg }}>
+(function () {
+  if (window.__lpTrk) return; window.__lpTrk = 1;
+  var c = JSON.parse(cfg);
+  var live = location.hostname === c.host;
+
+  // Base tag: load gtag.js only if nothing else on the page already has.
+  if (live && !window.gtag) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + c.id;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', c.id, { send_page_view: !!c.pv });
+  }
+
+  function ev(name) {
+    if (live && window.gtag) { window.gtag('event', name); }
+    else if (!live) { console.debug('[lp]', name); }
+  }
+
+  // --- Scroll depth: passive + rAF-throttled, each threshold once per view.
+  var marks = [25, 50, 75, 90];
+  var fired = {};
+  var ticking = false;
+  function checkScroll() {
+    ticking = false;
+    var doc = document.documentElement;
+    var total = Math.max(doc.scrollHeight, document.body.scrollHeight);
+    if (total <= window.innerHeight) return; // page shorter than viewport
+    var depth = ((window.scrollY || doc.scrollTop) + window.innerHeight) / total * 100;
+    for (var i = 0; i < marks.length; i++) {
+      var m = marks[i];
+      if (depth >= m && !fired[m]) { fired[m] = 1; ev('lp_scroll_' + m); }
+    }
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(checkScroll); }
+  }, { passive: true });
+
+  // --- Clicks: one delegated listener for CTA / book / phone.
+  document.addEventListener('click', function (e) {
+    var t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    var a = t.closest('a[href^="tel:"]');
+    if (a) { ev('lp_phone_click'); return; }
+    if (t.closest('[data-lp-book]')) { ev('lp_book_click'); return; }
+    var link = t.closest('a[href]');
+    if (link && c.book.length) {
+      try {
+        var h = new URL(link.href, location.href).hostname;
+        for (var i = 0; i < c.book.length; i++) {
+          if (h === c.book[i] || h.endsWith('.' + c.book[i])) { ev('lp_book_click'); return; }
+        }
+      } catch (err) { /* malformed href */ }
+    }
+    if (t.closest('[data-lp-cta]')) { ev('lp_cta_click'); }
+  }, true);
+
+  // --- Rage clicks: 3+ clicks within ~40px and 1s -> one event (throttled 3s).
+  var rClicks = [];
+  var lastRage = 0;
+  document.addEventListener('click', function (e) {
+    var now = Date.now();
+    rClicks.push({ t: now, x: e.clientX, y: e.clientY });
+    rClicks = rClicks.filter(function (p) { return now - p.t <= 1000; });
+    if (rClicks.length >= 3 && now - lastRage > 3000) {
+      var near = 0;
+      for (var i = 0; i < rClicks.length; i++) {
+        var dx = rClicks[i].x - e.clientX, dy = rClicks[i].y - e.clientY;
+        if (dx * dx + dy * dy <= 1600) near++; // 40px radius
+      }
+      if (near >= 3) { lastRage = now; rClicks = []; ev('lp_rage_click'); }
+    }
+  }, true);
+
+  // --- Forms: first field focus (once per form) + submit + abandon.
+  var started = new WeakSet();
+  var formStarted = false, formSubmitted = false, abandonFired = false;
+  document.addEventListener('focusin', function (e) {
+    var f = e.target && e.target.form;
+    if (f && !started.has(f)) { started.add(f); formStarted = true; ev('lp_form_start'); }
+  }, true);
+  document.addEventListener('submit', function () {
+    formSubmitted = true; ev('lp_form_submit');
+  }, true);
+  function maybeAbandon() {
+    if (formStarted && !formSubmitted && !abandonFired) { abandonFired = true; ev('lp_form_abandon'); }
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') maybeAbandon();
+  });
+  window.addEventListener('pagehide', maybeAbandon);
+
+  // --- Viewport observers: CTA seen (once/view) + named sections (once each).
+  function observe() {
+    if (!('IntersectionObserver' in window)) return;
+    var ctas = document.querySelectorAll('[data-lp-cta]');
+    if (ctas.length) {
+      var ctaSeen = false;
+      var ctaObs = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting && !ctaSeen) {
+            ctaSeen = true; ev('lp_cta_view'); ctaObs.disconnect(); return;
+          }
+        }
+      }, { threshold: 0.5 });
+      for (var i = 0; i < ctas.length; i++) ctaObs.observe(ctas[i]);
+    }
+    var secs = document.querySelectorAll('[data-lp-section]');
+    if (secs.length) {
+      var secObs = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var en = entries[i];
+          if (en.isIntersecting) {
+            var raw = en.target.getAttribute('data-lp-section') || '';
+            var name = raw.toLowerCase().replace(/[^a-z0-9]+/g, '_')
+                          .replace(/^_+|_+$/g, '').slice(0, 32);
+            if (name) ev('lp_section_' + name + '_view');
+            secObs.unobserve(en.target);
+          }
+        }
+      }, { threshold: 0.5 });
+      for (var i = 0; i < secs.length; i++) secObs.observe(secs[i]);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', observe);
+  } else { observe(); }
+})();
+</script>
