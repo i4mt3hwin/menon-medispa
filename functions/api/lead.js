@@ -51,6 +51,48 @@ const SITE = {
   timeZone: 'America/New_York',
 };
 
+// --- Spam content filter --------------------------------------------------------------------------
+// The forms get human-written B2B solicitations (SEO / web-design / marketing pitches), which real
+// patient inquiries never resemble. We CLASSIFY each submission, never reject it: a flagged lead is
+// always still written to D1 (so a false positive is recoverable + the rules are tunable on real data).
+//   - 'spam'   (Tier 1): a high-confidence jargon phrase. Stored status='spam', everything suppressed
+//                        (no emails, no side-effects). Effectively zero false positives.
+//   - 'review' (Tier 2): a fuzzier match. Stored status='spam_review'; the staff email STILL goes out
+//                        (subject prefixed "[Possible spam] " so a Gmail filter can archive it) and the
+//                        customer still gets their confirmation, but the lead is kept off all
+//                        marketing/attribution pipelines until a human confirms.
+//   - 'clean'          : normal flow.
+// THIS IS THE SINGLE EDIT POINT — add a term to the right list to tighten. Promote a recurring Tier-2
+// phrase up to SPAM_HARD to make it silent. All entries are lowercase substrings.
+const SPAM_HARD = [
+  'link building', 'guest post', 'backlink', 'domain authority', 'search engine optimization',
+  'seo service', 'seo expert', 'seo audit', 'seo opportunit', 'seo proposal', 'organic traffic',
+  'lead generation', 'rank your website', 'rank higher on google', 'first page of google',
+  'improve your google ranking', 'increase your website traffic', 'website redesign',
+  'web development service', 'web development company', 'mobile app development', 'crypto', 'bitcoin', 'forex',
+];
+const SPAM_SOFT = [
+  'seo', 'ranking', 'rankings', 'web design', 'web designer', 'digital marketing', 'marketing service',
+  'social media marketing', 'more leads', 'more customers', 'more traffic', 'google ranking',
+  'affordable price', 'free quote', 'no obligation', 'proposal', 'outreach', 'wordpress', 'shopify',
+  'i came across your website', 'i visited your website', 'reviewed your website',
+];
+// Explicit link only (not bare domains / email addresses) — see classifySubmission: a link alone never
+// flags; it only counts when it co-occurs with a soft keyword.
+const LINK_RE = /(?:https?:\/\/|www\.)\S+/i;
+
+function classifySubmission(data) {
+  const hay = [data.message, data.service_interest, data.name]
+    .map((s) => String(s || '').toLowerCase())
+    .join(' \n ');
+  if (!hay.trim()) return 'clean';
+  if (SPAM_HARD.some((k) => hay.includes(k))) return 'spam';
+  const softHits = SPAM_SOFT.reduce((n, k) => (hay.includes(k) ? n + 1 : n), 0);
+  const linkInMessage = LINK_RE.test(String(data.message || ''));
+  if ((linkInMessage && softHits >= 1) || softHits >= 2) return 'review';
+  return 'clean';
+}
+
 // First $-amount embedded in the service string ("$189", "$1,200", "$12/unit"); null when none.
 function parsePrice(s) {
   const m = String(s || '').match(/\$[\d,]+(?:\.\d{2})?(?:\s*\/\s*[A-Za-z]+)?/);
@@ -606,6 +648,12 @@ async function handleLeadPost({ request, env, waitUntil }) {
   const type = data.type === 'appointment_request' ? 'appointment_request' : 'contact';
   const ip = request.headers.get('cf-connecting-ip') || null;
 
+  // Spam classification (see classifySubmission). The row is ALWAYS stored — only the notifications +
+  // side-effects below are gated on the verdict, so a flagged lead is never lost.
+  const verdict = classifySubmission(data);
+  const status = verdict === 'spam' ? 'spam' : verdict === 'review' ? 'spam_review' : 'new';
+  const clean = verdict === 'clean';
+
   // Sanitize the requested slot: store a date only if it's a well-formed ISO date,
   // else null (the front desk confirms the actual time regardless). Keeps junk out of D1.
   const preferredDate = /^\d{4}-\d{2}-\d{2}$/.test((data.preferred_date || '').trim())
@@ -621,7 +669,7 @@ async function handleLeadPost({ request, env, waitUntil }) {
        gclid, gbraid, wbraid, user_agent)
      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
   ).bind(
-    id, now, type, 'new', name, email, phone,
+    id, now, type, status, name, email, phone,
     (data.service_interest || '').slice(0, 120), (data.message || '').slice(0, 2000),
     preferredDate, preferredWindow,
     (data.source_page || '').slice(0, 300),
@@ -630,11 +678,19 @@ async function handleLeadPost({ request, env, waitUntil }) {
     (request.headers.get('user-agent') || '').slice(0, 300)
   ).run();
 
+  // Tier 1 (definite spam): the row is stored as status='spam' above; suppress EVERYTHING else (no
+  // emails, no side-effects). The sender still gets a normal success so they don't adapt and retry.
+  if (verdict === 'spam') return json({ ok: true, id });
+
+  // From here down, the marketing/attribution/CRM side-effects + the consent audit run for CLEAN leads
+  // only (gated on `clean`). A Tier-2 'review' lead is recorded (status='spam_review') and still gets
+  // the tagged staff email + customer confirmation below, but is kept OFF these pipelines until a human
+  // confirms it.
   // Consent audit — one row per channel, recording the EXACT copy shown.
   const consents = [];
   if (data.consent_email_text) consents.push(['email', data.consent_email === 'on' || data.consent_email === 'true', data.consent_email_text]);
   if (data.consent_sms_text) consents.push(['sms', data.consent_sms === 'on' || data.consent_sms === 'true', data.consent_sms_text]);
-  for (const [channel, granted, text] of consents) {
+  if (clean) for (const [channel, granted, text] of consents) {
     await env.DB.prepare(
       `INSERT INTO consent_log (id, lead_id, channel, granted, consent_text, consent_version, ip, created_at)
        VALUES (?,?,?,?,?,?,?,?)`
@@ -643,7 +699,7 @@ async function handleLeadPost({ request, env, waitUntil }) {
 
   // Forward the lead to the central lead manager (dormant until the LEADS_* env vars are set). The
   // lead is already in this site's D1 above, so this is best-effort and never blocks the response.
-  maybeForwardLead(env, waitUntil, {
+  if (clean) maybeForwardLead(env, waitUntil, {
     name,
     email,
     phone,
@@ -663,7 +719,7 @@ async function handleLeadPost({ request, env, waitUntil }) {
   // Push the form lead to WhatConverts (calls already track via the WhatConverts script; this closes
   // the FORM gap so form leads are attributed to the ad click and appear alongside calls). Dormant
   // until WHATCONVERTS_API_TOKEN + WHATCONVERTS_API_SECRET are set; best-effort, never blocks.
-  maybeSendToWhatConverts(env, request, waitUntil, {
+  if (clean) maybeSendToWhatConverts(env, request, waitUntil, {
     name, email, phone, type,
     serviceInterest: (data.service_interest || '').slice(0, 120) || null,
     preferredDate, preferredWindow,
@@ -683,7 +739,7 @@ async function handleLeadPost({ request, env, waitUntil }) {
   // only the consented). Contact-form inquiries are EXCLUDED — a "Contact us" message is not a marketing
   // opt-in, so contacts never go on the subscriber list. Dormant unless RESEND_API_KEY + RESEND_AUDIENCE_ID
   // are set; best-effort.
-  if (type === 'appointment_request' && email && (data.consent_email === 'on' || data.consent_email === 'true')) {
+  if (clean && type === 'appointment_request' && email && (data.consent_email === 'on' || data.consent_email === 'true')) {
     const parts = name.split(/\s+/);
     // Segmentation tags (best-effort; see maybeAddToAudience). `interest` = the cosmetic service the
     // visitor asked about — marketing data, consistent with the NON-PHI posture (glow quiz data is
@@ -754,9 +810,12 @@ async function handleLeadPost({ request, env, waitUntil }) {
       .map((s) => s.trim())
       .filter(Boolean);
     if (staffTo.length) {
-      const staffSubject = type === 'appointment_request'
-        ? `New appointment request: ${name}`
-        : `New website inquiry: ${name}`;
+      // Tier-2 "review" leads still notify the front desk, but the subject is prefixed so a single
+      // Gmail filter ("subject contains [Possible spam]") can archive them out of the main inbox.
+      const staffSubject = (verdict === 'review' ? '[Possible spam] ' : '')
+        + (type === 'appointment_request'
+          ? `New appointment request: ${name}`
+          : `New website inquiry: ${name}`);
       const html = staffHtml(data, { name, email, phone, type, glow: data.glow_summary || null });
       await send(staffTo, staffSubject, html, email || SITE.replyTo);
     }
@@ -766,8 +825,8 @@ async function handleLeadPost({ request, env, waitUntil }) {
   // above (it sends from the news subdomain). The 48h gap gives the front desk two days to reach out
   // personally first. Deduped per email; inert unless WELCOME_ENABLED is set.
   // BOOKINGS ONLY — a plain "Contact us" inquiry still gets its instant reply + a staff alert, but no
-  // marketing welcome (and it is not added to the subscriber list above).
-  if (type === 'appointment_request') {
+  // marketing welcome (and it is not added to the subscriber list above). Flagged leads get none.
+  if (clean && type === 'appointment_request') {
     await maybeScheduleWelcome(env, waitUntil, {
       email,
       firstName: name.split(/\s+/)[0] || name,
