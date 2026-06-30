@@ -9,6 +9,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import '@/styles/glow.css';
 import site from '@/lib/site';
+import Turnstile from '@/components/Turnstile.astro';
 import { icon } from '@/lib/glow-icons';
 import concernsData from '@/data/glow-concerns.json';
 import quizData from '@/data/glow-quiz.json';
@@ -155,6 +156,7 @@ const pageDesc =
                   <input type="text" id="glow-hp" name="company_website" tabindex="-1" autocomplete="off" />
                 </label>
               </div>
+              <Turnstile class="glow-gate__turnstile" />
               <button class="btn btn--primary btn--lg btn--block" type="submit">Reveal my Glow Plan</button>
               <p class="glow-gate__fine">
                 Your quiz answers stay in your browser and are never stored. We only keep your email to send
@@ -338,6 +340,8 @@ const pageDesc =
         consent_email: d.consentEmail ? 'on' : 'false',
         consent_email_text: root.dataset.consentEmailText || '',
         company_website: d.hp || '',
+        // Turnstile token (this handler hand-builds the body, so forward it under the server's key).
+        'cf-turnstile-response': d.turnstile || '',
       };
       if (d.consentSms && d.phone) { payload.consent_sms = 'on'; payload.consent_sms_text = root.dataset.consentSmsText || ''; }
       // Inspect the response so a misconfigured DB (db_unbound / 422 / 500) does not silently lose the
@@ -409,7 +413,8 @@ const pageDesc =
 
       // Fire the email capture but do NOT await it here — the results reveal below stays on its own
       // timer so the network never blocks the UX. sendLead surfaces its own soft error on failure.
-      void sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp') });
+      const turnstileToken = (form.querySelector('input[name="cf-turnstile-response"]') as HTMLInputElement | null)?.value || '';
+      void sendLead({ name, email, phone, consentEmail: checked('glow-consent-email'), consentSms: checked('glow-consent-sms'), hp: val('glow-hp'), turnstile: turnstileToken });
 
       window.setTimeout(() => { loader.hidden = true; renderResults(result, name.split(/\s+/)[0]); }, reduced ? 200 : 1500);
     });

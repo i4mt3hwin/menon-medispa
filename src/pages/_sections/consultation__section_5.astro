@@ -3,6 +3,7 @@ import site from '@/lib/site';
 import googleBadge from '@/assets/images/5be44787b3a9.webp';
 import { serviceInterestOptions, interestLabel } from '@/lib/services';
 import { CONSULT_NOTES, consultTierFor } from '@/lib/consult';
+import Turnstile from '@/components/Turnstile.astro';
 
 // "What are you interested in?" options shared with the booking form; the picked
 // value decides the consultation tier (esthetician vs $50 Dr. Menon) shown below.
@@ -71,6 +72,7 @@ const initialNote = CONSULT_NOTES[consultTierFor(selected)];
           <input type="hidden" name="send_confirmation" value="on" />
           <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="con-request__hp" aria-hidden="true" />
 
+          <Turnstile class="con-request__turnstile" />
           <p class="con-request__error" data-form-error role="alert" hidden></p>
           <button type="submit" class="btn btn--primary btn--block btn--lg con-request__submit">
             Request My Consultation

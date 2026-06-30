@@ -153,6 +153,12 @@ export const site = {
       provider: null as string | null,
       loader: '',
     },
+    // Cloudflare Turnstile (bot protection on the lead forms). This is the PUBLIC site key — safe to
+    // ship in markup. The matching SECRET key lives ONLY in the menon-medispa Pages env as
+    // TURNSTILE_SECRET_KEY, where functions/api/lead.js verifies each token and hard-blocks a
+    // missing/invalid one. Set to '' to disable the widget everywhere (Turnstile.astro renders nothing)
+    // and disable server enforcement (lead.js becomes a no-op when the secret is also unset).
+    turnstileSiteKey: '0x4AAAAAADs5BxRh4oaCasTw',
   },
 } as const;
 

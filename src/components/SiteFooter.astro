@@ -19,6 +19,7 @@
 
 import { Image } from 'astro:assets';
 import site from '@/lib/site.js';
+import Turnstile from '@/components/Turnstile.astro';
 import igImg from '@/assets/images/d85622e84ef0.webp';
 import fbImg from '@/assets/images/482f7439ea47.webp';
 import ttImg from '@/assets/images/de7ef3d7c470.webp';
@@ -58,6 +59,9 @@ const year = new Date().getFullYear();
           {/* Honeypot: real people leave this empty. */}
           <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
           <button type="submit" class="footer-newsletter__btn">Submit</button>
+          {/* Turnstile sits AFTER the input+button pill and wraps to its own row (see CSS) so it never
+              splits the joined input/button when Cloudflare shows the interactive challenge. */}
+          <Turnstile class="footer-newsletter__turnstile" />
         </form>
         <p class="footer-newsletter__msg" data-newsletter-msg role="alert" hidden></p>
         <!-- Social icons in newsletter band -->
@@ -269,6 +273,19 @@ const year = new Date().getFullYear();
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  flex-wrap: wrap;
+}
+
+/* Turnstile: only appears when Cloudflare challenges a visitor. Force it onto its own full-width row
+   below the email + Submit pill so it never crams into / splits the inline row. When it's invisible
+   (the normal case) the element collapses and adds no space. :global because the .cf-turnstile div is
+   rendered by the child Turnstile component, outside this file's style scope. */
+.footer-newsletter__form :global(.footer-newsletter__turnstile) {
+  flex-basis: 100%;
+  margin-top: 10px;
+}
+.footer-newsletter__form :global(.footer-newsletter__turnstile:empty) {
+  margin-top: 0;
 }
 
 .footer-newsletter__input {

@@ -31,6 +31,11 @@ const ADDRESS = "45 Essex St., Suite 202, Millburn, NJ 07041";
 
   <!-- WhatConverts -->
   <script is:inline>var $wc_load=function(a){return JSON.parse(JSON.stringify(a))},$wc_leads=$wc_leads||{doc:{url:$wc_load(document.URL),ref:$wc_load(document.referrer),search:$wc_load(location.search),hash:$wc_load(location.hash)}};</script>
+
+  <!-- Cloudflare Turnstile (bot protection). Standalone page (no LandingPage layout), so it loads the
+       API here itself. Implicit rendering auto-scans the form's .cf-turnstile div; the token rides in
+       the POST body (collect() uses FormData) and is verified at www.menonmedispa.com/api/lead. -->
+  <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
   <script is:inline async src="//s.ksrndkehqnwntyxlhgto.com/159358.js"></script>
 
   <!-- Meta Pixel Code -->
@@ -596,6 +601,10 @@ const ADDRESS = "45 Essex St., Suite 202, Millburn, NJ 07041";
           <input type="checkbox" name="consent_email" value="on" class="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 text-gold focus:ring-gold focus:ring-offset-0" />
           <span>Yes, email me about offers and skincare tips. We never share your info, and you can unsubscribe anytime.</span>
         </label>
+
+        <!-- Cloudflare Turnstile: the token rides in the POST (collect() uses FormData) and is verified
+             server-side at www.menonmedispa.com/api/lead. Loader is in this page's <head>. -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADs5BxRh4oaCasTw" data-appearance="interaction-only" data-theme="dark" data-refresh-expired="auto"></div>
 
         <button type="submit"
           class="btn-primary w-full rounded-full bg-gold py-4 text-lg font-bold text-black shadow-lg">

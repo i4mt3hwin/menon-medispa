@@ -556,6 +556,10 @@ const PHONE_LINK = "tel:9734948431";
           <span>Yes, email me about offers and skincare tips. We never share your info, and you can unsubscribe anytime.</span>
         </label>
 
+        <!-- Cloudflare Turnstile: the token rides in the POST (collect() uses FormData) and is verified
+             server-side at www.menonmedispa.com/api/lead. Loader is in LandingPage.astro <head>. -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADs5BxRh4oaCasTw" data-appearance="interaction-only" data-theme="dark" data-refresh-expired="auto"></div>
+
         <button type="submit"
           class="btn-primary w-full rounded-full bg-gold py-4 text-lg font-bold text-black shadow-lg">
           Claim My Summer Special · Save $390

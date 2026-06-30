@@ -19,6 +19,7 @@
  */
 import type { ImageMetadata } from 'astro';
 import { getSaleOffers, popupHeading } from '@/lib/sales';
+import Turnstile from './Turnstile.astro';
 
 interface SaleItem { name: string; offer: string; image?: ImageMetadata; imageAlt?: string; }
 interface Props {
@@ -69,6 +70,7 @@ const hasSale = items.length > 0;
       <input type="hidden" name="type" value="newsletter" />
       <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
       <button type="submit" class="btn btn--primary sale-popup__submit">Join</button>
+      <Turnstile class="sale-popup__turnstile" />
     </form>
     <p class="sale-popup__msg" data-newsletter-msg role="alert" hidden></p>
   </div>
@@ -208,6 +210,9 @@ const hasSale = items.length > 0;
     box-shadow: 0 0 0 3px rgb(196 164 132 / 0.24);
   }
   .sale-popup__submit { flex: 0 0 auto; white-space: nowrap; }
+  /* Turnstile (only shown when Cloudflare challenges) drops onto its own row below the input + Join,
+     never splitting them. :global because the .cf-turnstile div is rendered by the child component. */
+  .sale-popup__form :global(.sale-popup__turnstile) { flex-basis: 100%; }
   .sale-popup__msg {
     font-family: var(--font-body);
     font-size: var(--text-sm);

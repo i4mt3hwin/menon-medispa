@@ -1,0 +1,52 @@
+---
+/**
+ * Turnstile.astro — Cloudflare Turnstile bot-protection widget. Drop this INSIDE any <form> that
+ * POSTs to /api/lead.
+ *
+ * Turnstile injects a hidden `cf-turnstile-response` input into the enclosing form. FormData-based
+ * submit handlers (leadForm.ts `enhanceLeadForm`, LeadForm/BookingRequest/consultation, and the
+ * landing app's handler) pick it up automatically; the two manual-body handlers
+ * (`enhanceNewsletterForm` and find-your-glow) read it explicitly. The server verifies the token in
+ * functions/api/lead.js and HARD-BLOCKS a missing/invalid token once TURNSTILE_SECRET_KEY is set.
+ *
+ *   appearance=interaction-only -> invisible unless a challenge is actually required (no visual noise
+ *                                  on the footer/newsletter/forms; a token is still issued silently).
+ *   refresh-expired=auto        -> re-issues a token if it expires. The booking wizard and glow quiz
+ *                                  are long-lived and Turnstile tokens live ~5 min, so this matters.
+ *
+ * Renders nothing when the site key is unset (site.integrations.turnstileSiteKey === '').
+ */
+import site from '@/lib/site';
+
+interface Props {
+  /** Optional extra class on the widget container (e.g. for form-specific spacing). */
+  class?: string;
+}
+const { class: className } = Astro.props;
+const siteKey = site.integrations.turnstileSiteKey;
+---
+{siteKey && (
+  <Fragment>
+    <div
+      class:list={['cf-turnstile', className]}
+      data-sitekey={siteKey}
+      data-appearance="interaction-only"
+      data-theme="light"
+      data-refresh-expired="auto"
+    ></div>
+    <script>
+      // Load the Turnstile API once per page. Implicit rendering auto-scans every server-rendered
+      // .cf-turnstile element on the page (all of ours are server-rendered). Guarded + idempotent so
+      // multiple <Turnstile /> instances on one page (e.g. a booking form + the footer newsletter)
+      // never double-load the script.
+      if (!document.querySelector('script[data-turnstile-api]')) {
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        s.async = true;
+        s.defer = true;
+        s.setAttribute('data-turnstile-api', '');
+        document.head.appendChild(s);
+      }
+    </script>
+  </Fragment>
+)}

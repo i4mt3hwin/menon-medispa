@@ -221,11 +221,15 @@ export function customerNewsletterHtml(unsubUrl) {
   return emailShell(inner, null, unsubUrl);
 }
 
-// The "Welcome to Menon Medispa" email — a richer SECOND touch, scheduled ~24h after a booking/inquiry
-// or ~48h after a newsletter sign-up (see maybeScheduleWelcome). Marketing/relationship mail, so it
-// carries the unsubscribe link + List-Unsubscribe header and goes out from the news subdomain. Evergreen
-// BY DESIGN: it LINKS to the live /sale page rather than embedding offer prices, so a send scheduled a
-// day or two out can never show a stale special. Trailing slashes match astro `trailingSlash: 'always'`.
+// The "Welcome to Menon Medispa" email — a richer SECOND touch, scheduled ~48h after a booking/inquiry
+// or a newsletter sign-up (see maybeScheduleWelcome). TWO channel variants share one frame: a BOOKING
+// recipient already requested an appointment, so we acknowledge the visit and DROP the consultation
+// push; a NEWSLETTER recipient still gets the gentle "book a consultation" nudge. Pass `channel`
+// ('booking' | 'newsletter') to pick the variant; anything else falls back to the newsletter copy.
+// Marketing/relationship mail, so it carries the unsubscribe link + List-Unsubscribe header and goes
+// out from the news subdomain. Evergreen BY DESIGN: it LINKS to the live /sale page rather than
+// embedding offer prices, so a send scheduled a day or two out can never show a stale special.
+// Trailing slashes match astro `trailingSlash: 'always'`.
 // UTM-tag an email CTA so a booking can be attributed back to this email. medium=email (GA4 files it
 // under the Email channel); source/campaign stay constant across the send, only `content` varies per
 // link. Marketing/relationship mail only — never tag the transactional booking/contact confirmations.
@@ -233,29 +237,46 @@ function withUtm(path, content) {
   return `${SITE.url}${path}?utm_source=welcome&utm_medium=email&utm_campaign=welcome_evergreen&utm_content=${content}`;
 }
 
-export function customerWelcomeHtml({ firstName, unsubUrl }) {
+export function customerWelcomeHtml({ firstName, unsubUrl, channel }) {
+  const isBooking = channel === 'booking';
   const tel = `tel:${SITE.phone.replace(/[^\d+]/g, '')}`;
   const book = withUtm('/request-appointment/', 'book_button');
   const sale = withUtm('/sale/', 'sale_button');
   const glow = withUtm('/find-your-glow/', 'glow_button');
   const p = 'margin:14px 0 0;font-size:15px;line-height:1.65;color:#43404a;';
   const link = `color:${SITE.brand};text-decoration:underline;`;
+  // Both variants share the frame, photo, greeting and intro; only the "next step" block and the
+  // preheader/sign-off differ. Booking recipients already requested a visit, so we acknowledge it and
+  // drop the "first visit" line + the Book-a-consultation button; newsletter signups keep the nudge.
+  const philosophy = isBooking
+    ? 'Here is how we like to work. We start by listening, figure out what actually fits you, and never push. No jargon, no hard sell.'
+    : 'Here is how we like to work. We start by listening, figure out what actually fits you, and never push. No jargon, no hard sell. If you are not sure where to begin, that is exactly what a first visit is for.';
+  const nextStep = isBooking
+    ? `<p style="${p}">Thanks for reaching out to book with us. If our front desk has not already confirmed your time, you will hear from us shortly. Anything you want to ask before your visit, just reply to this email or call or text us.</p></td></tr>
+<tr><td style="padding:18px 32px 6px;text-align:center;">
+<p style="margin:0;font-size:13px;color:#8a8290;">A little something before your visit</p>
+<p style="margin:8px 0 0;font-size:15px;line-height:1.7;"><a href="${sale}" style="${link}">See this month's specials</a> &nbsp;&middot;&nbsp; <a href="${glow}" style="${link}">Take the 2-minute skin quiz</a></p></td></tr>`
+    : `<p style="${p}">Whenever you are ready, the easiest next step is a quick consultation. We will talk through your goals with zero pressure to book anything that day.</p></td></tr>
+<tr><td style="padding:18px 32px 2px;">
+<a href="${book}" style="display:block;background:${SITE.brand};color:#ffffff;text-decoration:none;text-align:center;padding:14px 18px;border-radius:9px;font-size:16px;font-family:Georgia,'Times New Roman',serif;">Book a consultation</a></td></tr>
+<tr><td style="padding:10px 32px 6px;text-align:center;">
+<p style="margin:0;font-size:13px;color:#8a8290;">Not ready to book? Two easy ways to start</p>
+<p style="margin:8px 0 0;font-size:15px;line-height:1.7;"><a href="${sale}" style="${link}">See this month's specials</a> &nbsp;&middot;&nbsp; <a href="${glow}" style="${link}">Take the 2-minute skin quiz</a></p></td></tr>`;
+  const signOff = isBooking ? 'See you soon,' : 'Talk soon,';
+  const preheader = isBooking
+    ? 'A calm, judgment-free place for your skin. We are looking forward to your visit.'
+    : 'A calm, judgment-free place for your skin. Here is where to begin.';
   const inner = `<tr><td style="padding:30px 32px 4px;">
 <h1 style="margin:0;font-size:23px;font-weight:normal;color:${SITE.brand};">Welcome to ${esc(SITE.name)}</h1>
 <div style="text-align:center;margin:18px 0 2px;"><img src="${SITE.url}/email/dr-menon.jpg" width="340" alt="Dr. Aditi Menon, MD, founder of ${esc(SITE.name)}" style="display:inline-block;width:340px;max-width:86%;height:auto;border-radius:14px;" /></div>
 <p style="${p}">Hi ${esc(firstName)},</p>
 <p style="${p}">Really glad you found us. I am Dr. Aditi Menon, and ${esc(SITE.name)} is my medical spa in Millburn, NJ. We do aesthetic skin and body treatments, from Botox and facials to laser and IV therapy, in a space that is calm and judgment-free.</p>
-<p style="${p}">Here is how we like to work. We start by listening, figure out what actually fits you, and never push. No jargon, no hard sell. If you are not sure where to begin, that is exactly what a first visit is for.</p>
-<p style="${p}">Whenever you are ready, the easiest next step is a quick consultation. We will talk through your goals with zero pressure to book anything that day.</p></td></tr>
-<tr><td style="padding:18px 32px 2px;">
-<a href="${book}" style="display:block;background:${SITE.brand};color:#ffffff;text-decoration:none;text-align:center;padding:14px 18px;border-radius:9px;font-size:16px;font-family:Georgia,'Times New Roman',serif;">Book a consultation</a></td></tr>
-<tr><td style="padding:10px 32px 6px;text-align:center;">
-<p style="margin:0;font-size:13px;color:#8a8290;">Not ready to book? Two easy ways to start</p>
-<p style="margin:8px 0 0;font-size:15px;line-height:1.7;"><a href="${sale}" style="${link}">See this month's specials</a> &nbsp;&middot;&nbsp; <a href="${glow}" style="${link}">Take the 2-minute skin quiz</a></p></td></tr>
+<p style="${p}">${philosophy}</p>
+${nextStep}
 <tr><td style="padding:14px 32px 24px;">
 <p style="${p}">Prefer to talk first? Call or text us at <a href="${tel}" style="color:${SITE.brand};text-decoration:none;">${esc(SITE.phone)}</a>, or just reply to this email.</p>
-<p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#43404a;">Talk soon,<br/>Dr. Aditi Menon, MD<br/>${esc(SITE.name)}, Millburn NJ</p></td></tr>`;
-  return emailShell(inner, null, unsubUrl, 'A calm, judgment-free place for your skin. Here is where to begin.');
+<p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#43404a;">${signOff}<br/>Dr. Aditi Menon, MD<br/>${esc(SITE.name)}, Millburn NJ</p></td></tr>`;
+  return emailShell(inner, null, unsubUrl, preheader);
 }
 
 // The Find Your Glow profile block for the STAFF email. `raw` is the stringified profile a booking
@@ -526,8 +547,10 @@ async function maybeScheduleWelcome(env, waitUntil, { email, firstName, origin, 
             from: newsletterFrom(env),
             to: addr,
             reply_to: SITE.replyTo,
-            subject: 'So glad you found us. Welcome to Menon Medispa.',
-            html: customerWelcomeHtml({ firstName: firstName || 'there', unsubUrl: unsub }),
+            subject: channel === 'booking'
+              ? 'So glad you found us. Looking forward to your visit.'
+              : 'So glad you found us. Welcome to Menon Medispa.',
+            html: customerWelcomeHtml({ firstName: firstName || 'there', unsubUrl: unsub, channel }),
             scheduled_at: scheduledAt,
             ...(unsub ? { headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } } : {}),
           }),
@@ -610,6 +633,33 @@ async function handleNewsletterSignup(env, request, waitUntil, data) {
   return json({ ok: true, id });
 }
 
+// --- Cloudflare Turnstile (bot protection) --------------------------------------------------------
+// Verifies the token the client widget (src/components/Turnstile.astro) issues in the
+// `cf-turnstile-response` field. ENFORCEMENT IS OPT-IN: with no TURNSTILE_SECRET_KEY set this is a
+// no-op (returns ok), so the widgets + this code can ship and be confirmed BEFORE the secret turns
+// enforcement on. Once the secret is set, a missing or invalid token hard-blocks the submit (the
+// caller returns 403). The ONE exception is a verification-infrastructure failure (Cloudflare's
+// siteverify itself unreachable): that fails OPEN, so a CF-side hiccup can never take down lead
+// capture — only a definitively absent or present-and-invalid token blocks.
+async function verifyTurnstile(env, request, token) {
+  if (!env.TURNSTILE_SECRET_KEY) return { ok: true }; // inert until the secret is configured
+  if (!token) return { ok: false };                   // enforcement on + no token -> block
+  try {
+    const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: String(token) });
+    const ip = request.headers.get('cf-connecting-ip');
+    if (ip) body.set('remoteip', ip);
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+    });
+    const out = await res.json().catch(() => null);
+    return { ok: !!(out && out.success) };
+  } catch {
+    return { ok: true }; // siteverify unreachable: fail open (never lose a real lead to a CF outage)
+  }
+}
+
 // Thin wrapper: run the lead handler, then stamp CORS headers onto its response when the request came
 // from an allowed landing-page origin (no-op for same-origin www posts).
 export async function onRequestPost(context) {
@@ -632,6 +682,14 @@ async function handleLeadPost({ request, env, waitUntil }) {
 
   // Honeypot: a hidden field bots fill. Silently accept, store nothing.
   if (data.company_website) return json({ ok: true });
+
+  // Cloudflare Turnstile bot check. Enforced ONLY when TURNSTILE_SECRET_KEY is set (so this ships inert
+  // and enforcement flips on the moment the secret is added in Cloudflare Pages). A missing/invalid
+  // token HARD-BLOCKS every form type — booking, contact, AND newsletter — because this runs before the
+  // newsletter dispatch below. The 403 inherits CORS via onRequestPost, so cross-origin landing pages
+  // get a clean error too.
+  const turnstile = await verifyTurnstile(env, request, data['cf-turnstile-response']);
+  if (!turnstile.ok) return json({ ok: false, error: 'turnstile_failed' }, 403);
 
   // Newsletter sign-up takes the email-only path (no name/booking required).
   if (data.type === 'newsletter') return handleNewsletterSignup(env, request, waitUntil, data);

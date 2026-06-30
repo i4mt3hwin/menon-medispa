@@ -43,6 +43,11 @@ const { title, description, ogTitle, ogDescription, ogUrl, offerName, offerPrice
   <script is:inline>var $wc_load=function(a){return JSON.parse(JSON.stringify(a))},$wc_leads=$wc_leads||{doc:{url:$wc_load(document.URL),ref:$wc_load(document.referrer),search:$wc_load(location.search),hash:$wc_load(location.hash)}};</script>
   <script is:inline async src="//s.ksrndkehqnwntyxlhgto.com/159358.js"></script>
 
+  <!-- Cloudflare Turnstile (bot protection on the lead forms). Implicit rendering auto-scans each
+       form's .cf-turnstile div; the token is folded into the POST body (collect() uses FormData) and
+       verified server-side at www.menonmedispa.com/api/lead. -->
+  <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+
   <!-- Meta Pixel Code -->
   <script is:inline>
   !function(f,b,e,v,n,t,s)

@@ -37,7 +37,20 @@ const ERROR_COPY: Record<string, string> = {
   bad_email: 'That email address does not look right.',
   bad_request: 'Something went wrong. Please try again.',
   db_unbound: `We could not save that. Please call us at ${PHONE_DISPLAY}.`,
+  // Cloudflare Turnstile (functions/api/lead.js) hard-blocks a missing/invalid token. The widget below
+  // is reset on this path so the visitor just gets a fresh token and can resubmit.
+  turnstile_failed: 'Please wait a moment for the verification to finish, then try again.',
 };
+
+/** Reset the form's Turnstile widget (tokens are single-use; reset issues a fresh one for a retry). */
+function resetTurnstile(form: HTMLFormElement) {
+  try {
+    const widget = form.querySelector('.cf-turnstile') as HTMLElement | null;
+    (window as { turnstile?: { reset: (el?: HTMLElement) => void } }).turnstile?.reset(widget ?? undefined);
+  } catch {
+    /* turnstile not loaded / no widget — nothing to reset */
+  }
+}
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
 // Google Ads click ids. gclid is what lets WhatConverts attribute the lead to Google Ads (CPC) and
@@ -198,6 +211,9 @@ export function enhanceLeadForm(form: HTMLFormElement, opts: EnhanceOptions = {}
       showError(errorEl, `Something went wrong. Please call us at ${PHONE_DISPLAY}.`);
     }
 
+    // Any non-success path falls through here (success returns early). The token was consumed by the
+    // attempt, so reset the widget to mint a fresh one for the retry.
+    resetTurnstile(form);
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.textContent = submitBtn.dataset.label || 'Submit';
@@ -237,6 +253,9 @@ export function enhanceNewsletterForm(form: HTMLFormElement, opts: { onSuccess?:
       btn.textContent = 'Joining…';
     }
     const hp = (form.querySelector('input[name="company_website"]') as HTMLInputElement | null)?.value || '';
+    // This handler builds the body by hand (not FormData), so the Turnstile token must be read out of
+    // the widget's hidden input explicitly and forwarded under the same key the server expects.
+    const tsToken = (form.querySelector('input[name="cf-turnstile-response"]') as HTMLInputElement | null)?.value || '';
     try {
       const res = await fetch('/api/lead', {
         method: 'POST',
@@ -246,6 +265,7 @@ export function enhanceNewsletterForm(form: HTMLFormElement, opts: { onSuccess?:
           type: 'newsletter',
           source_page: location.pathname + location.search,
           company_website: hp,
+          'cf-turnstile-response': tsToken,
           ...firstTouchUtms(),
         }),
       });
@@ -262,6 +282,7 @@ export function enhanceNewsletterForm(form: HTMLFormElement, opts: { onSuccess?:
     } catch {
       show(`Something went wrong. Please call us at ${PHONE_DISPLAY}.`, false);
     }
+    resetTurnstile(form); // token was consumed by the attempt; mint a fresh one for the retry
     if (btn) {
       btn.disabled = false;
       btn.textContent = btn.dataset.label || 'Submit';
