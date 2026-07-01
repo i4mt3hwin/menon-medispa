@@ -1,52 +1,52 @@
 {
   "window": {
     "eyebrow": "DO NOT MISS THIS!",
-    "heading": "June Summer Specials",
-    "subtitle": "Valid from June 1 - June 30 2026"
+    "heading": "July Summer Specials",
+    "subtitle": "Valid from July 1 - July 31 2026"
   },
   "gridHeading": "Explore Our Current Specials",
   "popupHeading": "This Month's Specials",
   "offers": [
     {
-      "name": "Summer Glow HydraFacial",
-      "price": "$225",
-      "image": "86072f9cbd9c.jpg",
-      "imageAlt": "Summer Glow HydraFacial special at Menon Medispa",
-      "description": "Glow now, thank yourself later.",
-      "popupOffer": "$285 value for $225",
-      "bookingLabel": "Summer Glow HydraFacial - $225 June Special",
+      "name": "PRP Hair Restoration",
+      "price": "$400 / session",
+      "image": "61235f21d512.jpeg",
+      "imageAlt": "PRP hair restoration July special at Menon Medispa",
+      "description": "Thinning hair? PRP uses your own platelet-rich plasma to support fuller, healthier hair. This July, $400 per session, half the usual $800.",
+      "popupOffer": "$400 per session ($800 value)",
+      "bookingLabel": "PRP Hair Restoration - $400/session (July Special, $800 value)",
       "includes": [
-        "Vitamin C Booster +",
-        "Discount Dermaplaning $25",
-        "($285 Value for $225)"
+        "$400 per session (regularly $800)",
+        "Uses your own platelet-rich plasma",
+        "Personalized plan with Dr. Menon"
       ]
     },
     {
-      "name": "Custom Hydrating IV",
-      "price": "$99",
-      "image": "dd355e57f3dd.jpg",
-      "imageAlt": "Custom hydrating IV drip special at Menon Medispa",
-      "description": "Rehydrate, recharge, and build your own blend. Pick any 2 vitamins and make it yours.",
-      "popupOffer": "$99, any two vitamins",
-      "bookingLabel": "Custom Hydrating IV - $99 (any 2 vitamins)",
+      "name": "ClearLift Skin Rejuvenation",
+      "price": "Buy 3, Get 1 Free",
+      "image": "5533cf5a75a8.webp",
+      "imageAlt": "ClearLift laser skin rejuvenation July special at Menon Medispa",
+      "description": "Refresh and brighten your skin with ClearLift laser rejuvenation. Book a series of three sessions this July and your fourth is free.",
+      "popupOffer": "Buy 3 sessions, get the 4th free",
+      "bookingLabel": "ClearLift Buy 3 Get 1 Free (July Special)",
       "includes": [
-        "$99 Special Price",
-        "Includes any two vitamins",
-        "Hydrate, recharge, glow"
+        "Buy 3 sessions, get the 4th free",
+        "Gentle laser skin rejuvenation",
+        "Best results build over a series"
       ]
     },
     {
-      "name": "BRO-Tox Father's Day Special",
-      "price": "$12 Per Unit",
-      "image": "56a3e3ac1335.jpg",
-      "imageAlt": "BRO-Tox Father's Day Botox special at Menon Medispa",
-      "description": "This Father's Day, give Dad something better than another tie he'll never wear.",
-      "popupOffer": "Botox $12 / unit",
-      "bookingLabel": "BRO-Tox Father's Day Special - $12/unit",
+      "name": "NAD+ & Glutathione Boost",
+      "price": "$100",
+      "image": "f5915ad94d9a.webp",
+      "imageAlt": "NAD+ and glutathione injection July special at Menon Medispa",
+      "description": "A cellular wellness duo in one visit: NAD+ and glutathione. Support for cellular energy and antioxidant defense, now $100 for both, a $150 value.",
+      "popupOffer": "$100 for both ($150 value)",
+      "bookingLabel": "NAD+ & Glutathione Boost - $100 (July Special, $150 value)",
       "includes": [
-        "Botox $12 Per Unit",
-        "Smooths forehead, frown lines & crow's feet",
-        "Personalized Treatment Plan with Dr. Menon"
+        "NAD+ and glutathione injections",
+        "$100 for both (regularly $150)",
+        "Cellular energy and antioxidant support"
       ]
     }
   ]

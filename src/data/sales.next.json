@@ -1,0 +1,53 @@
+{
+  "window": {
+    "eyebrow": "DO NOT MISS THIS!",
+    "heading": "August Summer Specials",
+    "subtitle": "Valid from August 1 - August 31 2026"
+  },
+  "gridHeading": "Explore Our Current Specials",
+  "popupHeading": "This Month's Specials",
+  "offers": [
+    {
+      "name": "HydraFacial + Free Dermaplaning",
+      "price": "$225",
+      "image": "a2e5efb60e6b.jpeg",
+      "imageAlt": "HydraFacial with free dermaplaning August special at Menon Medispa",
+      "description": "Deep-clean, exfoliate, and glow. Book a HydraFacial this August and the dermaplaning add-on is free.",
+      "popupOffer": "$285 value for $225",
+      "bookingLabel": "HydraFacial + Free Dermaplaning - $225 (August Special, $285 value)",
+      "includes": [
+        "HydraFacial plus free dermaplaning",
+        "$285 value for $225",
+        "Brighter, smoother skin"
+      ]
+    },
+    {
+      "name": "$100 Off Any Filler",
+      "price": "$100 off",
+      "image": "8ec275b96db1.jpeg",
+      "imageAlt": "Dermal filler August special at Menon Medispa",
+      "description": "Soften lines and restore volume. Take $100 off any dermal filler treatment this August.",
+      "popupOffer": "$100 off any filler",
+      "bookingLabel": "$100 Off Any Filler (August Special)",
+      "includes": [
+        "$100 off any dermal filler",
+        "Lips, cheeks, and more",
+        "Personalized plan with Dr. Menon"
+      ]
+    },
+    {
+      "name": "Back to School IV",
+      "price": "$199",
+      "image": "dd355e57f3dd.jpg",
+      "imageAlt": "Back to School IV drip August special at Menon Medispa",
+      "description": "Reset for the busy season. Choose the Recovery or Energy Deluxe drip, now $199, a $250 value.",
+      "popupOffer": "$250 value for $199",
+      "bookingLabel": "Back to School IV (Recovery or Energy Deluxe) - $199 (August Special, $250 value)",
+      "includes": [
+        "Recovery or Energy Deluxe drip",
+        "$250 value for $199",
+        "Rehydrate and recharge"
+      ]
+    }
+  ]
+}
